@@ -1,10 +1,21 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
 import { SettingsForm } from './SettingsForm';
 import type { SaveGroup } from './model';
 import { settingsFormContent as texts } from './content';
+
+/**
+ * Дата в поле кита `DateField` — три сегмента вместо одной строки (issue #586).
+ */
+function setDate(group: HTMLElement, iso: string): void {
+  const [year = '', month = '', day = ''] = iso.split('-');
+
+  fireEvent.change(within(group).getByLabelText('День'), { target: { value: day } });
+  fireEvent.change(within(group).getByLabelText('Месяц'), { target: { value: month } });
+  fireEvent.change(within(group).getByLabelText('Год'), { target: { value: year } });
+}
 import { SCHEDULE_GROUP } from './fields';
 import {
   achievementsGroupFixture,
@@ -323,7 +334,7 @@ describe('Реквизиты: состав зависит от формы рег
     expect(screen.getByLabelText(/Сокращённое наименование/)).toBeInTheDocument();
     expect(screen.getByLabelText(/КПП/)).toBeInTheDocument();
     expect(screen.queryByLabelText(/Орган регистрации/)).not.toBeInTheDocument();
-    expect(screen.queryByLabelText(/Дата регистрации/)).not.toBeInTheDocument();
+    expect(screen.queryByRole('group', { name: /Дата регистрации/ })).not.toBeInTheDocument();
   });
 
   it('🔴 непубликуемые поля названы непубликуемыми', () => {
@@ -433,7 +444,7 @@ describe('Реквизиты: состав зависит от формы рег
     const save = vi.fn(async () => ({ ok: true }) as const);
     render(<SettingsForm group={legalGroupFixture} value={emptyEntrepreneur} save={save} />);
 
-    await user.type(screen.getByLabelText(/Дата регистрации/), '2015-03-12');
+    setDate(screen.getByRole('group', { name: /Дата регистрации/ }), '2015-03-12');
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     expect(save).toHaveBeenCalledWith('legal', { form: 'ИП', regDate: '2015-03-12' });
@@ -448,7 +459,10 @@ describe('Реквизиты: состав зависит от формы рег
     };
     render(<SettingsForm group={legalGroupFixture} value={filledEntrepreneur} save={save} />);
 
-    await user.clear(screen.getByLabelText(/Дата регистрации/));
+    const regDate = screen.getByRole('group', { name: /Дата регистрации/ });
+    for (const label of ['День', 'Месяц', 'Год']) {
+      fireEvent.change(within(regDate).getByLabelText(label), { target: { value: '' } });
+    }
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     // ключ уходит из тела запроса: пустое поле — это «не задавал» (ADR-139)
