@@ -309,6 +309,12 @@
   }
 
   .cards tbody tr {
+    /* Скруглением строки пользуется кольцо фокуса строки-цели
+       (`TableRow.module.css`): перекрытие ссылки лежит в другом модуле и
+       формы строки не знает, а квадратное кольцо торчало бы из углов
+       карточки. */
+    --table-row-radius: var(--r-md);
+
     margin-bottom: 10px;
     border: 1px solid var(--line);
     border-radius: var(--r-md);

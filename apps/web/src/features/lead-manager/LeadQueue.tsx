@@ -1,7 +1,14 @@
-import Link from 'next/link';
-
 import { LEAD_STATUS_VARIANT } from '@/entities/lead/model';
-import { Badge, ButtonLink, Card, EmptyState, Table } from '@/shared/ui';
+import {
+  Badge,
+  ButtonLink,
+  Card,
+  EmptyState,
+  Table,
+  TableRow,
+  TableRowLink,
+  tableAboveClassName,
+} from '@/shared/ui';
 
 import { leadManagerContent as texts } from './content';
 import { LeadRowActions } from './LeadRowActions';
@@ -37,6 +44,15 @@ export interface LeadQueueProps {
  * ссылка, и «назад» браузера возвращает к предыдущему обращению, а не
  * выбрасывает из раздела. Клиентский код есть только у меню действий строки —
  * там, где спрашивают подтверждение.
+ *
+ * 🔴 Нажимается вся строка, а не одно имя (issue #740). Владелец целился в
+ * тему и во время и не попадал никуда: строка выглядела целью, целью не
+ * являясь, — а ниже 600px, где строка разворачивается карточкой на пол-экрана,
+ * нажималась в ней одна подпись. Приём китовый (`TableRow`, `TableRowLink`), и
+ * очередь его зовёт, а не повторяет: та же строка-цель нужна клиентам,
+ * команде, каталогу и статьям, и четыре своих перекрытия разошлись бы на
+ * первой же правке. Раздел решает здесь ровно одно — что поднято над
+ * перекрытием: адрес и меню действий.
  *
  * Ниже 600px `variant="cards"` разворачивает строки карточками: пять колонок
  * на телефоне превращаются в боковую прокрутку, а по очереди звонят стоя.
@@ -107,36 +123,42 @@ export function LeadQueue({
           {leads.map((lead) => {
             const current = lead.id === selected;
 
+            /* Открытая строка отмечена не только краской: заливкой одной
+               различие не читается ни при нарушениях цветовосприятия, ни на
+               солнце. Полосу рисует раздел, признак ставит кит. */
             return (
-              <tr
+              <TableRow
                 key={lead.id}
-                role="row"
+                current={current}
                 className={current ? styles.current : undefined}
-                /* Открытая строка отмечена не только краской: заливкой одной
-                   различие не читается ни при нарушениях цветовосприятия, ни
-                   на солнце. */
-                data-current={current ? '' : undefined}
               >
                 <td role="cell" className={styles.number} data-label={texts.colNumber}>
                   {lead.number}
                 </td>
 
                 <td role="cell" className={styles.who} data-label={texts.colWho}>
-                  {/* 🔴 Ссылка на имени, а не на всей строке: строка таблицы
-                      ссылкой быть не может, а вложить в неё кнопку меню —
-                      значит вложить интерактив в интерактив. */}
-                  <Link
+                  {/* Ссылка одна — на имени, а нажимается вся строка: площадь
+                      ей отдаёт перекрытие кита. */}
+                  <TableRowLink
                     className={`${styles.name} tapAction`}
                     href={leadsHref({ status, page, query, lead: lead.id })}
                     aria-current={current ? 'page' : undefined}
+                    label={texts.rowOpen(lead.number, lead.name)}
                     /* Прокрутка не сбрасывается: обращения перебирают, стоя в
                        середине очереди (ADR-258). */
                     scroll={false}
                   >
                     {lead.name}
-                  </Link>
+                  </TableRowLink>
 
-                  <span className={styles.address}>{lead.address ?? texts.addressUnset}</span>
+                  {/* 🔴 Адрес поднят над перекрытием — это единственное место
+                      строки, где нажатие ничего не открывает. Его копируют в
+                      карту, в наряд, в разговор, а под перекрытием протяжка
+                      мышью давала пустую строку и засчитывалась как нажатие по
+                      ссылке. */}
+                  <span className={tableAboveClassName(styles.address)}>
+                    {lead.address ?? texts.addressUnset}
+                  </span>
                 </td>
 
                 <td role="cell" className={styles.topic} data-label={texts.colTopic}>
@@ -161,9 +183,19 @@ export function LeadQueue({
                 </td>
 
                 <td role="cell" className={styles.actions}>
-                  <LeadRowActions id={lead.id} number={lead.number} phone={lead.phone} />
+                  {/* 🔴 Над перекрытием поднято само меню, а не его ячейка:
+                      «Позвонить» обязано звонить, а не открывать карточку.
+                      Ячейка остаётся частью строки — ниже 600px она идёт
+                      полосой во всю ширину карточки, и поднятая целиком
+                      отнимала бы у строки заметный кусок площади. */}
+                  <LeadRowActions
+                    className={tableAboveClassName()}
+                    id={lead.id}
+                    number={lead.number}
+                    phone={lead.phone}
+                  />
                 </td>
-              </tr>
+              </TableRow>
             );
           })}
         </tbody>

@@ -2,6 +2,8 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { tableAboveClassName } from '@/shared/ui';
+
 const push = vi.fn();
 const refresh = vi.fn();
 
@@ -93,6 +95,53 @@ describe('Очередь обращений', () => {
     render(<LeadQueue leads={leadQueueFixture} now={leadQueueNow} />);
 
     expect(screen.getByRole('region', { name: texts.queueLabel })).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Нажимается вся строка, но целей у неё не прибавилось (issue #740).
+   * Шесть ссылок по числу ячеек превратили бы список из пяти обращений в
+   * тридцать одинаковых остановок табуляции, а озвучку списка — в перечень
+   * из тридцати имён.
+   */
+  it('🔴 на строку приходится одна ссылка, и подпись называет обращение', () => {
+    render(<LeadQueue leads={leadQueueFixture} now={leadQueueNow} />);
+
+    const first = leadQueueFixture[0];
+    const row = screen.getAllByRole('row')[1];
+    expect(row).toBeDefined();
+    if (row === undefined) return;
+
+    expect(within(row).getAllByRole('link')).toHaveLength(1);
+    expect(
+      within(row).getByRole('link', {
+        name: texts.rowOpen(first?.number ?? 0, first?.name ?? ''),
+      }),
+    ).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Раздел решает ровно одно: что поднято над перекрытием строки. Сам
+   * приём живёт в ките (`TableRow`), и его сторожит китовый тест; здесь
+   * проверяется выбор очереди — адрес и меню действий.
+   *
+   * Без адреса выше перекрытия протяжка мышью даёт пустую строку вместо
+   * выделенного адреса и засчитывается как нажатие по ссылке; без поднятого
+   * меню «Позвонить» открывает карточку вместо звонка.
+   */
+  it('🔴 над перекрытием строки подняты адрес и меню действий', () => {
+    render(<LeadQueue leads={leadQueueFixture} now={leadQueueNow} />);
+
+    const first = leadQueueFixture[0];
+    const row = screen.getAllByRole('row')[1];
+    expect(row).toBeDefined();
+    if (row === undefined) return;
+
+    expect(within(row).getByText(first?.address ?? '')).toHaveClass(tableAboveClassName());
+
+    /* `closest`, а не `parentElement`: меню кита само оборачивает свою
+       кнопку, и число обёрток между ними — его дело, а не очереди. */
+    const menu = within(row).getByRole('button', { name: texts.rowActions(first?.number ?? 0) });
+    expect(menu.closest(`.${tableAboveClassName()}`)).not.toBeNull();
   });
 
   /* 🔴 Действия строки достижимы из списка, а не только из открытой карточки
