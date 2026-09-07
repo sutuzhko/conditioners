@@ -1,0 +1,58 @@
+# Разметка задач: ярлык раздела на Pull Request и ревизор осей на issue
+# (issues #706, #707, план docs/plan-issue-labels-taxonomy.md).
+#
+# 🔴 Ярлык ставит машина, а не память. Восемь задач без единого ярлыка
+# накопились именно потому, что забыть ярлык ничего не стоит.
+#
+# 🔴 Идентификаторы работ — латиницей: кириллица в ключе работы не проходит
+# разбор файла, и работа падает без единой строки лога. Человеческие имена
+# живут в `name`.
+name: Ярлыки
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: labels-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  # Раздел выводится из изменённых файлов и разойтись с кодом не может —
+  # в отличие от поставленного руками.
+  pr-labels:
+    name: Ярлык раздела на Pull Request
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          configuration-path: .github/labeler.yml
+          sync-labels: false
+
+  # GitHub не умеет «ровно одна ось на задаче»: без ревизора правило
+  # остаётся пожеланием.
+  #
+  # 🔴 Работы по событию `issues` берутся из ветки по умолчанию, а не из
+  # ветки Pull Request. Пока правка не в `main`, ревизор не запускается —
+  # и это не поломка, а устройство GitHub.
+  issue-audit:
+    name: Ревизор осей у задачи
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Разбор осей задачи
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/labels-audit.mjs --issue ${{ github.event.issue.number }} --comment
