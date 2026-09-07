@@ -4,6 +4,7 @@ import type {
   ConsumptionHint,
   OrderApi,
   OrderBlock,
+  OrderBulkApi,
   OrderCard,
   OrderChecklistCard,
   OrderClientRef,
@@ -387,6 +388,24 @@ export const pendingApi: OrderApi = {
   remove: stuck,
   setStatus: stuck,
   restore: stuck,
+};
+
+/* Групповое назначение тремя ответами: принято, отказ, ответа нет. Истории
+   полосы выбора показывают все состояния (issue #739), и подменять сеть
+   каждой из них по месту значило бы держать три копии одного фейка. */
+export const acceptingBulkApi: OrderBulkApi = {
+  assign: async () => ({ ok: true }),
+};
+
+export const failingBulkApi: OrderBulkApi = {
+  assign: async () => ({
+    ok: false,
+    message: 'Монтажник занят в это время. Выберите другого или перенесите выезд',
+  }),
+};
+
+export const pendingBulkApi: OrderBulkApi = {
+  assign: stuck,
 };
 
 /** Заполненный черновик формы — тот же наряд, но полями ввода. */

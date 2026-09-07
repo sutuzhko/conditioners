@@ -1,4 +1,4 @@
-/* Выбор строк и групповое действие над выбранным (макет «Заказы»). */
+/* Панель режима выбора над таблицей нарядов (issue #596, #738, #739). */
 
 .form {
   display: flex;
@@ -7,75 +7,145 @@
   min-width: 0;
 }
 
-/* Полоса действия появляется над таблицей и двигает вниз список, а не кнопку,
-   по которой человек в этот момент целится. */
+/* 🔴 Панель стоит над таблицей всегда и одним и тем же составом узлов
+   (issue #738): её появление по первой галочке двигало таблицу вниз на 74px
+   вместе со строкой, по которой в этот момент целились. Высота держится не
+   подобранным `min-height`, который разойдётся с содержимым на первой правке
+   подписи, а тем, что меняться нечему: узлы те же, отличаются слова и отказы.
+
+   Геометрия — с эталона: внутренние поля карточки, её же радиус, шаг 8/12 и
+   высоты контролов панели (ADR-169, ADR-170). */
 .bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 12px;
-  align-items: flex-end;
-  border: 1px solid var(--accent-line);
-  border-radius: var(--r-md);
-  background: var(--accent-bg);
-  padding: 12px 14px;
-}
-
-.count {
-  /* Подпись выровнена по низу ряда вместе с полем выбора: она читается как
-     часть действия, а не как заголовок над ним. */
-  padding-bottom: 8px;
-  color: var(--accent-text);
-  font-size: var(--fs-dense);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-.pick {
-  flex: 1 1 240px;
-  min-width: 0;
-  max-width: 320px;
-}
-
-/* «Выбрать все на странице» — обычная строка с галочкой, а не заголовок
-   колонки: в шапке таблицы она попадала бы в карточный режим на 390, где
-   шапки нет вовсе, и выбор всей страницы там пропадал бы. */
-.all {
-  display: inline-flex;
-  gap: 8px;
+  gap: 8px 12px;
   align-items: center;
-  align-self: flex-start;
-  min-height: 24px;
-  color: var(--muted);
-  font-size: var(--fs-caption);
-  font-weight: 600;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--card);
+  padding: 8px var(--pad-card-sm);
+  min-width: 0;
+  transition:
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
 }
 
-.allBox {
+/* Режим выбора включён — панель светится акцентом. Красится состояние, а не
+   геометрия: толщина границы та же, отступы те же, двигаться нечему. */
+.bar[data-active='true'] {
+  border-color: var(--accent-line);
+  background: var(--accent-bg);
+}
+
+/* Слева — сколько выбрано и выход из режима. */
+.mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Галочка вместе с подписью — одна цель: по подписи нажимают так же, как по
+   квадратику, и меряется их общая рамка (WCAG 2.5.8). */
+.pickAll {
+  display: inline-flex;
+  gap: 11px;
+  align-items: center;
+  flex: 0 0 auto;
+  min-height: var(--h-md);
+  color: var(--body);
+  font-size: var(--fs-dense);
+  cursor: pointer;
+}
+
+.pickAllBox {
   width: 20px;
   height: 20px;
   accent-color: var(--brand);
   cursor: pointer;
 }
 
-.allBox:focus-visible {
+.pickAllBox:focus-visible {
   border-radius: var(--r-sm);
   box-shadow: var(--ring-focus-ring);
   outline: none;
+}
+
+.count {
+  color: var(--muted);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+
+  /* Цифры одной ширины: счёт меняется при каждой галочке, и на пропорциональных
+     цифрах вся строка ползала бы вслед за ним. */
+  font-variant-numeric: tabular-nums;
+}
+
+.bar[data-active='true'] .count {
+  color: var(--accent-text);
+}
+
+/* Справа — действие над выбранным: поле приходит вместе со своей кнопкой. */
+.act {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.pick {
+  flex: 0 1 240px;
+  min-width: 0;
+}
+
+/* 🔴 Поле полосы — среднего роста, а не во весь (`--h-lg`). Полем во весь рост
+   кит рисует форму, где поля стоят столбиком; в панели инструментов над
+   таблицей у эталона и у макета стоит `md` (`design/admin/_base.css`, `.inp.md`
+   рядом с `.btn`), и рядом с ним кнопка того же роста, а не на 16px ниже.
+   Отступление от кита записано строкой в PIXEL_SPEC (issue #739). */
+.pickControl {
+  padding-block: 0;
+  min-height: var(--h-md);
 }
 
 .error {
   margin: 0;
 }
 
-/* 🔴 Пол цели на сенсорной раскладке (ADR-183). */
+/* 🔴 Порядок переноса задан, а не отдан случаю (issue #739): ниже 1200px ряд
+   уже не держит счёт, выход и группу назначения в одну строку. Переносится
+   группа назначения целиком и на всю ширину — так поле остаётся при своей
+   кнопке, а перенос одинаков во всех состояниях панели, то есть высота от
+   выбора по-прежнему не зависит.
+
+   Порог — из набора DESIGN_BRIEF §6 (600 / 900 / 1200), а не подобран по
+   месту: своих порогов в проекте набралось семнадцать, и раскладка ломалась
+   там, где её никто не смотрит (`scripts/css-breakpoints.test.mjs`). */
+@media (width < 1200px) {
+  .act {
+    flex: 1 0 100%;
+  }
+
+  /* Поле растягивается до своей меры и не дальше: во всю ширину ряда список
+     из одного имени выглядит полем ввода абзаца, а не выбором из трёх. */
+  .pick {
+    flex: 1 1 240px;
+    max-width: 360px;
+  }
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px и галочка вместе с
+   подписью обязаны занимать 44px по высоте — квадратик 20px под пальцем это
+   промах через раз, а промахом здесь отмечается не тот наряд. */
 @media (width < 900px) {
-  .all {
+  .pickAll {
     min-height: var(--tap);
   }
 
-  .allBox {
+  .pickAllBox {
     width: 24px;
     height: 24px;
-    margin: 10px;
   }
 }
