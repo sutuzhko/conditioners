@@ -157,6 +157,46 @@ export class AdminApi {
     return new AdminApi(context, cookie);
   }
 
+  /**
+   * Вход монтажником, а не владельцем.
+   *
+   * 🔴 Роль проверяется на сервере, и доказать это можно только настоящей
+   * сессией монтажника (ADR-092): запрос владельца с «притворись монтажником»
+   * проверяет чужую ветку кода. Логин и пароль — свои у каждого сценария:
+   * общая учётная запись между сценариями делает их зависимыми по порядку.
+   */
+  static async loginAs(login: string, password: string): Promise<AdminApi> {
+    const context = await request.newContext({ baseURL: BASE_URL, timeout: 60_000 });
+    const response = await context.post('/api/auth/login', { data: { login, password } });
+    if (response.status() !== 204) {
+      throw new Error(`Вход монтажником «${login}» не удался: код ${response.status()}`);
+    }
+
+    const header = response
+      .headersArray()
+      .find(
+        ({ name, value }) => name.toLowerCase() === 'set-cookie' && value.startsWith('session='),
+      );
+    const cookie = header?.value.split(';')[0];
+    if (cookie === undefined || cookie === '') {
+      throw new Error('Сервер не выдал cookie сессии монтажника');
+    }
+
+    return new AdminApi(context, cookie);
+  }
+
+  /** Остатки склада глазами смотрящего: набор ключей зависит от роли. */
+  async stockOverview(): Promise<readonly Record<string, unknown>[]> {
+    const response = await this.context.get('/api/admin/stock', {
+      headers: { Cookie: this.cookie },
+    });
+    const payload = z
+      .object({ items: z.array(z.record(z.unknown())) })
+      .parse(await this.json(response, 'остатки склада'));
+
+    return payload.items;
+  }
+
   /** Разлогин и закрытие контекста: тест не оставляет сессий в базе. */
   async dispose(): Promise<void> {
     await this.context
@@ -458,6 +498,73 @@ export class AdminApi {
     await this.context.delete(`/api/admin/staff/${id}`, { headers: { Cookie: this.cookie } });
   }
 
+  /**
+   * Позиция склада под сценарий маржи (issue #628).
+   *
+   * Своя, а не найденная среди демонстрационных: закупочная цена у позиции на
+   * стенде бывает, а бывает и нет, — и сценарий, который тогда пропускает
+   * себя, ничего не проверяет, но выглядит зелёным.
+   */
+  async createStockItem(input: {
+    readonly name: string;
+    readonly unit: string;
+    readonly purchasePrice: number | null;
+  }): Promise<{ id: string }> {
+    const response = await this.context.post('/api/admin/stock/items', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: { ...input, group: '', minQty: '', productId: '', note: '' },
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(`Создание позиции склада вернуло код ${response.status()}: ${detail}`);
+    }
+    return z.object({ id: z.string() }).parse(await response.json());
+  }
+
+  async updateStockItem(id: string, patch: Record<string, unknown>): Promise<void> {
+    const response = await this.context.patch(`/api/admin/stock/items/${id}`, {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: patch,
+    });
+    if (response.status() !== 200) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(`Правка позиции склада вернула код ${response.status()}: ${detail}`);
+    }
+  }
+
+  async deleteStockItem(id: string): Promise<void> {
+    await this.context.delete(`/api/admin/stock/items/${id}`, { headers: { Cookie: this.cookie } });
+  }
+
+  /** Зоны склада: списывать нужно откуда-то, и зона на стенде уже есть. */
+  async stockZones(): Promise<readonly { id: string; kind: string; name: string }[]> {
+    const response = await this.context.get('/api/admin/stock/zones', {
+      headers: { Cookie: this.cookie },
+    });
+    const payload = z
+      .object({ zones: z.array(z.object({ id: z.string(), kind: z.string(), name: z.string() })) })
+      .parse(await this.json(response, 'зоны склада'));
+
+    return payload.zones;
+  }
+
+  /** Движение склада: приход и списание в наряд идут одним маршрутом. */
+  async stockMove(body: Record<string, unknown>): Promise<{ id: string }> {
+    const response = await this.context.post('/api/admin/stock/movements', {
+      headers: { Cookie: this.cookie, 'content-type': 'application/json' },
+      data: body,
+    });
+    if (response.status() !== 201) {
+      const detail = await response.text().catch(() => '');
+      throw new Error(`Движение склада вернуло код ${response.status()}: ${detail}`);
+    }
+    const payload = z
+      .object({ movement: z.object({ id: z.string() }) })
+      .parse(await response.json());
+
+    return payload.movement;
+  }
+
   async listReviews(status?: string): Promise<readonly AdminReview[]> {
     const response = await this.context.get('/api/admin/reviews', {
       headers: { Cookie: this.cookie },
@@ -589,6 +696,20 @@ export class AdminApi {
 /** Вход, действие, разлогин — чтобы ни один путь не оставил сессию открытой. */
 export async function withAdmin<T>(action: (api: AdminApi) => Promise<T>): Promise<T> {
   const api = await AdminApi.login();
+  try {
+    return await action(api);
+  } finally {
+    await api.dispose();
+  }
+}
+
+/** То же самое, но сессией монтажника: чем закрыты владельческие поля. */
+export async function withInstaller<T>(
+  login: string,
+  password: string,
+  action: (api: AdminApi) => Promise<T>,
+): Promise<T> {
+  const api = await AdminApi.loginAs(login, password);
   try {
     return await action(api);
   } finally {
