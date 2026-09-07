@@ -45,6 +45,10 @@ function pageWindow(page: number, pages: number): readonly number[] {
  *
  * 🔴 Ссылками, а не состоянием: страница и число строк остаются в адресе,
  * ссылку можно прислать, а список рисует сервер.
+ *
+ * 🔴 Переход не двигает прокрутку (issue #735). Подвал таблицы стоит внизу
+ * списка, и умолчание Next — бросить документ в начало — уносило из-под глаз
+ * то, ради чего нажали номер. Разбивка кита ведёт себя так же.
  */
 export function OrderPager({ page, filters }: OrderPagerProps) {
   const href = (
@@ -74,6 +78,7 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
               href={href(page.page - 1)}
               rel="prev"
               aria-label={texts.pagePrev}
+              scroll={false}
             >
               <span aria-hidden="true">‹</span>
             </Link>
@@ -89,7 +94,15 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
                  делает, а читалка объявила бы его как обычную цель. */
               <span className={styles.current} key={number} aria-current="page">
                 <span aria-hidden="true">{number}</span>
-                <span className="srOnly">{texts.pageCurrent(number)}</span>
+                {/* 🔴 Здесь же объявляется и смена страницы (issue #735).
+                    Переход перестал двигать прокрутку, то есть видимого
+                    события больше нет: подпись текущей страницы — то
+                    единственное, что при переходе меняется, и живой областью
+                    она становится одним атрибутом, без второго узла с тем же
+                    текстом. */}
+                <span className="srOnly" aria-live="polite" aria-atomic="true">
+                  {texts.pageCurrent(number)}
+                </span>
               </span>
             ) : (
               <Link
@@ -97,6 +110,7 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
                 key={number}
                 href={href(number)}
                 aria-label={texts.pageGo(number)}
+                scroll={false}
               >
                 <span aria-hidden="true">{number}</span>
               </Link>
@@ -109,6 +123,7 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
               href={href(page.page + 1)}
               rel="next"
               aria-label={texts.pageNext}
+              scroll={false}
             >
               <span aria-hidden="true">›</span>
             </Link>
@@ -138,6 +153,7 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
               key={size}
               href={href(1, size)}
               aria-label={texts.perPageSet(size)}
+              scroll={false}
             >
               <span aria-hidden="true">{size}</span>
             </Link>

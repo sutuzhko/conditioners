@@ -28,6 +28,15 @@ export interface PagerProps {
   readonly numbers?: boolean | undefined;
   /** Имя ссылки на страницу для озвучки: «Страница 3». */
   readonly pageLabel?: ((page: number) => string) | undefined;
+  /**
+   * Что читалка слышит после перехода: «Показана страница 3 из 9».
+   *
+   * 🔴 Отдельно от `position` и словами, а не цифрами. Подпись положения —
+   * надпись в ряду: её видно, вокруг неё два шага, и «3 из 9» там понятно.
+   * Объявление звучит без ряда вокруг и в момент, когда на экране не
+   * шевельнулось ничего, — оно обязано сказать, что именно произошло.
+   */
+  readonly announce?: ((page: number, pages: number) => string) | undefined;
 }
 
 /**
@@ -72,6 +81,18 @@ export function pageWindowNumbers(page: number, pages: number): readonly (number
  * текущей страницы и многоточия на разрывах (`pageWindowNumbers`). Так прыжок
  * в начало и в конец стоит одного нажатия, а ряд остаётся коротким при любом
  * числе страниц.
+ *
+ * 🔴 Переход не двигает прокрутку (issue #735). Умолчание Next — бросить
+ * документ в начало, потому что обычно смена адреса означает другую страницу;
+ * у разбивки она означает другое содержимое того же блока, и прыжок наверх
+ * уносил из-под глаз тот самый список, ради которого нажали «Дальше». Ряд
+ * разбивки стоит внизу блока, то есть человек смотрел на приветствие. Тот же
+ * `scroll={false}` уже стоял на ссылках очереди обращений (ADR-258) — здесь
+ * он перестаёт быть исключением одного раздела.
+ *
+ * Вместе с прокруткой Next гасит и перевод фокуса в начало документа
+ * (`focusAndScrollRef.apply` в `layout-router`), поэтому фокус остаётся на
+ * нажатом шаге, а о смене страницы сообщает область `role="status"`.
  */
 export function Pager({
   page,
@@ -84,6 +105,7 @@ export function Pager({
   position = (current, total) => `${current} из ${total}`,
   numbers = false,
   pageLabel = (target) => `Страница ${target}`,
+  announce = (current, total) => `Показана страница ${current} из ${total}`,
 }: PagerProps) {
   if (pages <= 1) return null;
 
@@ -114,7 +136,7 @@ export function Pager({
   return (
     <nav className={pagerClass} aria-label={label}>
       {page > 1 ? (
-        <Link className={styles.step} href={href(page - 1)} rel="prev">
+        <Link className={styles.step} href={href(page - 1)} rel="prev" scroll={false}>
           ← {stepText(prevLabel)}
         </Link>
       ) : (
@@ -142,7 +164,12 @@ export function Pager({
                       {item}
                     </span>
                   ) : (
-                    <Link className={styles.number} href={href(item)} aria-label={pageLabel(item)}>
+                    <Link
+                      className={styles.number}
+                      href={href(item)}
+                      aria-label={pageLabel(item)}
+                      scroll={false}
+                    >
                       {item}
                     </Link>
                   )}
@@ -156,12 +183,25 @@ export function Pager({
       )}
 
       {page < pages ? (
-        <Link className={styles.step} href={href(page + 1)} rel="next">
+        <Link className={styles.step} href={href(page + 1)} rel="next" scroll={false}>
           {stepText(nextLabel)} →
         </Link>
       ) : (
         <span className={styles.stepOff}>{stepText(nextLabel)} →</span>
       )}
+
+      {/* 🔴 Смена страницы объявляется, потому что видимого события больше нет
+          (issue #735). Пока переход бросал экран наверх, читалка теряла место
+          вместе с глазом, но хотя бы получала новую страницу под курсором;
+          с погашенной прокруткой не меняется ничто, кроме содержимого блока,
+          и молчание здесь означало бы, что человек не знает о переходе вовсе.
+
+          Область живёт в разметке всегда, а не появляется в момент перехода:
+          вставленную вместе с текстом читалки не объявляют (тот же приём и та
+          же причина, что у `CopyField`). */}
+      <p className="srOnly" role="status" aria-live="polite" aria-atomic="true">
+        {announce(page, pages)}
+      </p>
     </nav>
   );
 }

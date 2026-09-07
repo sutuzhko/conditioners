@@ -188,3 +188,98 @@ test.describe('База знаний: разбивка, поиск и подпи
     });
   });
 });
+
+/**
+ * Переход по страницам не двигает прокрутку — issue #735.
+ *
+ * 🔴 Ряд разбивки стоит под списком, то есть внизу блока: до него
+ * прокручивают. Умолчание Next — бросить документ в начало — уносило из-под
+ * глаз ровно тот список, ради которого нажали «Дальше», и человек оказывался
+ * на приветствии раздела. Проверяется здесь, а не юнитом: `scroll={false}` в
+ * разметке юнит увидит, а увидит ли его браузер — нет.
+ */
+test.describe('Разбивка: переход остаётся на месте', () => {
+  /**
+   * 🔴 Две **полные** страницы, а не страница с остатком.
+   *
+   * Неполная вторая страница короче первой, документ на ней сжимается, и
+   * браузер сам подрезает прокрутку до нового предела. Проверка «не
+   * сдвинулось» тогда падала бы на исправном коде — то есть мерила бы длину
+   * остатка, а не поведение перехода. Соседние сценарии файла берут
+   * `PAGE_SIZE + 3` по обратной причине: им нужен как раз остаток.
+   */
+  const FULL_PAGES = PAGE_SIZE * 2;
+
+  test('🔴 «Дальше →» не сбрасывает прокрутку и объявляет новую страницу', async ({ page }) => {
+    test.slow();
+
+    const mark = `E2E-прокрутка-${Date.now()}`;
+    const created: string[] = [];
+
+    await withAdmin(async (api) => {
+      try {
+        for (let index = 1; index <= FULL_PAGES; index += 1) {
+          const product = await api.createProduct({
+            name: `${mark} № ${String(index).padStart(2, '0')}`,
+            badge: '09',
+            areaMax: 25,
+            priceNum: 30_000 + index,
+            sort: 9_000 + index,
+          });
+          created.push(product.id);
+        }
+
+        await loginViaUi(page);
+        await page.goto(`/admin/catalog?q=${encodeURIComponent(mark)}`);
+
+        const rows = page.locator('[data-block="catalog"] tbody tr');
+        await expect(rows).toHaveCount(PAGE_SIZE);
+
+        const pager = page.getByRole('navigation', { name: 'Страницы списка моделей' });
+        await expect(pager).toBeVisible();
+
+        /* 🔴 Прокрутка уводится вниз до самой разбивки: на нуле «не
+           сдвинулось» проверять нечего — там некуда двигаться, и сценарий
+           прошёл бы и без правки. */
+        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+        const scrollBefore = await page.evaluate(() => Math.round(window.scrollY));
+        expect(
+          scrollBefore,
+          'страница обязана быть прокручена: иначе сброс прокрутки нечем заметить',
+        ).toBeGreaterThan(0);
+
+        /* Верх первой строки в окне — то, на что человек смотрит. Координата
+           от окна, а не от документа: она отвечает на вопрос «список остался
+           перед глазами», а не «сколько прокручено». */
+        const rowBefore = await rows.first().boundingBox();
+        expect(rowBefore).not.toBeNull();
+
+        await pager.getByRole('link', { name: 'Дальше →' }).click();
+        await page.waitForURL((url) => url.searchParams.get('page') === '2');
+
+        /* Вторая страница дорисована: мерить посреди перехода значило бы
+           мерить заготовку, а не список. */
+        await expect(rows).toHaveCount(PAGE_SIZE);
+        await expect(rows.first()).toContainText(
+          `${mark} № ${String(PAGE_SIZE + 1).padStart(2, '0')}`,
+        );
+
+        expect(await page.evaluate(() => Math.round(window.scrollY))).toBe(scrollBefore);
+
+        const rowAfter = await rows.first().boundingBox();
+        expect(rowAfter).not.toBeNull();
+        if (rowBefore !== null && rowAfter !== null) {
+          /* Допуск 1px: субпиксельная раскладка даёт разницу в сотых даже
+             там, где не двинулось ничего. */
+          expect(Math.abs(rowAfter.y - rowBefore.y)).toBeLessThanOrEqual(1);
+        }
+
+        /* 🔴 Видимого события больше нет — значит, о переходе обязано быть
+           слышно: живая область разбивки называет новую страницу. */
+        await expect(pager.getByRole('status')).toHaveText('Показана страница 2 из 2');
+      } finally {
+        for (const id of created) await api.deleteProduct(id);
+      }
+    });
+  });
+});

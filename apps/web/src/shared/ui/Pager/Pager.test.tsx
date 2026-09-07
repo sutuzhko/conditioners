@@ -57,6 +57,32 @@ describe('Pager', () => {
     expect(screen.getByText('Страница 2 из 5')).toBeInTheDocument();
   });
 
+  /**
+   * 🔴 Смену страницы обязано быть слышно (issue #735). Переход перестал
+   * двигать прокрутку и перестал уводить фокус — то есть видимого события
+   * больше нет вовсе, и молчание означало бы, что читалка о переходе не
+   * узнала. Область живёт в разметке всегда: вставленную вместе с текстом
+   * читалки не объявляют.
+   */
+  it('🔴 объявляет смену страницы отдельной живой областью', () => {
+    const { rerender } = render(<Pager page={2} pages={7} basePath="/admin/clients" />);
+
+    const live = screen.getByRole('status');
+    expect(live).toHaveTextContent('Показана страница 2 из 7');
+    expect(live).toHaveAttribute('aria-live', 'polite');
+
+    /* Объявление меняется вместе со страницей — иначе живая область молчит:
+       читалки читают её только на изменение содержимого. */
+    rerender(<Pager page={3} pages={7} basePath="/admin/clients" />);
+    expect(screen.getByRole('status')).toHaveTextContent('Показана страница 3 из 7');
+  });
+
+  it('объявление переопределяется пропсом вместе с остальными подписями', () => {
+    render(<Pager page={2} pages={4} basePath="/knowledge" announce={(p, t) => `${p} из ${t}`} />);
+
+    expect(screen.getByRole('status')).toHaveTextContent('2 из 4');
+  });
+
   /* 🔴 Граница контрола обязана держать 3:1 (WCAG 1.4.11, ADR-181): без неё
      кнопка разбивки не очерчена ничем: заливки у неё нет. `--line-strong` даёт 1,48:1 — вдвое ниже нормы. */
   it('🔴 граница не возвращается на --line-strong', () => {
