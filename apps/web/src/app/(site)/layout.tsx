@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { JsonLd, buildOrganizationJsonLd, buildWebSiteJsonLd } from '@/shared/seo';
+import { Metrika } from '@/shared/analytics';
 import { env } from '@/shared/config/env';
 import { readiness } from '@/server/repo/settings';
 import { legalTitle } from '@/entities/settings/lib/legal';
@@ -32,9 +33,24 @@ export const revalidate = 3600;
  * `robots` (404) этот выбор переопределяет.
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const report = await readiness();
-  if (report.ready) return {};
-  return { robots: { index: false, follow: false } };
+  const [report, settings] = await Promise.all([readiness(), loadSettings()]);
+
+  /* 🔴 Подтверждение прав не зависит от готовности настроек и стоит рядом с
+     `robots` (issue #679). Владелец подтверждает права как раз тогда, когда
+     сайт ещё закрыт от индексации: это первый шаг после выкладки, а не
+     последний. Убрать тег на время noindex значит сделать шаг невозможным.
+
+     Тег пишет Next по `verification`, а не разметка руками: пустое поле не
+     даёт ни атрибута, ни пустого тега. */
+  const verification = {
+    ...(settings.seo.yandexVerification === '' ? {} : { yandex: settings.seo.yandexVerification }),
+    ...(settings.seo.googleVerification === '' ? {} : { google: settings.seo.googleVerification }),
+  };
+
+  return {
+    ...(Object.keys(verification).length === 0 ? {} : { verification }),
+    ...(report.ready ? {} : { robots: { index: false, follow: false } }),
+  };
 }
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -81,6 +97,10 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
           Адрес заявки абсолютный: формы нет на каталоге, в статьях и в
           политике, и голый якорь вёл бы там в никуда. */}
       <ActionBar contacts={settings.contacts} leadHref={`/${LEAD_ANCHOR}`} />
+      {/* 🔴 Счётчик последним и только в публичном кластере: в панели следить
+          за собой смысла нет, она и так закрыта noindex. Номер не заполнен —
+          в HTML не появляется ничего (ADR-024, issue #678). */}
+      <Metrika counterId={settings.integrations.metrikaId} />
     </>
   );
 }
