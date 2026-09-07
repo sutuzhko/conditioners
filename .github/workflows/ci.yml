@@ -1669,7 +1669,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [site, shell, panel, flows]
+        group: [site, sweeps, panel, flows]
 
     env:
       # 🔴 Адрес тот же, по которому сценарии стучатся в приложение: из него
