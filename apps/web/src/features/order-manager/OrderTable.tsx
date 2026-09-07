@@ -215,15 +215,25 @@ function Row({
           {/* 🔴 Обычный `input` без единой строки своего JS: галочки связаны с
               полосой группового действия атрибутом `form`, и таблица остаётся
               серверной. Имя поля одно на все строки — так его читает
-              `FormData` (issue #596). */}
-          <input
-            className={styles.pickBox}
-            type="checkbox"
-            name={BULK_FIELD}
-            value={order.id}
-            form={BULK_FORM_ID}
-            aria-label={texts.rowSelect(order.number)}
-          />
+              `FormData` (issue #596).
+
+              🔴 Ввод обёрнут подписью, а не стоит в ячейке голым (issue #731).
+              Подпись и есть цель: по ней нажимают, и промах мимо квадрата в
+              20px попадает в неё, а не в пустоту — раньше рядом с галочкой не
+              было ничего, и на телефоне строка выбиралась не с первого раза.
+              Она же называет строку, поэтому `aria-label` на вводе больше не
+              нужен: имя у цели одно, и берётся оно из подписи. Тот же приём,
+              что у «Выбрать все» в полосе группового действия. */}
+          <label className={`${styles.pickLabel} tapAction`}>
+            <input
+              className={styles.pickBox}
+              type="checkbox"
+              name={BULK_FIELD}
+              value={order.id}
+              form={BULK_FORM_ID}
+            />
+            <span className="srOnly">{texts.rowSelect(order.number)}</span>
+          </label>
         </td>
       ) : null}
 
