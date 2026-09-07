@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { cancelReasonTitle } from '@/shared/lib/cancel-reason';
+import { formatPhone } from '@/shared/lib/format';
 
 /* 🔴 Строка зовёт `useRouter().refresh()` после удаления и возврата в работу:
    список, счётчики вкладок и строка счёта считаются на сервере, и обновлять
@@ -122,7 +123,9 @@ describe('Таблица нарядов', () => {
       within(actions).getByRole('link', { name: texts.rowOpen(order.number) }),
     ).toHaveAttribute('href', `/admin/orders/${order.id}`);
     expect(
-      within(actions).getByRole('link', { name: texts.rowCall(order.client.name) }),
+      within(actions).getByRole('link', {
+        name: texts.rowCall(order.client.name, formatPhone(order.client.phone)),
+      }),
     ).toHaveAttribute('href', `tel:${order.client.phone.replace(/[^\d+]/g, '')}`);
     expect(
       within(actions).getByRole('button', { name: texts.rowRemove(order.number) }),

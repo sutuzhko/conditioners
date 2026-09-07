@@ -24,7 +24,9 @@ form.OrderBulk__form  358×794 @16,16
       tr[role=row]#2  358×377 @0,0  r14  b1
         td.OrderTable__pick  356×58 @1,5
           td.OrderTable__pick::before  85×20 @0,0
-          input.OrderTable__pickBox  24×24 @308,17
+          label.OrderTable__pickLabel  44×44 @298,7
+            input.OrderTable__pickBox  24×24 @11,10
+            span  1×1 @22,22  Manrope 400 15/22  lines=1  clipped  «Выбрать наряд № 1059»
         td.OrderTable__numberCol  356×58 @1,63
           td.OrderTable__numberCol::before  41×20 @0,0
           a.OrderTable__numberLink  52×44 @290,7  JetBrains Mono 700 15/22  lines=1  «№ 1059»
@@ -45,16 +47,27 @@ form.OrderBulk__form  358×794 @16,16
             span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
         td.OrderTable__actions  356×51 @1,321  b1 0 0 0
           div.TableActions__actions  116×36 @226,8
-            a.OrderTable__action  36×36 @0,0  r100
-              svg  18×18 @9,6
-            a.OrderTable__action#2  36×36 @40,0  r100
-              svg  18×18 @9,6
-            button.OrderTable__action  36×36 @80,0  r100
-              svg  18×18 @9,7
+            span.Tooltip__wrap  36×36 @0,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                a.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea  36×36 @0,0
+                    svg  18×18 @9,9
+            span.Tooltip__wrap#2  36×36 @40,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                a.TableActions__action#2  36×36 @0,0  r100
+                  span.TableActions__iconArea  36×36 @0,0
+                    svg#2  18×18 @9,9
+            span.Tooltip__wrap#3  36×36 @80,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                button.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea  24×34 @6,1
+                    svg#3  18×18 @3,8
       tr[role=row]#3  358×353 @0,387  r14  b1
         td.OrderTable__pick  356×58 @1,5
           td.OrderTable__pick::before  85×20 @0,0
-          input.OrderTable__pickBox#2  24×24 @308,17
+          label.OrderTable__pickLabel#2  44×44 @298,7
+            input.OrderTable__pickBox  24×24 @11,10
+            span  1×1 @22,22  Manrope 400 15/22  lines=1  clipped  «Выбрать наряд № 1060»
         td.OrderTable__numberCol  356×58 @1,63
           td.OrderTable__numberCol::before  41×20 @0,0
           a.OrderTable__numberLink#2  52×44 @290,7  JetBrains Mono 700 15/22  lines=1  «№ 1060»
@@ -74,12 +87,21 @@ form.OrderBulk__form  358×794 @16,16
             span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
         td.OrderTable__actions  356×51 @1,297  b1 0 0 0
           div.TableActions__actions#2  116×36 @226,8
-            a.OrderTable__action  36×36 @0,0  r100
-              svg#2  18×18 @9,6
-            a.OrderTable__action#2  36×36 @40,0  r100
-              svg#2  18×18 @9,6
-            button.OrderTable__action  36×36 @80,0  r100
-              svg#2  18×18 @9,7
+            span.Tooltip__wrap  36×36 @0,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                a.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  36×36 @0,0
+                    svg  18×18 @9,9
+            span.Tooltip__wrap#2  36×36 @40,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                a.TableActions__action#2  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  36×36 @0,0
+                    svg#2  18×18 @9,9
+            span.Tooltip__wrap#3  36×36 @80,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                button.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  24×34 @6,1
+                    svg#3  18×18 @3,8
 
 [геометрия 768]
 form.OrderBulk__form  736×418 @16,16
@@ -98,7 +120,9 @@ form.OrderBulk__form  736×418 @16,16
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  736×176 @0,56
         td.OrderTable__pick  80×176 @0,0  b0 0 1 0
-          input.OrderTable__pickBox  24×24 @28,25
+          label.OrderTable__pickLabel  44×44 @18,15
+            input.OrderTable__pickBox  24×24 @11,10
+            span  1×1 @22,22  Manrope 400 15/22  lines=1  clipped  «Выбрать наряд № 1059»
         td.OrderTable__numberCol  88×176 @80,0  b0 0 1 0
           a.OrderTable__numberLink  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1059»
         td.OrderTable__clientCol  161×176 @168,0  b0 0 1 0
@@ -115,15 +139,26 @@ form.OrderBulk__form  736×418 @16,16
             span.Badge__badge  83×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
         td.OrderTable__actions  152×176 @584,0  b0 0 1 0
           div.TableActions__actions  116×36 @18,15
-            a.OrderTable__action  36×36 @0,0  r100
-              svg  18×18 @9,6
-            a.OrderTable__action#2  36×36 @40,0  r100
-              svg  18×18 @9,6
-            button.OrderTable__action  36×36 @80,0  r100
-              svg  18×18 @9,7
+            span.Tooltip__wrap  36×36 @0,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                a.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea  36×36 @0,0
+                    svg  18×18 @9,9
+            span.Tooltip__wrap#2  36×36 @40,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                a.TableActions__action#2  36×36 @0,0  r100
+                  span.TableActions__iconArea  36×36 @0,0
+                    svg#2  18×18 @9,9
+            span.Tooltip__wrap#3  36×36 @80,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                button.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea  24×34 @6,1
+                    svg#3  18×18 @3,8
       tr[role=row]#3  736×132 @0,232
         td.OrderTable__pick  80×132 @0,0
-          input.OrderTable__pickBox#2  24×24 @28,25
+          label.OrderTable__pickLabel#2  44×44 @18,15
+            input.OrderTable__pickBox  24×24 @11,10
+            span  1×1 @22,22  Manrope 400 15/22  lines=1  clipped  «Выбрать наряд № 1060»
         td.OrderTable__numberCol  88×132 @80,0
           a.OrderTable__numberLink#2  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1060»
         td.OrderTable__clientCol  161×132 @168,0
@@ -139,12 +174,21 @@ form.OrderBulk__form  736×418 @16,16
             span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
         td.OrderTable__actions  152×132 @584,0
           div.TableActions__actions#2  116×36 @18,15
-            a.OrderTable__action  36×36 @0,0  r100
-              svg#2  18×18 @9,6
-            a.OrderTable__action#2  36×36 @40,0  r100
-              svg#2  18×18 @9,6
-            button.OrderTable__action  36×36 @80,0  r100
-              svg#2  18×18 @9,7
+            span.Tooltip__wrap  36×36 @0,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                a.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  36×36 @0,0
+                    svg  18×18 @9,9
+            span.Tooltip__wrap#2  36×36 @40,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                a.TableActions__action#2  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  36×36 @0,0
+                    svg#2  18×18 @9,9
+            span.Tooltip__wrap#3  36×36 @80,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                button.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  24×34 @6,1
+                    svg#3  18×18 @3,8
 
 [геометрия 1440]
 form.OrderBulk__form  1408×259 @16,16
@@ -165,7 +209,9 @@ form.OrderBulk__form  1408×259 @16,16
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  1408×96 @0,56
         td.OrderTable__pick  63×96 @0,0  b0 0 1 0
-          input.OrderTable__pickBox  20×20 @22,18
+          label.OrderTable__pickLabel  27×26 @18,15
+            input.OrderTable__pickBox  20×20 @4,3
+            span  1×1 @13,13  Manrope 400 15/22  lines=1  clipped  «Выбрать наряд № 1059»
         td.OrderTable__numberCol  88×96 @63,0  b0 0 1 0
           a.OrderTable__numberLink  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1059»
         td.OrderTable__clientCol  544×96 @151,0  b0 0 1 0
@@ -188,15 +234,26 @@ form.OrderBulk__form  1408×259 @16,16
         td.OrderTable__sumCol  116×96 @1140,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «38 500 ₽»
         td.OrderTable__actions  152×96 @1256,0  b0 0 1 0
           div.TableActions__actions  116×36 @18,15
-            a.OrderTable__action  36×36 @0,0  r100
-              svg  18×18 @9,6
-            a.OrderTable__action#2  36×36 @40,0  r100
-              svg  18×18 @9,6
-            button.OrderTable__action  36×36 @80,0  r100
-              svg  18×18 @9,7
+            span.Tooltip__wrap  36×36 @0,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                a.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea  36×36 @0,0
+                    svg  18×18 @9,9
+            span.Tooltip__wrap#2  36×36 @40,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                a.TableActions__action#2  36×36 @0,0  r100
+                  span.TableActions__iconArea  36×36 @0,0
+                    svg#2  18×18 @9,9
+            span.Tooltip__wrap#3  36×36 @80,0  r100
+              span.Tooltip__anchor  36×36 @0,0
+                button.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea  24×34 @6,1
+                    svg#3  18×18 @3,8
       tr[role=row]#3  1408×71 @0,152
         td.OrderTable__pick  63×71 @0,0
-          input.OrderTable__pickBox#2  20×20 @22,18
+          label.OrderTable__pickLabel#2  27×26 @18,15
+            input.OrderTable__pickBox  20×20 @4,3
+            span  1×1 @13,13  Manrope 400 15/22  lines=1  clipped  «Выбрать наряд № 1060»
         td.OrderTable__numberCol  88×71 @63,0
           a.OrderTable__numberLink#2  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1060»
         td.OrderTable__clientCol  544×71 @151,0
@@ -214,12 +271,21 @@ form.OrderBulk__form  1408×259 @16,16
         td.OrderTable__sumCol  116×71 @1140,0  JetBrains Mono 700 15/22  lines=1  «4 500 ₽»
         td.OrderTable__actions  152×71 @1256,0
           div.TableActions__actions#2  116×36 @18,15
-            a.OrderTable__action  36×36 @0,0  r100
-              svg#2  18×18 @9,6
-            a.OrderTable__action#2  36×36 @40,0  r100
-              svg#2  18×18 @9,6
-            button.OrderTable__action  36×36 @80,0  r100
-              svg#2  18×18 @9,7
+            span.Tooltip__wrap  36×36 @0,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                a.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  36×36 @0,0
+                    svg  18×18 @9,9
+            span.Tooltip__wrap#2  36×36 @40,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                a.TableActions__action#2  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  36×36 @0,0
+                    svg#2  18×18 @9,9
+            span.Tooltip__wrap#3  36×36 @80,0  r100
+              span.Tooltip__anchor#2  36×36 @0,0
+                button.TableActions__action  36×36 @0,0  r100
+                  span.TableActions__iconArea#2  24×34 @6,1
+                    svg#3  18×18 @3,8
 
 [палитра light]
 form.OrderBulk__form
@@ -240,7 +306,9 @@ form.OrderBulk__form
           span  color #0f172a
       tr[role=row]#2
         td.OrderTable__pick  border #334155 #334155 #eef2f6 #334155
-          input.OrderTable__pickBox
+          label.OrderTable__pickLabel
+            input.OrderTable__pickBox
+            span  color #334155
         td.OrderTable__numberCol  border #334155 #334155 #eef2f6 #334155
           a.OrderTable__numberLink  color #0f172a
         td.OrderTable__clientCol  border #334155 #334155 #eef2f6 #334155
@@ -263,15 +331,26 @@ form.OrderBulk__form
         td.OrderTable__sumCol  color #0f172a  border #0f172a #0f172a #eef2f6 #0f172a
         td.OrderTable__actions  border #334155 #334155 #eef2f6 #334155
           div.TableActions__actions
-            a.OrderTable__action
-              svg
-            a.OrderTable__action#2
-              svg
-            button.OrderTable__action
-              svg
+            span.Tooltip__wrap
+              span.Tooltip__anchor
+                a.TableActions__action
+                  span.TableActions__iconArea
+                    svg
+            span.Tooltip__wrap#2
+              span.Tooltip__anchor
+                a.TableActions__action#2
+                  span.TableActions__iconArea
+                    svg#2
+            span.Tooltip__wrap#3
+              span.Tooltip__anchor
+                button.TableActions__action
+                  span.TableActions__iconArea
+                    svg#3
       tr[role=row]#3
         td.OrderTable__pick
-          input.OrderTable__pickBox#2
+          label.OrderTable__pickLabel#2
+            input.OrderTable__pickBox
+            span  color #334155
         td.OrderTable__numberCol
           a.OrderTable__numberLink#2  color #0f172a
         td.OrderTable__clientCol
@@ -289,12 +368,21 @@ form.OrderBulk__form
         td.OrderTable__sumCol  color #0f172a
         td.OrderTable__actions
           div.TableActions__actions#2
-            a.OrderTable__action
-              svg#2
-            a.OrderTable__action#2
-              svg#2
-            button.OrderTable__action
-              svg#2
+            span.Tooltip__wrap
+              span.Tooltip__anchor#2
+                a.TableActions__action
+                  span.TableActions__iconArea#2
+                    svg
+            span.Tooltip__wrap#2
+              span.Tooltip__anchor#2
+                a.TableActions__action#2
+                  span.TableActions__iconArea#2
+                    svg#2
+            span.Tooltip__wrap#3
+              span.Tooltip__anchor#2
+                button.TableActions__action
+                  span.TableActions__iconArea#2
+                    svg#3
 [палитра light @390]
 form.OrderBulk__form > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
 form.OrderBulk__form > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__pick
@@ -340,7 +428,9 @@ form.OrderBulk__form
           span  color #eaf1f8
       tr[role=row]#2
         td.OrderTable__pick  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
-          input.OrderTable__pickBox
+          label.OrderTable__pickLabel
+            input.OrderTable__pickBox
+            span  color #c9d5e2
         td.OrderTable__numberCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           a.OrderTable__numberLink  color #eaf1f8
         td.OrderTable__clientCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
@@ -363,15 +453,26 @@ form.OrderBulk__form
         td.OrderTable__sumCol  color #eaf1f8  border #eaf1f8 #eaf1f8 #182338 #eaf1f8
         td.OrderTable__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           div.TableActions__actions
-            a.OrderTable__action
-              svg
-            a.OrderTable__action#2
-              svg
-            button.OrderTable__action
-              svg
+            span.Tooltip__wrap
+              span.Tooltip__anchor
+                a.TableActions__action
+                  span.TableActions__iconArea
+                    svg
+            span.Tooltip__wrap#2
+              span.Tooltip__anchor
+                a.TableActions__action#2
+                  span.TableActions__iconArea
+                    svg#2
+            span.Tooltip__wrap#3
+              span.Tooltip__anchor
+                button.TableActions__action
+                  span.TableActions__iconArea
+                    svg#3
       tr[role=row]#3
         td.OrderTable__pick
-          input.OrderTable__pickBox#2
+          label.OrderTable__pickLabel#2
+            input.OrderTable__pickBox
+            span  color #c9d5e2
         td.OrderTable__numberCol
           a.OrderTable__numberLink#2  color #eaf1f8
         td.OrderTable__clientCol
@@ -389,12 +490,21 @@ form.OrderBulk__form
         td.OrderTable__sumCol  color #eaf1f8
         td.OrderTable__actions
           div.TableActions__actions#2
-            a.OrderTable__action
-              svg#2
-            a.OrderTable__action#2
-              svg#2
-            button.OrderTable__action
-              svg#2
+            span.Tooltip__wrap
+              span.Tooltip__anchor#2
+                a.TableActions__action
+                  span.TableActions__iconArea#2
+                    svg
+            span.Tooltip__wrap#2
+              span.Tooltip__anchor#2
+                a.TableActions__action#2
+                  span.TableActions__iconArea#2
+                    svg#2
+            span.Tooltip__wrap#3
+              span.Tooltip__anchor#2
+                button.TableActions__action
+                  span.TableActions__iconArea#2
+                    svg#3
 [палитра dark @390]
 form.OrderBulk__form > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
 form.OrderBulk__form > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__pick

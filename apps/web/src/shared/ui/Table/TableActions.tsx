@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { ButtonHTMLAttributes, ComponentProps, ReactNode } from 'react';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ComponentProps, ReactNode } from 'react';
 
 import { Tooltip } from '../Tooltip/Tooltip';
 import styles from './TableActions.module.css';
@@ -135,6 +135,44 @@ export function TableActionLink({
       <Link {...rest} href={href} className={actionClassName(tone, className)} aria-label={label}>
         <ActionIcon icon={icon} />
       </Link>
+    </Tooltip>
+  );
+}
+
+export interface TableActionAnchorProps
+  extends
+    ActionLook,
+    Omit<
+      AnchorHTMLAttributes<HTMLAnchorElement>,
+      'aria-label' | 'children' | 'className' | 'href'
+    > {
+  /** Обязателен: действие без адреса — это кнопка, а не ссылка. */
+  readonly href: string;
+}
+
+/**
+ * Действие строки, ведущее по адресу, которого маршрутизатор не знает:
+ * `tel:`, `mailto:`, карты.
+ *
+ * 🔴 Обычный `<a>`, а не `Link`: в проекте включены типизированные маршруты, и
+ * `tel:+74872123456` для них не адрес приложения. Переход по такой ссылке
+ * делает не Next, а система — предзагружать и перехватывать здесь нечего.
+ * Подсказка та же, что у остальных действий ряда, и по той же причине: имя
+ * действия обязано появляться и от клавиатуры тоже.
+ */
+export function TableActionAnchor({
+  label,
+  icon,
+  tone,
+  className,
+  href,
+  ...rest
+}: TableActionAnchorProps) {
+  return (
+    <Tooltip text={label}>
+      <a {...rest} href={href} className={actionClassName(tone, className)} aria-label={label}>
+        <ActionIcon icon={icon} />
+      </a>
     </Tooltip>
   );
 }

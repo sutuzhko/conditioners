@@ -275,7 +275,10 @@ export const orderManagerContent = {
   moneyNone: '—',
   rowActions: (number: number): string => `Действия над нарядом № ${number}`,
   rowOpen: (number: number): string => `Открыть наряд № ${number}`,
-  rowCall: (name: string): string => `Позвонить: ${name}`,
+  /* 🔴 Имя и номер в одной строке (issue #737). Подсказка и озвучка называют
+     действие одинаково, а номер остаётся видимым: в строке списка его больше
+     нигде нет, и звонок сверяют по нему. */
+  rowCall: (name: string, phone: string): string => `Позвонить: ${name}, ${phone}`,
   rowChecklist: (number: number): string => `Чеклист выезда наряда № ${number}`,
   rowRemove: (number: number): string => `Удалить наряд № ${number}`,
   rowSelect: (number: number): string => `Выбрать наряд № ${number}`,
