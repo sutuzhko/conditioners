@@ -56,6 +56,16 @@ describe('политика обработки персональных данн�
     expect(screen.getByText(/находятся на территории Российской Федерации/)).toBeInTheDocument();
   });
 
+  /* 🔴 Обработчика персональных данных политика обязана называть. Пока
+     Метрика в ней не названа, включать счётчик нельзя (issue #678). */
+  it('🔴 Метрика названа обработчиком, а маскирование форм объяснено', async () => {
+    render(await PolicyPage());
+
+    expect(screen.getByText(/Яндекс.Метрику — сервис ООО «Яндекс»/)).toBeInTheDocument();
+    expect(screen.getByText(/В составе Метрики работает Вебвизор/)).toBeInTheDocument();
+    expect(screen.getByText(/в запись не попадает/)).toBeInTheDocument();
+  });
+
   it('без реквизитов страница объясняет пустоту, а не выдумывает их', async () => {
     state.settings = emptySettingsFixture;
 
