@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { METRIKA_GOALS, YM_MASK } from '@/shared/analytics';
+
 import { LeadForm } from './LeadForm';
 import { forgetLeadContext, rememberLeadContext } from './context';
 import { leadFormContent as texts } from './content';
@@ -25,6 +27,63 @@ async function fillRequired(user: ReturnType<typeof userEvent.setup>): Promise<v
 }
 
 const submitButton = () => screen.getByRole('button', { name: texts.submit });
+
+describe('LeadForm — Метрика (issue #678)', () => {
+  beforeEach(() => {
+    delete window.ymGoal;
+  });
+
+  /* 🔴 Инвариант 12 и 152-ФЗ: запись сессии Вебвизором не имеет права унести
+     имя и телефон. Метка стоит в разметке, а не переключателем в кабинете
+     Метрики, который владелец однажды сдвинет и никому об этом не скажет. */
+  it('🔴 поля с персональными данными закрыты от Вебвизора разметкой', () => {
+    const { container } = setup();
+
+    for (const field of ['name', 'phone', 'address', 'comment']) {
+      const node = container.querySelector(`[name="${field}"]`);
+      expect(node, `поле ${field}`).not.toBeNull();
+      for (const mask of YM_MASK.split(' ')) {
+        expect(node?.className, `поле ${field}`).toContain(mask);
+      }
+    }
+  });
+
+  it('принятая заявка отмечает свою цель', async () => {
+    const user = userEvent.setup();
+    const sent = vi.fn();
+    window.ymGoal = sent;
+    setup();
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(sent).toHaveBeenCalledWith(METRIKA_GOALS.lead));
+  });
+
+  /* 🔴 Ловушка показывает поддельный успех и ничего не отправляет. Цель там
+     засчитывать нельзя: она испортила бы единственную цифру, ради которой
+     сайт существует, — и тем сильнее, чем больше спама. */
+  it('🔴 заполненная ловушка цель не отмечает: заявки не было', async () => {
+    const user = userEvent.setup();
+    const sent = vi.fn();
+    window.ymGoal = sent;
+    const { container } = setup();
+
+    const honeypot = container.querySelector('input[tabindex="-1"]');
+    expect(honeypot).not.toBeNull();
+    if (honeypot instanceof HTMLInputElement) {
+      fireEvent.change(honeypot, { target: { value: 'бот' } });
+    }
+
+    await fillRequired(user);
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await screen.findByText(texts.successTitle);
+    expect(sent).not.toHaveBeenCalled();
+  });
+});
 
 describe('LeadForm', () => {
   /**

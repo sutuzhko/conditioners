@@ -226,6 +226,16 @@ export function StockItemForm({
             autoComplete="off"
             onChange={(event) => set('minQty', event.target.value)}
           />
+          <Input
+            label={texts.itemPurchasePrice}
+            hint={texts.itemPurchasePriceHint}
+            value={draft.purchasePrice}
+            disabled={busy}
+            error={errorFor('purchasePrice')}
+            inputMode="numeric"
+            autoComplete="off"
+            onChange={(event) => set('purchasePrice', event.target.value)}
+          />
           <Select
             label={texts.itemProduct}
             hint={texts.itemProductHint}

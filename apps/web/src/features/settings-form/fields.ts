@@ -303,7 +303,8 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
   {
     key: 'seo',
     title: 'Метаданные главной',
-    description: 'Заголовок и описание страницы в поисковой выдаче.',
+    description:
+      'Заголовок и описание страницы в поисковой выдаче, а также подтверждение прав в Вебмастере и Search Console.',
     fields: [
       /* Предложение, а не слово: строкой ввода оно не помещалось ни в треть
          ряда, ни в целый ряд на 390 (issue #37). */
@@ -316,6 +317,24 @@ export const SETTINGS_GROUPS: readonly GroupDescriptor[] = [
         hint: 'Добавляется к заголовку каждой страницы',
       },
       { path: 'ogImage', label: 'Картинка для соцсетей', kind: 'text', fullRow: true },
+      /* 🔴 Подсказка разрешает вставить тег целиком: в Вебмастере и Search
+         Console значение показано только внутри тега, и владелец копирует
+         его кнопкой рядом. Разбирать разметку глазами он не обязан — это
+         делает схема (issue #679). */
+      {
+        path: 'yandexVerification',
+        label: 'Подтверждение Яндекс.Вебмастера',
+        kind: 'text',
+        hint: 'Вставьте тег из Вебмастера целиком — значение возьмётся само. Пусто — тега на сайте нет.',
+        fullRow: true,
+      },
+      {
+        path: 'googleVerification',
+        label: 'Подтверждение Google Search Console',
+        kind: 'text',
+        hint: 'Вставьте тег из Search Console целиком — значение возьмётся само. Пусто — тега на сайте нет.',
+        fullRow: true,
+      },
     ],
   },
   {

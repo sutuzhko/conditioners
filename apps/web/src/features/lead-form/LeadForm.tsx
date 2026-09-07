@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 
+import { METRIKA_GOALS, YM_MASK, reachGoal } from '@/shared/analytics';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
 import {
   Button,
@@ -245,6 +246,10 @@ export function LeadForm({
     if (result.ok) {
       setGreeting(values.name.trim());
       setStatus('success');
+      /* 🔴 Цель отмечается здесь, а не в ветке ловушки выше: там показан
+         поддельный успех, заявки нет, и засчитанная цель испортила бы
+         единственную цифру, ради которой сайт существует. */
+      reachGoal(METRIKA_GOALS.lead);
       /* Снимок уехал с заявкой и своё отработал. Оставить его во вкладке —
          значит приложить вчерашний расчёт к завтрашнему обращению. */
       forgetLeadContext();
@@ -332,6 +337,7 @@ export function LeadForm({
           <div className={styles.pair}>
             <Input
               name="name"
+              className={YM_MASK}
               label={texts.nameLabel}
               placeholder={texts.namePlaceholder}
               autoComplete="name"
@@ -342,6 +348,7 @@ export function LeadForm({
             />
             <PhoneInput
               name="phone"
+              className={YM_MASK}
               label={texts.phoneLabel}
               required
               value={values.phone}
@@ -422,6 +429,7 @@ export function LeadForm({
 
               <Input
                 name="address"
+                className={YM_MASK}
                 label={texts.addressLabel}
                 placeholder={texts.addressPlaceholder}
                 autoComplete="street-address"
@@ -441,6 +449,7 @@ export function LeadForm({
 
               <Textarea
                 name="comment"
+                className={YM_MASK}
                 label={texts.commentLabel}
                 placeholder={texts.commentPlaceholder}
                 rows={3}

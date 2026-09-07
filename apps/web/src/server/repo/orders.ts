@@ -61,6 +61,7 @@ import {
   type PhotoStage,
   type UnitSource,
 } from '@/entities/order/model';
+import { orderMargin, totalMargin, type OrderMargin } from '@/entities/order/lib/margin';
 import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import type { AdminRole } from '@/entities/staff/model';
 import {
@@ -72,6 +73,7 @@ import {
   type MonthKey,
 } from '@/shared/lib/calendar';
 import { pageWindow, type Page } from '@/shared/lib/paging';
+import { materialsOfOrders, materialsOfPeriod } from '@/server/repo/order-margin';
 import * as clientUnits from '@/server/repo/client-units';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
@@ -371,7 +373,7 @@ function toUnitCard(row: OrderUnitRow): OrderUnitCard {
  * принять от клиента, во всех остальных случаях она его не касается.
  * `installerFee` он видит всегда — это его деньги (docs/API.md §13).
  */
-function toCard(row: OrderRow, role: AdminRole): OrderCard {
+function toCard(row: OrderRow, role: AdminRole, margin?: OrderMargin | undefined): OrderCard {
   const payment = PAYMENT_FROM_DB[row.payment];
 
   const shared = {
@@ -426,6 +428,10 @@ function toCard(row: OrderRow, role: AdminRole): OrderCard {
       deductionSum: row.deductionSum,
       deductionReason: row.deductionReason,
       ownerNote: row.ownerNote,
+      /* 🔴 Маржа только владельцу и только там, где её спросили: собирать
+         движения склада ради списка, который её не показывает, — лишний
+         запрос на каждую страницу (ADR-310, ADR-092). */
+      ...(margin === undefined ? {} : { margin }),
     };
   }
 
@@ -497,9 +503,13 @@ function toHistoryEntry(row: HistoryRow): OrderHistoryEntry {
  * владельца с людьми, а не работа монтажника (docs/CRM.md §6). Ключа `history`
  * в ответе монтажника нет вовсе — как и у заметки владельца.
  */
-function toDetails(row: OrderDetailsRow, role: AdminRole): OrderDetails {
+function toDetails(
+  row: OrderDetailsRow,
+  role: AdminRole,
+  margin?: OrderMargin | undefined,
+): OrderDetails {
   const shared = {
-    ...toCard(row, role),
+    ...toCard(row, role, margin),
     checklist: row.checklist.map(toChecklistCard),
     docs: row.docs.map((doc) => toDocCard(row.id, doc)),
     photos: row.photos.map((photo) => toPhotoCard(row.id, photo)),
@@ -669,7 +679,44 @@ export async function list(params: OrderListParams, viewer: Viewer): Promise<Pag
     take,
   });
 
-  return { items: rows.map((row) => toCard(row, viewer.role)), total, page, pages };
+  const margins = await marginsOfRows(rows, viewer.role);
+
+  return {
+    items: rows.map((row) => toCard(row, viewer.role, margins.get(row.id))),
+    total,
+    page,
+    pages,
+  };
+}
+
+/**
+ * Маржа строк одной страницы списка.
+ *
+ * 🔴 Один запрос на страницу, а не по запросу на строку: восемь нарядов — это
+ * восемь походов в базу на каждую отрисовку вкладки, и заметно это станет не
+ * на деве, а у владельца.
+ *
+ * 🔴 Монтажнику маржа не считается вовсе — не прячется на показе, а не
+ * считается: движения склада ради ключа, которого не будет в ответе, читать
+ * незачем (ADR-092, ADR-310).
+ */
+async function marginsOfRows(
+  rows: readonly OrderRow[],
+  role: AdminRole,
+): Promise<ReadonlyMap<string, OrderMargin>> {
+  if (role !== 'owner' || rows.length === 0) return new Map();
+
+  const materials = await materialsOfOrders(rows.map((row) => row.id));
+
+  return new Map(
+    rows.map((row) => [
+      row.id,
+      orderMargin(
+        { price: row.price, installerFee: row.installerFee, deductionSum: row.deductionSum },
+        materials.get(row.id) ?? [],
+      ),
+    ]),
+  );
 }
 
 /**
@@ -733,7 +780,11 @@ export async function findById(id: string, viewer: Viewer): Promise<OrderDetails
     select: detailsSelect,
   });
 
-  return row === null ? null : toDetails(row, viewer.role);
+  if (row === null) return null;
+
+  const margins = await marginsOfRows([row], viewer.role);
+
+  return toDetails(row, viewer.role, margins.get(row.id));
 }
 
 /**
@@ -901,10 +952,19 @@ export async function counts(viewer: Viewer): Promise<OrderCounts> {
   return { all, active, new: fresh, overdue };
 }
 
-/** Итог периода над таблицей истории: сколько закрыли и на какую сумму. */
+/** Итог периода над таблицей истории: сколько закрыли, на какую сумму и с какой маржой. */
 export type OrderHistoryTotals = {
   readonly closed: number;
   readonly revenue: number;
+  /**
+   * Маржа за период и число нарядов, не попавших в неё.
+   *
+   * 🔴 Пропущенные считаются и называются, а не замалчиваются: итог, умолчавший
+   * о наряде с неизвестной закупочной ценой, владелец прочтёт как полный — и
+   * решит по нему, какую цену ставить (ADR-310).
+   */
+  readonly margin: number;
+  readonly marginSkipped: number;
 };
 
 /**
@@ -915,16 +975,16 @@ export type OrderHistoryTotals = {
  * только у владельца — здесь стоит вторая проверка, потому что забытая первая
  * стоит утечки выручки в чужой браузер.
  *
- * 🔴 Маржи здесь нет намеренно: без закупочной цены позиции склада её нечем
- * считать (ADR-310, issue #628). Разность `price − installerFee` маржой не
- * является — материалы в монтаже заметная доля, и число врало бы в большую
- * сторону ровно там, где владелец решает, какую цену ставить.
+ * 🔴 Маржа считается по движениям склада, а не как разность `price −
+ * installerFee`: материалы в монтаже — заметная доля, и такая разность врала
+ * бы в большую сторону ровно там, где владелец решает, какую цену ставить
+ * (ADR-310, issue #628).
  */
 export async function historyTotals(
   params: { readonly period?: OrderPeriod | undefined; readonly installerId?: string | undefined },
   viewer: Viewer,
 ): Promise<OrderHistoryTotals> {
-  if (viewer.role !== 'owner') return { closed: 0, revenue: 0 };
+  if (viewer.role !== 'owner') return { closed: 0, revenue: 0, margin: 0, marginSkipped: 0 };
 
   const where: Prisma.OrderWhereInput = {
     status: { in: dbStatuses('history') },
@@ -934,7 +994,31 @@ export async function historyTotals(
 
   const totals = await db.order.aggregate({ where, _count: { _all: true }, _sum: { price: true } });
 
-  return { closed: totals._count._all, revenue: totals._sum.price ?? 0 };
+  /* Деньги нарядов и их материалы читаются двумя запросами по одному и тому
+     же условию: сложить `price − installerFee − материалы + deductionSum`
+     одной агрегацией нельзя — расход живёт в соседней таблице и считается
+     произведением двух колонок. */
+  const money = await db.order.findMany({
+    where,
+    select: { id: true, price: true, installerFee: true, deductionSum: true },
+  });
+  const materials = await materialsOfPeriod(where);
+
+  const margin = totalMargin(
+    money.map((row) =>
+      orderMargin(
+        { price: row.price, installerFee: row.installerFee, deductionSum: row.deductionSum },
+        materials.get(row.id) ?? [],
+      ),
+    ),
+  );
+
+  return {
+    closed: totals._count._all,
+    revenue: totals._sum.price ?? 0,
+    margin: margin.value,
+    marginSkipped: margin.skipped,
+  };
 }
 
 // ---------- Запись ----------

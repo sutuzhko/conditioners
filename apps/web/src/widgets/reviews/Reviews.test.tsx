@@ -28,6 +28,12 @@ const listStyles = readFileSync(
   'utf8',
 );
 
+/** Стили карточки — по тем же соображениям: правило ховера видно только в них. */
+const cardStyles = readFileSync(
+  join(dirname(fileURLToPath(import.meta.url)), 'ui', 'ReviewCard.module.css'),
+  'utf8',
+);
+
 function renderSection(reviews?: readonly ReviewCardData[]) {
   return render(<Reviews policyHref={policyHrefFixture} reviews={reviews} />);
 }
@@ -176,6 +182,15 @@ describe('Блок отзывов', () => {
     for (const hint of modalTexts.hints) {
       expect(screen.getByText(hint)).toBeInTheDocument();
     }
+  });
+
+  /* 🔴 Проверяется источник стилей, а не разметка: jsdom CSS-модули не
+     применяет и подчёркивания на ховере не видит — тот же приём, что у кнопки
+     (ADR-159). Подчёркнутое «Читать целиком» объявляло себя ссылкой, хотя
+     нажимается вся карточка, и спорило с её собственным откликом на наведение
+     (issue #565). */
+  it('🔴 «Читать целиком» не подчёркивается: цель — вся карточка', () => {
+    expect(cardStyles).not.toContain('text-decoration');
   });
 
   it('у секции один заголовок второго уровня — h1 принадлежит странице', () => {
