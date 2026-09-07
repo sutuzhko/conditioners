@@ -61,6 +61,17 @@ export type MeasuredNode = {
   readonly lines?: number;
   /** `overflow: hidden | clip`, и содержимое шире или выше рамки. */
   readonly clipped?: true;
+  /**
+   * Сторона всплывающего слоя из `data-side` — «top», «bottom», «left»,
+   * «right» (issue #689).
+   *
+   * 🔴 Единственное поле узла, которое читается из разметки, а не из
+   * геометрии, и на это есть причина. Корень портала пишется нулями
+   * (ADR-327), а сторона выражена только через `top` и `left`: размеры
+   * пузырька от неё не зависят. Без этого поля подсказка, начавшая
+   * раскрываться вниз вместо вверх, не меняла бы в файле ни строки.
+   */
+  readonly side?: string;
 };
 
 export type PartialMeasurement = {
@@ -320,6 +331,8 @@ export async function collectMeasurements(input: CollectInput): Promise<PartialM
         palette: paletteOf(style, text !== '', hasBorder),
       };
       if (portalRoot) node.portal = true;
+      const side = el.getAttribute('data-side');
+      if (side !== null && side !== '') node.side = side;
       if (text !== '') {
         node.text = text.slice(0, TEXT_LIMIT);
         node.lines = ownLines(el);
