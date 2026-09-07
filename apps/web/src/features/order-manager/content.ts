@@ -113,12 +113,9 @@ export function orderCardTabCountLabel(tab: OrderCardTab, count: number | string
 
   if (tab === 'materials') return pluralize(value, 'движение', 'движения', 'движений');
   if (tab === 'history') return pluralize(value, 'запись', 'записи', 'записей');
-  return pluralize(
-    value,
-    'документ и фотография',
-    'документа и фотографии',
-    'документов и фотографий',
-  );
+  /* Документы и фотографии считаются вместе и называются файлами: «3
+     документа и фотографии» не читается вслух ни одним способом. */
+  return pluralize(value, 'файл', 'файла', 'файлов');
 }
 
 export const ORDER_PERIOD_TITLE: Record<OrderPeriod, string> = {
