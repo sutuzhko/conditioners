@@ -85,6 +85,9 @@ export function RowMenu({ items, label, className }: RowMenuProps) {
     return {
       top: up ? rect.top - GAP - height : rect.bottom + GAP,
       right: Math.max(GAP, window.innerWidth - rect.right),
+      /* Вверх или вниз — решение, а не координата: размеры меню от него не
+         меняются, и без `data-side` переворот не виден измерениям (#689). */
+      side: up ? 'top' : 'bottom',
     };
   }, []);
 

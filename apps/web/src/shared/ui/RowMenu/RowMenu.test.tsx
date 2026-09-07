@@ -189,6 +189,33 @@ describe('Меню строки — положение', () => {
 
     expect(menu.style.top).toBe('336px');
   });
+
+  /* 🔴 Сторона — решение, а не координата (issue #689). Меню, у которого внизу
+     не хватило места, раскрывается вверх, но размеры его от этого не меняются,
+     а корень портала в измерениях пишется нулями (ADR-327). Атрибут — то
+     единственное, чем переворот виден и в диффе PR, и в стилях. */
+  it('🔴 называет сторону раскрытия атрибутом', async () => {
+    const { trigger } = setup();
+
+    vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(0, 100, 32, 32),
+    );
+    await userEvent.click(trigger);
+
+    expect(screen.getByRole('menu')).toHaveAttribute('data-side', 'bottom');
+  });
+
+  it('🔴 у нижней строки окна меню уходит вверх и говорит об этом', async () => {
+    const { trigger } = setup();
+
+    /* Кнопка у самого низа окна jsdom (768px): места под меню нет. */
+    vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(0, 734, 32, 32),
+    );
+    await userEvent.click(trigger);
+
+    expect(screen.getByRole('menu')).toHaveAttribute('data-side', 'top');
+  });
 });
 
 describe('Подсказка', () => {
@@ -292,5 +319,34 @@ describe('Подсказка — положение', () => {
     await nextFrame();
 
     expect(screen.getByRole('tooltip').style.top).toBe('392px');
+  });
+
+  /* 🔴 Подсказка у верхней строки таблицы переворачивается вниз, и это
+     единственное, чем стороны различаются: размеры пузырька одинаковы, а
+     координаты корня портала измерения не пишут (ADR-327, issue #689). */
+  it('🔴 называет сторону раскрытия атрибутом и переворачивается у края окна', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tooltip text="Заказы за неделю">
+        <button type="button">Обзор</button>
+      </Tooltip>,
+    );
+
+    const target = screen.getByRole('button', { name: 'Обзор' });
+    const anchor = target.parentElement;
+    if (anchor === null) throw new Error('у цели нет обёртки-якоря');
+
+    vi.spyOn(anchor, 'getBoundingClientRect').mockImplementation(
+      () => new DOMRect(100, 200, 40, 20),
+    );
+    await user.hover(target);
+    expect(screen.getByRole('tooltip')).toHaveAttribute('data-side', 'top');
+
+    await user.unhover(target);
+
+    /* Цель прижата к верхнему краю окна — сверху пузырьку места нет. */
+    vi.spyOn(anchor, 'getBoundingClientRect').mockImplementation(() => new DOMRect(100, 2, 40, 20));
+    await user.hover(target);
+    expect(screen.getByRole('tooltip')).toHaveAttribute('data-side', 'bottom');
   });
 });
