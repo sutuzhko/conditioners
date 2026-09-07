@@ -1,0 +1,42 @@
+# ui-kit-tablinks--капсулы · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Tabs__strip  239×52 @16,16
+  div.Tabs__row  239×52 @0,0  r100  b1
+    a.Tabs__tab  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+    a.Tabs__tab#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+    a.Tabs__tab#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+
+[геометрия 768]
+nav.Tabs__strip  239×52 @16,16
+  div.Tabs__row  239×52 @0,0  r100  b1
+    a.Tabs__tab  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+    a.Tabs__tab#2  77×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+    a.Tabs__tab#3  79×44 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+
+[геометрия 1440]
+nav.Tabs__strip  239×40 @16,16
+  div.Tabs__row  239×40 @0,0  r100  b1
+    a.Tabs__tab  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+    a.Tabs__tab#2  77×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+    a.Tabs__tab#3  79×32 @157,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+
+[палитра light]
+nav.Tabs__strip
+  div.Tabs__row  bg #f8fafc  border #e2e8f0
+    a.Tabs__tab  color #0f172a  bg #ffffff
+    a.Tabs__tab#2  color #556173
+    a.Tabs__tab#3  color #556173
+
+[палитра dark]
+nav.Tabs__strip
+  div.Tabs__row  bg #0e1729  border #1e2b41
+    a.Tabs__tab  color #eaf1f8  bg #121d31
+    a.Tabs__tab#2  color #8598ac
+    a.Tabs__tab#3  color #8598ac

@@ -1,0 +1,52 @@
+# ui-kit-tablinks--капсулысосчётчиками · ширины 390 768 1440 · темы light dark
+шрифты: JetBrains Mono 400, Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Tabs__strip  261×52 @16,16
+  div.Tabs__row  261×52 @0,0  r100  b1
+    a.Tabs__tab  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+    a.Tabs__tab#2  99×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      span.Tabs__count  16×20 @67,12  JetBrains Mono 600 13/20  lines=1  «12»
+      span  1×1 @15,22  Manrope 600 13/20  lines=1  clipped  «12 нарядов»
+    a.Tabs__tab#3  79×44 @178,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+
+[геометрия 768]
+nav.Tabs__strip  261×52 @16,16
+  div.Tabs__row  261×52 @0,0  r100  b1
+    a.Tabs__tab  72×44 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+    a.Tabs__tab#2  99×44 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      span.Tabs__count  16×20 @67,12  JetBrains Mono 600 13/20  lines=1  «12»
+      span  1×1 @15,22  Manrope 600 13/20  lines=1  clipped  «12 нарядов»
+    a.Tabs__tab#3  79×44 @178,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+
+[геометрия 1440]
+nav.Tabs__strip  261×40 @16,16
+  div.Tabs__row  261×40 @0,0  r100  b1
+    a.Tabs__tab  72×32 @4,4  Manrope 600 13/20  r100  lines=1  «Обзор»
+    a.Tabs__tab#2  99×32 @78,4  Manrope 600 13/20  r100  lines=1  «Работа»
+      span.Tabs__count  16×20 @67,6  JetBrains Mono 600 13/20  lines=1  «12»
+      span  1×1 @15,16  Manrope 600 13/20  lines=1  clipped  «12 нарядов»
+    a.Tabs__tab#3  79×32 @178,4  Manrope 600 13/20  r100  lines=1  «Деньги»
+
+[палитра light]
+nav.Tabs__strip
+  div.Tabs__row  bg #f8fafc  border #e2e8f0
+    a.Tabs__tab  color #556173
+    a.Tabs__tab#2  color #0f172a  bg #ffffff
+      span.Tabs__count  color #0f172a
+      span  color #0f172a
+    a.Tabs__tab#3  color #556173
+
+[палитра dark]
+nav.Tabs__strip
+  div.Tabs__row  bg #0e1729  border #1e2b41
+    a.Tabs__tab  color #8598ac
+    a.Tabs__tab#2  color #eaf1f8  bg #121d31
+      span.Tabs__count  color #eaf1f8
+      span  color #eaf1f8
+    a.Tabs__tab#3  color #8598ac
