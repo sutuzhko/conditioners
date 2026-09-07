@@ -162,3 +162,9 @@ export type { Theme, ThemeControl } from './lib/useTheme';
 
 export { SkipLink } from './SkipLink/SkipLink';
 export type { SkipLinkProps } from './SkipLink/SkipLink';
+
+export { TabLinks } from './Tabs/TabLinks';
+export type { TabLinkItem, TabLinksProps } from './Tabs/TabLinks';
+export { TabPanels } from './Tabs/TabPanels';
+export type { TabPanelItem, TabPanelsProps } from './Tabs/TabPanels';
+export type { TabAppearance, TabBase, TabCount, TabHref } from './Tabs/common';

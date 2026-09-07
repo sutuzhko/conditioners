@@ -15,11 +15,11 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
       button.IconButton__iconButton  40×40 @328,20  r11  b1
         svg  18×18 @11,11
     div.Modal__body  388×716 @1,111
-      section.FormSection__section  348×3783 @20,20
-        form.OrderForm__form  348×3783 @0,0
-          fieldset.OrderForm__group  348×766 @0,0  r14  b1
+      section.FormSection__section  348×3786 @20,20
+        form.OrderForm__form  348×3786 @0,0
+          fieldset.OrderForm__group  348×769 @0,0  r14  b1
             legend.OrderForm__legend  63×22 @15,0  Onest 700 15/22  lines=1  «Работа»
-            div.OrderForm__grid  318×602 @15,36
+            div.OrderForm__grid  318×605 @15,36
               div.Field__field  318×76 @0,0
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Тип работ»
                 span.Select__wrapper  318×49 @0,27
@@ -45,22 +45,30 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                     option#3  0×0 @-36,-443  Manrope 400 15/21  lines=0  «Артём Белов»
                     option#4  0×0 @-36,-443  Manrope 400 15/21  lines=0  «petrov»
                   svg.Select__chevron#3  14×14 @290,18
-              div.Field__field#4  318×76 @0,264
+              div.Field__field#4  318×79 @0,264
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
-                input  318×49 @0,27  r11  b1
-              div.Field__field#5  318×77 @0,353
+                div.DateField__shell  318×52 @0,27  r11  b1
+                  span.DateField__segmentBox  26×24 @15,14
+                    input.DateField__segment  26×24 @0,0
+                  span.DateField__segmentBox#2  32×24 @41,14
+                    span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+                    input.DateField__segment  26×24 @6,0
+                  span.DateField__segmentBox#3  50×24 @73,14
+                    span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+                    input.DateField__segment  45×24 @6,0
+              div.Field__field#5  318×77 @0,356
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Время»
                 input  318×50 @0,27  r11  b1
-              div.Field__field#6  318×161 @0,441
+              div.Field__field#6  318×161 @0,444
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Длительность, минут»
                 input  318×49 @0,27  r11  b1
                 p.Field__hint  318×78 @0,83  Manrope 400 13/19  lines=4  «Шаг 15 минут: полтора часа на обслуживан»
-            p.BusyNote__note  318×90 @15,661  r11  b1
+            p.BusyNote__note  318×90 @15,664  r11  b1
               svg.BusyNote__icon  18×18 @11,10
               span.BusyNote__body  270×72 @37,9
                 span.BusyNote__title  270×36 @0,0  Manrope 600 13/18  lines=2  «Дмитрий Соколов — день закрыт: семейные»
                 span.BusyNote__hint  270×34 @0,38  Manrope 400 12/17  lines=2  «Запись всё равно сохранится — решение за»
-          fieldset.OrderForm__group#2  348×458 @0,780  r14  b1
+          fieldset.OrderForm__group#2  348×458 @0,783  r14  b1
             legend.OrderForm__legend  65×22 @15,0  Onest 700 15/22  lines=1  «Объект»
             div.OrderForm__grid  318×407 @15,36
               div.Field__field#7  318×76 @0,0
@@ -79,7 +87,7 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                 div.Checkbox__row  318×44 @0,0
                   input.Checkbox__input  20×20 @0,11  r6  b1
                   label.Checkbox__label  122×24 @31,10  Manrope 400 15/21  lines=1  «Высотные работы»
-          fieldset.OrderUnits__root  348×1443 @0,1252  r14  b1
+          fieldset.OrderUnits__root  348×1443 @0,1255  r14  b1
             legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
             p.OrderUnits__hint  318×60 @15,36  Manrope 400 13/20  lines=3  «Позиций может быть несколько: в одном вы»
             ul.OrderUnits__list  318×1267 @15,107
@@ -94,12 +102,12 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
                     span.Select__wrapper#2  292×49 @0,27
                       select.Select__select  292×49 @0,0  r11  b1
-                        option#4  0×0 @-49,-1656  Manrope 400 15/21  lines=0  «Кондиционер»
-                        option#5  0×0 @-49,-1656  Manrope 400 15/21  lines=0  «Холодильник»
-                        option#6  0×0 @-49,-1656  Manrope 400 15/21  lines=0  «Компрессор»
-                        option#7  0×0 @-49,-1656  Manrope 400 15/21  lines=0  «Вентиляция»
-                        option#8  0×0 @-49,-1656  Manrope 400 15/21  lines=0  «Тепловая завеса»
-                        option#9  0×0 @-49,-1656  Manrope 400 15/21  lines=0  «Другое»
+                        option#4  0×0 @-49,-1659  Manrope 400 15/21  lines=0  «Кондиционер»
+                        option#5  0×0 @-49,-1659  Manrope 400 15/21  lines=0  «Холодильник»
+                        option#6  0×0 @-49,-1659  Manrope 400 15/21  lines=0  «Компрессор»
+                        option#7  0×0 @-49,-1659  Manrope 400 15/21  lines=0  «Вентиляция»
+                        option#8  0×0 @-49,-1659  Manrope 400 15/21  lines=0  «Тепловая завеса»
+                        option#9  0×0 @-49,-1659  Manrope 400 15/21  lines=0  «Другое»
                       svg.Select__chevron  14×14 @264,18
                   div.Field__field#2  292×103 @0,88
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
@@ -109,12 +117,12 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
                     span.Select__wrapper#2  292×49 @0,27
                       select.Select__select#2  292×49 @0,0  r11  b1
-                        option#4  0×0 @-49,-1859  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
-                        option#5  0×0 @-49,-1859  Manrope 400 15/21  lines=0  «Клиента — только работы»
+                        option#4  0×0 @-49,-1862  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+                        option#5  0×0 @-49,-1862  Manrope 400 15/21  lines=0  «Клиента — только работы»
                       svg.Select__chevron#2  14×14 @264,18
                   div.Field__field#4  292×76 @0,291
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
-                    input#2  292×49 @0,27  r11  b1
+                    input  292×49 @0,27  r11  b1
                   div.Field__field#5  292×103 @0,379
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
                     input#2  292×49 @0,27  r11  b1
@@ -134,12 +142,12 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
                     span.Select__wrapper  292×49 @0,27
                       select.Select__select#4  292×49 @0,0  r11  b1
-                        option  0×0 @-49,-2296  Manrope 400 15/21  lines=0  «Кондиционер»
-                        option#2  0×0 @-49,-2296  Manrope 400 15/21  lines=0  «Холодильник»
-                        option#3  0×0 @-49,-2296  Manrope 400 15/21  lines=0  «Компрессор»
-                        option#4  0×0 @-49,-2296  Manrope 400 15/21  lines=0  «Вентиляция»
-                        option#5  0×0 @-49,-2296  Manrope 400 15/21  lines=0  «Тепловая завеса»
-                        option#6  0×0 @-49,-2296  Manrope 400 15/21  lines=0  «Другое»
+                        option  0×0 @-49,-2299  Manrope 400 15/21  lines=0  «Кондиционер»
+                        option#2  0×0 @-49,-2299  Manrope 400 15/21  lines=0  «Холодильник»
+                        option#3  0×0 @-49,-2299  Manrope 400 15/21  lines=0  «Компрессор»
+                        option#4  0×0 @-49,-2299  Manrope 400 15/21  lines=0  «Вентиляция»
+                        option#5  0×0 @-49,-2299  Manrope 400 15/21  lines=0  «Тепловая завеса»
+                        option#6  0×0 @-49,-2299  Manrope 400 15/21  lines=0  «Другое»
                       svg.Select__chevron#4  14×14 @264,18
                   div.Field__field#7  292×103 @0,88
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
@@ -149,8 +157,8 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
                     span.Select__wrapper  292×49 @0,27
                       select.Select__select#5  292×49 @0,0  r11  b1
-                        option  0×0 @-49,-2498  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
-                        option#2  0×0 @-49,-2498  Manrope 400 15/21  lines=0  «Клиента — только работы»
+                        option  0×0 @-49,-2501  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+                        option#2  0×0 @-49,-2501  Manrope 400 15/21  lines=0  «Клиента — только работы»
                       svg.Select__chevron#5  14×14 @264,18
                   div.Field__field#9  292×76 @0,291
                     label.Field__label#2  292×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
@@ -167,15 +175,15 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
               button.Button__button  151×44 @0,0  r9  b1
                 span.Button__content#2  121×16 @15,14
                   span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
-          fieldset.OrderForm__group#3  348×621 @0,2708  r14  b1
+          fieldset.OrderForm__group#3  348×621 @0,2711  r14  b1
             legend.OrderForm__legend  63×22 @15,0  Onest 700 15/22  lines=1  «Деньги»
             div.OrderForm__grid  318×501 @15,36
               div.Field__field#11  318×76 @0,0
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Оплата»
                 span.Select__wrapper  318×49 @0,27
                   select.Select__select#6  318×49 @0,0  r11  b1
-                    option  0×0 @-36,-2975  Manrope 400 15/21  lines=0  «Клиент платит компании»
-                    option#2  0×0 @-36,-2975  Manrope 400 15/21  lines=0  «Наличными монтажнику на объекте»
+                    option  0×0 @-36,-2978  Manrope 400 15/21  lines=0  «Клиент платит компании»
+                    option#2  0×0 @-36,-2978  Manrope 400 15/21  lines=0  «Наличными монтажнику на объекте»
                   svg.Select__chevron#6  14×14 @290,18
               div.Field__field#12  318×76 @0,88
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Сумма заказа»
@@ -192,7 +200,7 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                 input  318×49 @0,27  r11  b1
                 p.Field__hint  318×39 @0,83  Manrope 400 13/19  lines=2  «Обязательно: сумма без причины через пол»
             p.OrderForm__note  318×59 @15,547  Manrope 400 13/20  lines=3  «Самозанятый и подрядчик по ГПХ: удержани»
-          fieldset.OrderForm__group#4  348×382 @0,3343  r14  b1
+          fieldset.OrderForm__group#4  348×382 @0,3346  r14  b1
             legend.OrderForm__legend  110×22 @15,0  Onest 700 15/22  lines=1  «Комментарии»
             div.OrderForm__grid  318×330 @15,36
               div.Field__field#16  318×169 @0,0
@@ -203,7 +211,7 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                 label.Field__label  318×20 @0,0  Manrope 600 13/20  lines=1  «Заметка владельца»
                 textarea.Textarea__textarea  318×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Клиент постоянный, скидку не даём»
                 p.Field__hint  318×19 @0,130  Manrope 400 13/19  lines=1  «Только для вас. Монтажник её не видит»
-          div.OrderForm__actions  348×44 @0,3739
+          div.OrderForm__actions  348×44 @0,3742
             button.Button__button  143×44 @0,0  r11  b1
               span.Button__content#3  105×17 @19,13
                 span.Button__label  105×17 @0,0  Manrope 600 15/17  lines=1  «Завести наряд»
@@ -217,11 +225,11 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
       button.IconButton__iconButton  40×40 @658,20  r11  b1
         svg  18×18 @11,11
     div.Modal__body  718×736 @1,91
-      section.FormSection__section  678×2645 @20,20
-        form.OrderForm__form  678×2645 @0,0
-          fieldset.OrderForm__group  678×485 @0,0  r14  b1
+      section.FormSection__section  678×2648 @20,20
+        form.OrderForm__form  678×2648 @0,0
+          fieldset.OrderForm__group  678×488 @0,0  r14  b1
             legend.OrderForm__legend  63×22 @15,0  Onest 700 15/22  lines=1  «Работа»
-            div.OrderForm__grid  648×356 @15,36
+            div.OrderForm__grid  648×359 @15,36
               div.Field__field  208×76 @0,0
                 label.Field__label  208×20 @0,0  Manrope 600 13/20  lines=1  «Тип работ»
                 span.Select__wrapper  208×49 @0,27
@@ -238,7 +246,7 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                     option#2  0×0 @-280,-211  Manrope 400 15/21  lines=0  «Ирина Соколова · +7 (910) 155-24-68»
                     option#3  0×0 @-280,-211  Manrope 400 15/21  lines=0  «Пётр Ильин · +7 (953) 100-20-30»
                   svg.Select__chevron#2  14×14 @400,18
-              div.Field__field#3  428×76 @0,88
+              div.Field__field#3  428×79 @0,88
                 label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Монтажник»
                 span.Select__wrapper  428×49 @0,27
                   select.Select__select#3  428×49 @0,0  r11  b1
@@ -247,22 +255,30 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                     option#3  0×0 @-60,-299  Manrope 400 15/21  lines=0  «Артём Белов»
                     option#4  0×0 @-60,-299  Manrope 400 15/21  lines=0  «petrov»
                   svg.Select__chevron#3  14×14 @400,18
-              div.Field__field#4  208×76 @440,88
+              div.Field__field#4  208×79 @440,88
                 label.Field__label  208×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
-                input  208×49 @0,27  r11  b1
-              div.Field__field#5  208×180 @0,176
+                div.DateField__shell  208×52 @0,27  r11  b1
+                  span.DateField__segmentBox  26×24 @15,14
+                    input.DateField__segment  26×24 @0,0
+                  span.DateField__segmentBox#2  32×24 @41,14
+                    span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+                    input.DateField__segment  26×24 @6,0
+                  span.DateField__segmentBox#3  50×24 @73,14
+                    span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+                    input.DateField__segment  45×24 @6,0
+              div.Field__field#5  208×180 @0,179
                 label.Field__label  208×20 @0,0  Manrope 600 13/20  lines=1  «Время»
                 input  208×50 @0,27  r11  b1
-              div.Field__field#6  208×180 @220,176
+              div.Field__field#6  208×180 @220,179
                 label.Field__label  208×20 @0,0  Manrope 600 13/20  lines=1  «Длительность, минут»
                 input  208×49 @0,27  r11  b1
                 p.Field__hint  208×97 @0,83  Manrope 400 13/19  lines=5  «Шаг 15 минут: полтора часа на обслуживан»
-            p.BusyNote__note  648×55 @15,415  r11  b1
+            p.BusyNote__note  648×55 @15,418  r11  b1
               svg.BusyNote__icon  18×18 @11,10
               span.BusyNote__body  313×37 @37,9
                 span.BusyNote__title  313×18 @0,0  Manrope 600 13/18  lines=1  «Дмитрий Соколов — день закрыт: семейные»
                 span.BusyNote__hint  313×17 @0,20  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
-          fieldset.OrderForm__group#2  678×282 @0,499  r14  b1
+          fieldset.OrderForm__group#2  678×282 @0,502  r14  b1
             legend.OrderForm__legend  65×22 @15,0  Onest 700 15/22  lines=1  «Объект»
             div.OrderForm__grid  648×230 @15,36
               div.Field__field#7  648×76 @0,0
@@ -281,7 +297,7 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                 div.Checkbox__row  208×44 @0,0
                   input.Checkbox__input  20×20 @0,11  r6  b1
                   label.Checkbox__label  122×24 @31,10  Manrope 400 15/21  lines=1  «Высотные работы»
-          fieldset.OrderUnits__root  678×977 @0,795  r14  b1
+          fieldset.OrderUnits__root  678×977 @0,798  r14  b1
             legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
             p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
             ul.OrderUnits__list  648×821 @15,87
@@ -296,12 +312,12 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                     label.Field__label#2  199×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
                     span.Select__wrapper#2  199×49 @0,27
                       select.Select__select  199×49 @0,0  r11  b1
-                        option#4  0×0 @-73,-1123  Manrope 400 15/21  lines=0  «Кондиционер»
-                        option#5  0×0 @-73,-1123  Manrope 400 15/21  lines=0  «Холодильник»
-                        option#6  0×0 @-73,-1123  Manrope 400 15/21  lines=0  «Компрессор»
-                        option#7  0×0 @-73,-1123  Manrope 400 15/21  lines=0  «Вентиляция»
-                        option#8  0×0 @-73,-1123  Manrope 400 15/21  lines=0  «Тепловая завеса»
-                        option#9  0×0 @-73,-1123  Manrope 400 15/21  lines=0  «Другое»
+                        option#4  0×0 @-73,-1126  Manrope 400 15/21  lines=0  «Кондиционер»
+                        option#5  0×0 @-73,-1126  Manrope 400 15/21  lines=0  «Холодильник»
+                        option#6  0×0 @-73,-1126  Manrope 400 15/21  lines=0  «Компрессор»
+                        option#7  0×0 @-73,-1126  Manrope 400 15/21  lines=0  «Вентиляция»
+                        option#8  0×0 @-73,-1126  Manrope 400 15/21  lines=0  «Тепловая завеса»
+                        option#9  0×0 @-73,-1126  Manrope 400 15/21  lines=0  «Другое»
                       svg.Select__chevron  14×14 @171,18
                   div.Field__field#2  411×103 @211,0
                     label.Field__label#2  411×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
@@ -311,12 +327,12 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                     label.Field__label#2  411×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
                     span.Select__wrapper#2  411×49 @0,27
                       select.Select__select#2  411×49 @0,0  r11  b1
-                        option#4  0×0 @-73,-1237  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
-                        option#5  0×0 @-73,-1237  Manrope 400 15/21  lines=0  «Клиента — только работы»
+                        option#4  0×0 @-73,-1240  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+                        option#5  0×0 @-73,-1240  Manrope 400 15/21  lines=0  «Клиента — только работы»
                       svg.Select__chevron#2  14×14 @383,18
                   div.Field__field#4  199×76 @423,115
                     label.Field__label#2  199×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
-                    input#2  199×49 @0,27  r11  b1
+                    input  199×49 @0,27  r11  b1
                   div.Field__field#5  199×122 @0,203
                     label.Field__label#2  199×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
                     input#2  199×49 @0,27  r11  b1
@@ -336,12 +352,12 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                     label.Field__label#2  199×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
                     span.Select__wrapper  199×49 @0,27
                       select.Select__select#4  199×49 @0,0  r11  b1
-                        option  0×0 @-73,-1539  Manrope 400 15/21  lines=0  «Кондиционер»
-                        option#2  0×0 @-73,-1539  Manrope 400 15/21  lines=0  «Холодильник»
-                        option#3  0×0 @-73,-1539  Manrope 400 15/21  lines=0  «Компрессор»
-                        option#4  0×0 @-73,-1539  Manrope 400 15/21  lines=0  «Вентиляция»
-                        option#5  0×0 @-73,-1539  Manrope 400 15/21  lines=0  «Тепловая завеса»
-                        option#6  0×0 @-73,-1539  Manrope 400 15/21  lines=0  «Другое»
+                        option  0×0 @-73,-1542  Manrope 400 15/21  lines=0  «Кондиционер»
+                        option#2  0×0 @-73,-1542  Manrope 400 15/21  lines=0  «Холодильник»
+                        option#3  0×0 @-73,-1542  Manrope 400 15/21  lines=0  «Компрессор»
+                        option#4  0×0 @-73,-1542  Manrope 400 15/21  lines=0  «Вентиляция»
+                        option#5  0×0 @-73,-1542  Manrope 400 15/21  lines=0  «Тепловая завеса»
+                        option#6  0×0 @-73,-1542  Manrope 400 15/21  lines=0  «Другое»
                       svg.Select__chevron#4  14×14 @171,18
                   div.Field__field#7  411×103 @211,0
                     label.Field__label#2  411×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
@@ -351,8 +367,8 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                     label.Field__label#2  411×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
                     span.Select__wrapper  411×49 @0,27
                       select.Select__select#5  411×49 @0,0  r11  b1
-                        option  0×0 @-73,-1654  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
-                        option#2  0×0 @-73,-1654  Manrope 400 15/21  lines=0  «Клиента — только работы»
+                        option  0×0 @-73,-1657  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+                        option#2  0×0 @-73,-1657  Manrope 400 15/21  lines=0  «Клиента — только работы»
                       svg.Select__chevron#5  14×14 @383,18
                   div.Field__field#9  199×76 @423,115
                     label.Field__label#2  199×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
@@ -369,15 +385,15 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
               button.Button__button  151×44 @0,0  r9  b1
                 span.Button__content#2  121×16 @15,14
                   span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
-          fieldset.OrderForm__group#3  678×425 @0,1785  r14  b1
+          fieldset.OrderForm__group#3  678×425 @0,1788  r14  b1
             legend.OrderForm__legend  63×22 @15,0  Onest 700 15/22  lines=1  «Деньги»
             div.OrderForm__grid  648×325 @15,36
               div.Field__field#11  648×76 @0,0
                 label.Field__label  648×20 @0,0  Manrope 600 13/20  lines=1  «Оплата»
                 span.Select__wrapper  648×49 @0,27
                   select.Select__select#6  648×49 @0,0  r11  b1
-                    option  0×0 @-60,-1996  Manrope 400 15/21  lines=0  «Клиент платит компании»
-                    option#2  0×0 @-60,-1996  Manrope 400 15/21  lines=0  «Наличными монтажнику на объекте»
+                    option  0×0 @-60,-1999  Manrope 400 15/21  lines=0  «Клиент платит компании»
+                    option#2  0×0 @-60,-1999  Manrope 400 15/21  lines=0  «Наличными монтажнику на объекте»
                   svg.Select__chevron#6  14×14 @620,18
               div.Field__field#12  208×122 @0,88
                 label.Field__label  208×20 @0,0  Manrope 600 13/20  lines=1  «Сумма заказа»
@@ -394,7 +410,7 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                 input  428×49 @0,27  r11  b1
                 p.Field__hint  428×19 @0,83  Manrope 400 13/19  lines=1  «Обязательно: сумма без причины через пол»
             p.OrderForm__note  571×39 @15,371  Manrope 400 13/20  lines=2  «Самозанятый и подрядчик по ГПХ: удержани»
-          fieldset.OrderForm__group#4  678×363 @0,2224  r14  b1
+          fieldset.OrderForm__group#4  678×363 @0,2227  r14  b1
             legend.OrderForm__legend  110×22 @15,0  Onest 700 15/22  lines=1  «Комментарии»
             div.OrderForm__grid  648×311 @15,36
               div.Field__field#16  648×150 @0,0
@@ -405,7 +421,7 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                 label.Field__label  648×20 @0,0  Manrope 600 13/20  lines=1  «Заметка владельца»
                 textarea.Textarea__textarea  648×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Клиент постоянный, скидку не даём»
                 p.Field__hint  648×19 @0,130  Manrope 400 13/19  lines=1  «Только для вас. Монтажник её не видит»
-          div.OrderForm__actions  678×44 @0,2601
+          div.OrderForm__actions  678×44 @0,2604
             button.Button__button  143×44 @0,0  r11  b1
               span.Button__content#3  105×17 @19,13
                 span.Button__label  105×17 @0,0  Manrope 600 15/17  lines=1  «Завести наряд»
@@ -419,11 +435,11 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
       button.IconButton__iconButton  40×40 @758,20  r11  b1
         svg  18×18 @11,11
     div.Modal__body  818×736 @1,91
-      section.FormSection__section  778×2589 @20,20
-        form.OrderForm__form  778×2589 @0,0
-          fieldset.OrderForm__group  778×485 @0,0  r14  b1
+      section.FormSection__section  778×2592 @20,20
+        form.OrderForm__form  778×2592 @0,0
+          fieldset.OrderForm__group  778×488 @0,0  r14  b1
             legend.OrderForm__legend  63×22 @15,0  Onest 700 15/22  lines=1  «Работа»
-            div.OrderForm__grid  748×356 @15,36
+            div.OrderForm__grid  748×359 @15,36
               div.Field__field  241×76 @0,0
                 label.Field__label  241×20 @0,0  Manrope 600 13/20  lines=1  «Тип работ»
                 span.Select__wrapper  241×49 @0,27
@@ -440,7 +456,7 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                     option#2  0×0 @-599,-211  Manrope 400 15/21  lines=0  «Ирина Соколова · +7 (910) 155-24-68»
                     option#3  0×0 @-599,-211  Manrope 400 15/21  lines=0  «Пётр Ильин · +7 (953) 100-20-30»
                   svg.Select__chevron#2  14×14 @467,18
-              div.Field__field#3  495×76 @0,88
+              div.Field__field#3  495×79 @0,88
                 label.Field__label  495×20 @0,0  Manrope 600 13/20  lines=1  «Монтажник»
                 span.Select__wrapper  495×49 @0,27
                   select.Select__select#3  495×49 @0,0  r11  b1
@@ -449,22 +465,30 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                     option#3  0×0 @-346,-299  Manrope 400 15/21  lines=0  «Артём Белов»
                     option#4  0×0 @-346,-299  Manrope 400 15/21  lines=0  «petrov»
                   svg.Select__chevron#3  14×14 @467,18
-              div.Field__field#4  241×76 @507,88
+              div.Field__field#4  241×79 @507,88
                 label.Field__label  241×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
-                input  241×49 @0,27  r11  b1
-              div.Field__field#5  241×180 @0,176
+                div.DateField__shell  241×52 @0,27  r11  b1
+                  span.DateField__segmentBox  26×24 @15,14
+                    input.DateField__segment  26×24 @0,0
+                  span.DateField__segmentBox#2  32×24 @41,14
+                    span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+                    input.DateField__segment  26×24 @6,0
+                  span.DateField__segmentBox#3  50×24 @73,14
+                    span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
+                    input.DateField__segment  45×24 @6,0
+              div.Field__field#5  241×180 @0,179
                 label.Field__label  241×20 @0,0  Manrope 600 13/20  lines=1  «Время»
                 input  241×50 @0,27  r11  b1
-              div.Field__field#6  241×180 @253,176
+              div.Field__field#6  241×180 @253,179
                 label.Field__label  241×20 @0,0  Manrope 600 13/20  lines=1  «Длительность, минут»
                 input  241×49 @0,27  r11  b1
                 p.Field__hint  241×97 @0,83  Manrope 400 13/19  lines=5  «Шаг 15 минут: полтора часа на обслуживан»
-            p.BusyNote__note  748×55 @15,415  r11  b1
+            p.BusyNote__note  748×55 @15,418  r11  b1
               svg.BusyNote__icon  18×18 @11,10
               span.BusyNote__body  313×37 @37,9
                 span.BusyNote__title  313×18 @0,0  Manrope 600 13/18  lines=1  «Дмитрий Соколов — день закрыт: семейные»
                 span.BusyNote__hint  313×17 @0,20  Manrope 400 12/17  lines=1  «Запись всё равно сохранится — решение за»
-          fieldset.OrderForm__group#2  778×282 @0,499  r14  b1
+          fieldset.OrderForm__group#2  778×282 @0,502  r14  b1
             legend.OrderForm__legend  65×22 @15,0  Onest 700 15/22  lines=1  «Объект»
             div.OrderForm__grid  748×230 @15,36
               div.Field__field#7  748×76 @0,0
@@ -483,7 +507,7 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                 div.Checkbox__row  241×44 @0,0
                   input.Checkbox__input  20×20 @0,11  r6  b1
                   label.Checkbox__label  122×24 @31,10  Manrope 400 15/21  lines=1  «Высотные работы»
-          fieldset.OrderUnits__root  778×921 @0,795  r14  b1
+          fieldset.OrderUnits__root  778×921 @0,798  r14  b1
             legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
             p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
             ul.OrderUnits__list  748×769 @15,87
@@ -498,12 +522,12 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                     label.Field__label#2  172×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
                     span.Select__wrapper#2  172×49 @0,27
                       select.Select__select  172×49 @0,0  r11  b1
-                        option#4  0×0 @-359,-1119  Manrope 400 15/21  lines=0  «Кондиционер»
-                        option#5  0×0 @-359,-1119  Manrope 400 15/21  lines=0  «Холодильник»
-                        option#6  0×0 @-359,-1119  Manrope 400 15/21  lines=0  «Компрессор»
-                        option#7  0×0 @-359,-1119  Manrope 400 15/21  lines=0  «Вентиляция»
-                        option#8  0×0 @-359,-1119  Manrope 400 15/21  lines=0  «Тепловая завеса»
-                        option#9  0×0 @-359,-1119  Manrope 400 15/21  lines=0  «Другое»
+                        option#4  0×0 @-359,-1122  Manrope 400 15/21  lines=0  «Кондиционер»
+                        option#5  0×0 @-359,-1122  Manrope 400 15/21  lines=0  «Холодильник»
+                        option#6  0×0 @-359,-1122  Manrope 400 15/21  lines=0  «Компрессор»
+                        option#7  0×0 @-359,-1122  Manrope 400 15/21  lines=0  «Вентиляция»
+                        option#8  0×0 @-359,-1122  Manrope 400 15/21  lines=0  «Тепловая завеса»
+                        option#9  0×0 @-359,-1122  Manrope 400 15/21  lines=0  «Другое»
                       svg.Select__chevron  14×14 @144,18
                   div.Field__field#2  355×103 @184,0
                     label.Field__label#2  355×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
@@ -513,12 +537,12 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                     label.Field__label#2  355×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
                     span.Select__wrapper#2  355×49 @0,27
                       select.Select__select#2  355×49 @0,0  r11  b1
-                        option#4  0×0 @-359,-1233  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
-                        option#5  0×0 @-359,-1233  Manrope 400 15/21  lines=0  «Клиента — только работы»
+                        option#4  0×0 @-359,-1236  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+                        option#5  0×0 @-359,-1236  Manrope 400 15/21  lines=0  «Клиента — только работы»
                       svg.Select__chevron#2  14×14 @327,18
                   div.Field__field#4  172×122 @367,115
                     label.Field__label#2  172×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
-                    input#2  172×49 @0,27  r11  b1
+                    input  172×49 @0,27  r11  b1
                   div.Field__field#5  172×122 @551,115
                     label.Field__label#2  172×20 @0,0  Manrope 600 13/20  lines=1  «Диаметр»
                     input#2  172×49 @0,27  r11  b1
@@ -538,12 +562,12 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                     label.Field__label#2  172×20 @0,0  Manrope 600 13/20  lines=1  «Тип»
                     span.Select__wrapper  172×49 @0,27
                       select.Select__select#4  172×49 @0,0  r11  b1
-                        option  0×0 @-359,-1509  Manrope 400 15/21  lines=0  «Кондиционер»
-                        option#2  0×0 @-359,-1509  Manrope 400 15/21  lines=0  «Холодильник»
-                        option#3  0×0 @-359,-1509  Manrope 400 15/21  lines=0  «Компрессор»
-                        option#4  0×0 @-359,-1509  Manrope 400 15/21  lines=0  «Вентиляция»
-                        option#5  0×0 @-359,-1509  Manrope 400 15/21  lines=0  «Тепловая завеса»
-                        option#6  0×0 @-359,-1509  Manrope 400 15/21  lines=0  «Другое»
+                        option  0×0 @-359,-1512  Manrope 400 15/21  lines=0  «Кондиционер»
+                        option#2  0×0 @-359,-1512  Manrope 400 15/21  lines=0  «Холодильник»
+                        option#3  0×0 @-359,-1512  Manrope 400 15/21  lines=0  «Компрессор»
+                        option#4  0×0 @-359,-1512  Manrope 400 15/21  lines=0  «Вентиляция»
+                        option#5  0×0 @-359,-1512  Manrope 400 15/21  lines=0  «Тепловая завеса»
+                        option#6  0×0 @-359,-1512  Manrope 400 15/21  lines=0  «Другое»
                       svg.Select__chevron#4  14×14 @144,18
                   div.Field__field#7  355×103 @184,0
                     label.Field__label#2  355×20 @0,0  Manrope 600 13/20  lines=1  «Модель»
@@ -553,8 +577,8 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                     label.Field__label#2  355×20 @0,0  Manrope 600 13/20  lines=1  «Чьё оборудование»
                     span.Select__wrapper  355×49 @0,27
                       select.Select__select#5  355×49 @0,0  r11  b1
-                        option  0×0 @-359,-1624  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
-                        option#2  0×0 @-359,-1624  Manrope 400 15/21  lines=0  «Клиента — только работы»
+                        option  0×0 @-359,-1627  Manrope 400 15/21  lines=0  «Наше — продажа с монтажом»
+                        option#2  0×0 @-359,-1627  Manrope 400 15/21  lines=0  «Клиента — только работы»
                       svg.Select__chevron#5  14×14 @327,18
                   div.Field__field#9  172×122 @367,115
                     label.Field__label#2  172×20 @0,0  Manrope 600 13/20  lines=1  «Трасса, метров»
@@ -571,15 +595,15 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
               button.Button__button  151×40 @0,0  r9  b1
                 span.Button__content#2  121×16 @15,12
                   span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
-          fieldset.OrderForm__group#3  778×425 @0,1729  r14  b1
+          fieldset.OrderForm__group#3  778×425 @0,1732  r14  b1
             legend.OrderForm__legend  63×22 @15,0  Onest 700 15/22  lines=1  «Деньги»
             div.OrderForm__grid  748×325 @15,36
               div.Field__field#11  748×76 @0,0
                 label.Field__label  748×20 @0,0  Manrope 600 13/20  lines=1  «Оплата»
                 span.Select__wrapper  748×49 @0,27
                   select.Select__select#6  748×49 @0,0  r11  b1
-                    option  0×0 @-346,-1940  Manrope 400 15/21  lines=0  «Клиент платит компании»
-                    option#2  0×0 @-346,-1940  Manrope 400 15/21  lines=0  «Наличными монтажнику на объекте»
+                    option  0×0 @-346,-1943  Manrope 400 15/21  lines=0  «Клиент платит компании»
+                    option#2  0×0 @-346,-1943  Manrope 400 15/21  lines=0  «Наличными монтажнику на объекте»
                   svg.Select__chevron#6  14×14 @720,18
               div.Field__field#12  241×122 @0,88
                 label.Field__label  241×20 @0,0  Manrope 600 13/20  lines=1  «Сумма заказа»
@@ -596,7 +620,7 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                 input  495×49 @0,27  r11  b1
                 p.Field__hint  495×19 @0,83  Manrope 400 13/19  lines=1  «Обязательно: сумма без причины через пол»
             p.OrderForm__note  571×39 @15,371  Manrope 400 13/20  lines=2  «Самозанятый и подрядчик по ГПХ: удержани»
-          fieldset.OrderForm__group#4  778×363 @0,2168  r14  b1
+          fieldset.OrderForm__group#4  778×363 @0,2171  r14  b1
             legend.OrderForm__legend  110×22 @15,0  Onest 700 15/22  lines=1  «Комментарии»
             div.OrderForm__grid  748×311 @15,36
               div.Field__field#16  748×150 @0,0
@@ -607,7 +631,7 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                 label.Field__label  748×20 @0,0  Manrope 600 13/20  lines=1  «Заметка владельца»
                 textarea.Textarea__textarea  748×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Клиент постоянный, скидку не даём»
                 p.Field__hint  748×19 @0,130  Manrope 400 13/19  lines=1  «Только для вас. Монтажник её не видит»
-          div.OrderForm__actions  778×44 @0,2545
+          div.OrderForm__actions  778×44 @0,2548
             button.Button__button  143×44 @0,0  r11  b1
               span.Button__content#3  105×17 @19,13
                 span.Button__label  105×17 @0,0  Manrope 600 15/17  lines=1  «Завести наряд»
@@ -653,7 +677,15 @@ div.Modal__overlay  bg #0f172a73
                   svg.Select__chevron#3
               div.Field__field#4
                 label.Field__label  color #334155
-                input  bg #ffffff  border #7e8fa6
+                div.DateField__shell  bg #ffffff  border #7e8fa6
+                  span.DateField__segmentBox
+                    input.DateField__segment
+                  span.DateField__segmentBox#2
+                    span.DateField__separator  color #5b6a7d
+                    input.DateField__segment
+                  span.DateField__segmentBox#3
+                    span.DateField__separator  color #5b6a7d
+                    input.DateField__segment
               div.Field__field#5
                 label.Field__label  color #334155
                 input  bg #ffffff  border #7e8fa6
@@ -720,7 +752,7 @@ div.Modal__overlay  bg #0f172a73
                       svg.Select__chevron#2
                   div.Field__field#4
                     label.Field__label#2  color #334155
-                    input#2  bg #ffffff  border #7e8fa6
+                    input  bg #ffffff  border #7e8fa6
                   div.Field__field#5
                     label.Field__label#2  color #334155
                     input#2  bg #ffffff  border #7e8fa6
@@ -855,7 +887,15 @@ div.Modal__overlay  bg #020610ad
                   svg.Select__chevron#3
               div.Field__field#4
                 label.Field__label  color #c9d5e2
-                input  bg #0b1424  border #566d95
+                div.DateField__shell  bg #0b1424  border #566d95
+                  span.DateField__segmentBox
+                    input.DateField__segment
+                  span.DateField__segmentBox#2
+                    span.DateField__separator  color #7e92a7
+                    input.DateField__segment
+                  span.DateField__segmentBox#3
+                    span.DateField__separator  color #7e92a7
+                    input.DateField__segment
               div.Field__field#5
                 label.Field__label  color #c9d5e2
                 input  bg #0b1424  border #566d95
@@ -922,7 +962,7 @@ div.Modal__overlay  bg #020610ad
                       svg.Select__chevron#2
                   div.Field__field#4
                     label.Field__label#2  color #c9d5e2
-                    input#2  bg #0b1424  border #566d95
+                    input  bg #0b1424  border #566d95
                   div.Field__field#5
                     label.Field__label#2  color #c9d5e2
                     input#2  bg #0b1424  border #566d95

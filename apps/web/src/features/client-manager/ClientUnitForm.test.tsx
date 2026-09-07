@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -14,7 +14,15 @@ describe('Форма техники клиента', () => {
     render(<ClientUnitForm clientId="c1" api={{ ...acceptingUnitApi, create }} />);
 
     await user.type(screen.getByLabelText(texts.unitModel), 'Сплит-система 07');
-    await user.type(screen.getByLabelText(texts.unitInstalledAt), '2019-06-01');
+
+    /* 🔴 Дата набирается сегментами (кит, `DateField`): нативное поле рисуется
+       в локали браузера, и на английской машине владелец задал бы месяц
+       вместо дня (issue #586). В теле запроса та же строка ISO. */
+    const installed = screen.getByRole('group', { name: texts.unitInstalledAt });
+    await user.type(within(installed).getByLabelText('День'), '01');
+    await user.type(within(installed).getByLabelText('Месяц'), '06');
+    await user.type(within(installed).getByLabelText('Год'), '2019');
+
     await user.click(screen.getByRole('button', { name: texts.unitSave }));
 
     expect(create).toHaveBeenCalledWith('c1', {
@@ -29,8 +37,15 @@ describe('Форма техники клиента', () => {
   it('правка подставляет даты записи днями, а не моментами', () => {
     render(<ClientUnitForm clientId="c1" unit={unit} api={acceptingUnitApi} />);
 
-    expect(screen.getByLabelText(texts.unitInstalledAt)).toHaveValue('2026-07-14');
-    expect(screen.getByLabelText(texts.unitWarrantyUntil)).toHaveValue('2029-07-14');
+    const installed = screen.getByRole('group', { name: texts.unitInstalledAt });
+    expect(within(installed).getByLabelText('День')).toHaveValue('14');
+    expect(within(installed).getByLabelText('Месяц')).toHaveValue('07');
+    expect(within(installed).getByLabelText('Год')).toHaveValue('2026');
+
+    const warranty = screen.getByRole('group', { name: texts.unitWarrantyUntil });
+    expect(within(warranty).getByLabelText('День')).toHaveValue('14');
+    expect(within(warranty).getByLabelText('Месяц')).toHaveValue('07');
+    expect(within(warranty).getByLabelText('Год')).toHaveValue('2029');
   });
 
   it('правка отправляет номер записи и оставляет введённое на месте', async () => {
@@ -57,7 +72,11 @@ describe('Форма техники клиента', () => {
     await user.click(screen.getByRole('button', { name: texts.unitSave }));
 
     expect(await screen.findByText('Укажите дату монтажа')).toBeInTheDocument();
-    expect(screen.getByLabelText(texts.unitInstalledAt)).toHaveAttribute('aria-invalid', 'true');
+
+    /* `aria-invalid` живёт на сегменте, а не на группе: роль `group` этого
+       атрибута не поддерживает вовсе, и озвучка его там не читает. */
+    const installed = screen.getByRole('group', { name: texts.unitInstalledAt });
+    expect(within(installed).getByLabelText('День')).toHaveAttribute('aria-invalid', 'true');
   });
 
   it('отмена показывается только там, где есть куда возвращаться', () => {

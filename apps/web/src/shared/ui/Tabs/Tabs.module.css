@@ -1,0 +1,187 @@
+/* Вкладка панели — одно устройство на всю панель (issue #584).
+
+   До этого вкладку рисовали восемь файлов: `PanelTabs`, `PanelTabLinks`,
+   `PanelTabStrip`, `OrderTabs`, `OrderWorkTabs`, `ReviewTabs`, `ArticleTabs` и
+   сегменты `AdminSummary`. Правка геометрии требовала восьми повторений, и
+   ленты успели разъехаться: у отзывов и статей вкладка была капсулой-чипом, у
+   заказов и карточек — подчёркиванием, хотя макет рисует их одинаково.
+
+   🔴 Обличья ровно два, и макет раздаёт их по разделам (ADR-307,
+   `design/admin/_base.css`): `.tabsrow`/`.tab` — подчёркивание (заказы,
+   отзывы, статьи, карточки), `.seg` — капсулы (сводка панели). Третьего вида
+   нет: чип с рамкой, стоявший у отзывов и статей, был самодеятельностью. */
+
+.strip {
+  min-width: 0;
+}
+
+/* Линия принадлежит ленте, а не ряду вкладок: на узком экране ряд уезжает
+   вбок вместе с прокруткой, а линия обязана остаться на месте. */
+.stripUnderline {
+  border-bottom: 1px solid var(--line);
+}
+
+/* Трек капсул сжимается по содержимому: во всю ширину раздела он читался бы
+   как полоса фильтров, а не как переключатель из трёх положений. */
+.stripCapsule {
+  display: inline-block;
+}
+
+.row {
+  display: flex;
+  min-width: 0;
+}
+
+.rowUnderline {
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-bottom: 2px;
+}
+
+.rowCapsule {
+  gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--bg-soft);
+  padding: 3px;
+}
+
+/* Подпись и счётчик — одна строка: вкладка со счётчиком и без него держат
+   одну высоту, и лента не дёргается, когда число появляется. */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.tabUnderline {
+  border-bottom: 2px solid transparent;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  padding: 8px 14px;
+  color: var(--muted);
+  font-size: var(--fs-dense);
+}
+
+.tabCapsule {
+  border-radius: var(--r-pill);
+  padding: 6px 16px;
+  min-height: 32px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+.tab:hover {
+  color: var(--ink);
+}
+
+/* Заготовка раздела нажимать не даёт: подсветить она может только не ту
+   вкладку, а курсор-палец обещал бы переход. */
+.tab:disabled {
+  cursor: default;
+}
+
+.tabUnderline:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+
+/* Внутри трека рамка обреза́лась бы его границей — отсюда кольцо тенью. */
+.tabCapsule:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus-ring);
+}
+
+.currentUnderline {
+  border-bottom-color: var(--accent-ink);
+  color: var(--ink);
+}
+
+.currentCapsule {
+  background: var(--card);
+  box-shadow: var(--sh-sm);
+  color: var(--ink);
+}
+
+/* Счётчик у подписи: «Активные 7», «Новые 2» (issue #585, макет `OrdersTabs`).
+
+   🔴 Не плашка статуса: краски у него нет, это число рядом со словом. Плашка
+   рядом с подписью читалась бы как состояние вкладки, а не как количество за
+   ней. Табличные цифры не дают ленте дёргаться, когда число меняется с 9 на
+   10 или со 100 на 999.
+
+   Кегль — 13px, пол служебной подписи 12px соблюдён (ADR-158). */
+.count {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+/* У открытой вкладки счётчик идёт её же цветом: приглушённое число рядом с
+   активной подписью читается как отключённое. */
+.currentUnderline .count,
+.currentCapsule .count {
+  color: inherit;
+}
+
+/* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px по вкладке целятся
+   пальцем, а строка кегля с отбивкой даёт 37px при норме 44. */
+@media (width < 900px) {
+  .tab {
+    min-height: var(--tap);
+  }
+
+  /* 🔴 Лента вкладок с панелями до 900px не переносится, а едет вбок (макет
+     `.tabsrow.xs`, ADR-266). Перенос ставил пятую вкладку на вторую строку и
+     уводил содержимое вниз на 44px ровно тогда, когда его открыли. Открытую
+     вкладку подвозит к глазам сам компонент — он клиентский и умеет.
+
+     Лента-ссылки так не может: своего JS у неё нет вовсе, и уехавшую за край
+     открытую вкладку подвезти нечем. Она переносится. */
+  .scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    mask-image: var(--fade-inline-end);
+    scrollbar-width: none;
+  }
+
+  .scroll .rowUnderline {
+    flex-wrap: nowrap;
+  }
+
+  .scroll .tabUnderline {
+    flex: none;
+  }
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Панель фокусируема, чтобы Tab с ленты попадал в содержимое; рамку вокруг
+   всей панели при этом рисовать незачем — она только мешает читать. */
+.panel:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 4px;
+}
+
+.panel[hidden] {
+  display: none;
+}

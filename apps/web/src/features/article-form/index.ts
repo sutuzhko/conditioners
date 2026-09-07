@@ -1,7 +1,6 @@
 /** Публичный API формы статьи. */
 export { ArticleForm, type ArticleFormProps } from './ArticleForm';
 export { ArticleRowRemove, type ArticleRowRemoveProps } from './ArticleRowRemove';
-export { ArticleTabs, type ArticleTabsProps } from './ArticleTabs';
 export { SerpPreview, type SerpPreviewProps } from './SerpPreview';
 export { ArticleCreateModal, type ArticleCreateModalProps } from './ArticleCreateModal';
 export { ArticleCover, type ArticleCoverProps, type CoverUpload } from './ArticleCover';

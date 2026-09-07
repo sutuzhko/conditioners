@@ -57,42 +57,6 @@
    отсюда общая подложка и подсвеченная ячейка внутри неё, а не вкладки с
    подчёркиванием. Вкладки в панели означают стопки списка (заказы, отзывы), и
    один и тот же вид для двух разных смыслов путал бы оба. */
-.segments {
-  display: inline-flex;
-  gap: 2px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  background: var(--bg-soft);
-  padding: 3px;
-}
-
-.segment {
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--r-pill);
-  padding: 6px 16px;
-  min-height: 32px;
-  color: var(--muted);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.segment:hover {
-  color: var(--ink);
-}
-
-.segment:focus-visible {
-  box-shadow: var(--ring-focus-ring);
-  outline: none;
-}
-
-.current {
-  background: var(--card);
-  box-shadow: var(--sh-sm);
-  color: var(--ink);
-}
-
 .period {
   margin: 0;
   color: var(--muted);

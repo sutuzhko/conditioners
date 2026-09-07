@@ -8,7 +8,18 @@ import { clashesWith, spanOf } from '@/entities/crm/lib/load';
 import { crmEventCreateSchema, isCrmEventKind } from '@/entities/crm/model';
 import { BusyNote, ClashNote } from '@/entities/crm/ui';
 import { dayKeyOf, minutesOfDay } from '@/shared/lib/calendar';
-import { Button, Input, Modal, PhoneInput, Select, Textarea } from '@/shared/ui';
+import {
+  Button,
+  DateField,
+  Input,
+  Modal,
+  PhoneInput,
+  Select,
+  Textarea,
+  dateSegmentsOf,
+  isoOfDateSegments,
+} from '@/shared/ui';
+import type { DateSegments } from '@/shared/ui';
 
 import { KIND_LOOK, ORDER_LOOK, crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
@@ -96,6 +107,11 @@ export function EventDialog({
   viewerId,
 }: EventDialogProps) {
   const [form, setForm] = useState<CrmEventDraft>(draft);
+
+  /* 🔴 Дата живёт двумя видами: сегментами — потому что их набирают, и строкой
+     ISO — потому что её ждут схема и контракт. Пока набран один день, полной
+     даты ещё нет, и вывод сегментов из строки терял бы цифру под пальцами. */
+  const [dayParts, setDayParts] = useState<DateSegments>(() => dateSegmentsOf(draft.day));
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
@@ -200,11 +216,16 @@ export function EventDialog({
             }}
             wrapperClassName={styles.kind}
           />
-          <Input
+          {/* 🔴 Три сегмента вместо `input[type=date]` (кит, `DateField`):
+              нативный редактор приносит свой порядок сегментов, зависящий от
+              локали системы (issue #586). */}
+          <DateField
             label={texts.fieldDay}
-            type="date"
-            value={form.day}
-            onChange={(event) => set('day', event.target.value)}
+            value={dayParts}
+            onChange={(next) => {
+              setDayParts(next);
+              set('day', isoOfDateSegments(next));
+            }}
             error={errors.day}
             required
           />

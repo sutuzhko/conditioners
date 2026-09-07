@@ -30,9 +30,9 @@ import { requireOwnerPage } from '@/server/guards';
 import { list as listStaff } from '@/server/repo/admin-users';
 import { movements, overview, zones as listZones } from '@/server/repo/stock';
 import type { AdminSession } from '@/server/auth';
+import { TabLinks } from '@/shared/ui';
 import { DataBlock, LineSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { PanelTabLinks } from '../PanelTabLinks';
 import { StockHeader } from './StockHeader';
 import { StockSkeleton, StockTableSkeleton } from './StockSkeleton';
 import styles from './page.module.css';
@@ -146,15 +146,16 @@ export default async function AdminStockPage({ searchParams }: PageProps) {
           хранения») на 320 не встают в строку, и перенос давал вертикальный
           список из трёх ссылок — он читается как случайные ссылки, а не как
           переключатель вида (issue #609). */}
-      <div className={styles.tabsStrip}>
-        <PanelTabLinks
-          active={tab}
-          tabs={STOCK_TABS}
-          titleOf={texts.tabTitle}
-          label={texts.tabsLabel}
-          hrefOf={(key) => stockTabHref(key)}
-        />
-      </div>
+      <TabLinks
+        items={STOCK_TABS.map((key) => ({
+          key,
+          title: texts.tabTitle(key),
+          href: stockTabHref(key),
+        }))}
+        active={tab}
+        label={texts.tabsLabel}
+        scroll
+      />
 
       <DataBlock
         skeleton={tab === 'stock' ? <StockSkeleton /> : <StockTableSkeleton />}

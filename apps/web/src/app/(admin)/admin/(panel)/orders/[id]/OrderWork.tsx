@@ -8,6 +8,7 @@ import {
   OrderChecklist,
   OrderDocs,
   OrderPhotos,
+  orderCardTabCountLabel,
   orderCardTabCounts,
   orderCardTabsFor,
   orderManagerContent as texts,
@@ -15,8 +16,7 @@ import {
   type OrderCardTab,
   type OrderDetails,
 } from '@/features/order-manager';
-
-import { PanelTabs } from '../../PanelTabs';
+import { TabPanels } from '@/shared/ui';
 
 export interface OrderWorkProps {
   readonly order: OrderDetails;
@@ -42,15 +42,13 @@ export interface OrderWorkProps {
 }
 
 /**
- * Работа с нарядом: пять вкладок и итог работ (issue #346).
+ * Работа с нарядом: пять вкладок и итог работ (issue #346, #598).
  *
- * 🔴 Лента — общая `PanelTabs` раздела, а не своя (issue #598). Своя стояла
+ * 🔴 Лента — общая вкладка кита, а не своя (issue #584, #598). Своя стояла
  * здесь с issue #346 и была вкладками карточки клиента слово в слово: тот же
- * `pushState` вместо перехода, те же стрелки, те же скрытые панели. Разошлись
- * они ровно на том, ради чего задача и заведена, — на счётчиках: у общей они
- * были, у этой копии нет. Лента вместо переноса переехала в общую параметром
- * `scrollable`: пять подписей на 390 в строку не помещаются, а трём вкладкам
- * карточки клиента лента не мешает — она там просто не включается.
+ * `pushState` вместо перехода, те же стрелки, те же скрытые панели. Прокрутку
+ * включать не нужно: лента с панелями клиентская и едет вбок всегда, подвозя
+ * открытую вкладку к глазам, — а пять подписей на 390 в строку не помещаются.
  *
  * 🔴 Клиентский лист существует потому, что функция не переживает границу
  * сервер→клиент, а действиям наряда нужен и набор запросов, и обновление
@@ -72,37 +70,47 @@ export function OrderWork({
   /* Набор вкладок задаёт роль, а панели — то, что дала страница: истории у
      монтажника нет ни в разметке, ни в ленте. */
   const tabs = orderCardTabsFor(forInstaller);
+  const counts = orderCardTabCounts(order, materialsCount);
+
+  const panels: Readonly<Record<OrderCardTab, ReactNode>> = {
+    /* 🔴 Итог работ уехал внутрь карточки владельца, в её левую колонку
+       (issue #598): по макету он стоит там же, где объект и оборудование, а не
+       отдельным хвостом под ними. У монтажника его здесь нет и не было — он
+       сдаёт выезд на своём экране (issue #632). */
+    job: children,
+    materials,
+    checklist: <OrderChecklist api={api} items={order.checklist} onChanged={refresh} />,
+    documents: (
+      <>
+        <OrderDocs api={api} docs={order.docs} editable={!forInstaller} onChanged={refresh} />
+        <OrderPhotos
+          api={api}
+          photos={order.photos}
+          forInstaller={forInstaller}
+          onChanged={refresh}
+        />
+      </>
+    ),
+    history,
+  };
 
   return (
-    <PanelTabs
+    <TabPanels
+      items={tabs.map((key) => {
+        const count = counts[key];
+
+        return {
+          key,
+          title: ORDER_CARD_TAB_TITLE[key],
+          panel: panels[key],
+          /* Счётчик приходит парой «число + фраза»: тип кита не даёт передать
+             цифру, забыв, чего именно она считает. */
+          ...(count === undefined ? {} : { count, countLabel: orderCardTabCountLabel(key, count) }),
+        };
+      })}
       active={tab}
-      tabs={tabs}
-      titles={ORDER_CARD_TAB_TITLE}
       label={texts.workTabsLabel}
       idPrefix="order"
-      scrollable
-      counts={orderCardTabCounts(order, materialsCount)}
-      panels={{
-        /* 🔴 Итог работ уехал внутрь карточки владельца, в её левую колонку
-           (issue #598): по макету он стоит там же, где объект и оборудование,
-           а не отдельным хвостом под ними. У монтажника его здесь нет и не
-           было — он сдаёт выезд на своём экране (issue #632). */
-        job: children,
-        materials,
-        checklist: <OrderChecklist api={api} items={order.checklist} onChanged={refresh} />,
-        documents: (
-          <>
-            <OrderDocs api={api} docs={order.docs} editable={!forInstaller} onChanged={refresh} />
-            <OrderPhotos
-              api={api}
-              photos={order.photos}
-              forInstaller={forInstaller}
-              onChanged={refresh}
-            />
-          </>
-        ),
-        history,
-      }}
     />
   );
 }

@@ -2,7 +2,15 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Input } from '@/shared/ui';
+import {
+  Button,
+  DateField,
+  EMPTY_DATE,
+  Input,
+  dateSegmentsOf,
+  isoOfDateSegments,
+} from '@/shared/ui';
+import type { DateSegments } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
 import { clientUnitApi } from './lib';
@@ -45,6 +53,16 @@ export function ClientUnitForm({
   const [draft, setDraft] = useState<ClientUnitDraft>(
     unit === undefined ? emptyUnitDraft : unitDraftOf(unit),
   );
+  /* 🔴 Даты живут в форме двумя видами: сегментами — потому что их набирают,
+     и строкой ISO — потому что её ждут схема и контракт. Выводить сегменты из
+     строки на каждый рендер нельзя: пока набран один день, полной даты ещё
+     нет, строка пуста, и набранная цифра пропала бы прямо под пальцами. */
+  const [installedParts, setInstalledParts] = useState<DateSegments>(() =>
+    dateSegmentsOf(draft.installedAt),
+  );
+  const [warrantyParts, setWarrantyParts] = useState<DateSegments>(() =>
+    dateSegmentsOf(draft.warrantyUntil),
+  );
   const [status, setStatus] = useState<ClientStatus>('idle');
   const [message, setMessage] = useState('');
   const [fieldError, setFieldError] = useState<{ field: string; message: string } | null>(null);
@@ -75,7 +93,15 @@ export function ClientUnitForm({
     if (result.ok) {
       /* Заведение очищает форму: техники у человека бывает несколько, и
          вторую запись заводят следом за первой. */
-      if (!editing) setDraft(emptyUnitDraft);
+      if (!editing) {
+        setDraft(emptyUnitDraft);
+
+        /* 🔴 Сегменты очищаются вместе с черновиком: они отдельное состояние
+           поля, и без этого вторая запись заводилась бы с датой первой,
+           оставшейся на экране при пустой строке в теле запроса. */
+        setInstalledParts(EMPTY_DATE);
+        setWarrantyParts(EMPTY_DATE);
+      }
       setStatus('success');
       onSaved?.();
       return;
@@ -102,22 +128,30 @@ export function ClientUnitForm({
           wrapperClassName={styles.wide}
           onChange={(event) => set('model', event.target.value)}
         />
-        <Input
+        {/* 🔴 Три сегмента вместо `input[type=date]` (кит, `DateField`):
+            нативный редактор приносит свой порядок сегментов, зависящий от
+            локали системы, — на машине с английской локалью владелец получил
+            бы месяц перед днём и не заметил бы этого (issue #586). */}
+        <DateField
           label={texts.unitInstalledAt}
-          type="date"
-          value={draft.installedAt}
+          value={installedParts}
           disabled={sending}
           error={errorFor('installedAt')}
-          onChange={(event) => set('installedAt', event.target.value)}
+          onChange={(next) => {
+            setInstalledParts(next);
+            set('installedAt', isoOfDateSegments(next));
+          }}
         />
-        <Input
+        <DateField
           label={texts.unitWarrantyUntil}
           hint={texts.unitWarrantyHint}
-          type="date"
-          value={draft.warrantyUntil}
+          value={warrantyParts}
           disabled={sending}
           error={errorFor('warrantyUntil')}
-          onChange={(event) => set('warrantyUntil', event.target.value)}
+          onChange={(next) => {
+            setWarrantyParts(next);
+            set('warrantyUntil', isoOfDateSegments(next));
+          }}
         />
       </div>
 

@@ -22,7 +22,7 @@ export {
   type OrderRestoreButtonProps,
 } from './OrderRowTools';
 export { OrderTable, type OrderTableProps } from './OrderTable';
-export { OrderTabs, type OrderTabCounts, type OrderTabsProps } from './OrderTabs';
+export { orderTabItems, type OrderTabCounts } from './tabs';
 export {
   ORDER_COLUMNS,
   columnLocked,
@@ -51,6 +51,7 @@ export {
   SOURCE_TITLE,
   STOCK_UNIT_SHORT,
   orderCardTabCounts,
+  orderCardTabCountLabel,
   orderManagerContent,
   type OrderCardTally,
 } from './content';

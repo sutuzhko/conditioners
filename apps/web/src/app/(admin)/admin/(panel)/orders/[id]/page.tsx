@@ -21,9 +21,9 @@ import type { AdminSession } from '@/server/auth';
 import { requirePage } from '@/server/guards';
 import { findById, type Viewer } from '@/server/repo/orders';
 import { consumptionOf, directory } from '@/server/repo/stock';
+import { TabLinks } from '@/shared/ui';
 import { DataBlock, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { PanelTabStrip } from '../../PanelTabStrip';
 import { OrderResultEditor } from '../OrderResultEditor';
 import { OrderWork } from './OrderWork';
 import styles from '../page.module.css';
@@ -113,11 +113,14 @@ export default async function AdminOrderPage({ params, searchParams }: PageProps
      данных. Подсвеченной вкладки в ней нет — подсветить можно только не ту. */
   const skeleton = (
     <>
-      <PanelTabStrip
-        tabs={orderCardTabsFor(session.role !== 'owner')}
-        titles={ORDER_CARD_TAB_TITLE}
+      <TabLinks
+        items={orderCardTabsFor(session.role !== 'owner').map((key) => ({
+          key,
+          title: ORDER_CARD_TAB_TITLE[key],
+        }))}
         label={texts.workTabsLabel}
-        scrollable
+        busy
+        scroll
       />
       <RowsSkeleton rows={1} height="620px" />
     </>

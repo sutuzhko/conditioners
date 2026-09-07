@@ -97,6 +97,13 @@ export const clientManagerContent = {
   money: (value: number): string => formatMoney(value),
 
   tabsLabel: 'Карточка клиента',
+  /* Счётчик вкладки словами — для озвучки (issue #585). Подпись вкладки
+     читалка называет сама, поэтому здесь только число со своим
+     существительным: «Заказы 3 наряда», а не «Заказы Заказы: 3». */
+  tabCount: (tab: ClientCardTab, count: number): string =>
+    tab === 'units'
+      ? `${count} ${plural(count, 'единица', 'единицы', 'единиц')} техники`
+      : `${count} ${plural(count, 'наряд', 'наряда', 'нарядов')}`,
   tabTitle: (tab: ClientCardTab): string => CLIENT_TAB_TITLES[tab],
 
   /* ---------- Заказы клиента ---------- */

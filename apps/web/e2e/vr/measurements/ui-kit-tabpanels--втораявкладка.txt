@@ -1,0 +1,57 @@
+# ui-kit-tabpanels--втораявкладка · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Tabs__wrap  358×116 @16,16
+  div.Tabs__strip  358×47 @0,0  b0 0 1 0
+    div.Tabs__row  358×46 @0,0
+      button.Tabs__tab  84×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Данные»
+      button.Tabs__tab#2  79×44 @88,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+      button.Tabs__tab#3  85×44 @171,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Техника»
+  div.Tabs__panel  358×53 @0,63
+    p  358×23 @0,15  Manrope 400 15/23  lines=1  «Наряды этого клиента.»
+
+[геометрия 768]
+div.Tabs__wrap  736×116 @16,16
+  div.Tabs__strip  736×47 @0,0  b0 0 1 0
+    div.Tabs__row  736×46 @0,0
+      button.Tabs__tab  84×44 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Данные»
+      button.Tabs__tab#2  79×44 @88,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+      button.Tabs__tab#3  85×44 @171,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Техника»
+  div.Tabs__panel  736×53 @0,63
+    p  736×23 @0,15  Manrope 400 15/23  lines=1  «Наряды этого клиента.»
+
+[геометрия 1440]
+div.Tabs__wrap  1408×109 @16,16
+  div.Tabs__strip  1408×40 @0,0  b0 0 1 0
+    div.Tabs__row  1408×39 @0,0
+      button.Tabs__tab  84×37 @0,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Данные»
+      button.Tabs__tab#2  79×37 @88,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Заказы»
+      button.Tabs__tab#3  85×37 @171,0  Manrope 600 15/normal  r11 11 0 0  b0 0 2 0  lines=1  «Техника»
+  div.Tabs__panel  1408×53 @0,56
+    p  1408×23 @0,15  Manrope 400 15/23  lines=1  «Наряды этого клиента.»
+
+[палитра light]
+div.Tabs__wrap
+  div.Tabs__strip  border #0f172a #0f172a #e2e8f0 #0f172a
+    div.Tabs__row
+      button.Tabs__tab  color #556173  border #556173 #556173 transparent #556173
+      button.Tabs__tab#2  color #0f172a  border #0f172a #0f172a #0891b2 #0f172a
+      button.Tabs__tab#3  color #556173  border #556173 #556173 transparent #556173
+  div.Tabs__panel
+    p  color #0f172a
+
+[палитра dark]
+div.Tabs__wrap
+  div.Tabs__strip  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+    div.Tabs__row
+      button.Tabs__tab  color #8598ac  border #8598ac #8598ac transparent #8598ac
+      button.Tabs__tab#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #22d3ee #eaf1f8
+      button.Tabs__tab#3  color #8598ac  border #8598ac #8598ac transparent #8598ac
+  div.Tabs__panel
+    p  color #eaf1f8

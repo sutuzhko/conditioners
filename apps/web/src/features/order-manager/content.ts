@@ -13,7 +13,7 @@ import type {
 import { timeOf } from '@/shared/lib/calendar';
 import { formatDateShort, formatDateTime, formatMoney, formatQuantity } from '@/shared/lib/format';
 import { STOCK_UNIT_SHORT } from '@/shared/config/units';
-import { plural } from '@/shared/lib/plural';
+import { plural, pluralize } from '@/shared/lib/plural';
 
 import type { DeductionMode, OrderCardTab, StockUnit } from './model';
 
@@ -96,6 +96,29 @@ export function orderCardTabCounts(
     documents: order.docs.length + order.photos.length,
     ...(order.history === undefined ? {} : { history: order.history.length }),
   };
+}
+
+/**
+ * Озвучка счётчика вкладки карточки наряда.
+ *
+ * 🔴 Число без существительного не значит ничего: «Документы 3» читалка
+ * объявляет как «Документы три», и три чего — неизвестно. Кит требует пару
+ * «число + фраза» типом, и фразу знает раздел, а не кит.
+ */
+export function orderCardTabCountLabel(tab: OrderCardTab, count: number | string): string {
+  if (tab === 'checklist') return `собрано ${count}`;
+
+  /* Остальные счётчики — числа: доля бывает только у чеклиста. */
+  const value = typeof count === 'number' ? count : Number.parseInt(String(count), 10);
+
+  if (tab === 'materials') return pluralize(value, 'движение', 'движения', 'движений');
+  if (tab === 'history') return pluralize(value, 'запись', 'записи', 'записей');
+  return pluralize(
+    value,
+    'документ и фотография',
+    'документа и фотографии',
+    'документов и фотографий',
+  );
 }
 
 export const ORDER_PERIOD_TITLE: Record<OrderPeriod, string> = {
@@ -272,9 +295,9 @@ export const orderManagerContent = {
   countOverdue: (count: number): string =>
     `${count} ${plural(count, 'просрочен', 'просрочены', 'просрочено')}`,
   /* Счётчик вкладки словами — для озвучки: «Активные 7» читалка объявляет
-     как «Активные семь», и это не значит ничего. */
-  tabCount: (title: string, count: number): string =>
-    `${title}: ${count} ${plural(count, 'наряд', 'наряда', 'нарядов')}`,
+     как «Активные семь», и это не значит ничего. Подпись вкладки она называет
+     сама, поэтому здесь только число со своим существительным. */
+  tabCount: (count: number): string => `${count} ${plural(count, 'наряд', 'наряда', 'нарядов')}`,
 
   /* Вид списка: сортировка, состав колонок, число строк (issue #594, #595). */
   sortPill: 'Сортировка',
