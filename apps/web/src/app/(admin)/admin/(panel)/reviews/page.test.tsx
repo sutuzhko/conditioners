@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { isValidElement, type ReactElement } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type * as AuthModuleTypes from '@/server/auth';
@@ -27,6 +28,16 @@ import AdminReviewsPage from './page';
  * объясняет пустоту, а объясняет он её пропсом.
  */
 function reviewListProps(node: unknown): { filtered?: boolean } | null {
+  /* Раздел приходит списком поддеревьев: сама страница и то, что вернули её
+     асинхронные блоки (см. `open`). */
+  if (Array.isArray(node)) {
+    for (const child of node) {
+      const found = reviewListProps(child);
+      if (found !== null) return found;
+    }
+    return null;
+  }
+
   if (node === null || typeof node !== 'object') return null;
 
   const element = node as { props?: Record<string, unknown> };
@@ -58,8 +69,50 @@ function askedStatus(): string | undefined {
   return vi.mocked(listByStatus).mock.calls[0]?.[0]?.status;
 }
 
-function open(searchParams: Record<string, string> = {}) {
-  return AdminReviewsPage({ searchParams: Promise.resolve(searchParams) });
+/**
+ * Выполняет асинхронные блоки страницы — то же, что делает за неё React на
+ * сервере, когда собирает свой кусок потока.
+ *
+ * Обход идёт по асинхронным функциям-компонентам и по детям всех остальных.
+ * В заготовку он не заходит намеренно: она по построению не ходит в базу, а её
+ * обход выдал бы вызовы, которых на готовой странице не бывает.
+ */
+async function drainBlocks(node: unknown, out: unknown[]): Promise<void> {
+  if (Array.isArray(node)) {
+    for (const child of node) await drainBlocks(child, out);
+    return;
+  }
+
+  if (!isValidElement(node)) return;
+
+  const element = node as ReactElement<{ children?: unknown }>;
+
+  if (typeof element.type === 'function' && element.type.constructor.name === 'AsyncFunction') {
+    const block = element.type as (props: unknown) => Promise<unknown>;
+    const rendered = await block(element.props);
+    out.push(rendered);
+    await drainBlocks(rendered, out);
+    return;
+  }
+
+  await drainBlocks(element.props.children, out);
+}
+
+/**
+ * Открывает раздел и разворачивает его блоки.
+ *
+ * 🔴 Список уехал в свой кусок потока (issue #495): страница возвращает
+ * `DataBlock` с невыполненным серверным компонентом внутри, и в базу тот
+ * сходит только тогда, когда его выполнят. Поэтому проверка разворачивает
+ * блоки сама, а возвращает и страницу, и то, что вернули блоки: список живёт
+ * теперь во втором, а вкладки и отбор — по-прежнему в первой.
+ */
+async function open(searchParams: Record<string, string> = {}) {
+  const page = await AdminReviewsPage({ searchParams: Promise.resolve(searchParams) });
+  const blocks: unknown[] = [];
+  await drainBlocks(page, blocks);
+
+  return [page, ...blocks];
 }
 
 beforeEach(() => {
