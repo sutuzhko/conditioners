@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import type { ReactNode } from 'react';
+
 import {
   CLIENTS_PATH,
   CLIENT_CARD_TABS,
@@ -12,6 +14,7 @@ import {
   ClientUnits,
   clientCardTabFromParam,
   clientManagerContent as texts,
+  type ClientCardTab,
   type ClientLead,
   type ClientOrder,
 } from '@/features/client-manager';
@@ -24,10 +27,9 @@ import { listByClient as listLeads } from '@/server/repo/leads';
 import { listByClient as listOrders, type Viewer } from '@/server/repo/orders';
 import { todayKey } from '@/shared/lib/calendar';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
+import { TabLinks, TabPanels } from '@/shared/ui';
 import { DataBlock, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { PanelTabStrip } from '../../PanelTabStrip';
-import { PanelTabs } from '../../PanelTabs';
 import styles from '../page.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -114,10 +116,10 @@ export default async function AdminClientPage({ params, searchParams }: PageProp
         surface="bare"
         skeleton={
           <>
-            <PanelTabStrip
-              tabs={CLIENT_CARD_TABS}
-              titles={CLIENT_TAB_TITLES}
+            <TabLinks
+              items={CLIENT_CARD_TABS.map((tab) => ({ key: tab, title: CLIENT_TAB_TITLES[tab] }))}
               label={texts.tabsLabel}
+              busy
             />
             <RowsSkeleton rows={3} height="280px" />
           </>
@@ -177,47 +179,60 @@ async function ClientCard({
       order.installer === null ? null : (order.installer.name ?? order.installer.login),
   }));
 
+  const counts: Partial<Readonly<Record<ClientCardTab, number>>> = {
+    orders: orders.total,
+    units: units.length,
+  };
+
+  const panels: Readonly<Record<ClientCardTab, ReactNode>> = {
+    data: (
+      <>
+        <ClientForm
+          clientId={client.id}
+          initial={{
+            name: client.name,
+            phone: client.phone,
+            address: client.address ?? '',
+            note: client.note ?? '',
+          }}
+          title={texts.cardTitle}
+          hint={texts.cardHint}
+          removable
+        />
+
+        {/* Обращения стоят рядом с данными, а не в «Заказах»: это след
+            разговора с человеком, а не работа с деньгами и датой. */}
+        <ClientLeads leads={history} />
+      </>
+    ),
+    orders: (
+      <ClientOrders
+        orders={{ items: works, total: orders.total }}
+        allHref={{ pathname: '/admin/orders', query: { q: client.name, tab: 'all' } }}
+      />
+    ),
+    /* «Сегодня» считает сервер: истекла гарантия или нет, не должно зависеть
+       от часов на машине смотрящего. */
+    units: <ClientUnits clientId={client.id} units={units} today={todayKey()} />,
+  };
+
+  /* Счётчики у подписей (issue #602, #585, макет `CardTabs.png`): по ним
+     видно, есть ли за вкладкой что-нибудь, до того как на неё нажали. Порядок
+     вкладок задаёт словарь `PANEL_TABS`, а не этот список (ADR-302). */
   return (
-    <PanelTabs
+    <TabPanels
+      items={CLIENT_CARD_TABS.map((tab) => {
+        const title = CLIENT_TAB_TITLES[tab];
+        const count = counts[tab];
+        const panel = panels[tab];
+
+        if (count === undefined) return { key: tab, title, panel };
+
+        return { key: tab, title, panel, count, countLabel: texts.tabCount(tab, count) };
+      })}
       active={active}
-      tabs={CLIENT_CARD_TABS}
-      titles={CLIENT_TAB_TITLES}
       label={texts.tabsLabel}
       idPrefix="client"
-      /* Счётчики у подписей (issue #602, макет `CardTabs.png`): по ним видно,
-           есть ли за вкладкой что-нибудь, до того как на неё нажали. */
-      counts={{ orders: orders.total, units: units.length }}
-      panels={{
-        data: (
-          <>
-            <ClientForm
-              clientId={client.id}
-              initial={{
-                name: client.name,
-                phone: client.phone,
-                address: client.address ?? '',
-                note: client.note ?? '',
-              }}
-              title={texts.cardTitle}
-              hint={texts.cardHint}
-              removable
-            />
-
-            {/* Обращения стоят рядом с данными, а не в «Заказах»: это след
-                  разговора с человеком, а не работа с деньгами и датой. */}
-            <ClientLeads leads={history} />
-          </>
-        ),
-        orders: (
-          <ClientOrders
-            orders={{ items: works, total: orders.total }}
-            allHref={{ pathname: '/admin/orders', query: { q: client.name, tab: 'all' } }}
-          />
-        ),
-        /* «Сегодня» считает сервер: истекла гарантия или нет, не должно
-             зависеть от часов на машине смотрящего. */
-        units: <ClientUnits clientId={client.id} units={units} today={todayKey()} />,
-      }}
     />
   );
 }

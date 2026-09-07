@@ -4,8 +4,9 @@ import { notFound } from 'next/navigation';
 
 import { settingSchemas } from '@/entities/settings/model';
 import {
-  ArticleTabs,
+  ARTICLE_TABS,
   KNOWLEDGE_PATH,
+  articleEditHref,
   articleFormContent as texts,
   articleTabFromParam,
 } from '@/features/article-form';
@@ -14,6 +15,7 @@ import { requireOwnerPage } from '@/server/guards';
 import { findById, type ArticleDto } from '@/server/repo/articles';
 import { getGroup } from '@/server/repo/settings';
 import { env } from '@/shared/config/env';
+import { TabLinks } from '@/shared/ui';
 import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
 import { ArticleEditor } from '../ArticleEditor';
@@ -81,7 +83,15 @@ export default async function AdminArticlePage({
         </div>
       </header>
 
-      <ArticleTabs id={article.id} active={selected} />
+      <TabLinks
+        items={ARTICLE_TABS.map((tab) => ({
+          key: tab,
+          title: texts.tabTitle(tab),
+          href: articleEditHref(article.id, tab),
+        }))}
+        active={selected}
+        label={texts.tabsLabel}
+      />
 
       <DataBlock
         skeleton={<FieldsSkeleton fields={6} />}

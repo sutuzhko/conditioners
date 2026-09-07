@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import type { ReactNode } from 'react';
+
 import {
   InstallerNotes,
   STAFF_CARD_TABS,
@@ -14,16 +16,16 @@ import {
   staffCardTabFromParam,
   staffManagerContent as texts,
   staffTitle,
+  type StaffCardTab,
   type StaffOrder,
 } from '@/features/staff-manager';
 import { getAdminSession, isOwner } from '@/server/auth';
 import { requireOwnerPage } from '@/server/guards';
 import { findById, findDetails, listNotes } from '@/server/repo/admin-users';
 import { installerTotals, listByInstaller, type Viewer } from '@/server/repo/orders';
+import { TabLinks, TabPanels } from '@/shared/ui';
 import { DataBlock, FieldsSkeleton, RowsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { PanelTabStrip } from '../../PanelTabStrip';
-import { PanelTabs } from '../../PanelTabs';
 import styles from '../page.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -109,10 +111,10 @@ export default async function AdminTeamMemberPage({ params, searchParams }: Page
         surface="bare"
         skeleton={
           <>
-            <PanelTabStrip
-              tabs={STAFF_CARD_TABS}
-              titles={STAFF_TAB_TITLES}
+            <TabLinks
+              items={STAFF_CARD_TABS.map((tab) => ({ key: tab, title: STAFF_TAB_TITLES[tab] }))}
               label={texts.tabsLabel}
+              busy
             />
             <FieldsSkeleton fields={6} />
             <RowsSkeleton rows={2} height="72px" />
@@ -169,31 +171,44 @@ async function StaffCard({
     query: { q: staff.name ?? staff.login, tab: 'all' },
   };
 
+  const counts: Partial<Readonly<Record<StaffCardTab, number>>> = {
+    orders: orders.total,
+    notes: notes.length,
+  };
+
+  const panels: Readonly<Record<StaffCardTab, ReactNode>> = {
+    account: (
+      <>
+        <StaffAccountForm staff={staff} />
+
+        {/* 🔴 Опасная зона всегда последняя: до неё доскроллят осознанно.
+            Удаление закрыто, пока за человеком закреплены наряды — иначе
+            наряд остался бы без исполнителя. */}
+        <StaffDangerZone staff={staff} orders={orders.total} />
+      </>
+    ),
+    orders: <StaffOrders orders={{ items: works, total: orders.total }} allHref={allHref} />,
+    payouts: <StaffPayouts totals={totals} orders={works} />,
+    notes: <InstallerNotes staffId={staff.id} notes={notes} />,
+  };
+
+  /* Счётчики у подписей (issue #602, #585, макет `CardTabs.png`): по ним
+     видно, есть ли за вкладкой что-нибудь, до того как на неё нажали. Порядок
+     вкладок задаёт словарь `PANEL_TABS`, а не этот список (ADR-302). */
   return (
-    <PanelTabs
+    <TabPanels
+      items={STAFF_CARD_TABS.map((tab) => {
+        const title = STAFF_TAB_TITLES[tab];
+        const count = counts[tab];
+        const panel = panels[tab];
+
+        if (count === undefined) return { key: tab, title, panel };
+
+        return { key: tab, title, panel, count, countLabel: texts.tabCount(tab, count) };
+      })}
       active={active}
-      tabs={STAFF_CARD_TABS}
-      titles={STAFF_TAB_TITLES}
       label={texts.tabsLabel}
       idPrefix="staff"
-      /* Счётчик у подписи (issue #602, макет `CardTabs.png`): по нему видно,
-           есть ли за вкладкой наряды, до того как на неё нажали. */
-      counts={{ orders: orders.total, notes: notes.length }}
-      panels={{
-        account: (
-          <>
-            <StaffAccountForm staff={staff} />
-
-            {/* 🔴 Опасная зона всегда последняя: до неё доскроллят осознанно.
-                  Удаление закрыто, пока за человеком закреплены наряды —
-                  иначе наряд остался бы без исполнителя. */}
-            <StaffDangerZone staff={staff} orders={orders.total} />
-          </>
-        ),
-        orders: <StaffOrders orders={{ items: works, total: orders.total }} allHref={allHref} />,
-        payouts: <StaffPayouts totals={totals} orders={works} />,
-        notes: <InstallerNotes staffId={staff.id} notes={notes} />,
-      }}
     />
   );
 }

@@ -11,6 +11,7 @@ import {
   StatTile,
   StatTiles,
   Table,
+  TabLinks,
   type StatDelta,
 } from '@/shared/ui';
 
@@ -213,20 +214,19 @@ export function AdminSummary({ data, period, head }: AdminSummaryProps) {
       </header>
 
       <div className={styles.bar}>
-        <nav className={styles.segments} aria-label={texts.segmentsLabel}>
-          {SEGMENTS.map((segment) => (
-            <Link
-              className={[styles.segment, segment === data.segment ? styles.current : null]
-                .filter(Boolean)
-                .join(' ')}
-              key={segment}
-              href={segmentHref(segment)}
-              aria-current={segment === data.segment ? 'page' : undefined}
-            >
-              {texts.segmentTitle[segment]}
-            </Link>
-          ))}
-        </nav>
+        {/* 🔴 Единственное место панели с обличьем капсул (issue #584,
+            макет `MainTabs`): сводка — один и тот же экран в трёх видах, а не
+            три части одного. Подчёркивание значило бы обратное. */}
+        <TabLinks
+          items={SEGMENTS.map((segment) => ({
+            key: segment,
+            title: texts.segmentTitle[segment],
+            href: segmentHref(segment),
+          }))}
+          active={data.segment}
+          label={texts.segmentsLabel}
+          appearance="capsule"
+        />
 
         {/* Период — подпись, а не выбор: сводка считается за текущий месяц, и
             кнопка, которая ничего не открывает, обманывает ожидание. */}

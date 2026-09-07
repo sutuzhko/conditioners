@@ -7,7 +7,6 @@ export { OrderDocs, type OrderDocsProps } from './OrderDocs';
 export { OrderHistory, type OrderHistoryProps } from './OrderHistory';
 export { OrderPhotos, type OrderPhotosProps } from './OrderPhotos';
 export { OrderResultForm, type OrderResultFormProps } from './OrderResultForm';
-export { OrderWorkTabs, type OrderWorkTabsProps } from './OrderWorkTabs';
 export { OrderBulk, type OrderBulkProps } from './OrderBulk';
 export { OrderFilters, type OrderFiltersProps } from './OrderFilters';
 export { OrderForm, type OrderFormProps } from './OrderForm';
@@ -21,7 +20,7 @@ export {
   type OrderRestoreButtonProps,
 } from './OrderRowTools';
 export { OrderTable, type OrderTableProps } from './OrderTable';
-export { OrderTabs, type OrderTabCounts, type OrderTabsProps } from './OrderTabs';
+export { orderTabItems, type OrderTabCounts } from './tabs';
 export {
   ORDER_COLUMNS,
   columnLocked,
