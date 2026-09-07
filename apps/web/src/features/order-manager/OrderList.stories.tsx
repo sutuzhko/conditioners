@@ -35,12 +35,28 @@ export const ВкладкаНовые: Story = {
   args: { filters: listFilters({ tab: 'new' }) },
 };
 
-/** Вкладка «История»: итог периода над таблицей — сколько закрыто и на сколько. */
+/**
+ * Вкладка «История»: итог периода над таблицей — сколько закрыто, на сколько и
+ * с какой маржой (issue #628).
+ */
 export const ВкладкаИстория: Story = {
   args: {
     page: historyPage,
     filters: listFilters({ tab: 'history', period: 'month' }),
-    totals: { closed: 18, revenue: 612_400 },
+    totals: { closed: 18, revenue: 612_400, margin: 214_900, marginSkipped: 0 },
+  },
+};
+
+/**
+ * Часть нарядов осталась без маржи: у списанных материалов нет закупочной
+ * цены. Итог называет пропуск, а не умалчивает о нём — иначе владелец
+ * прочтёт его как полный (ADR-310).
+ */
+export const ИсторияСПропускомМаржи: Story = {
+  args: {
+    page: historyPage,
+    filters: listFilters({ tab: 'history', period: 'month' }),
+    totals: { closed: 18, revenue: 612_400, margin: 186_300, marginSkipped: 3 },
   },
 };
 

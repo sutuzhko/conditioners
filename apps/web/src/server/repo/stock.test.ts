@@ -128,6 +128,7 @@ type ItemFixture = {
   group: string | null;
   unit: 'METER' | 'PAIR';
   minQty: Decimalish;
+  purchasePrice: number | null;
   note: string | null;
   archived: boolean;
   product: null;
@@ -182,6 +183,7 @@ const TUBE: ItemFixture = {
   group: 'Медная труба',
   unit: 'METER',
   minQty: dec(30),
+  purchasePrice: 250,
   note: null,
   archived: false,
   product: null,
@@ -193,6 +195,9 @@ const BRACKET: ItemFixture = {
   group: 'Крепёж',
   unit: 'PAIR',
   minQty: dec(0),
+  /* Позиция без заведённой цены: на ней проверяется, что маржа наряда
+     становится неизвестной, а не считается по нулю. */
+  purchasePrice: null,
   note: null,
   archived: false,
   product: null,
@@ -462,6 +467,22 @@ describe('Остатки по зонам', () => {
     expect('minQty' in tube).toBe(false);
     expect('low' in tube).toBe(false);
     expect('lowCount' in page).toBe(false);
+  });
+
+  it('🔴 закупочной цены у монтажника нет вовсе: это коммерческая тайна', async () => {
+    const page = await overview({}, installer);
+    const tube = cardOf(page.items, 's1');
+
+    /* Ключ отсутствует, а не приходит пустым: `null` означал бы «цена не
+       заведена», и путать это с «не твоё дело» нельзя (ADR-310, ADR-092). */
+    expect('purchasePrice' in tube).toBe(false);
+  });
+
+  it('владельцу закупочная цена приходит как есть, включая незаведённую', async () => {
+    const page = await overview({}, owner);
+
+    expect(cardOf(page.items, 's1').purchasePrice).toBe(250);
+    expect(cardOf(page.items, 's2').purchasePrice).toBeNull();
   });
 
   it('фильтр «только ниже порога» оставляет в выдаче именно их', async () => {

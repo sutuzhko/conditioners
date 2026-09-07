@@ -18,6 +18,13 @@ import styles from './OrderList.module.css';
 export type OrderHistoryTotals = {
   readonly closed: number;
   readonly revenue: number;
+  /** Маржа за период по движениям склада (ADR-310, issue #628). */
+  readonly margin: number;
+  /**
+   * Сколько нарядов в неё не вошло: расход есть, а закупочной цены у него
+   * нет. Называется рядом с числом — итог без оговорки читается как полный.
+   */
+  readonly marginSkipped: number;
 };
 
 export interface OrderListProps {
@@ -128,9 +135,9 @@ export function OrderList({
         </Alert>
       ) : null}
 
-      {/* Итог периода над историей. Маржи в нём нет: без закупочной цены
-          позиции склада её нечем считать (ADR-310, issue #628), а разность
-          «сумма минус выплата» маржой не является. */}
+      {/* Итог периода над историей: закрыто, выручка и маржа. Маржа считается
+          по движениям склада, а не как разность «сумма минус выплата»
+          (ADR-310, issue #628). */}
       {totals === undefined ? null : (
         <p className={styles.totals}>
           <span className={styles.total}>
@@ -139,6 +146,16 @@ export function OrderList({
           <span className={styles.total}>
             {texts.historyRevenue}{' '}
             <b className={styles.totalValue}>{texts.money(totals.revenue)}</b>
+          </span>
+          <span className={styles.total}>
+            {texts.historyMargin} <b className={styles.totalValue}>{texts.money(totals.margin)}</b>
+            {/* 🔴 Пропуск называется рядом с числом, а не умалчивается: итог
+                без этой оговорки читается как полный. */}
+            {totals.marginSkipped > 0 ? (
+              <span className={styles.totalNote}>
+                {texts.historyMarginSkipped(totals.marginSkipped)}
+              </span>
+            ) : null}
           </span>
         </p>
       )}

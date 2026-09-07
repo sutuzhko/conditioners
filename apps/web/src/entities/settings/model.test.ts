@@ -8,6 +8,7 @@ import {
   geoSchema,
   legalSchema,
   phoneSettingSchema,
+  seoSchema,
   settingKeySchema,
   settingSchemas,
   socialSchema,
@@ -145,6 +146,27 @@ describe('socialSchema', () => {
     expect(socialSchema.parse({ links: ['https://vk.com/example'] }).links).toEqual([
       'https://vk.com/example',
     ]);
+  });
+});
+
+describe('seoSchema — подтверждение прав (issue #679)', () => {
+  it('вставленный целиком тег сохраняется одним значением', () => {
+    const parsed = seoSchema.parse({
+      yandexVerification: '<meta name="yandex-verification" content="a1b2c3" />',
+    });
+
+    expect(parsed.yandexVerification).toBe('a1b2c3');
+    /* Незаполненное поле остаётся пустым: тега на сайте тогда просто нет. */
+    expect(parsed.googleVerification).toBe('');
+  });
+
+  /* 🔴 Молчаливое сохранение мусора дало бы тег внутри тега: проверка прав
+     провалилась бы, а причину владельцу увидеть негде. */
+  it('🔴 строку без значения поле не принимает и говорит, что вставить', () => {
+    const parsed = seoSchema.safeParse({ yandexVerification: '<meta name="yandex-verification">' });
+
+    expect(parsed.success).toBe(false);
+    expect(parsed.error?.issues[0]?.message).toContain('Вставьте тег');
   });
 });
 

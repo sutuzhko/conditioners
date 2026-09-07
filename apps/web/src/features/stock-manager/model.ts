@@ -299,6 +299,7 @@ export type StockItemDraft = {
   readonly group: string;
   readonly unit: StockUnit;
   readonly minQty: string;
+  readonly purchasePrice: string;
   readonly productId: string;
   readonly note: string;
   readonly archived: boolean;
@@ -309,6 +310,7 @@ export const emptyItemDraft: StockItemDraft = {
   group: '',
   unit: 'piece',
   minQty: '',
+  purchasePrice: '',
   productId: '',
   note: '',
   archived: false,
@@ -331,6 +333,13 @@ export function itemDraftOf(item: StockItemCard): StockItemDraft {
     unit: item.unit,
     /* Порога может не быть в ответе вовсе — это владельческий ключ. */
     minQty: item.minQty === undefined || item.minQty === 0 ? '' : qtyInput(item.minQty),
+    /* 🔴 Пустая строка и здесь, и у неизвестной цены — но означают они одно:
+       «цена не заведена». Ноль в поле означал бы, что материал достался
+       даром, и это законное значение, которое из ответа приходит нулём. */
+    purchasePrice:
+      item.purchasePrice === undefined || item.purchasePrice === null
+        ? ''
+        : String(item.purchasePrice),
     productId: item.product === null ? '' : item.product.id,
     note: item.note ?? '',
     archived: item.archived,
@@ -556,6 +565,7 @@ export function checkItem(draft: StockItemDraft, editing: boolean): FieldIssue |
     group: draft.group,
     unit: draft.unit,
     minQty: draft.minQty,
+    purchasePrice: draft.purchasePrice,
     productId: draft.productId,
     note: draft.note,
     ...(editing ? { archived: draft.archived } : {}),

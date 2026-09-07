@@ -165,6 +165,40 @@ export const thresholdSchema = z.preprocess(
     .refine(hasThreeDecimals, { message: 'Не больше трёх знаков после запятой' }),
 );
 
+/**
+ * Закупочная цена единицы. Целые рубли, как суммы наряда: копеек на этом
+ * рынке не бывает (ADR-310, docs/CRM.md §8.2).
+ *
+ * 🔴 Пустое поле даёт `null`, а не ноль. Ноль означал бы «материал достался
+ * бесплатно» и занижал бы расход наряда, то есть завышал бы маржу — врал бы
+ * ровно в ту сторону, ради которой поле и заводится. Ноль как настоящую цену
+ * ввести при этом можно: даром отданный поставщиком материал бывает.
+ *
+ * Пробелы разбираются: «12 000» — так пишут по-русски, и спорить с этим
+ * значит спорить с клавиатурой, а не защищать данные.
+ */
+export const purchasePriceSchema = z.preprocess(
+  (value) => {
+    if (value === null || value === undefined) return null;
+    if (typeof value === 'number') return value;
+    if (typeof value !== 'string') return value;
+
+    const normalized = value.trim().replace(/\s/gu, '');
+    if (normalized === '') return null;
+
+    const parsed = Number(normalized);
+    /* Мусор уходит как есть: пусть о нём скажет Zod, а не `NaN`. */
+    return Number.isNaN(parsed) ? value : parsed;
+  },
+  z
+    .number({ invalid_type_error: 'Закупочная цена — число' })
+    .int({ message: 'Закупочная цена указывается целыми рублями' })
+    .min(0, { message: 'Закупочная цена не может быть отрицательной' })
+    .max(10_000_000, { message: 'Похоже, в цене лишний ноль' })
+    .nullable()
+    .default(null),
+);
+
 /** Пустая строка в необязательном поле — это «не заполнено», а не пустое значение. */
 const optionalText = (max: number, message: string) =>
   z
@@ -194,6 +228,10 @@ export const stockItemCreateSchema = z.object({
   group: optionalText(60, 'Название группы длиннее 60 символов'),
   unit: stockUnitSchema,
   minQty: thresholdSchema,
+  /* 🔴 Владельческое поле: закупочная цена — коммерческая тайна, и наружу она
+     не уходит никогда (ADR-310). Кому её показывать и от кого принимать,
+     решает сервер, а не форма. */
+  purchasePrice: purchasePriceSchema,
   /* Техника ссылается на модель каталога, расходники — нет. */
   productId: optionalId,
   note: optionalText(500, 'Заметка длиннее 500 символов'),
@@ -220,6 +258,7 @@ export const stockItemUpdateSchema = z
     group: stockItemCreateSchema.shape.group.optional(),
     unit: stockUnitSchema.optional(),
     minQty: thresholdSchema.optional(),
+    purchasePrice: purchasePriceSchema.optional(),
     productId: stockItemCreateSchema.shape.productId.optional(),
     note: stockItemCreateSchema.shape.note.optional(),
     /* Позиция не удаляется, а сдаётся в архив: удаление унесло бы историю. */
@@ -415,6 +454,15 @@ export type StockItemCard = {
   readonly byZone: Readonly<Record<string, number>>;
   readonly total: number;
   readonly minQty?: number;
+  /**
+   * Закупочная цена единицы, целые рубли. `null` — цена не заведена.
+   *
+   * 🔴 Ключ владельческий, как `minQty`: монтажнику он не приходит вовсе, а
+   * не приходит пустым. `null` означает «цены нет», и путать эти два
+   * состояния нельзя — на первом маржа не считается, второе просто не его
+   * дело (ADR-092, ADR-310).
+   */
+  readonly purchasePrice?: number | null;
   readonly low?: boolean;
   /** Остаток ещё не ниже порога, но следующий выезд уведёт его туда. */
   readonly near?: boolean;

@@ -198,6 +198,34 @@ export const doneOrder: OrderCard = {
   resultAt: '2026-08-24T15:40:00.000Z',
   price: 31_900,
   installerFee: 8_200,
+  /* 31 900 − 8 200 − 4 200 материалов: маржа посчитана целиком (ADR-310). */
+  margin: { known: true, materials: 4_200, value: 19_500 },
+};
+
+/**
+ * Закрытый наряд, у материалов которого нет закупочной цены.
+ *
+ * 🔴 Нужен в витрине отдельной строкой: колонка маржи наполовину состоит из
+ * этого состояния, и посмотреть на прочерк с объяснением иначе негде.
+ */
+export const unpricedOrder: OrderCard = {
+  ...doneOrder,
+  id: 'o8',
+  number: 1045,
+  client: secondClientRef,
+  price: 24_000,
+  installerFee: 7_000,
+  margin: { known: false, unpriced: 2 },
+};
+
+/** Убыточный наряд: ради того, чтобы такие было видно, колонка и заводится. */
+export const lossOrder: OrderCard = {
+  ...doneOrder,
+  id: 'o9',
+  number: 1046,
+  price: 9_000,
+  installerFee: 7_500,
+  margin: { known: true, materials: 3_100, value: -1_600 },
 };
 
 /**
@@ -292,7 +320,12 @@ export const declinedPage: OrderPage = {
 };
 
 /** Страница истории: закрытые работы с днём закрытия и выручкой. */
-export const historyPage: OrderPage = { items: [doneOrder], total: 18, page: 1, pages: 3 };
+export const historyPage: OrderPage = {
+  items: [doneOrder, unpricedOrder, lossOrder],
+  total: 18,
+  page: 1,
+  pages: 3,
+};
 
 /**
  * Состояние списка целиком. Истории и тесты меняют одно поле, а не собирают

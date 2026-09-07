@@ -37,6 +37,10 @@ const fake = vi.hoisted(() => ({
     setting: { findUnique: vi.fn(), upsert: vi.fn() },
     orderUnit: { deleteMany: vi.fn(), createMany: vi.fn() },
     orderHistory: { createMany: vi.fn() },
+    /* Маржа собирается по движениям склада (ADR-310, issue #628): карточка и
+       список спрашивают их у той же базы, и без этой заглушки маршрут падает
+       на `internal_error` вместо проверки проекции полей. */
+    stockMovement: { findMany: vi.fn() },
     orderChecklistItem: {
       findMany: vi.fn(),
       deleteMany: vi.fn(),
@@ -177,6 +181,9 @@ beforeEach(() => {
   fake.db.$transaction.mockImplementation(async (run: (tx: typeof fake.db) => Promise<unknown>) =>
     run(fake.db),
   );
+  /* Наряд без списаний: маржа тогда равна разнице «сумма минус выплата», и
+     проверки этого файла — про роли, а не про расход. */
+  fake.db.stockMovement.findMany.mockResolvedValue([]);
   fake.db.order.count.mockResolvedValue(1);
   fake.db.order.findMany.mockResolvedValue([orderRow]);
   fake.db.order.findFirst.mockResolvedValue(orderRow);

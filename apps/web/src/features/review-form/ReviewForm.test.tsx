@@ -1,6 +1,8 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
+import { METRIKA_GOALS, YM_MASK } from '@/shared/analytics';
 
 import { ReviewForm } from './ReviewForm';
 import { reviewFormContent as texts } from './content';
@@ -24,6 +26,41 @@ async function fillTexts(user: ReturnType<typeof userEvent.setup>): Promise<void
   await user.type(screen.getByLabelText(/Имя/), 'Ирина');
   await user.type(screen.getByLabelText(/Отзыв/), REVIEW_TEXT);
 }
+
+describe('ReviewForm — Метрика (issue #678)', () => {
+  afterEach(() => {
+    delete window.ymGoal;
+  });
+
+  /* Имя автора — персональные данные, а свободный текст человек набирает и
+     стирает: в записи Вебвизора осел бы и телефон, который он передумал
+     писать. Метка стоит в разметке (инвариант 12). */
+  it('🔴 имя и текст отзыва закрыты от Вебвизора разметкой', () => {
+    const { container } = setup();
+
+    for (const field of ['name', 'text']) {
+      const node = container.querySelector(`[name="${field}"]`);
+      expect(node, `поле ${field}`).not.toBeNull();
+      for (const mask of YM_MASK.split(' ')) {
+        expect(node?.className, `поле ${field}`).toContain(mask);
+      }
+    }
+  });
+
+  it('принятый отзыв отмечает свою цель', async () => {
+    const user = userEvent.setup();
+    const sent = vi.fn();
+    window.ymGoal = sent;
+    setup();
+
+    await fillTexts(user);
+    await user.click(fiveStars());
+    await user.click(screen.getByRole('checkbox'));
+    await user.click(submitButton());
+
+    await waitFor(() => expect(sent).toHaveBeenCalledWith(METRIKA_GOALS.review));
+  });
+});
 
 describe('ReviewForm', () => {
   it('🔴 без оценки не отправляется и объясняет, что нужно поставить звёзды', async () => {
