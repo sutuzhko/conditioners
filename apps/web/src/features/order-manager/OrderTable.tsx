@@ -3,7 +3,16 @@ import type { ReactNode } from 'react';
 
 import { cancelReasonTitle } from '@/shared/lib/cancel-reason';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
-import { Avatar, Badge, ButtonLink, Icon, Table, TableActions } from '@/shared/ui';
+import {
+  Avatar,
+  Badge,
+  ButtonLink,
+  Icon,
+  Table,
+  TableActionAnchor,
+  TableActionLink,
+  TableActions,
+} from '@/shared/ui';
 
 import {
   ORDER_STATUS_TITLE,
@@ -206,15 +215,25 @@ function Row({
           {/* 🔴 Обычный `input` без единой строки своего JS: галочки связаны с
               полосой группового действия атрибутом `form`, и таблица остаётся
               серверной. Имя поля одно на все строки — так его читает
-              `FormData` (issue #596). */}
-          <input
-            className={styles.pickBox}
-            type="checkbox"
-            name={BULK_FIELD}
-            value={order.id}
-            form={BULK_FORM_ID}
-            aria-label={texts.rowSelect(order.number)}
-          />
+              `FormData` (issue #596).
+
+              🔴 Ввод обёрнут подписью, а не стоит в ячейке голым (issue #731).
+              Подпись и есть цель: по ней нажимают, и промах мимо квадрата в
+              20px попадает в неё, а не в пустоту — раньше рядом с галочкой не
+              было ничего, и на телефоне строка выбиралась не с первого раза.
+              Она же называет строку, поэтому `aria-label` на вводе больше не
+              нужен: имя у цели одно, и берётся оно из подписи. Тот же приём,
+              что у «Выбрать все» в полосе группового действия. */}
+          <label className={`${styles.pickLabel} tapAction`}>
+            <input
+              className={styles.pickBox}
+              type="checkbox"
+              name={BULK_FIELD}
+              value={order.id}
+              form={BULK_FORM_ID}
+            />
+            <span className="srOnly">{texts.rowSelect(order.number)}</span>
+          </label>
         </td>
       ) : null}
 
@@ -253,28 +272,33 @@ function Row({
       )}
 
       <td className={styles.actions} role="cell">
+        {/* 🔴 Действия ряда собираются китом, а не руками (issue #737).
+            Своя разметка со `span title` давала подсказку только по указателю
+            и только над самим глифом: по фокусу она не приходила (WCAG 1.4.13),
+            по Esc не гасла и обрезалась лентой таблицы. Кит вешает подсказку
+            снаружи круга и уводит пузырёк порталом. */}
         <TableActions label={texts.rowActions(order.number)}>
-          <Link
-            className={styles.action}
+          <TableActionLink
             href={{ pathname: path }}
-            aria-label={texts.rowOpen(order.number)}
-          >
-            <span aria-hidden="true" title={texts.rowOpen(order.number)}>
-              <Icon name="orders" size={18} />
-            </span>
-          </Link>
+            tone="open"
+            label={texts.rowOpen(order.number)}
+            icon={<Icon name="orders" size={18} />}
+          />
 
           {/* Позвонить — второе по частоте действие над строкой: «где вы?»
-              спрашивают из списка, не открывая наряд. */}
-          <a
-            className={styles.action}
+              спрашивают из списка, не открывая наряд.
+
+              🔴 Имя одно на подсказку и на озвучку, и в нём есть номер:
+              раньше подсказка показывала телефон, а читалка называла клиента —
+              два разных ответа на вопрос «куда попадёт нажатие». Номер в
+              строке больше нигде не показан, и терять его нельзя: владелец
+              сверяет его глазами до звонка. */}
+          <TableActionAnchor
             href={phoneHref(order.client.phone)}
-            aria-label={texts.rowCall(order.client.name)}
-          >
-            <span aria-hidden="true" title={formatPhone(order.client.phone)}>
-              <Icon name="phone" size={18} />
-            </span>
-          </a>
+            tone="open"
+            label={texts.rowCall(order.client.name, formatPhone(order.client.phone))}
+            icon={<Icon name="phone" size={18} />}
+          />
 
           {/* 🔴 Удаление — необратимое, и только ради подтверждения окном кита
               (ADR-113) в серверной строке появляется клиентский код. Монтажнику

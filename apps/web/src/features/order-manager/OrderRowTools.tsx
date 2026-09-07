@@ -3,12 +3,18 @@
 import { useRouter } from 'next/navigation';
 import { useState, type ReactNode } from 'react';
 
-import { Button, Icon, useConfirm, type Confirm, type ConfirmRequest } from '@/shared/ui';
+import {
+  Button,
+  Icon,
+  TableAction,
+  useConfirm,
+  type Confirm,
+  type ConfirmRequest,
+} from '@/shared/ui';
 
 import { orderManagerContent as texts } from './content';
 import { orderApi } from './lib';
 import type { OrderApi } from './model';
-import styles from './OrderTable.module.css';
 
 type ToolProps = {
   readonly orderId: string;
@@ -72,11 +78,15 @@ export function OrderRemoveButton({ orderId, number, api = orderApi, confirm, on
 
   return (
     <>
-      <button
-        className={`${styles.action} ${styles.danger}`}
-        type="button"
+      {/* 🔴 Кнопка кита, а не своя (issue #737): подсказка обязана приходить и
+          по фокусу, а родное `title` для клавиатуры не существует. Красный
+          цвет даёт роль `remove`, поэтому своего класса «опасное» здесь
+          больше нет — краска необратимого действия одна на всю панель. */}
+      <TableAction
+        tone="remove"
         disabled={tool.busy}
-        aria-label={texts.rowRemove(number)}
+        label={texts.rowRemove(number)}
+        icon={<Icon name="close" size={18} />}
         onClick={() => {
           void tool.run(
             {
@@ -87,11 +97,7 @@ export function OrderRemoveButton({ orderId, number, api = orderApi, confirm, on
             () => api.remove(orderId),
           );
         }}
-      >
-        <span aria-hidden="true" title={texts.rowRemove(number)}>
-          <Icon name="close" size={18} />
-        </span>
-      </button>
+      />
 
       {tool.dialog}
     </>
