@@ -1,0 +1,44 @@
+/* Страница журнала событий. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+}
+
+.lead {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--body);
+  font-size: var(--fs-dense);
+}
+
+/* 🔴 Высота снята с готового списка: восемь строк таблицы в карточке с шапкой
+   и разбивкой. Ниже 900px строка разворачивается карточкой из четырёх подписей,
+   и та же восьмёрка занимает почти вдвое больше. Число, а не «примерно»: под
+   заготовку раскладывается страница, и расхождение с готовым списком — это
+   прыжок вёрстки в момент, когда данные приехали. */
+.journalSkeleton {
+  min-height: 520px;
+  border-radius: var(--r-card, var(--r-md));
+}
+
+@media (width < 900px) {
+  .journalSkeleton {
+    min-height: 900px;
+  }
+}
