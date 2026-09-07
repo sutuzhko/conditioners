@@ -1,5 +1,9 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+/* Подвал журнала зовёт `useRouter().push()` при смене шага листания
+   (`shared/ui/PageSize`): без роутера история падает на самой отрисовке. */
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
 
 import { StockJournal } from './StockJournal';
 import { STOCK_MOVE_TITLES, stockManagerContent as texts } from './content';
@@ -69,7 +73,8 @@ describe('Журнал движений', () => {
   it('журнал длиннее страницы листается ссылками', () => {
     render(<StockJournal journal={longJournal} basePath={basePath} />);
 
-    expect(screen.getByRole('link', { name: /Дальше/ })).toHaveAttribute(
+    /* Шаг в панели — шеврон, и имя ему даёт `aria-label` (issue #748). */
+    expect(screen.getByRole('link', { name: 'Следующая страница' })).toHaveAttribute(
       'href',
       `${basePath}?page=3`,
     );
@@ -83,9 +88,9 @@ describe('Журнал движений', () => {
   it('журнал даёт выбрать, сколько движений на странице', () => {
     render(<StockJournal journal={longJournal} basePath={basePath} />);
 
-    const steps = screen.getByRole('group', { name: texts.perPage });
-    expect(within(steps).getByRole('link', { name: texts.perPageSet(8) })).toHaveAttribute(
-      'href',
+    const steps = screen.getByRole('combobox', { name: texts.perPage });
+    expect(within(steps).getByRole('option', { name: '8' })).toHaveAttribute(
+      'value',
       `${basePath}?size=8`,
     );
   });
@@ -103,9 +108,9 @@ describe('Журнал движений', () => {
       />,
     );
 
-    const steps = screen.getByRole('group', { name: texts.perPage });
-    expect(within(steps).getByRole('link', { name: texts.perPageSet(50) })).toHaveAttribute(
-      'href',
+    const steps = screen.getByRole('combobox', { name: texts.perPage });
+    expect(within(steps).getByRole('option', { name: '50' })).toHaveAttribute(
+      'value',
       `${STOCK_PATH}?tab=log&kind=income&size=50`,
     );
   });
@@ -113,11 +118,8 @@ describe('Журнал движений', () => {
   it('возврат к умолчанию снимает шаг из адреса, а не оставляет прежний', () => {
     render(<StockJournal journal={longJournal} basePath={basePath} size={8} />);
 
-    const steps = screen.getByRole('group', { name: texts.perPage });
-    expect(within(steps).getByRole('link', { name: texts.perPageSet(20) })).toHaveAttribute(
-      'href',
-      basePath,
-    );
+    const steps = screen.getByRole('combobox', { name: texts.perPage });
+    expect(within(steps).getByRole('option', { name: '20' })).toHaveAttribute('value', basePath);
   });
 
   it('🔴 журнал всего склада называет позицию: «что двигали» — первый вопрос к нему', () => {

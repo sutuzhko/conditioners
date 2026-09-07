@@ -138,4 +138,83 @@ describe('Pager — номера страниц', () => {
       '/admin/clients?q=%D0%A2%D1%83%D0%BB%D0%B0&page=2',
     );
   });
+
+  /* 🔴 Шаг в полосе номеров — шеврон, и имя ему даёт `aria-label`: «‹» само по
+     себе не имя, а слова в ряду одинаковых ячеек не помещаются (issue #748,
+     макет `.pg`). Имя называет, куда ведёт, а не как называется кнопка. */
+  it('🔴 шаг-шеврон назван для озвучки и ведёт на соседнюю страницу', () => {
+    render(<Pager page={3} pages={9} basePath="/admin/clients" numbers />);
+
+    expect(screen.getByRole('link', { name: 'Предыдущая страница' })).toHaveAttribute(
+      'href',
+      '/admin/clients?page=2',
+    );
+    expect(screen.getByRole('link', { name: 'Следующая страница' })).toHaveAttribute(
+      'href',
+      '/admin/clients?page=4',
+    );
+  });
+
+  /* 🔴 Родного `title` на шаге нет. Подсказка браузера появляется через
+     секунду, не приходит по фокусу и не гасится по Escape — для половины
+     способов ввода её нет вовсе (та же причина, что у действий строки
+     таблицы; чинилось трижды: #737, #763, #764). */
+  it('🔴 у шага нет родного title — только имя для озвучки', () => {
+    const { container } = render(<Pager page={3} pages={9} basePath="/admin/clients" numbers />);
+
+    expect(container.querySelectorAll('[title]')).toHaveLength(0);
+  });
+
+  /* 🔴 Погасший край — не цель и озвучке не нужен: шеврон без ссылки ей нечего
+     сказать. Место в ряду он при этом занимает, чтобы номера не прыгали. */
+  it('край списка остаётся в ряду, но выпадает из озвучки', () => {
+    render(<Pager page={1} pages={9} basePath="/admin/clients" numbers />);
+
+    expect(screen.queryByRole('link', { name: 'Предыдущая страница' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Следующая страница' })).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Одна форма у всех ячеек ряда (issue #748, замечание владельца от
+   * 8 сентября). Шаг, номер, текущая страница и погасший край берут одно
+   * правило коробки; текущая отличается заливкой и весом, а не формой и не
+   * внутренним полем. Проверяется по файлу стилей: jsdom модули не применяет,
+   * а это и есть правило CSS.
+   */
+  it('🔴 шаг, номер и текущая страница делят одно правило коробки', () => {
+    const css = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), 'Pager.module.css'),
+      'utf8',
+    );
+
+    const box = css.slice(css.indexOf('.compact .step,'));
+    const rule = box.slice(0, box.indexOf('}'));
+
+    expect(rule).toContain('.compact .stepOff');
+    expect(rule).toContain('.number');
+    expect(rule).toContain('.current');
+    expect(rule).toContain('border-radius: var(--r-pager, var(--r-pill))');
+    expect(rule).toContain('min-width: var(--h-sm, var(--tap))');
+  });
+
+  /* 🔴 Радиус ячейки приходит токеном, а не числом по месту (ADR-169): значение
+     снято с макета (`.pg span{border-radius:8px}`) и живёт в панельном блоке
+     токенов, чтобы витрина осталась на пилюле. */
+  it('🔴 радиус ячейки — токен, а не число по месту', () => {
+    const css = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), 'Pager.module.css'),
+      'utf8',
+    );
+    const tokens = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'styles', 'tokens.css'),
+      'utf8',
+    );
+
+    /* Комментарии цитируют макет (`.pg span{border-radius:8px}`) — сторож
+       смотрит на правила, а не на прозу вокруг них. */
+    const rules = css.replace(/\/\*[\s\S]*?\*\//g, '');
+
+    expect(rules).not.toMatch(/border-radius:\s*\d+px/);
+    expect(tokens).toContain('--r-pager: 8px');
+  });
 });

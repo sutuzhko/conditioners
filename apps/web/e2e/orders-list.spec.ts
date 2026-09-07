@@ -156,11 +156,13 @@ test.describe('заказы: групповое действие и страни
     if ((await second.count()) > 0) {
       await second.click();
       await page.waitForURL(/page=2/);
-      await expect(page.getByText(texts.pageCurrent(2))).toBeAttached();
+      /* Текущая страница помечена разметкой, а не только заливкой (#748). */
+      await expect(page.locator('[aria-current="page"]')).toHaveText('2');
     }
 
-    /* Шаг листания — тоже адрес: он присылается ссылкой вместе со страницей. */
-    await page.getByRole('link', { name: texts.perPageSet(16) }).click();
+    /* Шаг листания — тоже адрес: значение пункта и есть ссылка, по которой
+       уходит выбор (issue #748). */
+    await page.getByRole('combobox', { name: texts.perPage }).selectOption({ label: '16' });
     await page.waitForURL(/size=16/);
 
     /* Смена шага возвращает на первую страницу: седьмая по восемь строк и

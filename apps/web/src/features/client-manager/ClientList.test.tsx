@@ -52,7 +52,8 @@ describe('Список клиентов', () => {
   it('🔴 поиск переезжает на соседние страницы вместе с переходом', () => {
     render(<ClientList page={longPage} query="Соколова" />);
 
-    expect(screen.getByRole('link', { name: /Дальше/ })).toHaveAttribute(
+    /* Шаг в панели — шеврон, и имя ему даёт `aria-label` (issue #748). */
+    expect(screen.getByRole('link', { name: 'Следующая страница' })).toHaveAttribute(
       'href',
       '/admin/clients?q=%D0%A1%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%D0%B2%D0%B0&page=3',
     );

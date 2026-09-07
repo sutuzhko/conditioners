@@ -150,7 +150,8 @@ describe('Остатки по зонам', () => {
       />,
     );
 
-    expect(screen.getByRole('link', { name: /Дальше/ })).toHaveAttribute(
+    /* Шаг в панели — шеврон, и имя ему даёт `aria-label` (issue #748). */
+    expect(screen.getByRole('link', { name: 'Следующая страница' })).toHaveAttribute(
       'href',
       '/admin/stock?q=%D1%82%D1%80%D1%83%D0%B1%D0%B0&group=%D0%9A%D1%80%D0%B5%D0%BF%D1%91%D0%B6&low=1&page=3',
     );
@@ -240,9 +241,11 @@ describe('Остатки по зонам', () => {
   it('🔴 шаг листания живёт в адресе, а не в коде (issue #608)', () => {
     render(<StockTable overview={{ ...overview, itemsTotal: 42 }} />);
 
-    expect(screen.getByText(texts.perPage)).toBeVisible();
-    expect(screen.getByRole('link', { name: texts.perPageSet(8) })).toHaveAttribute(
-      'href',
+    /* 🔴 Шаг — одно поле выбора, а не ряд ступеней (issue #748). Адрес каждой
+       ступени остался в разметке: значение пункта — это и есть адрес. */
+    const steps = screen.getByRole('combobox', { name: texts.perPage });
+    expect(steps).toBeVisible();
+    expect(within(steps).getByRole('option', { name: '8' }).getAttribute('value')).toBe(
       '/admin/stock?size=8',
     );
   });
