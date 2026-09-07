@@ -3,15 +3,27 @@
 import type { RefObject } from 'react';
 import { useLayoutEffect } from 'react';
 
+/** С какой стороны от якоря встал слой. */
+export type LayerSide = 'top' | 'bottom' | 'left' | 'right';
+
 /**
  * Куда встал слой: координаты от края окна, в пикселях. Горизонталь задаётся
  * одной стороной — меню держится правым краем кнопки, подсказка левым краем
  * пузырька, — вторая остаётся пустой.
+ *
+ * 🔴 `side` — не координата, а решение: слой не поместился сверху и ушёл вниз.
+ * Хук пишет его атрибутом `data-side`, и на это есть причина за пределами
+ * стилей (issue #689). Корень портала в измерениях записывается нулями
+ * (ADR-327), а сторона выражена **только** через `top` и `left`: размеры
+ * пузырька от неё не зависят. Без атрибута перестановка стороны — подсказка у
+ * нижней строки таблицы вдруг раскрылась вверх и ушла за край окна — не меняла
+ * бы в файле измерения ни строки, и ловил бы её один пиксельный снимок.
  */
 export interface LayerPlacement {
   readonly top: number;
   readonly left?: number | undefined;
   readonly right?: number | undefined;
+  readonly side?: LayerSide | undefined;
 }
 
 export interface AnchoredLayer<L extends HTMLElement> {
@@ -91,13 +103,15 @@ export function useAnchoredLayer<L extends HTMLElement>({
         return;
       }
 
-      const next = `${at.top}|${at.left ?? ''}|${at.right ?? ''}`;
+      const next = `${at.top}|${at.left ?? ''}|${at.right ?? ''}|${at.side ?? ''}`;
       if (next === written) return;
       written = next;
 
       layer.style.top = `${at.top}px`;
       layer.style.left = at.left === undefined ? '' : `${at.left}px`;
       layer.style.right = at.right === undefined ? '' : `${at.right}px`;
+      if (at.side === undefined) delete layer.dataset.side;
+      else layer.dataset.side = at.side;
       layer.style.opacity = '';
     };
 
