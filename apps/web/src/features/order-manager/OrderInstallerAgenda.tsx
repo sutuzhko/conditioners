@@ -126,6 +126,24 @@ export function OrderInstallerAgenda({
                     <h3 className={styles.what}>{installerWorkTitle(order)}</h3>
                     <p className={styles.where}>{whereLine(order)}</p>
 
+                    {/* 🔴 Кому звонить и по какому номеру — видимой строкой, а
+                        не подсказкой кнопки (issue #764). Родное `title` этот
+                        экран не показывало вовсе: он живёт на телефоне, где
+                        наведения нет, — и номер, спрятанный в подсказку, для
+                        монтажника не существовал. Здесь он и есть то, ради
+                        чего наряд открывают перед выездом: номер диктуют
+                        вслух и сверяют глазами, а кнопка ниже нужна для
+                        другого — для нажатия.
+
+                        Отступление от макета: карточка `Installer.body.html`
+                        клиента не называет вовсе, и кнопка «Клиент» не
+                        говорит, кому звонит. Записано в PIXEL_SPEC. */}
+                    <p className={styles.who}>
+                      {order.client.name}
+                      <span aria-hidden="true"> · </span>
+                      <span className={styles.phone}>{formatPhone(order.client.phone)}</span>
+                    </p>
+
                     {marks.length === 0 ? null : (
                       <p className={styles.marks}>
                         {marks.map((mark) => (
@@ -147,7 +165,6 @@ export function OrderInstallerAgenda({
                         })} ${styles.action}`}
                         href={phoneHref(order.client.phone)}
                         aria-label={own.callLabel(order.client.name)}
-                        title={formatPhone(order.client.phone)}
                       >
                         {own.call}
                       </a>

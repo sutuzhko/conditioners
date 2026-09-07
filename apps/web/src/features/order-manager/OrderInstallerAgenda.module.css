@@ -133,6 +133,23 @@
   overflow-wrap: anywhere;
 }
 
+/* 🔴 Клиент и его номер (issue #764). Строка стоит между объектом и
+   пометками: она отвечает на вопрос «кому звонить», а кнопка «Клиент» ниже —
+   на «нажать и позвонить». Номер моноширинный и не переносится: по нему
+   сверяют цифры и диктуют вслух. */
+.who {
+  margin: 0;
+  color: var(--body);
+  font-size: var(--fs-dense);
+  overflow-wrap: anywhere;
+}
+
+.phone {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .marks {
   display: flex;
   flex-wrap: wrap;
