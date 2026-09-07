@@ -46,11 +46,18 @@ export function renderComment(problems) {
     ...problems.map((problem) => `- ${problem}`),
     '',
     'Оси и границы между ярлыками — [`docs/LABELS.md`](../blob/main/docs/LABELS.md).',
-    'Обязательны ровно одна `часть/` и ровно один `тип/`.',
+    'Обязательны ровно одна `area/` и ровно один `kind/`.',
   ].join('\n');
 }
 
-/** Заметка ревизора среди комментариев задачи, если она уже есть. */
+/**
+ * Заметка ревизора среди комментариев задачи, если она уже есть.
+ *
+ * 🔴 Правка и снятие идут через GraphQL, а не REST. `gh issue view --json
+ * comments` отдаёт идентификатор узла GraphQL (`IC_kwDO…`), а REST по адресу
+ * `issues/comments/<id>` ждёт число — и отвечает 404 на чужой формат.
+ * Ошибка выглядит как «нет прав» и стоила одного прогона на разбор.
+ */
 export function findComment(comments) {
   return comments.find((comment) => comment.body.startsWith(COMMENT_MARKER));
 }
@@ -72,9 +79,11 @@ async function auditOne(number, shouldComment) {
     if (shouldComment && existing) {
       await run('gh', [
         'api',
-        '-X',
-        'DELETE',
-        `repos/{owner}/{repo}/issues/comments/${existing.id}`,
+        'graphql',
+        '-f',
+        'query=mutation($id: ID!) { deleteIssueComment(input: { id: $id }) { clientMutationId } }',
+        '-f',
+        `id=${existing.id}`,
       ]);
       console.log('прежняя заметка ревизора снята');
     }
@@ -89,9 +98,11 @@ async function auditOne(number, shouldComment) {
   if (existing) {
     await run('gh', [
       'api',
-      '-X',
-      'PATCH',
-      `repos/{owner}/{repo}/issues/comments/${existing.id}`,
+      'graphql',
+      '-f',
+      'query=mutation($id: ID!, $body: String!) { updateIssueComment(input: { id: $id, body: $body }) { clientMutationId } }',
+      '-f',
+      `id=${existing.id}`,
       '-f',
       `body=${body}`,
     ]);
