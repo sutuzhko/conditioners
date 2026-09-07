@@ -41,12 +41,21 @@ div.Table__viewport  358×667 @16,16
             span.Button__label  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  356×51 @1,293  b1 0 0 0
         div.TableActions__actions  116×36 @226,8
-          a.OrderTable__action  36×36 @0,0  r100
-            svg  18×18 @9,6
-          a.OrderTable__action#2  36×36 @40,0  r100
-            svg  18×18 @9,6
-          button.OrderTable__action  36×36 @80,0  r100
-            svg  18×18 @9,7
+          span.Tooltip__wrap  36×36 @0,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              a.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea  36×36 @0,0
+                  svg  18×18 @9,9
+          span.Tooltip__wrap#2  36×36 @40,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              a.TableActions__action#2  36×36 @0,0  r100
+                span.TableActions__iconArea  36×36 @0,0
+                  svg#2  18×18 @9,9
+          span.Tooltip__wrap#3  36×36 @80,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              button.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea  24×34 @6,1
+                  svg#3  18×18 @3,8
     tr[role=row]#3  358×308 @0,359  r14  b1
       td.OrderTable__numberCol  356×58 @1,5
         td.OrderTable__numberCol::before  41×20 @0,0
@@ -70,12 +79,21 @@ div.Table__viewport  358×667 @16,16
             span.Button__label#2  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  356×51 @1,252  b1 0 0 0
         div.TableActions__actions#2  116×36 @226,8
-          a.OrderTable__action  36×36 @0,0  r100
-            svg#2  18×18 @9,6
-          a.OrderTable__action#2  36×36 @40,0  r100
-            svg#2  18×18 @9,6
-          button.OrderTable__action  36×36 @80,0  r100
-            svg#2  18×18 @9,7
+          span.Tooltip__wrap  36×36 @0,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              a.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea#2  36×36 @0,0
+                  svg  18×18 @9,9
+          span.Tooltip__wrap#2  36×36 @40,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              a.TableActions__action#2  36×36 @0,0  r100
+                span.TableActions__iconArea#2  36×36 @0,0
+                  svg#2  18×18 @9,9
+          span.Tooltip__wrap#3  36×36 @80,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              button.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea#2  24×34 @6,1
+                  svg#3  18×18 @3,8
 
 [геометрия 768]
 div.Table__viewport  736×279 @16,16
@@ -107,12 +125,21 @@ div.Table__viewport  736×279 @16,16
             span.Button__label  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×132 @665,0  b0 0 1 0
         div.TableActions__actions  116×36 @18,15
-          a.OrderTable__action  36×36 @0,0  r100
-            svg  18×18 @9,6
-          a.OrderTable__action#2  36×36 @40,0  r100
-            svg  18×18 @9,6
-          button.OrderTable__action  36×36 @80,0  r100
-            svg  18×18 @9,7
+          span.Tooltip__wrap  36×36 @0,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              a.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea  36×36 @0,0
+                  svg  18×18 @9,9
+          span.Tooltip__wrap#2  36×36 @40,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              a.TableActions__action#2  36×36 @0,0  r100
+                span.TableActions__iconArea  36×36 @0,0
+                  svg#2  18×18 @9,9
+          span.Tooltip__wrap#3  36×36 @80,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              button.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea  24×34 @6,1
+                  svg#3  18×18 @3,8
     tr[role=row]#3  817×91 @0,188
       td.OrderTable__numberCol  88×91 @0,0
         a.OrderTable__numberLink#2  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1032»
@@ -131,12 +158,21 @@ div.Table__viewport  736×279 @16,16
             span.Button__label#2  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×91 @665,0
         div.TableActions__actions#2  116×36 @18,15
-          a.OrderTable__action  36×36 @0,0  r100
-            svg#2  18×18 @9,6
-          a.OrderTable__action#2  36×36 @40,0  r100
-            svg#2  18×18 @9,6
-          button.OrderTable__action  36×36 @80,0  r100
-            svg#2  18×18 @9,7
+          span.Tooltip__wrap  36×36 @0,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              a.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea#2  36×36 @0,0
+                  svg  18×18 @9,9
+          span.Tooltip__wrap#2  36×36 @40,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              a.TableActions__action#2  36×36 @0,0  r100
+                span.TableActions__iconArea#2  36×36 @0,0
+                  svg#2  18×18 @9,9
+          span.Tooltip__wrap#3  36×36 @80,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              button.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea#2  24×34 @6,1
+                  svg#3  18×18 @3,8
 
 [геометрия 1440]
 div.Table__viewport  1408×198 @16,16
@@ -168,12 +204,21 @@ div.Table__viewport  1408×198 @16,16
             span.Button__label  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×72 @1256,0  b0 0 1 0
         div.TableActions__actions  116×36 @18,15
-          a.OrderTable__action  36×36 @0,0  r100
-            svg  18×18 @9,6
-          a.OrderTable__action#2  36×36 @40,0  r100
-            svg  18×18 @9,6
-          button.OrderTable__action  36×36 @80,0  r100
-            svg  18×18 @9,7
+          span.Tooltip__wrap  36×36 @0,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              a.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea  36×36 @0,0
+                  svg  18×18 @9,9
+          span.Tooltip__wrap#2  36×36 @40,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              a.TableActions__action#2  36×36 @0,0  r100
+                span.TableActions__iconArea  36×36 @0,0
+                  svg#2  18×18 @9,9
+          span.Tooltip__wrap#3  36×36 @80,0  r100
+            span.Tooltip__anchor  36×36 @0,0
+              button.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea  24×34 @6,1
+                  svg#3  18×18 @3,8
     tr[role=row]#3  1408×71 @0,127
       td.OrderTable__numberCol  88×71 @0,0
         a.OrderTable__numberLink#2  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1032»
@@ -192,12 +237,21 @@ div.Table__viewport  1408×198 @16,16
             span.Button__label#2  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×71 @1256,0
         div.TableActions__actions#2  116×36 @18,15
-          a.OrderTable__action  36×36 @0,0  r100
-            svg#2  18×18 @9,6
-          a.OrderTable__action#2  36×36 @40,0  r100
-            svg#2  18×18 @9,6
-          button.OrderTable__action  36×36 @80,0  r100
-            svg#2  18×18 @9,7
+          span.Tooltip__wrap  36×36 @0,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              a.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea#2  36×36 @0,0
+                  svg  18×18 @9,9
+          span.Tooltip__wrap#2  36×36 @40,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              a.TableActions__action#2  36×36 @0,0  r100
+                span.TableActions__iconArea#2  36×36 @0,0
+                  svg#2  18×18 @9,9
+          span.Tooltip__wrap#3  36×36 @80,0  r100
+            span.Tooltip__anchor#2  36×36 @0,0
+              button.TableActions__action  36×36 @0,0  r100
+                span.TableActions__iconArea#2  24×34 @6,1
+                  svg#3  18×18 @3,8
 
 [палитра light]
 div.Table__viewport
@@ -229,12 +283,21 @@ div.Table__viewport
             span.Button__label  color #0f172a
       td.OrderTable__actions  border #334155 #334155 #eef2f6 #334155
         div.TableActions__actions
-          a.OrderTable__action
-            svg
-          a.OrderTable__action#2
-            svg
-          button.OrderTable__action
-            svg
+          span.Tooltip__wrap
+            span.Tooltip__anchor
+              a.TableActions__action
+                span.TableActions__iconArea
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor
+              a.TableActions__action#2
+                span.TableActions__iconArea
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor
+              button.TableActions__action
+                span.TableActions__iconArea
+                  svg#3
     tr[role=row]#3
       td.OrderTable__numberCol
         a.OrderTable__numberLink#2  color #0f172a
@@ -253,12 +316,21 @@ div.Table__viewport
             span.Button__label#2  color #0f172a
       td.OrderTable__actions
         div.TableActions__actions#2
-          a.OrderTable__action
-            svg#2
-          a.OrderTable__action#2
-            svg#2
-          button.OrderTable__action
-            svg#2
+          span.Tooltip__wrap
+            span.Tooltip__anchor#2
+              a.TableActions__action
+                span.TableActions__iconArea#2
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#2
+              a.TableActions__action#2
+                span.TableActions__iconArea#2
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor#2
+              button.TableActions__action
+                span.TableActions__iconArea#2
+                  svg#3
 [палитра light @390]
 div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
 div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__numberCol
@@ -310,12 +382,21 @@ div.Table__viewport
             span.Button__label  color #eaf1f8
       td.OrderTable__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
         div.TableActions__actions
-          a.OrderTable__action
-            svg
-          a.OrderTable__action#2
-            svg
-          button.OrderTable__action
-            svg
+          span.Tooltip__wrap
+            span.Tooltip__anchor
+              a.TableActions__action
+                span.TableActions__iconArea
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor
+              a.TableActions__action#2
+                span.TableActions__iconArea
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor
+              button.TableActions__action
+                span.TableActions__iconArea
+                  svg#3
     tr[role=row]#3
       td.OrderTable__numberCol
         a.OrderTable__numberLink#2  color #eaf1f8
@@ -334,12 +415,21 @@ div.Table__viewport
             span.Button__label#2  color #eaf1f8
       td.OrderTable__actions
         div.TableActions__actions#2
-          a.OrderTable__action
-            svg#2
-          a.OrderTable__action#2
-            svg#2
-          button.OrderTable__action
-            svg#2
+          span.Tooltip__wrap
+            span.Tooltip__anchor#2
+              a.TableActions__action
+                span.TableActions__iconArea#2
+                  svg
+          span.Tooltip__wrap#2
+            span.Tooltip__anchor#2
+              a.TableActions__action#2
+                span.TableActions__iconArea#2
+                  svg#2
+          span.Tooltip__wrap#3
+            span.Tooltip__anchor#2
+              button.TableActions__action
+                span.TableActions__iconArea#2
+                  svg#3
 [палитра dark @390]
 div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
 div.Table__viewport > table.Table__table > tr[role=row]#2 > td.OrderTable__numberCol
