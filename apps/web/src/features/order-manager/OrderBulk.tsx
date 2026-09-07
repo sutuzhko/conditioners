@@ -33,7 +33,8 @@ export interface OrderBulkProps {
 }
 
 /**
- * Выбор строк и групповое действие над выбранным (issue #596, макет «Заказы»).
+ * Панель режима выбора и групповое действие над выбранным (issue #596, #738,
+ * #739, макет «Заказы»).
  *
  * 🔴 Таблица остаётся серверной. Галочки — обычные `input` внутри этой формы,
  * и всё, что делает клиентский код, — считает отмеченное через `FormData` и
@@ -41,9 +42,20 @@ export interface OrderBulkProps {
  * не заводится: выбор строки — это состояние формы, а не приложения, и браузер
  * умеет его сам.
  *
- * 🔴 Полоса действия появляется только когда что-то выбрано, но место под неё
- * не резервируется: она стоит над таблицей, и её появление двигает вниз
- * список, а не кнопку, по которой человек в этот момент целится.
+ * 🔴 Панель стоит над таблицей ВСЕГДА и в каждом состоянии состоит из одних и
+ * тех же узлов — меняются только слова и отказы контролов (issue #738). Раньше
+ * она появлялась по первой галочке и уезжала на 74px вниз вместе с таблицей и
+ * той самой строкой, по которой в этот момент целились: на телефоне палец
+ * оказывался уже над третьим нарядом, а отмечался второй. Резерв места здесь
+ * не «подобранная высота», которая разойдётся с содержимым на первой правке
+ * подписи, а тождество разметки: двигаться нечему, потому что ничего не
+ * появляется и не исчезает.
+ *
+ * 🔴 Слева — сколько выбрано и выход из режима, справа — действие над
+ * выбранным, и поле назначения приходит вместе со своей кнопкой одной группой
+ * (issue #739). Счёт стоит отдельным `role="status"`, а не подписью поля:
+ * подпись внутри контрола — приём формы, где поле одно из многих, а здесь оно
+ * единственное и объяснять нечего.
  *
  * 🔴 Назначение спрашивает подтверждение (ADR-113): монтажник получит
  * уведомление по каждому наряду, и восемь писем, разосланных промахом мимо
@@ -102,7 +114,7 @@ export function OrderBulk({
 
     const person = installers.find((item) => item.id === installerId) ?? null;
     if (person === null) {
-      setError(texts.bulkAssignLabel);
+      setError(texts.bulkOffInstaller);
       return;
     }
 
@@ -128,6 +140,10 @@ export function OrderBulk({
 
   const empty = chosen.length === 0;
 
+  /* Почему кнопка не работает — по первой невыполненной причине, а не общим
+     «недоступно»: пока ничего не отмечено, монтажник ни при чём. */
+  const assignOff = empty ? texts.bulkOffEmpty : texts.bulkOffInstaller;
+
   return (
     <form
       className={styles.form}
@@ -138,42 +154,80 @@ export function OrderBulk({
         void submit(event);
       }}
     >
-      {installers.length === 0 || empty ? null : (
-        <div className={styles.bar}>
-          <span className={styles.count}>{texts.selectedOf(chosen.length, total)}</span>
-
-          <Select
-            label={texts.bulkAssignLabel}
-            options={installers.map((person) => ({
-              value: person.id,
-              label: installerName(person),
-            }))}
-            placeholder={texts.bulkPlaceholder}
-            value={installerId}
-            wrapperClassName={styles.pick}
-            onChange={(event) => setInstallerId(event.target.value)}
-          />
-
-          <Button type="submit" size="sm" loading={busy} disabled={busy || installerId === ''}>
-            {busy ? texts.bulkAssigning : texts.bulkAssign}
-          </Button>
-
-          <Button type="button" size="sm" variant="light" onClick={() => setAll(false)}>
-            {texts.selectionClear}
-          </Button>
-        </div>
-      )}
-
+      {/* Назначать некому — выбирать незачем: без исполнителей у полосы нет ни
+          одного действия, и она не рисуется вовсе. Таблица тогда приходит без
+          колонки галочек (`OrderList`), так что «исчезающей» полосы не
+          возникает: состав страницы задан данными, а не нажатием. */}
       {installers.length === 0 ? null : (
-        <label className={styles.all}>
-          <input
-            type="checkbox"
-            className={styles.allBox}
-            checked={!empty && chosen.length === pageCount}
-            onChange={(event) => setAll(event.target.checked)}
-          />
-          {texts.selectAll}
-        </label>
+        <div className={styles.bar} data-active={empty ? 'false' : 'true'}>
+          <div className={styles.mode}>
+            {/* 🔴 Галочка выбора всей страницы — обычный `input` в своей
+                подписи, а не флажок кита: у кита цель считается по рамке
+                подписи, и она даёт 24px там, где до 900px нужно 44 (ADR-183).
+                Заодно она выглядит ровно как галочки строк под ней — тот же
+                нативный флажок с тем же акцентом, а не второй вид флажка на
+                одном экране. */}
+            <label className={styles.pickAll}>
+              <input
+                type="checkbox"
+                className={styles.pickAllBox}
+                checked={!empty && chosen.length === pageCount}
+                onChange={(event) => setAll(event.target.checked)}
+              />
+              {texts.selectAll}
+            </label>
+
+            {/* 🔴 Счёт — живая область, а не просто текст: он меняется от
+                нажатия в другом месте экрана, и без объявления читалка о нём
+                не скажет. `aria-atomic` — чтобы прозвучало «Выбрано 3 из 24»
+                целиком, а не одна изменившаяся цифра. */}
+            <span className={styles.count} role="status" aria-atomic="true">
+              {empty ? texts.selectedNone : texts.selectedOf(chosen.length, total)}
+            </span>
+
+            {/* Выход из режима стоит слева, рядом со счётом, и весом ниже
+                назначения: снять выбор — это не действие над нарядами. */}
+            <Button
+              type="button"
+              size="md"
+              variant="light"
+              disabled={empty}
+              disabledReason={texts.selectionClearOff}
+              onClick={() => setAll(false)}
+            >
+              {texts.selectionClear}
+            </Button>
+          </div>
+
+          {/* Поле и его кнопка — одна группа: у неё общее имя, и второе
+              групповое действие встанет сюда же следующей группой, а не
+              четвёртым разнородным элементом общего ряда. */}
+          <div className={styles.act} role="group" aria-label={texts.bulkGroup}>
+            <Select
+              aria-label={texts.bulkAssignLabel}
+              options={installers.map((person) => ({
+                value: person.id,
+                label: installerName(person),
+              }))}
+              placeholder={texts.bulkPlaceholder}
+              value={installerId}
+              disabled={empty}
+              className={styles.pickControl}
+              wrapperClassName={styles.pick}
+              onChange={(event) => setInstallerId(event.target.value)}
+            />
+
+            <Button
+              type="submit"
+              size="md"
+              loading={busy}
+              disabled={busy || empty || installerId === ''}
+              disabledReason={assignOff}
+            >
+              {busy ? texts.bulkAssigning : texts.bulkAssign}
+            </Button>
+          </div>
+        </div>
       )}
 
       {error === '' ? null : (
