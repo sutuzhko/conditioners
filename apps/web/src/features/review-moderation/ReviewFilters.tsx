@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-import { Card, Input, Select, buttonClassName } from '@/shared/ui';
+import {
+  Card,
+  Input,
+  Select,
+  buttonClassName,
+  fieldRowActionsClassName,
+  fieldRowClassName,
+} from '@/shared/ui';
 
 import { reviewModerationContent as texts } from './content';
 import {
@@ -32,7 +39,12 @@ export interface ReviewFiltersProps {
 export function ReviewFilters({ filter }: ReviewFiltersProps) {
   return (
     <Card as="section" className={styles.card}>
-      <form className={styles.form} action={REVIEWS_PATH} method="get" role="search">
+      <form
+        className={fieldRowClassName(styles.form)}
+        action={REVIEWS_PATH}
+        method="get"
+        role="search"
+      >
         <input type="hidden" name="tab" value="all" />
 
         <Input
@@ -74,7 +86,7 @@ export function ReviewFilters({ filter }: ReviewFiltersProps) {
           ]}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <button className={buttonClassName({ size: 'sm' })} type="submit">
             {texts.searchSubmit}
           </button>

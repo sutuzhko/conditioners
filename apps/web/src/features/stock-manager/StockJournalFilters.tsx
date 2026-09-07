@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Button, Input } from '@/shared/ui';
+import { Button, Input, fieldRowActionsClassName, fieldRowClassName } from '@/shared/ui';
 
 import { STOCK_MOVE_TITLES, STOCK_PERIOD_TITLES, stockManagerContent as texts } from './content';
 import {
@@ -95,7 +95,7 @@ export function StockJournalFilters({
 
       {/* `role="search"` — ориентир для скринридера: без него поиск в панели
           неотличим от любой другой формы на странице. */}
-      <form className={styles.form} action={basePath} method="get" role="search">
+      <form className={fieldRowClassName(styles.form)} action={basePath} method="get" role="search">
         {Object.entries(carried).map(([name, value]) => (
           <input key={name} type="hidden" name={name} value={value} readOnly />
         ))}
@@ -111,7 +111,7 @@ export function StockJournalFilters({
           wrapperClassName={styles.field}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <Button type="submit" size="sm">
             {texts.journalSearch}
           </Button>

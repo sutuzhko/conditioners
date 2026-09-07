@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-import { Card, Input, Select, buttonClassName } from '@/shared/ui';
+import {
+  Card,
+  Input,
+  Select,
+  buttonClassName,
+  fieldRowActionsClassName,
+  fieldRowClassName,
+} from '@/shared/ui';
 
 import { adminCatalogContent as texts } from './content';
 import {
@@ -35,7 +42,12 @@ const VISIBILITY_LABELS: Record<CatalogVisibility, string> = {
 export function CatalogSearch({ filter }: CatalogSearchProps) {
   return (
     <Card as="section" className={styles.card}>
-      <form className={styles.form} action={CATALOG_PATH} method="get" role="search">
+      <form
+        className={fieldRowClassName(styles.form)}
+        action={CATALOG_PATH}
+        method="get"
+        role="search"
+      >
         <Input
           label={texts.searchLabel}
           hint={texts.searchHint}
@@ -61,7 +73,7 @@ export function CatalogSearch({ filter }: CatalogSearchProps) {
           ]}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <button className={buttonClassName({ size: 'sm' })} type="submit">
             {texts.searchSubmit}
           </button>

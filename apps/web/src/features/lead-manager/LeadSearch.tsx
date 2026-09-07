@@ -1,6 +1,12 @@
 import Link from 'next/link';
 
-import { Card, Input, buttonClassName } from '@/shared/ui';
+import {
+  Card,
+  Input,
+  buttonClassName,
+  fieldRowActionsClassName,
+  fieldRowClassName,
+} from '@/shared/ui';
 
 import { leadManagerContent as texts } from './content';
 import { LEADS_PATH, type LeadStatus } from './model';
@@ -27,7 +33,7 @@ export interface LeadSearchProps {
 export function LeadSearch({ query, status }: LeadSearchProps) {
   return (
     <Card as="section" className={styles.card}>
-      <form className={styles.form} action={LEADS_PATH} method="get">
+      <form className={fieldRowClassName(styles.form)} action={LEADS_PATH} method="get">
         {status === undefined ? null : <input type="hidden" name="status" value={status} />}
 
         <Input
@@ -41,7 +47,7 @@ export function LeadSearch({ query, status }: LeadSearchProps) {
           wrapperClassName={styles.field}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <button className={buttonClassName({ size: 'sm' })} type="submit">
             {texts.searchSubmit}
           </button>
