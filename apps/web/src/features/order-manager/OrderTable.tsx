@@ -58,6 +58,7 @@ const TITLE: Readonly<Record<OrderColumn, string>> = {
   reason: texts.colReason,
   status: texts.colStatus,
   sum: texts.colSum,
+  margin: texts.colMargin,
 };
 
 /**
@@ -85,6 +86,7 @@ const CLASS: Readonly<Record<OrderColumn, string | undefined>> = {
   reason: styles.reasonCol,
   status: styles.statusCol,
   sum: styles.sumCol,
+  margin: styles.marginCol,
 };
 
 /**
@@ -114,7 +116,9 @@ export function OrderTable({
 
   /* Сумма — не данные монтажника (CRM.md §3.1). Колонку снимает набор, а не
      ячейка: иначе шапка обещала бы столбец, которого в строках нет. */
-  const shown = columns.filter((column) => !(forInstaller && column === 'sum'));
+  const shown = columns.filter(
+    (column) => !(forInstaller && (column === 'sum' || column === 'margin')),
+  );
 
   return (
     /* 🔴 Нижняя ширина таблицы живёт в модуле, а не в пропе `minWidth`: проп
@@ -223,6 +227,7 @@ function Row({
           overdue={overdue}
           hasInstallerColumn={columns.some((item) => item === 'installer')}
           hasSumColumn={columns.some((item) => item === 'sum')}
+          hasMarginColumn={columns.some((item) => item === 'margin')}
         />
       ))}
 
@@ -295,6 +300,7 @@ function Cell({
   overdue,
   hasInstallerColumn,
   hasSumColumn,
+  hasMarginColumn,
 }: {
   readonly column: OrderColumn;
   readonly order: OrderCard;
@@ -302,6 +308,7 @@ function Cell({
   readonly overdue: boolean;
   readonly hasInstallerColumn: boolean;
   readonly hasSumColumn: boolean;
+  readonly hasMarginColumn: boolean;
 }) {
   const label = TITLE[column];
 
@@ -314,6 +321,13 @@ function Cell({
       ? [order.installer === null ? texts.installerNone : installerName(order.installer)]
       : []),
     ...(hasSumColumn && order.price !== undefined ? [texts.money(order.price)] : []),
+    /* 🔴 Маржа уезжает в подпись с собственным словом, а не голым числом:
+       рядом уже стоит сумма, и две суммы подряд без подписи читаются как
+       диапазон. Непосчитанная называется словами — молчание здесь означало бы
+       «маржи нет», а её не посчитали (issue #628). */
+    ...(hasMarginColumn && order.margin !== undefined
+      ? [order.margin.known ? texts.marginCompact(order.margin.value) : texts.marginCompactNone]
+      : []),
   ];
 
   /* 🔴 Класс колонки стоит и на шапке, и на ячейке: медиа-запрос прячет
@@ -465,5 +479,40 @@ function Cell({
         undefined,
         order.price === undefined ? texts.moneyNone : texts.money(order.price),
       );
+
+    case 'margin':
+      return cell(undefined, <Margin margin={order.margin} />);
   }
+}
+
+/**
+ * Маржа наряда.
+ *
+ * 🔴 Неизвестная маржа показывается прочерком с объяснением, а не числом без
+ * материалов. Пропустить списание, у которого нет закупочной цены, — значит
+ * занизить расход и завысить маржу, то есть соврать в ту самую сторону, ради
+ * которой поле и заводилось (ADR-310). Выдуманное число здесь дороже пустого
+ * места — тем же доводом раздел жил до появления цены.
+ */
+function Margin({ margin }: { readonly margin: OrderCard['margin'] }) {
+  if (margin === undefined) return <>{texts.moneyNone}</>;
+
+  if (!margin.known) {
+    return (
+      <span className={styles.marginUnknown}>
+        {texts.moneyNone}
+        {/* Прочерк молча означал бы «маржа ноль». Голосом объясняется, чего
+            не хватает, — так же, как отсутствие ИНН у монтажника. */}
+        <span className="srOnly">{texts.marginUnknownHint(margin.unpriced)}</span>
+      </span>
+    );
+  }
+
+  /* Убыточный наряд отмечается цветом, а не только знаком минуса: ради того,
+     чтобы такие строки было видно на просмотре списка, колонка и заводится. */
+  return (
+    <span className={margin.value < 0 ? styles.marginLoss : undefined}>
+      {texts.money(margin.value)}
+    </span>
+  );
 }
