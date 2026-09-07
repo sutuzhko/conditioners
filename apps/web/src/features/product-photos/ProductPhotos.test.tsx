@@ -4,13 +4,22 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { ProductPhotos } from './ProductPhotos';
 import { productPhotosContent as texts } from './content';
-import { acceptingApi, failingApi, photosFixture } from './fixtures';
+import { acceptingApi, failingApi, photosFixture, photosGoneFixture } from './fixtures';
 
 describe('Фотографии модели', () => {
   it('пустое состояние объясняет, что увидит посетитель', () => {
     render(<ProductPhotos photos={[]} api={acceptingApi} />);
 
     expect(screen.getByText(texts.empty)).toBeInTheDocument();
+  });
+
+  it('🔴 пропавший файл рисуется рамкой и не создаёт картинки (issue #690)', () => {
+    const { container } = render(<ProductPhotos photos={photosGoneFixture} api={acceptingApi} />);
+
+    /* Значку сломанной картинки взяться неоткуда: `<img>` для пропавшего файла
+       не создаётся вовсе. Уцелевший снимок при этом на месте. */
+    expect(container.querySelectorAll('img')).toHaveLength(1);
+    expect(screen.getByText(texts.gone)).toBeInTheDocument();
   });
 
   it('главная фотография помечена, и сделать её главной уже нельзя', () => {

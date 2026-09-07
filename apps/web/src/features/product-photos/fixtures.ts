@@ -56,6 +56,19 @@ export const photosFixture: readonly PhotoItem[] = [
   { id: 'b', url: OUTDOOR_PHOTO, alt: null, isMain: false, sort: 1 },
 ];
 
+/**
+ * 🔴 Файл снялся с тома, а запись осталась — issue #690.
+ *
+ * Адрес у снимка при этом **рабочий**: витрина обязана показывать состояние
+ * компонента, а не неудачный запрос за картинкой. Историю с битым адресом
+ * вычищал #676, и она вернула бы допущение инварианта `images` — то есть
+ * ровно то, чего приёмка этой задачи не допускает.
+ */
+export const photosGoneFixture: readonly PhotoItem[] = [
+  { id: 'a', url: INDOOR_PHOTO, alt: 'Внутренний блок на стене', isMain: true, sort: 0 },
+  { id: 'b', url: OUTDOOR_PHOTO, alt: null, isMain: false, sort: 1, missing: true },
+];
+
 /** Набор запросов, который всё принимает: истории смотрят глазами. */
 export const acceptingApi: PhotoApi = {
   upload: async () => ({

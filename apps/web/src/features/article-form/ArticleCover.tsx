@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { Button, Card, FileInput, useConfirm } from '@/shared/ui';
+import { Button, Card, FileInput, MediaGone, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
 import { articleCoverContent as texts } from './content';
@@ -16,6 +16,12 @@ export type CoverRemove = () => Promise<{ ok: boolean; message?: string }>;
 export interface ArticleCoverProps {
   /** Текущая обложка. `null` — её нет. */
   readonly cover: string | null;
+  /**
+   * 🔴 Ссылка есть, а файла на томе нет — issue #690. Это не «обложки нет»:
+   * запись осталась, и убрать её по-прежнему нужно кнопкой. Признак ставит
+   * сервер: браузеру этот вопрос задавать поздно (инвариант 1).
+   */
+  readonly coverMissing?: boolean | undefined;
   readonly upload: CoverUpload;
   /** Снятие обложки. Не задано — кнопки нет: у новой статьи снимать нечего. */
   readonly remove?: CoverRemove | undefined;
@@ -36,6 +42,7 @@ const PREVIEW_HEIGHT = 180;
  */
 export function ArticleCover({
   cover,
+  coverMissing = false,
   upload,
   remove,
   onChanged,
@@ -87,17 +94,7 @@ export function ArticleCover({
       </h2>
       <p className={styles.hint}>{texts.hint}</p>
 
-      {cover === null ? (
-        <p className={styles.empty}>{texts.empty}</p>
-      ) : (
-        <Image
-          className={styles.preview}
-          src={cover}
-          alt={texts.previewAlt}
-          width={PREVIEW_WIDTH}
-          height={PREVIEW_HEIGHT}
-        />
-      )}
+      <CoverPreview cover={cover} missing={coverMissing} />
 
       <FileInput
         label={cover === null ? texts.add : texts.replace}
@@ -129,5 +126,38 @@ export function ArticleCover({
 
       {dialog}
     </Card>
+  );
+}
+
+/**
+ * Что стоит на месте обложки: сама обложка, объяснение пустоты или рамка
+ * пропавшего файла (issue #690).
+ *
+ * 🔴 Три состояния, а не два. «Обложки нет» и «обложка была, а файла нет» —
+ * разные ответы на экране: в первом случае владелец загружает первую, во
+ * втором ищет пропавший файл или убирает запись. `<img>` во втором случае не
+ * создаётся вовсе: значку сломанной картинки взяться неоткуда.
+ */
+function CoverPreview({
+  cover,
+  missing,
+}: {
+  readonly cover: string | null;
+  readonly missing: boolean;
+}) {
+  if (cover === null) return <p className={styles.empty}>{texts.empty}</p>;
+
+  if (missing) {
+    return <MediaGone className={styles.gone} title={texts.gone} note={texts.goneNote} />;
+  }
+
+  return (
+    <Image
+      className={styles.preview}
+      src={cover}
+      alt={texts.previewAlt}
+      width={PREVIEW_WIDTH}
+      height={PREVIEW_HEIGHT}
+    />
   );
 }

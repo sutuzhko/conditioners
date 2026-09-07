@@ -189,6 +189,10 @@ export const clientManagerContent = {
   unitOrder: (number: number): string => `Наряд № ${number}`,
   unitPhotoAlt: (model: string): string => `Установка: ${model}`,
 
+  /* 🔴 «Файла нет» — не то же, что «снимка нет»: техника без наряда заводится
+     руками и снимка не имеет вовсе, а здесь запись есть (issue #690). */
+  unitPhotoGone: 'Файла нет',
+
   leadsTitle: 'Обращения',
   leadsHint: 'Всё, что этот человек присылал с сайта.',
   leadsEmpty: 'Обращений с сайта нет: клиент заведён руками или пришёл по звонку.',

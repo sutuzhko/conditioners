@@ -17,6 +17,20 @@
  * области, ни импортов. Поэтому все помощники объявлены внутри тела, а
  * снаружи — только типы.
  *
+ * 🔴 Что такое цель, здесь и в `scripts/admin-density.mjs` записано **дважды**
+ * (ADR-297, issue #548). Общий модуль туда не доедет по той же причине —
+ * `page.evaluate` не знает про импорты. Дословно повторяются четыре вещи:
+ * перечень `INTERACTIVE`, `isVisuallyHidden`, `isTarget` и `targetBox`;
+ * `scripts/admin-density.test.mjs` берёт их тела из обоих файлов и гоняет по
+ * одной таблице случаев, так что разойтись молча они больше не могут.
+ *
+ * 🔴 Осознанное различие ровно одно, и оно про видимость. Здесь `isVisible`
+ * спрашивает «виден ли узел человеку»: обход предков нужен ради `aria-hidden`
+ * и содержимого закрытого `<details>` (#474), а цель 0×0 остаётся целью —
+ * ради неё правило и заводилось. Замер плотности спрашивает другое —
+ * «нарисован ли контрол», — и отвечает `checkVisibility` без обхода. Свести
+ * их значило бы менять смысл замера, а не чинить расхождение.
+ *
  * Пороги — из фактов проекта, не из вкуса: 24×24 по WCAG 2.5.8 (AA), 44×44 в
  * сенсорных раскладках до 900px (ADR-183, токен `--tap`); светлота фона — по
  * тому, что различает темы, а не по равенству токену `--bg`, потому что у
@@ -76,6 +90,16 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     | 'images'
     | 'stability';
   type Found = { rule: Rule; element: string; detail: string };
+  /* Зона попадания цели. Не `DOMRect`: добор псевдоэлементом меняет стороны,
+     а `DOMRect` из готовых сторон не собрать без пересчёта. */
+  type Box = {
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
+    width: number;
+    height: number;
+  };
 
   const RULES: readonly Rule[] = [
     'overflow-x',
@@ -121,6 +145,9 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
 
   /* ---------- помощники ---------- */
 
+  /* 🔴 Перечень дословно повторяется в `scripts/admin-density.mjs` (issue
+     #548): что считать целью, у двух измерителей обязано быть одним ответом.
+     Сверку держит `scripts/admin-density.test.mjs`. */
   const INTERACTIVE = [
     'a[href]',
     'button',
@@ -206,6 +233,8 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
    * `content-visibility`». `aria-hidden` остаётся своей проверкой: это не
    * видимость, а изъятие из дерева доступности, и браузер его здесь не учтёт.
    */
+  /* 🔴 Замер плотности отвечает на этот вопрос иначе, и это осознанно — см.
+     шапку файла. Здесь «видно человеку», там «нарисован контрол». */
   const isVisible = (el: Element): boolean => {
     if (
       typeof el.checkVisibility === 'function' &&
@@ -248,16 +277,47 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
     return false;
   };
 
-  const targets = Array.from(document.querySelectorAll(INTERACTIVE)).filter((el) => {
-    if (!isVisible(el)) return false;
-    const style = getComputedStyle(el);
+  /**
+   * Цель ли это — вопрос, на который два измерителя отвечали по-разному
+   * (issue #548): `pointer-events`, строчные ссылки, отключённые контролы и
+   * исключение `data-tap-size` знал то один, то другой. Теперь ответ один и
+   * записан дословно в обоих файлах; тела сверяет
+   * `scripts/admin-density.test.mjs`.
+   *
+   * Видимость сюда не входит намеренно: её два измерителя считают по-своему
+   * (см. шапку файла), и подмешивать разное в общее правило значит вернуть
+   * молчаливое расхождение.
+   */
+  const isTarget = (el: Element, style: CSSStyleDeclaration): boolean => {
+    /* Отключённый контрол указатель не принимает — целью он не является. */
+    if (
+      (el instanceof HTMLButtonElement ||
+        el instanceof HTMLInputElement ||
+        el instanceof HTMLSelectElement ||
+        el instanceof HTMLTextAreaElement) &&
+      el.disabled
+    ) {
+      return false;
+    }
+    /* То же самое, сказанное стилем: по такому узлу не попасть. */
     if (style.pointerEvents === 'none') return false;
+    /* Скрытый ввод (sr-only): нажимают по подписи или по видимому напарнику
+       рядом, и обе эти цели меряются своими рамками (ADR-297). */
     if (isVisuallyHidden(el, style)) return false;
-    /* Ссылка в потоке текста исключена самим WCAG 2.5.8: её размер задаёт
-       строка, а не дизайн. */
+    /* Ссылка в потоке текста исключена самим WCAG 2.5.8 («Inline»): её размер
+       задаёт строка, а не дизайн. */
     if (el instanceof HTMLAnchorElement && style.display === 'inline') return false;
+    /* Размер и положение цели и есть передаваемое содержание — исключение
+       «Essential» из WCAG 2.5.8, объявленное разметкой (ADR-236): у записи
+       календаря прямоугольник означает время, растянуть его до 44×44 значит
+       соврать про длительность. */
+    if (el.getAttribute('data-tap-size') === 'essential') return false;
     return true;
-  });
+  };
+
+  const targets = Array.from(document.querySelectorAll(INTERACTIVE)).filter(
+    (el) => isVisible(el) && isTarget(el, getComputedStyle(el)),
+  );
 
   const size = (value: number): number => Math.round(value * 10) / 10;
 
@@ -294,34 +354,78 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
   const AA_MINIMUM = 24;
   const TOUCH_MINIMUM = 44;
 
-  /* Цель поля с подписью — вся подпись вместе с полем (WCAG 2.5.8: цель —
-     то, по чему нажимают, а по `<label>` нажимают). На разведке ~770
-     срабатываний были чекбоксы 20×20 внутри подписей шириной в строку. */
-  const unite = (a: DOMRect, b: DOMRect): DOMRect =>
-    new DOMRect(
-      Math.min(a.left, b.left),
-      Math.min(a.top, b.top),
-      Math.max(a.right, b.right) - Math.min(a.left, b.left),
-      Math.max(a.bottom, b.bottom) - Math.min(a.top, b.top),
-    );
-  const targetRect = (el: Element): DOMRect => {
-    let rect = el.getBoundingClientRect();
+  /**
+   * Зона попадания цели: рамка вместе с подписью и вместе с прозрачным
+   * добором псевдоэлементом.
+   *
+   * 🔴 Две половины этого правила жили порознь в двух измерителях (issue
+   * #548): подпись знал только этот файл, псевдоэлемент — только замер
+   * плотности. Отсюда единственное «нарушение» плотности в заказах: галочка
+   * «Выбрать все» обёрнута подписью, зона по существу 44×44, а замер видел
+   * сам `<input>` 24×24 и объявлял дефект. Теперь правило одно и записано
+   * дословно в обоих файлах; тела сверяет `scripts/admin-density.test.mjs`.
+   */
+  const targetBox = (el: Element): Box => {
+    const rect = el.getBoundingClientRect();
+    let left = rect.left;
+    let top = rect.top;
+    let right = rect.right;
+    let bottom = rect.bottom;
+
+    /* Цель поля с подписью — вся подпись вместе с полем (WCAG 2.5.8: цель —
+       то, по чему нажимают, а по `<label>` нажимают). На разведке ~770
+       срабатываний были чекбоксы 20×20 внутри подписей шириной в строку. */
     if (
       el instanceof HTMLInputElement ||
       el instanceof HTMLSelectElement ||
       el instanceof HTMLTextAreaElement
     ) {
       for (const label of Array.from(el.labels ?? [])) {
-        if (isVisible(label)) rect = unite(rect, label.getBoundingClientRect());
+        const style = getComputedStyle(label);
+        if (style.display === 'none' || style.visibility === 'hidden') continue;
+        if (isVisuallyHidden(label, style)) continue;
+        const box = label.getBoundingClientRect();
+        left = Math.min(left, box.left);
+        top = Math.min(top, box.top);
+        right = Math.max(right, box.right);
+        bottom = Math.max(bottom, box.bottom);
       }
     }
-    return rect;
+
+    let width = right - left;
+    let height = bottom - top;
+
+    /* Прозрачный псевдоэлемент добирает зону там, где коробке некуда расти
+       (ADR-301): `IconButton::after` растянут до `--tap`, и пункт навигации
+       шапки тоже. Мерить одну рамку значит объявлять нарушением то, что уже
+       починено. */
+    for (const pseudo of ['::before', '::after']) {
+      const style = getComputedStyle(el, pseudo);
+      if (style.content === 'none' || style.content === 'normal') continue;
+      if (style.position !== 'absolute' && style.position !== 'fixed') continue;
+      const w = Number.parseFloat(style.width);
+      const h = Number.parseFloat(style.height);
+      if (Number.isFinite(w)) width = Math.max(width, w);
+      if (Number.isFinite(h)) height = Math.max(height, h);
+    }
+
+    /* Добор растит зону вокруг центра рамки — псевдоэлемент так и рисуется.
+       Края нужны исключению «Spacing», стороны — порогу. */
+    const cx = (left + right) / 2;
+    const cy = (top + bottom) / 2;
+    return {
+      left: cx - width / 2,
+      top: cy - height / 2,
+      right: cx + width / 2,
+      bottom: cy + height / 2,
+      width,
+      height,
+    };
   };
 
-  const rects = new Map<Element, DOMRect>(targets.map((el) => [el, targetRect(el)]));
-  const undersized = (rect: DOMRect): boolean =>
-    rect.width < AA_MINIMUM || rect.height < AA_MINIMUM;
-  const belowPolicy = (rect: DOMRect): boolean =>
+  const rects = new Map<Element, Box>(targets.map((el) => [el, targetBox(el)]));
+  const undersized = (rect: Box): boolean => rect.width < AA_MINIMUM || rect.height < AA_MINIMUM;
+  const belowPolicy = (rect: Box): boolean =>
     rect.width < TOUCH_MINIMUM || rect.height < TOUCH_MINIMUM;
 
   /* Исключение WCAG 2.5.8 «Spacing»: цель меньше 24×24 допустима, если
@@ -330,12 +434,12 @@ export async function measureInvariants(input: MeasureInput): Promise<readonly V
      На разведке так выглядели номера страниц 22×20 с воздухом вокруг.
      🔴 Для порога 44 исключения нет: 44×44 в сенсорной раскладке — политика
      проекта (DESIGN_BRIEF §9, ADR-183), а не норма WCAG. */
-  const distanceToRect = (cx: number, cy: number, rect: DOMRect): number => {
+  const distanceToRect = (cx: number, cy: number, rect: Box): number => {
     const dx = Math.max(rect.left - cx, 0, cx - rect.right);
     const dy = Math.max(rect.top - cy, 0, cy - rect.bottom);
     return Math.hypot(dx, dy);
   };
-  const spacedApart = (el: Element, rect: DOMRect): boolean => {
+  const spacedApart = (el: Element, rect: Box): boolean => {
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     for (const [other, otherRect] of rects) {

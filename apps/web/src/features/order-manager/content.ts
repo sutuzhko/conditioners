@@ -593,6 +593,10 @@ export const orderManagerContent = {
   photoAlt: (stage: string, index: number): string => `${stage}, снимок ${index}`,
   photoRemove: (stage: string, index: number): string =>
     `Удалить снимок ${index}: ${stage.toLocaleLowerCase('ru-RU')}`,
+
+  /* 🔴 «Файла нет» — не то же, что «снимков нет»: запись осталась, и владельцу
+     нужно либо найти файл, либо удалить снимок (issue #690). */
+  photoGone: 'Файла нет',
   photoRemoveAsk: 'Удалить снимок?',
   photoRemoveText: 'Фотография удалится вместе с файлом.',
   photoRemoveConfirm: 'Удалить',

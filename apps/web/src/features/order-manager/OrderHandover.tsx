@@ -14,6 +14,7 @@ import {
   FileInput,
   Icon,
   IconButton,
+  MediaGone,
   Textarea,
   buttonClassName,
   useConfirm,
@@ -234,17 +235,27 @@ export function OrderHandover({
           <ul className={styles.grid}>
             {shots.map((photo, index) => (
               <li className={styles.shot} key={photo.id}>
-                {/* 🔴 `unoptimized` — снимок отдаётся по сессии (ADR-171), а
+                {/* 🔴 Пропавший файл рисуется рамкой, и `<img>` при этом не
+                    создаётся вовсе (issue #690): значку сломанной картинки
+                    взяться неоткуда. Снимок при этом остаётся загруженным —
+                    он считается в остатке «загрузите ещё», и решать, что
+                    делать с пропажей, монтажник будет удалением.
+
+                    🔴 `unoptimized` — снимок отдаётся по сессии (ADR-171), а
                     оптимизатор ходит за картинкой своим запросом без cookie
                     панели и получает 401. */}
-                <Image
-                  className={styles.thumb}
-                  src={photo.url}
-                  alt={texts.photoAlt(PHOTO_STAGE_TITLE.after, index + 1)}
-                  width={THUMB}
-                  height={THUMB}
-                  unoptimized
-                />
+                {photo.missing === true ? (
+                  <MediaGone className={styles.thumbGone} title={texts.photoGone} />
+                ) : (
+                  <Image
+                    className={styles.thumb}
+                    src={photo.url}
+                    alt={texts.photoAlt(PHOTO_STAGE_TITLE.after, index + 1)}
+                    width={THUMB}
+                    height={THUMB}
+                    unoptimized
+                  />
+                )}
                 <IconButton
                   className={styles.remove}
                   label={texts.photoRemove(PHOTO_STAGE_TITLE.after, index + 1)}

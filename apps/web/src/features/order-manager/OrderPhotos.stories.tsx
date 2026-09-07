@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { OrderPhotos } from './OrderPhotos';
-import { acceptingWorkApi, failingWorkApi, showcasePhotos } from './fixtures';
+import { acceptingWorkApi, failingWorkApi, showcasePhotos, showcasePhotosGone } from './fixtures';
 
 const meta = {
   title: 'Админка/Заказы/Фотографии',
@@ -31,6 +31,15 @@ export const Пусто: Story = {
  */
 export const ГлазамиМонтажника: Story = {
   args: { forInstaller: true },
+};
+
+/**
+ * 🔴 Ссылка есть, файла нет (issue #690): рамка со словами вместо значка
+ * сломанной картинки, `<img>` в разметке не появляется вовсе. Удаление рядом
+ * остаётся — снять запись, у которой нет файла, как раз и нужно.
+ */
+export const ФайлПропал: Story = {
+  args: { photos: showcasePhotosGone },
 };
 
 export const Ошибка: Story = {

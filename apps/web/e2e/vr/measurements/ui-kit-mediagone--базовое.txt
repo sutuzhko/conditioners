@@ -1,0 +1,32 @@
+# ui-kit-mediagone--базовое · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.MediaGone__box  220×82 @32,32  r14  b1
+  span.MediaGone__title  111×20 @55,9  Manrope 600 13/20  lines=1  «Фото недоступно»
+  span.MediaGone__note  202×40 @9,33  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
+
+[геометрия 768]
+div.MediaGone__box  220×82 @32,32  r14  b1
+  span.MediaGone__title  111×20 @55,9  Manrope 600 13/20  lines=1  «Фото недоступно»
+  span.MediaGone__note  202×40 @9,33  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
+
+[геометрия 1440]
+div.MediaGone__box  220×82 @32,32  r14  b1
+  span.MediaGone__title  111×20 @55,9  Manrope 600 13/20  lines=1  «Фото недоступно»
+  span.MediaGone__note  202×40 @9,33  Manrope 400 13/20  lines=2  «Файл снимка не найден — решайте по текст»
+
+[палитра light]
+div.MediaGone__box  bg #f8fafc  border #e2e8f0
+  span.MediaGone__title  color #475569
+  span.MediaGone__note  color #556173
+
+[палитра dark]
+div.MediaGone__box  bg #0e1729  border #1e2b41
+  span.MediaGone__title  color #a8b6c6
+  span.MediaGone__note  color #8598ac

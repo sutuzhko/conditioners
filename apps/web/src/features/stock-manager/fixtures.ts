@@ -127,6 +127,29 @@ export const freon: StockItemCard = {
   near: true,
 };
 
+/**
+ * 🔴 Вторая позиция ниже порога — и она же последняя строка списка (issue
+ * #749). Ровно этот случай владелец увидел на стенде: у строки посреди списка
+ * красная линия шла во всю ширину, а у последней от неё оставался обрубок под
+ * названием. Порядок в списке задаёт сервер («группа, потом название»), и
+ * «Фреон» встаёт последней группой — случай не редкий, а постоянный.
+ */
+export const freonLow: StockItemCard = {
+  id: 's6',
+  name: 'Фреон R410A',
+  group: 'Фреон',
+  unit: 'kilogram',
+  note: null,
+  archived: false,
+  product: null,
+  byZone: { z1: 4.3, z2: 0, z3: 0 },
+  total: 4.3,
+  minQty: 5,
+  purchasePrice: null,
+  low: true,
+  near: false,
+};
+
 /** Техника: позиция ссылается на модель каталога. */
 export const unit: StockItemCard = {
   id: 's4',

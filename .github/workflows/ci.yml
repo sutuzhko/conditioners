@@ -932,6 +932,22 @@ jobs:
             -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
             tulaklimat-dev:ci pnpm --filter web "$VR_SCRIPT"
 
+      # 🔴 Порог, который ни разу не падал, не доказан (issue #801). Фикстура
+      # красит границу малого контрола и требует, чтобы строгий порог кита это
+      # увидел, а грубый общий — нет. Витрина ей не нужна: контролы рисует
+      # `page.setContent`, — поэтому шаг идёт без сети и одним шардом.
+      #
+      # Шаг роняет работу сам, без сводки и ярлыков: порог, переставший ловить
+      # свою фикстуру, не ловит и настоящую правку краски — а именно ради неё
+      # он и строгий.
+      - name: Самотест порога кита
+        if: steps.scope.outputs.pixels == 'true' && matrix.shard == 1
+        run: |
+          docker run --name "$VR_NET-threshold" \
+            -e CI=true -e VR_WORKERS=2 \
+            -e DATABASE_URL -e SITE_URL -e SESSION_SECRET \
+            tulaklimat-dev:ci pnpm --filter web vr:threshold
+
       # Исход раннера — маркером рядом с итогами: сводной работе он нужен,
       # чтобы отличить «раннер упал, а итог этого не объясняет» от чистого
       # прогона. Регексп сводки читает только `outcome-*.json`, маркер ей не
