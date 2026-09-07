@@ -2,22 +2,42 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 500, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1402
+390 → 390×1500
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderList__list  358×1370 @16,16
+div.OrderList__list  358×1468 @16,16
   div.Alert__alert  358×109 @0,0  r14  b1
     span.Alert__icon  18×20 @15,13
       svg  18×18 @0,1
     div.Alert__body  300×83 @43,13
       p.Alert__title  300×20 @0,0  Manrope 700 15/20  lines=1  «3 заказа ждут назначения»
       div.Alert__text  300×61 @0,22  Manrope 400 15/20  lines=3  «Пока не назначен монтажник, наряд не поп»
-  form.OrderBulk__form  358×1249 @0,121
-    label.OrderBulk__all  264×44 @0,0  Manrope 600 13/20  lines=1  «Выбрать все наряды на странице»
-      input.OrderBulk__allBox  24×24 @10,10
-    section.Card__card  358×1195 @0,54  r20  b1
+  form.OrderBulk__form  358×1347 @0,121
+    div.OrderBulk__bar  358×142 @0,0  b1
+      div.OrderBulk__mode  356×88 @1,1
+        label.OrderBulk__pickAll  216×44 @0,0  Manrope 400 15/22  lines=1  «Выбрать все на странице»
+          input.OrderBulk__pickAllBox  24×24 @4,10
+        span.OrderBulk__count  138×22 @0,55  Manrope 700 15/22  lines=1  «Ничего не выбрано»
+        button.Button__button  129×44 @146,44  r11  b1
+          span.Button__content  91×17 @19,13
+            span.Button__label  91×17 @0,0  Manrope 600 15/17  lines=1  «Снять выбор»
+          span.Button__reason  1×1 @64,22  Manrope 600 15/17  lines=1  clipped  «Снимать нечего: ни один наряд не отмечен»
+      div.OrderBulk__act  356×44 @1,97
+        div.Field__field  234×44 @0,0
+          span.Select__wrapper  234×44 @0,0
+            select.Select__select  234×44 @0,0  r11  b1
+              option  0×0 @-17,-234  Manrope 400 15/21  lines=0  «Кому назначить»
+              option#2  0×0 @-17,-234  Manrope 400 15/21  lines=0  «Дмитрий Соколов»
+              option#3  0×0 @-17,-234  Manrope 400 15/21  lines=0  «Артём Белов»
+              option#4  0×0 @-17,-234  Manrope 400 15/21  lines=0  «petrov»
+            svg.Select__chevron  14×14 @206,15
+        button.Button__button  114×44 @242,0  r11  b1
+          span.Button__content#2  76×17 @19,13
+            span.Button__label  76×17 @0,0  Manrope 600 15/17  lines=1  «Назначить»
+          span.Button__reason#2  1×1 @56,22  Manrope 600 15/17  lines=1  clipped  «Сначала отметьте наряды галочками — назн»
+    section.Card__card  358×1195 @0,152  r20  b1
       div.Table__viewport  356×1094 @1,1
         table.Table__table  356×1094 @0,0
           tr[role=row]  1×56 @0,0
@@ -52,7 +72,7 @@ div.OrderList__list  358×1370 @16,16
               td.OrderTable__tabAction::before  60×20 @0,0
               a.Button__button  98×44 @242,7  r9  b1
                 span.Button__content  68×16 @15,14
-                  span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  354×51 @1,318  b1 0 0 0
               div.TableActions__actions  116×36 @224,8
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -92,7 +112,7 @@ div.OrderList__list  358×1370 @16,16
               td.OrderTable__tabAction::before  60×20 @0,0
               a.Button__button#2  98×44 @242,7  r9  b1
                 span.Button__content  68×16 @15,14
-                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  354×51 @1,294  b1 0 0 0
               div.TableActions__actions#2  116×36 @224,8
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -132,7 +152,7 @@ div.OrderList__list  358×1370 @16,16
               td.OrderTable__tabAction::before  60×20 @0,0
               a.Button__button#3  98×44 @242,7  r9  b1
                 span.Button__content  68×16 @15,14
-                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#4  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  354×51 @1,294  b1 0 0 0
               div.TableActions__actions#3  116×36 @224,8
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -161,17 +181,37 @@ div.OrderList__list  358×1370 @16,16
             span  16×20 @14,12  Manrope 600 13/20  lines=1  «32»
 
 [геометрия 768]
-div.OrderList__list  736×641 @16,16
+div.OrderList__list  736×695 @16,16
   div.Alert__alert  736×69 @0,0  r14  b1
     span.Alert__icon  18×20 @15,13
       svg  18×18 @0,1
     div.Alert__body  678×43 @43,13
       p.Alert__title  678×20 @0,0  Manrope 700 15/20  lines=1  «3 заказа ждут назначения»
       div.Alert__text  678×20 @0,22  Manrope 400 15/20  lines=1  «Пока не назначен монтажник, наряд не поп»
-  form.OrderBulk__form  736×560 @0,81
-    label.OrderBulk__all  264×44 @0,0  Manrope 600 13/20  lines=1  «Выбрать все наряды на странице»
-      input.OrderBulk__allBox  24×24 @10,10
-    section.Card__card  736×506 @0,54  r20  b1
+  form.OrderBulk__form  736×614 @0,81
+    div.OrderBulk__bar  736×98 @0,0  b1
+      div.OrderBulk__mode  500×44 @1,1
+        label.OrderBulk__pickAll  216×44 @0,0  Manrope 400 15/22  lines=1  «Выбрать все на странице»
+          input.OrderBulk__pickAllBox  24×24 @4,10
+        span.OrderBulk__count  138×22 @224,11  Manrope 700 15/22  lines=1  «Ничего не выбрано»
+        button.Button__button  129×44 @371,0  r11  b1
+          span.Button__content  91×17 @19,13
+            span.Button__label  91×17 @0,0  Manrope 600 15/17  lines=1  «Снять выбор»
+          span.Button__reason  1×1 @64,22  Manrope 600 15/17  lines=1  clipped  «Снимать нечего: ни один наряд не отмечен»
+      div.OrderBulk__act  734×44 @1,53
+        div.Field__field  360×44 @0,0
+          span.Select__wrapper  360×44 @0,0
+            select.Select__select  360×44 @0,0  r11  b1
+              option  0×0 @-17,-150  Manrope 400 15/21  lines=0  «Кому назначить»
+              option#2  0×0 @-17,-150  Manrope 400 15/21  lines=0  «Дмитрий Соколов»
+              option#3  0×0 @-17,-150  Manrope 400 15/21  lines=0  «Артём Белов»
+              option#4  0×0 @-17,-150  Manrope 400 15/21  lines=0  «petrov»
+            svg.Select__chevron  14×14 @332,15
+        button.Button__button  114×44 @368,0  r11  b1
+          span.Button__content#2  76×17 @19,13
+            span.Button__label  76×17 @0,0  Manrope 600 15/17  lines=1  «Назначить»
+          span.Button__reason#2  1×1 @56,22  Manrope 600 15/17  lines=1  clipped  «Сначала отметьте наряды галочками — назн»
+    section.Card__card  736×506 @0,108  r20  b1
       div.Table__viewport  734×435 @1,1
         table.Table__table  734×435 @0,0
           tr[role=row]  734×56 @0,0
@@ -201,7 +241,7 @@ div.OrderList__list  736×641 @16,16
             td.OrderTable__tabAction  137×156 @445,0  b0 0 1 0
               a.Button__button  98×44 @18,15  r9  b1
                 span.Button__content  68×16 @15,14
-                  span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×156 @582,0  b0 0 1 0
               div.TableActions__actions  116×36 @18,15
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -236,7 +276,7 @@ div.OrderList__list  736×641 @16,16
             td.OrderTable__tabAction  137×112 @445,0  b0 0 1 0
               a.Button__button#2  98×44 @18,15  r9  b1
                 span.Button__content  68×16 @15,14
-                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×112 @582,0  b0 0 1 0
               div.TableActions__actions#2  116×36 @18,15
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -271,7 +311,7 @@ div.OrderList__list  736×641 @16,16
             td.OrderTable__tabAction  137×111 @445,0
               a.Button__button#3  98×44 @18,15  r9  b1
                 span.Button__content  68×16 @15,14
-                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#4  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×111 @582,0
               div.TableActions__actions#3  116×36 @18,15
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -300,17 +340,37 @@ div.OrderList__list  736×641 @16,16
             span  16×20 @14,12  Manrope 600 13/20  lines=1  «32»
 
 [геометрия 1440]
-div.OrderList__list  1408×470 @16,16
+div.OrderList__list  1408×490 @16,16
   div.Alert__alert  1408×69 @0,0  r14  b1
     span.Alert__icon  18×20 @15,13
       svg  18×18 @0,1
     div.Alert__body  1350×43 @43,13
       p.Alert__title  1350×20 @0,0  Manrope 700 15/20  lines=1  «3 заказа ждут назначения»
       div.Alert__text  1350×20 @0,22  Manrope 400 15/20  lines=1  «Пока не назначен монтажник, наряд не поп»
-  form.OrderBulk__form  1408×389 @0,81
-    label.OrderBulk__all  247×26 @0,0  Manrope 600 13/20  lines=1  «Выбрать все наряды на странице»
-      input.OrderBulk__allBox  20×20 @4,3
-    section.Card__card  1408×353 @0,36  r20  b1
+  form.OrderBulk__form  1408×409 @0,81
+    div.OrderBulk__bar  1408×46 @0,0  b1
+      div.OrderBulk__mode  496×44 @1,1
+        label.OrderBulk__pickAll  212×26 @0,9  Manrope 400 15/22  lines=1  «Выбрать все на странице»
+          input.OrderBulk__pickAllBox  20×20 @4,3
+        span.OrderBulk__count  138×22 @220,11  Manrope 700 15/22  lines=1  «Ничего не выбрано»
+        button.Button__button  129×44 @367,0  r11  b1
+          span.Button__content  91×17 @19,13
+            span.Button__label  91×17 @0,0  Manrope 600 15/17  lines=1  «Снять выбор»
+          span.Button__reason  1×1 @64,22  Manrope 600 15/17  lines=1  clipped  «Снимать нечего: ни один наряд не отмечен»
+      div.OrderBulk__act  306×44 @1101,1
+        div.Field__field  184×44 @0,0
+          span.Select__wrapper  184×44 @0,0
+            select.Select__select  184×44 @0,0  r11  b1
+              option  0×0 @-1117,-98  Manrope 400 15/21  lines=0  «Кому назначить»
+              option#2  0×0 @-1117,-98  Manrope 400 15/21  lines=0  «Дмитрий Соколов»
+              option#3  0×0 @-1117,-98  Manrope 400 15/21  lines=0  «Артём Белов»
+              option#4  0×0 @-1117,-98  Manrope 400 15/21  lines=0  «petrov»
+            svg.Select__chevron  14×14 @156,15
+        button.Button__button  114×44 @192,0  r11  b1
+          span.Button__content#2  76×17 @19,13
+            span.Button__label  76×17 @0,0  Manrope 600 15/17  lines=1  «Назначить»
+          span.Button__reason#2  1×1 @56,22  Manrope 600 15/17  lines=1  clipped  «Сначала отметьте наряды галочками — назн»
+    section.Card__card  1408×353 @0,56  r20  b1
       div.Table__viewport  1406×294 @1,1
         table.Table__table  1406×294 @0,0
           tr[role=row]  1406×56 @0,0
@@ -344,7 +404,7 @@ div.OrderList__list  1408×470 @16,16
             td.OrderTable__tabAction  150×96 @1104,0  b0 0 1 0
               a.Button__button  98×40 @18,15  r9  b1
                 span.Button__content  68×16 @15,12
-                  span.Button__label  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×96 @1254,0  b0 0 1 0
               div.TableActions__actions  116×36 @18,15
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -381,7 +441,7 @@ div.OrderList__list  1408×470 @16,16
             td.OrderTable__tabAction  150×72 @1104,0  b0 0 1 0
               a.Button__button#2  98×40 @18,15  r9  b1
                 span.Button__content  68×16 @15,12
-                  span.Button__label#2  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×72 @1254,0  b0 0 1 0
               div.TableActions__actions#2  116×36 @18,15
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -418,7 +478,7 @@ div.OrderList__list  1408×470 @16,16
             td.OrderTable__tabAction  150×71 @1104,0
               a.Button__button#3  98×40 @18,15  r9  b1
                 span.Button__content  68×16 @15,12
-                  span.Button__label#3  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
+                  span.Button__label#4  68×16 @0,0  Manrope 600 13/16  lines=1  «Назначить»
             td.OrderTable__actions  152×71 @1254,0
               div.TableActions__actions#3  116×36 @18,15
                 span.Tooltip__wrap  36×36 @0,0  r100
@@ -455,8 +515,28 @@ div.OrderList__list
       p.Alert__title  color #92400e
       div.Alert__text  color #92400e
   form.OrderBulk__form
-    label.OrderBulk__all  color #556173
-      input.OrderBulk__allBox
+    div.OrderBulk__bar  bg #ffffff  border #e2e8f0
+      div.OrderBulk__mode
+        label.OrderBulk__pickAll  color #475569
+          input.OrderBulk__pickAllBox
+        span.OrderBulk__count  color #556173
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #0e7490
+          span.Button__reason  color #0e7490
+      div.OrderBulk__act
+        div.Field__field
+          span.Select__wrapper
+            select.Select__select  bg #f8fafc  border #7e8fa6
+              option  color #556173
+              option#2  color #556173
+              option#3  color #556173
+              option#4  color #556173
+            svg.Select__chevron
+        button.Button__button  bg #0e7490  border #0e7490
+          span.Button__content#2
+            span.Button__label  color #ffffff
+          span.Button__reason#2  color #ffffff
     section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
       div.Table__viewport
         table.Table__table
@@ -491,7 +571,7 @@ div.OrderList__list
             td.OrderTable__tabAction  border #334155 #334155 #eef2f6 #334155
               a.Button__button  bg #ecfeff  border transparent
                 span.Button__content
-                  span.Button__label  color #0e7490
+                  span.Button__label#2  color #0e7490
             td.OrderTable__actions  border #334155 #334155 #eef2f6 #334155
               div.TableActions__actions
                 span.Tooltip__wrap
@@ -528,7 +608,7 @@ div.OrderList__list
             td.OrderTable__tabAction  border #334155 #334155 #eef2f6 #334155
               a.Button__button#2  bg #ecfeff  border transparent
                 span.Button__content
-                  span.Button__label#2  color #0e7490
+                  span.Button__label#3  color #0e7490
             td.OrderTable__actions  border #334155 #334155 #eef2f6 #334155
               div.TableActions__actions#2
                 span.Tooltip__wrap
@@ -565,7 +645,7 @@ div.OrderList__list
             td.OrderTable__tabAction
               a.Button__button#3  bg #ecfeff  border transparent
                 span.Button__content
-                  span.Button__label#3  color #0e7490
+                  span.Button__label#4  color #0e7490
             td.OrderTable__actions
               div.TableActions__actions#3
                 span.Tooltip__wrap
@@ -641,8 +721,28 @@ div.OrderList__list
       p.Alert__title  color #fbbf24
       div.Alert__text  color #fbbf24
   form.OrderBulk__form
-    label.OrderBulk__all  color #8598ac
-      input.OrderBulk__allBox
+    div.OrderBulk__bar  bg #121d31  border #1e2b41
+      div.OrderBulk__mode
+        label.OrderBulk__pickAll  color #a8b6c6
+          input.OrderBulk__pickAllBox
+        span.OrderBulk__count  color #8598ac
+        button.Button__button  border transparent
+          span.Button__content
+            span.Button__label  color #22d3ee
+          span.Button__reason  color #22d3ee
+      div.OrderBulk__act
+        div.Field__field
+          span.Select__wrapper
+            select.Select__select  bg #0e1729  border #566d95
+              option  color #8598ac
+              option#2  color #8598ac
+              option#3  color #8598ac
+              option#4  color #8598ac
+            svg.Select__chevron
+        button.Button__button  bg #0e7490  border #0e7490
+          span.Button__content#2
+            span.Button__label  color #ffffff
+          span.Button__reason#2  color #ffffff
     section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
       div.Table__viewport
         table.Table__table
@@ -677,7 +777,7 @@ div.OrderList__list
             td.OrderTable__tabAction  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
               a.Button__button  bg #22d3ee1a  border transparent
                 span.Button__content
-                  span.Button__label  color #22d3ee
+                  span.Button__label#2  color #22d3ee
             td.OrderTable__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
               div.TableActions__actions
                 span.Tooltip__wrap
@@ -714,7 +814,7 @@ div.OrderList__list
             td.OrderTable__tabAction  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
               a.Button__button#2  bg #22d3ee1a  border transparent
                 span.Button__content
-                  span.Button__label#2  color #22d3ee
+                  span.Button__label#3  color #22d3ee
             td.OrderTable__actions  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
               div.TableActions__actions#2
                 span.Tooltip__wrap
@@ -751,7 +851,7 @@ div.OrderList__list
             td.OrderTable__tabAction
               a.Button__button#3  bg #22d3ee1a  border transparent
                 span.Button__content
-                  span.Button__label#3  color #22d3ee
+                  span.Button__label#4  color #22d3ee
             td.OrderTable__actions
               div.TableActions__actions#3
                 span.Tooltip__wrap
