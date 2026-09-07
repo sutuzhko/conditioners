@@ -1,7 +1,7 @@
 # Plan: Четыре роли и настраиваемые права
 
 **PRD:** [docs/prd-roles-and-permissions.md](prd-roles-and-permissions.md)
-**Решение:** [ADR-341](DECISIONS.md)
+**Решение:** [ADR-344](DECISIONS.md)
 **Дата:** 2026-09-08
 
 ## Фазы реализации

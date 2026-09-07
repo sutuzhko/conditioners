@@ -678,7 +678,7 @@ Storybook и **ноль потребителей среди экранов**; `D
 
 ## Этап 16 · Роли, журнал событий и виды работ — запросы владельца 8 сентября
 
-**Решения:** ADR-341 (роли), ADR-342 (журнал), ADR-343 (виды работ) ·
+**Решения:** ADR-343 (виды работ), ADR-344 (роли), ADR-345 (журнал) ·
 **PRD:** [prd-roles-and-permissions.md](prd-roles-and-permissions.md),
 [prd-activity-log.md](prd-activity-log.md),
 [prd-work-type-dictionary.md](prd-work-type-dictionary.md) ·
