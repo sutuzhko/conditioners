@@ -90,11 +90,18 @@ export const Variants: Story = {
   ),
 };
 
-/** Период отчёта — два поля в ряд, ради чего сегменты и заведены. */
+/**
+ * Период отчёта — два поля в ряд, ради чего сегменты и заведены.
+ *
+ * 🔴 Ряд переносится: до 900px сегмент несёт тап-зону 44×44 (issue #733), и
+ * поле даты просит около 195px против 135px на указателе. Два таких поля в
+ * ряд на телефон не помещаются — и не должны: форма продажи раскладывает их
+ * `auto-fit`-сеткой и переносит сама.
+ */
 export const Period: Story = {
   name: 'Период',
   render: () => (
-    <div style={{ display: 'flex', gap: 12 }}>
+    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
       <Controlled label="С" initial={{ day: '01', month: '08', year: '2026' }} />
       <Controlled label="По" initial={{ day: '31', month: '08', year: '2026' }} />
     </div>
