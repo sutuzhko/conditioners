@@ -1,41 +1,18 @@
-# админка-склад-·-журнал-движений--сотбором · ширины 390 768 1440 · темы light dark
-шрифты: Manrope 400, Manrope 500, Manrope 600, Onest 700
+# админка-склад-·-журнал-движений--мелкийшаг · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1234
+390 → 390×900
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.StockJournal__wrap  358×1202 @16,16
-  section.Card__card  358×1202 @0,0
-    div.StockJournal__head  358×532 @0,0
+div.StockJournal__wrap  358×864 @16,16
+  section.Card__card  358×864 @0,0
+    div.StockJournal__head  358×65 @0,0
       h2.StockJournal__title  358×21 @0,0  Onest 700 17/21  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  358×40 @0,25  Manrope 400 13/20  lines=2  «Что, куда, сколько, кто и когда. Без жур»
-      div.StockJournalFilters__filters  358×423 @0,79
-        nav.StockJournalFilters__row  358×148 @0,0
-          a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
-          a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
-          a.StockJournalFilters__chip#3  121×44 @213,0  Manrope 600 13/20  r100  b1  lines=1  «Перемещение»
-          a.StockJournalFilters__chip#4  144×44 @0,52  Manrope 600 13/20  r100  b1  lines=1  «Списание в наряд»
-          a.StockJournalFilters__chip#5  146×44 @152,52  Manrope 600 13/20  r100  b1  lines=1  «Возврат с объекта»
-          a.StockJournalFilters__chip#6  137×44 @0,104  Manrope 600 13/20  r100  b1  lines=1  «Инвентаризация»
-        nav.StockJournalFilters__row#2  358×96 @0,158
-          a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
-          a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
-          a.StockJournalFilters__chip#3  131×44 @0,52  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-        form.StockJournalFilters__form  358×159 @0,264
-          div.Field__field  358×103 @0,0
-            label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
-            input  358×49 @0,27  r11  b1
-            p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-          div.StockJournalFilters__actions  193×44 @0,115
-            button.Button__button  69×44 @0,0  r9  b1
-              span.Button__content  39×16 @15,14
-                span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-            a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
-      p.StockJournal__found  358×20 @0,511  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
-    div.StockJournal__scroller  358×670 @0,532
+    div.StockJournal__scroller  358×670 @0,65
       div.Table__viewport  358×670 @0,0
         table.Table__table  358×670 @0,0
           tr[role=row]  1×56 @0,0
@@ -94,37 +71,28 @@ div.StockJournal__wrap  358×1202 @16,16
             td.StockJournal__author  83×20 @260,110
               span.StockJournal__gone  83×20 @0,0  Manrope 400 13/20  lines=1  «автор удалён»
             td.StockJournal__reason  328×40 @15,134  Manrope 400 13/20  lines=2  «Пересчёт после инвентаризации: обрезки н»
+    div.StockPager__pager  358×129 @0,735  b1 0 0 0
+      div.StockPager__nav  326×52 @16,13
+        nav.Pager__pager  170×52 @78,0
+          a.Pager__step  44×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+            span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
+          span.Pager__position  66×44 @52,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
+          a.Pager__step#2  44×44 @126,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+            span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+      span.StockPager__size  326×44 @16,73
+        span.StockPager__sizeOn  44×44 @93,0  Manrope 700 13/16  r100  b1  lines=1  «8»
+        a.StockPager__sizeItem  44×44 @141,0  r100  b1
+          span  16×16 @14,14  Manrope 600 13/16  lines=1  «20»
+        a.StockPager__sizeItem#2  44×44 @189,0  r100  b1
+          span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
 
 [геометрия 768]
-div.StockJournal__wrap  736×836 @16,16
-  section.Card__card  736×836 @0,0  r20  b1
-    div.StockJournal__head  734×370 @1,1
+div.StockJournal__wrap  736×660 @16,16
+  section.Card__card  736×660 @0,0  r20  b1
+    div.StockJournal__head  734×64 @1,1
       h2.StockJournal__title  698×22 @18,18  Onest 700 18/22  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  539×20 @18,44  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
-      div.StockJournalFilters__filters  698×263 @18,78
-        nav.StockJournalFilters__row  698×96 @0,0
-          a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
-          a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
-          a.StockJournalFilters__chip#3  121×44 @213,0  Manrope 600 13/20  r100  b1  lines=1  «Перемещение»
-          a.StockJournalFilters__chip#4  144×44 @342,0  Manrope 600 13/20  r100  b1  lines=1  «Списание в наряд»
-          a.StockJournalFilters__chip#5  146×44 @494,0  Manrope 600 13/20  r100  b1  lines=1  «Возврат с объекта»
-          a.StockJournalFilters__chip#6  137×44 @0,52  Manrope 600 13/20  r100  b1  lines=1  «Инвентаризация»
-        nav.StockJournalFilters__row#2  698×44 @0,106
-          a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
-          a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
-          a.StockJournalFilters__chip#3  131×44 @230,0  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-        form.StockJournalFilters__form  698×103 @0,160
-          div.Field__field  493×103 @0,0
-            label.Field__label  493×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
-            input  493×49 @0,27  r11  b1
-            p.Field__hint  493×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-          div.StockJournalFilters__actions  193×70 @505,0
-            button.Button__button  69×44 @0,26  r9  b1
-              span.Button__content  39×16 @15,14
-                span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-            a.StockJournalFilters__reset  112×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить отбор»
-      p.StockJournal__found  698×20 @18,350  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
-    div.StockJournal__scroller  734×463 @1,371
+    div.StockJournal__scroller  734×463 @1,65
       div.Table__viewport  734×463 @0,0
         table.Table__table  1062×463 @0,0
           tr[role=row]  1062×56 @0,0
@@ -187,37 +155,33 @@ div.StockJournal__wrap  736×836 @16,16
             td.StockJournal__author  97×118 @810,0
               span.StockJournal__gone  49×41 @18,16  Manrope 400 15/22  lines=2  «автор удалён»
             td.StockJournal__reason  155×118 @907,0  Manrope 400 15/22  lines=4  «Пересчёт после инвентаризации: обрезки н»
+    div.StockPager__pager  734×131 @1,528  b1 0 0 0
+      span.StockPager__count  169×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 19 движений»
+      div.StockPager__nav  0×0 @-17,-544
+        nav.Pager__pager  347×52 @388,557
+          a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+            span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
+          ol.Pager__numbers  135×44 @100,4
+            a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+            span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+            a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+          a.Pager__step#2  100×44 @247,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+            span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+      span.StockPager__size  265×44 @16,75
+        span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+        span.StockPager__sizeOn  44×44 @125,0  Manrope 600 13/16  r100  b1  lines=1  «8»
+        a.StockPager__sizeItem  44×44 @173,0  r100  b1
+          span  16×16 @14,14  Manrope 600 13/16  lines=1  «20»
+        a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
+          span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
 
 [геометрия 1440]
-div.StockJournal__wrap  1408×653 @16,16
-  section.Card__card  1408×653 @0,0  r20  b1
-    div.StockJournal__head  1406×300 @1,1
+div.StockJournal__wrap  1408×495 @16,16
+  section.Card__card  1408×495 @0,0  r20  b1
+    div.StockJournal__head  1406×65 @1,1
       h2.StockJournal__title  1370×23 @18,18  Onest 700 19/23  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  539×20 @18,45  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
-      div.StockJournalFilters__filters  1370×191 @18,79
-        nav.StockJournalFilters__row  1370×34 @0,0
-          a.StockJournalFilters__chip  119×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
-          a.StockJournalFilters__chip#2  78×34 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
-          a.StockJournalFilters__chip#3  121×34 @213,0  Manrope 600 13/20  r100  b1  lines=1  «Перемещение»
-          a.StockJournalFilters__chip#4  144×34 @342,0  Manrope 600 13/20  r100  b1  lines=1  «Списание в наряд»
-          a.StockJournalFilters__chip#5  146×34 @494,0  Manrope 600 13/20  r100  b1  lines=1  «Возврат с объекта»
-          a.StockJournalFilters__chip#6  137×34 @648,0  Manrope 600 13/20  r100  b1  lines=1  «Инвентаризация»
-        nav.StockJournalFilters__row#2  1370×34 @0,44
-          a.StockJournalFilters__chip  111×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
-          a.StockJournalFilters__chip#2  102×34 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
-          a.StockJournalFilters__chip#3  131×34 @230,0  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-        form.StockJournalFilters__form  1370×103 @0,88
-          div.Field__field  1165×103 @0,0
-            label.Field__label  1165×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
-            input  1165×49 @0,27  r11  b1
-            p.Field__hint  1165×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-          div.StockJournalFilters__actions  193×66 @1177,0
-            button.Button__button  69×40 @0,26  r9  b1
-              span.Button__content  39×16 @15,12
-                span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-            a.StockJournalFilters__reset  112×24 @81,34  Manrope 400 15/22  lines=1  «Сбросить отбор»
-      p.StockJournal__found  1370×20 @18,280  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
-    div.StockJournal__scroller  1406×351 @1,301
+    div.StockJournal__scroller  1406×351 @1,66
       div.Table__viewport  1406×351 @0,0
         table.Table__table  1406×351 @0,0
           tr[role=row]  1406×56 @0,0
@@ -280,6 +244,25 @@ div.StockJournal__wrap  1408×653 @16,16
             td.StockJournal__author  131×73 @971,0
               span.StockJournal__gone  93×19 @18,16  Manrope 400 15/22  lines=1  «автор удалён»
             td.StockJournal__reason  304×73 @1102,0  Manrope 400 15/22  lines=2  «Пересчёт после инвентаризации: обрезки н»
+    div.StockPager__pager  1406×77 @1,417  b1 0 0 0
+      span.StockPager__count  169×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 19 движений»
+      div.StockPager__nav  0×0 @-17,-433
+        nav.Pager__pager  347×52 @498,446
+          a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+            span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
+          ol.Pager__numbers  135×44 @100,4
+            a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+            span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+            a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+          a.Pager__step#2  100×44 @247,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+            span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+      span.StockPager__size  265×44 @1125,17
+        span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+        span.StockPager__sizeOn  44×44 @125,0  Manrope 600 13/16  r100  b1  lines=1  «8»
+        a.StockPager__sizeItem  44×44 @173,0  r100  b1
+          span  16×16 @14,14  Manrope 600 13/16  lines=1  «20»
+        a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
+          span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
 
 [палитра light]
 div.StockJournal__wrap
@@ -287,29 +270,6 @@ div.StockJournal__wrap
     div.StockJournal__head
       h2.StockJournal__title  color #0f172a
       p.StockJournal__hint  color #556173
-      div.StockJournalFilters__filters
-        nav.StockJournalFilters__row
-          a.StockJournalFilters__chip  color #334155  bg #ffffff  border #e2e8f0
-          a.StockJournalFilters__chip#2  color #334155  bg #ffffff  border #e2e8f0
-          a.StockJournalFilters__chip#3  color #334155  bg #ffffff  border #e2e8f0
-          a.StockJournalFilters__chip#4  color #0e7490  bg #ecfeff  border #a5f3fc
-          a.StockJournalFilters__chip#5  color #334155  bg #ffffff  border #e2e8f0
-          a.StockJournalFilters__chip#6  color #334155  bg #ffffff  border #e2e8f0
-        nav.StockJournalFilters__row#2
-          a.StockJournalFilters__chip  color #334155  bg #ffffff  border #e2e8f0
-          a.StockJournalFilters__chip#2  color #0e7490  bg #ecfeff  border #a5f3fc
-          a.StockJournalFilters__chip#3  color #334155  bg #ffffff  border #e2e8f0
-        form.StockJournalFilters__form
-          div.Field__field
-            label.Field__label  color #334155
-            input  bg #ffffff  border #7e8fa6
-            p.Field__hint  color #556173
-          div.StockJournalFilters__actions
-            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-              span.Button__content
-                span.Button__label  color #ffffff
-            a.StockJournalFilters__reset  color #556173
-      p.StockJournal__found  color #5b6a7d
     div.StockJournal__scroller
       div.Table__viewport
         table.Table__table
@@ -373,6 +333,25 @@ div.StockJournal__wrap
             td.StockJournal__author
               span.StockJournal__gone  color #5b6a7d
             td.StockJournal__reason  color #556173
+    div.StockPager__pager  border #eef2f6 #475569 #475569 #475569
+      span.StockPager__count  color #5b6a7d
+      div.StockPager__nav
+        nav.Pager__pager
+          a.Pager__step  color #0e7490  border #7e8fa6
+            span.Pager__stepText  color #0e7490
+          ol.Pager__numbers
+            a.Pager__number  color #0e7490  border transparent
+            span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+            a.Pager__number#2  color #0e7490  border transparent
+          a.Pager__step#2  color #0e7490  border #7e8fa6
+            span.Pager__stepText  color #0e7490
+      span.StockPager__size
+        span.StockPager__sizeTitle  color #5b6a7d
+        span.StockPager__sizeOn  color #ffffff  bg #0e7490  border #0e7490
+        a.StockPager__sizeItem  border #7e8fa6
+          span  color #0e7490
+        a.StockPager__sizeItem#2  border #7e8fa6
+          span  color #0e7490
 [палитра light @390]
 div.StockJournal__wrap > section.Card__card
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row  bg #ffffff  border #e2e8f0
@@ -414,6 +393,12 @@ div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.T
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row#4 > td.StockJournal__itemCell > a.StockJournal__item#4  color #0f172a
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row#4 > td.StockJournal__to  color #556173
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row#4 > td.StockJournal__to > td.StockJournal__to::before
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > span.StockPager__sizeOn  color #0f172a  border transparent
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem  border transparent
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem > span  color #0f172a
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2  border transparent
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2 > span  color #0f172a
 
 [палитра dark]
 div.StockJournal__wrap
@@ -421,29 +406,6 @@ div.StockJournal__wrap
     div.StockJournal__head
       h2.StockJournal__title  color #eaf1f8
       p.StockJournal__hint  color #8598ac
-      div.StockJournalFilters__filters
-        nav.StockJournalFilters__row
-          a.StockJournalFilters__chip  color #c9d5e2  bg #121d31  border #1e2b41
-          a.StockJournalFilters__chip#2  color #c9d5e2  bg #121d31  border #1e2b41
-          a.StockJournalFilters__chip#3  color #c9d5e2  bg #121d31  border #1e2b41
-          a.StockJournalFilters__chip#4  color #22d3ee  bg #22d3ee1a  border #22d3ee59
-          a.StockJournalFilters__chip#5  color #c9d5e2  bg #121d31  border #1e2b41
-          a.StockJournalFilters__chip#6  color #c9d5e2  bg #121d31  border #1e2b41
-        nav.StockJournalFilters__row#2
-          a.StockJournalFilters__chip  color #c9d5e2  bg #121d31  border #1e2b41
-          a.StockJournalFilters__chip#2  color #22d3ee  bg #22d3ee1a  border #22d3ee59
-          a.StockJournalFilters__chip#3  color #c9d5e2  bg #121d31  border #1e2b41
-        form.StockJournalFilters__form
-          div.Field__field
-            label.Field__label  color #c9d5e2
-            input  bg #0b1424  border #566d95
-            p.Field__hint  color #8598ac
-          div.StockJournalFilters__actions
-            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
-              span.Button__content
-                span.Button__label  color #ffffff
-            a.StockJournalFilters__reset  color #8598ac
-      p.StockJournal__found  color #7e92a7
     div.StockJournal__scroller
       div.Table__viewport
         table.Table__table
@@ -507,6 +469,25 @@ div.StockJournal__wrap
             td.StockJournal__author
               span.StockJournal__gone  color #7e92a7
             td.StockJournal__reason  color #8598ac
+    div.StockPager__pager  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
+      span.StockPager__count  color #7e92a7
+      div.StockPager__nav
+        nav.Pager__pager
+          a.Pager__step  color #22d3ee  border #566d95
+            span.Pager__stepText  color #22d3ee
+          ol.Pager__numbers
+            a.Pager__number  color #22d3ee  border transparent
+            span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+            a.Pager__number#2  color #22d3ee  border transparent
+          a.Pager__step#2  color #22d3ee  border #566d95
+            span.Pager__stepText  color #22d3ee
+      span.StockPager__size
+        span.StockPager__sizeTitle  color #7e92a7
+        span.StockPager__sizeOn  color #ffffff  bg #0e7490  border #0e7490
+        a.StockPager__sizeItem  border #566d95
+          span  color #22d3ee
+        a.StockPager__sizeItem#2  border #566d95
+          span  color #22d3ee
 [палитра dark @390]
 div.StockJournal__wrap > section.Card__card
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row  bg #121d31  border #1e2b41
@@ -548,3 +529,9 @@ div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.T
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row#4 > td.StockJournal__itemCell > a.StockJournal__item#4  color #eaf1f8
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row#4 > td.StockJournal__to  color #8598ac
 div.StockJournal__wrap > section.Card__card > div.StockJournal__scroller > div.Table__viewport > table.Table__table > tr.StockJournal__row#4 > td.StockJournal__to > td.StockJournal__to::before
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > span.StockPager__sizeOn  color #eaf1f8  border transparent
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem  border transparent
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem > span  color #eaf1f8
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2  border transparent
+div.StockJournal__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2 > span  color #eaf1f8

@@ -163,3 +163,16 @@ div.StockFilters__bar
     span.StockFilters__counter  color #7e92a7
     span.StockFilters__counter#2  color #fbbf24
     a.StockFilters__reset  color #22d3ee
+[палитра dark @390]
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet  bg #121d31  border #1e2b41
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group > span.StockFilters__groupTitle  color #7e92a7
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group > a.StockFilters__item  color #22d3ee  bg #22d3ee1a  border #22d3ee
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group > a.StockFilters__item#2  color #a8b6c6  bg #0e1729  border transparent
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group > a.StockFilters__item#3  color #a8b6c6  bg #0e1729  border transparent
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group#2 > span.StockFilters__groupTitle  color #7e92a7
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group#2 > a.StockFilters__item  color #a8b6c6  bg #0e1729  border transparent
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group#2 > a.StockFilters__item#2  color #22d3ee  bg #22d3ee1a  border #22d3ee
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group#2 > a.StockFilters__item#3  color #a8b6c6  bg #0e1729  border transparent
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > nav.StockFilters__group#2 > a.StockFilters__item#4  color #a8b6c6  bg #0e1729  border transparent
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > form.StockFilters__form > div.Field__field > label.Field__label  color #c9d5e2
+div.StockFilters__bar > div.StockFilters__pills > details.StockFilters__filter > div.StockFilters__sheet > form.StockFilters__form > div.Field__field > input  bg #0b1424  border #566d95

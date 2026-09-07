@@ -161,6 +161,24 @@ export function pageSizeFromParam(raw: string | undefined): StockPageSize {
   return isStockPageSize(parsed) ? parsed : DEFAULT_STOCK_PAGE_SIZE;
 }
 
+/**
+ * Параметры адреса с заданным шагом листания.
+ *
+ * 🔴 Прежний `size` снимается, а не перекрывается. Умолчание в адресе не
+ * пишется вовсе — значит переход с восьми строк на двадцать не добавляет
+ * ключа, и наложение поверх прежних параметров оставило бы `size=8` в ссылке,
+ * которая как раз и должна с восьми уйти. Так шаг переставал переключаться
+ * обратно на умолчание (issue #725).
+ */
+export function pageSizeQuery(
+  query: Readonly<Record<string, string>>,
+  size: StockPageSize,
+): Record<string, string> {
+  const rest = Object.fromEntries(Object.entries(query).filter(([key]) => key !== 'size'));
+
+  return size === DEFAULT_STOCK_PAGE_SIZE ? rest : { ...rest, size: String(size) };
+}
+
 /* ---------- Фильтры остатков ---------- */
 
 /**

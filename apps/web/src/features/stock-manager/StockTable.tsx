@@ -25,6 +25,7 @@ import {
   stockFiltersApplied,
   stockItemPath,
   stockMoveQuery,
+  stockQuery,
   zoneQty,
   type StockFilterState,
   type StockItemCard,
@@ -266,7 +267,15 @@ export function StockTable({ overview, filters = DEFAULT_STOCK_FILTERS }: StockT
 
           {/* Подвал рисует сам пагинатор: когда листать нечего и выбирать шаг
               не из чего, под таблицей не остаётся пустой полосы с линией. */}
-          <StockPager overview={overview} filters={filters} />
+          <StockPager
+            page={overview.page}
+            pages={overview.pages}
+            count={texts.shown(overview.items.length, overview.total)}
+            scope={overview.itemsTotal}
+            size={filters.size}
+            basePath={STOCK_PATH}
+            query={stockQuery(filters)}
+          />
         </Card>
       </StockMoveScope>
 

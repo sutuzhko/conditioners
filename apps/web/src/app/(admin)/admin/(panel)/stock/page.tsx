@@ -243,7 +243,10 @@ async function JournalTab({ params }: { readonly params: StockParams }) {
     query: params.q?.trim() ?? '',
   };
 
-  const journal = await movements({ ...filters, page: pageNumber(params.page) });
+  /* Сколько движений на странице — тот же выбор владельца, что у остатков
+     (issue #725), и живёт он в том же параметре адреса. */
+  const size = pageSizeFromParam(params.size);
+  const journal = await movements({ ...filters, page: pageNumber(params.page), size });
 
   return (
     <>
@@ -257,6 +260,7 @@ async function JournalTab({ params }: { readonly params: StockParams }) {
         withItem
         withFilter
         filters={filters}
+        size={size}
         emptyText={texts.journalAllEmpty}
       />
     </>
