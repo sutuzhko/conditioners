@@ -4,6 +4,7 @@ import { formatPhone, phoneHref } from '@/shared/lib/format';
 import {
   Avatar,
   Badge,
+  ButtonLink,
   EmptyState,
   Icon,
   Pager,
@@ -17,6 +18,7 @@ import { adminSummaryContent as texts } from './summary-content';
 import {
   SUMMARY_PATH,
   upcomingQuery,
+  upcomingReset,
   visibleUpcomingColumns,
   type UpcomingColumn,
   type UpcomingFilters,
@@ -131,6 +133,21 @@ export function SummaryTable({ items, filters, page, pages }: SummaryTableProps)
         icon="calendar"
         title={untouched ? texts.upcomingEmptyTitle : texts.upcomingNotFoundTitle}
         className={styles.empty}
+        /* 🔴 Выход есть только у отбора: из «ничего не нашлось» ведёт кнопка,
+           а из «ничего не запланировано» вести некуда — работа заводится в
+           другом разделе, и кнопка «Сбросить» там означала бы, что виноват
+           отбор (issue #580). */
+        action={
+          untouched ? undefined : (
+            <ButtonLink
+              href={upcomingReset(filters, { show: 'all', query: '' })}
+              size="sm"
+              variant="bordered"
+            >
+              {texts.upcomingNotFoundAction}
+            </ButtonLink>
+          )
+        }
       >
         {untouched ? texts.upcomingEmpty : texts.upcomingNotFound}
       </EmptyState>

@@ -1,5 +1,6 @@
 import { stockManagerContent as texts } from '@/features/stock-manager';
 import { Skeleton, StatTiles } from '@/shared/ui';
+import { BusyGroup } from '@/widgets/admin-shell';
 
 import styles from './page.module.css';
 
@@ -16,7 +17,7 @@ import styles from './page.module.css';
  */
 export function StockSkeleton() {
   return (
-    <>
+    <BusyGroup>
       {/* Плитки и строка счётчиков резервируют место каждая на своей ширине —
           ровно так же, как их показывает готовая страница (issue #609). */}
       <Skeleton variant="block" className={styles.countsSkeleton} />
@@ -29,11 +30,15 @@ export function StockSkeleton() {
 
       <Skeleton variant="block" className={styles.filtersSkeleton} />
       <Skeleton variant="block" className={styles.tableSkeleton} />
-    </>
+    </BusyGroup>
   );
 }
 
 /** Заготовка журнала движений и зон: та же таблица без плиток остатка. */
 export function StockTableSkeleton() {
-  return <Skeleton variant="block" className={styles.tableSkeleton} />;
+  return (
+    <BusyGroup>
+      <Skeleton variant="block" className={styles.tableSkeleton} />
+    </BusyGroup>
+  );
 }
