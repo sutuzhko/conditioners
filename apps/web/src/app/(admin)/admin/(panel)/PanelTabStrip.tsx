@@ -5,6 +5,8 @@ export interface PanelTabStripProps<T extends string> {
   readonly tabs: PanelTabKeys<T>;
   readonly titles: Readonly<Record<T, string>>;
   readonly label: string;
+  /** Лента вместо переноса — то же, что у живых вкладок: см. `PanelTabs`. */
+  readonly scrollable?: boolean | undefined;
 }
 
 /**
@@ -20,21 +22,35 @@ export interface PanelTabStripProps<T extends string> {
  * одной подсвеченной вкладки, потому что подсветить можно только не ту.
  * Кнопки отключены: нажимать в заготовке нечего.
  */
-export function PanelTabStrip<T extends string>({ tabs, titles, label }: PanelTabStripProps<T>) {
+export function PanelTabStrip<T extends string>({
+  tabs,
+  titles,
+  label,
+  scrollable = false,
+}: PanelTabStripProps<T>) {
   return (
-    <div className={styles.tabs} role="tablist" aria-label={label} aria-busy="true">
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          type="button"
-          className={styles.tab}
-          role="tab"
-          aria-selected={false}
-          disabled
-        >
-          {titles[tab]}
-        </button>
-      ))}
+    <div className={scrollable ? styles.strip : undefined}>
+      <div
+        className={[styles.tabs, scrollable ? styles.tabsScrollable : null]
+          .filter(Boolean)
+          .join(' ')}
+        role="tablist"
+        aria-label={label}
+        aria-busy="true"
+      >
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            className={styles.tab}
+            role="tab"
+            aria-selected={false}
+            disabled
+          >
+            {titles[tab]}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

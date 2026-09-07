@@ -23,6 +23,11 @@ function renderTabs(active: (typeof TABS)[number] = 'data') {
   );
 }
 
+/* Лента подвозит открытую вкладку к глазам, а `scrollIntoView` в jsdom не
+   реализован вовсе: без заглушки эффект падает там, где проверяется разметка,
+   а не прокрутка. */
+Element.prototype.scrollIntoView = vi.fn();
+
 beforeEach(() => {
   for (const key of [...params.keys()]) params.delete(key);
   window.history.replaceState(null, '', '/admin/clients/42');
@@ -133,5 +138,51 @@ describe('Вкладки панели — счётчики', () => {
     expect(screen.getByRole('tab', { name: `${TITLES.units} 0` })).toBeInTheDocument();
     // у вкладки без счётчика число не появляется
     expect(screen.getByRole('tab', { name: TITLES.orders })).toBeInTheDocument();
+  });
+
+  /* 🔴 Счётчик бывает долей, а не только числом: чеклист выезда отвечает
+     «4 из 9», и одно число врало бы в любую сторону (issue #598). */
+  it('🔴 показывает счётчик строкой наравне с числом', () => {
+    render(
+      <PanelTabs
+        active="data"
+        tabs={TABS}
+        titles={TITLES}
+        label="Карточка клиента"
+        idPrefix="client"
+        counts={{ orders: 3, units: '4 из 9' }}
+        panels={{ data: <p>Данные</p>, orders: <p>Наряды</p>, units: <p>Техника</p> }}
+      />,
+    );
+
+    expect(screen.getByRole('tab', { name: `${TITLES.orders} 3` })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: `${TITLES.units} 4 из 9` })).toBeInTheDocument();
+  });
+
+  /* 🔴 Лента заворачивает ряд кнопок в обёртку, которая и прокручивается:
+     линия под вкладками принадлежит ей, иначе на узком экране она уезжала бы
+     вбок вместе с кнопками (issue #598). */
+  it('🔴 лентой заворачивает ряд в прокручиваемую обёртку', () => {
+    const { container } = render(
+      <PanelTabs
+        active="data"
+        tabs={TABS}
+        titles={TITLES}
+        label="Карточка клиента"
+        idPrefix="client"
+        scrollable
+        panels={{ data: <p>Данные</p>, orders: <p>Наряды</p>, units: <p>Техника</p> }}
+      />,
+    );
+
+    const strip = container.querySelector('[role="tablist"]')?.parentElement;
+    expect(strip?.className).not.toBe('');
+  });
+
+  it('без ленты обёртки нет: вкладки видны все сразу', () => {
+    const { container } = renderTabs();
+
+    const strip = container.querySelector('[role="tablist"]')?.parentElement;
+    expect(strip?.className).toBe('');
   });
 });

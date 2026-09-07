@@ -28,7 +28,7 @@ export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
   repair: 'Ремонт',
 };
 
-export { ORDER_CANCEL_REASON_TITLE, ORDER_STATUS_VARIANT } from '@/entities/order/model';
+export { ORDER_STATUS_VARIANT } from '@/entities/order/model';
 
 export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
   new: 'Новый',
@@ -54,6 +54,49 @@ export const ORDER_CARD_TAB_TITLE: Record<OrderCardTab, string> = {
   documents: 'Документы и фото',
   history: 'История',
 };
+
+/** То, из чего карточка считает числа у подписей вкладок. */
+export type OrderCardTally = {
+  readonly checklist: readonly { readonly done: boolean }[];
+  readonly docs: readonly unknown[];
+  readonly photos: readonly unknown[];
+  readonly history?: readonly unknown[] | undefined;
+};
+
+/**
+ * Счётчики у подписей вкладок карточки наряда (issue #598, макет
+ * `OrderTabs.png`).
+ *
+ * 🔴 Число говорит, есть ли за вкладкой что-нибудь, до того как на неё нажали:
+ * иначе про пустой чеклист узнаёшь, только открыв его, и так каждый раз.
+ *
+ * 🔴 У «Наряда» счётчика нет и быть не может: за ним лежит сам наряд, а не
+ * набор строк, и любое число там пришлось бы выдумать.
+ *
+ * Расход приходит числом снаружи: движения склада читаются отдельным куском
+ * потока и карточке в момент сборки ещё не известны. `undefined` — «не
+ * приехало», и счётчик тогда не рисуется вовсе: ноль соврал бы, что списаний
+ * нет, хотя их просто ещё не прочитали.
+ */
+export function orderCardTabCounts(
+  order: OrderCardTally,
+  materials?: number | undefined,
+): Partial<Record<OrderCardTab, number | string>> {
+  const done = order.checklist.filter((item) => item.done).length;
+
+  return {
+    ...(materials === undefined ? {} : { materials }),
+    /* Доля, а не число: девять пунктов, из которых собран один, и девять
+       собранных — разные состояния сборов, и одно число врало бы в любую
+       сторону. Пустой чеклист счётчика не получает: «0 из 0» не отвечает ни
+       на один вопрос. */
+    ...(order.checklist.length === 0
+      ? {}
+      : { checklist: orderManagerContent.checklistCount(done, order.checklist.length) }),
+    documents: order.docs.length + order.photos.length,
+    ...(order.history === undefined ? {} : { history: order.history.length }),
+  };
+}
 
 export const ORDER_PERIOD_TITLE: Record<OrderPeriod, string> = {
   all: 'Всё время',
@@ -409,6 +452,38 @@ export const orderManagerContent = {
   networkError: 'Не удалось связаться с сервером. Изменения не сохранены',
   serverError: 'Сервер не принял изменения. Попробуйте ещё раз',
   invalid: 'Проверьте подсвеченные поля',
+
+  // ---------- Карточка наряда у владельца (issue #598) ----------
+
+  /* 🔴 Карточка читается, а не заполняется (макет `Order.png`). Правка живёт
+     своим адресом, и подписи блоков здесь — заголовки чтения, а не легенды
+     полей формы: «Когда и кто» отвечает на вопрос, «Работа» называла раздел
+     формы. */
+  whenWhoTitle: 'Когда и кто',
+  ownerNoteTitle: 'Заметка владельца',
+  ownerNoteEmpty: 'Заметки нет',
+  commentEmpty: 'Комментария нет',
+  deductionNone: 'нет',
+  addressEmpty: 'Адрес не указан',
+  intercomEmpty: '—',
+
+  /* Действия над нарядом — шапка карточки. «Отметить выполненным» переводит
+     статус, остальное лежит в меню: три кнопки в ряд на 390 не помещаются, а
+     удаление рядом с основным действием — приглашение промахнуться. */
+  cardActions: (value: number): string => `Действия над нарядом № ${value}`,
+  edit: 'Править наряд',
+  markDone: 'Отметить выполненным',
+  markingDone: 'Отмечаем…',
+  markDoneDone: 'Наряд выполнен',
+  editTitle: 'Правка наряда',
+  editBack: '← Вернуться к наряду',
+  editHint:
+    'Правка видна монтажнику сразу — он смотрит тот же наряд со своего телефона. Итог работ, чеклист, документы и расход правятся в самой карточке.',
+
+  /* Счётчик чеклиста долей, а не числом: девять пунктов, из которых собран
+     один, и девять собранных — разные состояния сборов, и одно число врало бы
+     в любую сторону. */
+  checklistCount: (done: number, total: number): string => `${done} из ${total}`,
 
   // ---------- Наряд в работе ----------
 

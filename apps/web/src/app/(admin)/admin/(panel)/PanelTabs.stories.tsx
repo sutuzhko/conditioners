@@ -73,3 +73,36 @@ export const СоСчётчиками: Story = {
 export const СНулём: Story = {
   args: { counts: { orders: 12, units: 0 } },
 };
+
+/**
+ * Пять вкладок карточки наряда лентой (issue #598, макет `OrderTabs.png`).
+ *
+ * 🔴 До 900px лента едет вбок, а не переносится: перенос ставил бы пятую
+ * вкладку на вторую строку и уводил панель вниз на 44px ровно тогда, когда её
+ * открыли. Счётчик чеклиста — доля, а не число: девять пунктов, из которых
+ * собран один, и девять собранных — разные состояния сборов.
+ */
+export const ЛентаКарточкиНаряда: Story = {
+  args: {
+    active: 'checklist',
+    tabs: ['job', 'materials', 'checklist', 'documents', 'history'],
+    titles: {
+      job: 'Наряд',
+      materials: 'Расход',
+      checklist: 'Чеклист выезда',
+      documents: 'Документы и фото',
+      history: 'История',
+    },
+    label: 'Работа с нарядом',
+    idPrefix: 'order-demo',
+    scrollable: true,
+    counts: { materials: 3, checklist: '4 из 9', documents: 5, history: 7 },
+    panels: {
+      job: <p>Объект, оборудование, деньги, исполнитель.</p>,
+      materials: <p>Движения склада по наряду.</p>,
+      checklist: <p>Что взять с собой на выезд.</p>,
+      documents: <p>Договор, акт, гарантийный талон и фотографии.</p>,
+      history: <p>Кто и когда менял статус.</p>,
+    },
+  },
+};

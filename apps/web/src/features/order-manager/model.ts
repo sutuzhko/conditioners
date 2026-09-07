@@ -42,7 +42,6 @@ import { ADMIN_PAGE_SIZE, type Page } from '@/shared/lib/paging';
 import { isOrderColumn, type OrderColumn } from './columns';
 
 export type {
-  OrderCancelReason,
   OrderCard,
   OrderChecklistCard,
   OrderClientRef,
@@ -66,7 +65,6 @@ export type {
 
 export {
   INSTALLER_STATUSES,
-  ORDER_CANCEL_REASONS,
   ORDER_DOC_KINDS,
   ORDER_EQUIPS,
   ORDER_PERIODS,
@@ -78,7 +76,6 @@ export {
   UNIT_SOURCES,
   checklistItemCreateSchema,
   installerMaySetStatus,
-  isOrderCancelReason,
   isOrderDocKind,
   isOrderPeriod,
   isOrderStatus,
@@ -636,6 +633,21 @@ export function orderCardTabFromParam(
   tabs: readonly [OrderCardTab, ...OrderCardTab[]] = ORDER_CARD_TABS,
 ): OrderCardTab {
   return resolvePanelTab(tabs, value);
+}
+
+/**
+ * Можно ли закрыть наряд одним нажатием из шапки карточки (issue #598).
+ *
+ * 🔴 Только там, где следующий шаг очевиден: наряд назначен или уже в работе.
+ * У нового исполнителя нет — закрывать нечего и некому; выполненный закрыт;
+ * отменённый возвращают в работу отдельным действием, а не «выполняют»
+ * задним числом, иначе отказ молча превращается в выручку.
+ *
+ * Остальные переходы остаются в правке: там статус выбирают списком, видя
+ * весь наряд целиком.
+ */
+export function orderCanMarkDone(status: OrderStatus): boolean {
+  return status === 'assigned' || status === 'in_progress';
 }
 
 /**

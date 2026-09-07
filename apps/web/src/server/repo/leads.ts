@@ -12,7 +12,10 @@ import { ApiException } from '@/server/http';
 import type { Viewer } from '@/server/repo/day-blocks';
 import { parseLeadContext } from '@/entities/lead/lib/context';
 import type { LeadContext, LeadUpdate } from '@/entities/lead/model';
-import { isCancelReason, type CancelReason } from '@/shared/lib/cancel-reason';
+import type { CancelReason as DbCancelReason } from '@prisma/client';
+
+import type { CancelReason } from '@/shared/lib/cancel-reason';
+import { cancelReasonFromDb, cancelReasonToDb } from '@/server/repo/cancel-reason';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 import { phoneBody } from '@/shared/lib/phone';
 import { mimeFor, resolveProtectedPath } from '@/server/uploads/store';
@@ -89,7 +92,7 @@ type LeadRow = Omit<
   'status' | 'context' | 'consentAt' | 'createdAt' | 'updatedAt' | 'cancelReason'
 > & {
   status: LeadStatus;
-  cancelReason: string | null;
+  cancelReason: DbCancelReason | null;
   context: Prisma.JsonValue;
   consentAt: Date;
   createdAt: Date;
@@ -111,11 +114,12 @@ function toDto(row: LeadRow): LeadDto {
     ...row,
     photo: row.photo === null ? null : leadPhotoUrl(row.id),
     status: FROM_DB[row.status],
-    /* Код причины лежит в колонке строкой, и в ней может быть значение,
-       записанное вчерашним словарём. Незнакомое — то же самое, что причины
-       нет: показывать владельцу чужой код бессмысленно. */
-    cancelReason:
-      row.cancelReason !== null && isCancelReason(row.cancelReason) ? row.cancelReason : null,
+    /* 🔴 Разбирать больше нечего: колонка — перечисление базы, и чужого кода
+       в ней не бывает (ADR-311). Пока она была строкой, здесь стояла тихая
+       страховка — нераспознанное гасилось в `null`, то есть отказ с опечаткой
+       в коде показывался как отказ без причины, и узнать об этом было
+       неоткуда. Теперь опечатку не примет сама база. */
+    cancelReason: cancelReasonFromDb(row.cancelReason),
     /* Снимок разбирается на выходе из базы: в колонке лежит то, что записали
        вчерашней версией схемы, и доверять ей на слово нельзя. Не разобралось —
        контекста нет, заявка от этого не перестаёт быть заявкой. */
@@ -356,7 +360,10 @@ export async function update(id: string, input: LeadUpdate): Promise<LeadDto> {
  */
 function cancelData(input: LeadUpdate): Prisma.LeadUpdateInput {
   if (input.cancelReason !== undefined) {
-    return { cancelReason: input.cancelReason, cancelNote: input.cancelNote ?? null };
+    return {
+      cancelReason: cancelReasonToDb(input.cancelReason),
+      cancelNote: input.cancelNote ?? null,
+    };
   }
 
   return input.status === undefined || input.status === 'rejected'

@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useRef, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useRef, type KeyboardEvent, type ReactNode } from 'react';
 
 import { resolvePanelTab } from '@/shared/config/admin-tabs';
 
@@ -56,8 +56,25 @@ export interface PanelTabsProps<T extends string> {
    *
    * Ноль показывается наравне с остальными числами: «Техника 0» отвечает на
    * вопрос, а пустое место — нет.
+   *
+   * Строка — для доли: чеклист выезда отвечает не «девять», а «4 из 9»
+   * (макет «Карточка заказа · вкладки», issue #598). Одно число там врало бы
+   * в любую сторону: девять пунктов, из которых собран один, и девять
+   * собранных — разные состояния сборов.
    */
-  readonly counts?: Partial<Readonly<Record<T, number>>> | undefined;
+  readonly counts?: Partial<Readonly<Record<T, number | string>>> | undefined;
+  /**
+   * Лента вместо переноса на узком экране.
+   *
+   * 🔴 Нужна там, где вкладок больше трёх: пять подписей карточки наряда на
+   * 390 в строку не помещаются, а перенос ставит пятую на вторую строку и
+   * уводит панель вниз на 44px ровно в тот момент, когда её открыли. Лента
+   * держит высоту постоянной, а открытую вкладку подвозит к глазам.
+   *
+   * Карточкам клиента и монтажника это не нужно — у них три вкладки, и там
+   * перенос не случается вовсе.
+   */
+  readonly scrollable?: boolean | undefined;
 }
 
 /**
@@ -79,6 +96,7 @@ export function PanelTabs<T extends string>({
   idPrefix,
   panels,
   counts,
+  scrollable = false,
 }: PanelTabsProps<T>) {
   const params = useSearchParams();
   const buttons = useRef<Map<T, HTMLButtonElement>>(new Map());
@@ -89,6 +107,16 @@ export function PanelTabs<T extends string>({
      `get`, — иначе возврат на первую вкладку вернул бы ту, с которой карточку
      открыли. */
   const current = params.has('tab') ? resolvePanelTab(keys, params.get('tab')) : active;
+
+  /* 🔴 Открытую вкладку ленты нужно подвезти к глазам: иначе ссылка на
+     «Историю» открывает карточку, у которой видно «Наряд» и «Расход», а
+     подсвеченной вкладки нет вовсе. Прокручивается только лента —
+     `block: 'nearest'` не даёт странице прыгнуть к вкладкам с самого верха
+     карточки. Без ленты подвозить нечего: вкладки видны все сразу. */
+  useEffect(() => {
+    if (!scrollable) return;
+    buttons.current.get(current)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }, [current, scrollable]);
 
   /* 🔴 Адрес строится из текущего, а не из `usePathname` с параметрами: в
      витрине путь роутера подменён на «/», и переключение вкладки внутри
@@ -136,35 +164,46 @@ export function PanelTabs<T extends string>({
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.tabs} role="tablist" aria-label={label}>
-        {tabs.map((tab, index) => (
-          <button
-            key={tab}
-            ref={(node) => {
-              if (node === null) buttons.current.delete(tab);
-              else buttons.current.set(tab, node);
-            }}
-            type="button"
-            role="tab"
-            id={`${idPrefix}-tab-${tab}`}
-            className={[styles.tab, current === tab ? styles.current : null]
-              .filter(Boolean)
-              .join(' ')}
-            aria-selected={current === tab}
-            aria-controls={`${idPrefix}-panel-${tab}`}
-            /* Из ленты выпадают все, кроме выбранной: Tab уводит на панель, а
-               между вкладками ходят стрелками. */
-            tabIndex={current === tab ? 0 : -1}
-            onClick={() => write(tab, 'push')}
-            onKeyDown={(event) => onKeyDown(event, index)}
-          >
-            {titles[tab]}
+      {/* Линия под вкладками принадлежит ленте, а не ряду кнопок: на узком
+          экране ряд уезжает вбок вместе с прокруткой, а линия обязана
+          остаться на месте. Без ленты линию несёт сам ряд. */}
+      <div className={scrollable ? styles.strip : undefined}>
+        <div
+          className={[styles.tabs, scrollable ? styles.tabsScrollable : null]
+            .filter(Boolean)
+            .join(' ')}
+          role="tablist"
+          aria-label={label}
+        >
+          {tabs.map((tab, index) => (
+            <button
+              key={tab}
+              ref={(node) => {
+                if (node === null) buttons.current.delete(tab);
+                else buttons.current.set(tab, node);
+              }}
+              type="button"
+              role="tab"
+              id={`${idPrefix}-tab-${tab}`}
+              className={[styles.tab, current === tab ? styles.current : null]
+                .filter(Boolean)
+                .join(' ')}
+              aria-selected={current === tab}
+              aria-controls={`${idPrefix}-panel-${tab}`}
+              /* Из ленты выпадают все, кроме выбранной: Tab уводит на панель,
+                 а между вкладками ходят стрелками. */
+              tabIndex={current === tab ? 0 : -1}
+              onClick={() => write(tab, 'push')}
+              onKeyDown={(event) => onKeyDown(event, index)}
+            >
+              {titles[tab]}
 
-            {counts?.[tab] === undefined ? null : (
-              <span className={styles.count}>{counts[tab]}</span>
-            )}
-          </button>
-        ))}
+              {counts?.[tab] === undefined ? null : (
+                <span className={styles.count}>{counts[tab]}</span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       {tabs.map((tab) => (
