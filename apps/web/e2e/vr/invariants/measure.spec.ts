@@ -178,6 +178,66 @@ test.describe('target-size', () => {
     expect(rulesOf(found)).toEqual([]);
   });
 
+  /* 🔴 Ниже — правила, сведённые с замером плотности панели (issue #548).
+     До этого каждое знал только один из двух измерителей, и «прошло у одного»
+     не говорило про второго ничего. Сверку редакций держит
+     `scripts/admin-density.test.mjs`; здесь проверяется, что сведённое
+     правило работает в настоящем браузере, а не только на таблице случаев. */
+
+  test('отключённая кнопка 12×12 — не цель: указатель она не принимает', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page('<button disabled style="width:12px;height:12px;padding:0">Да</button>'),
+      { theme: 'light', touch: true },
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('pointer-events: none — не цель: по такому узлу не попасть', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page('<button style="width:12px;height:12px;padding:0;pointer-events:none">Да</button>'),
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('🔴 data-tap-size="essential" снимает порог: размер записи и есть время (ADR-236)', async ({
+    page: p,
+  }) => {
+    const found = await measure(
+      p,
+      page(
+        '<div role="button" data-tap-size="essential" tabindex="0" aria-label="09:00 Монтаж" style="width:120px;height:14px"></div>',
+      ),
+      { theme: 'light', touch: true },
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('добор зоны псевдоэлементом до 44 — тишина (ADR-301)', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page(
+        '<button aria-label="Закрыть" class="icon" style="width:24px;height:24px;padding:0;position:relative"></button>',
+        {
+          head: '<style>.icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }</style>',
+        },
+      ),
+      { theme: 'light', touch: true },
+    );
+    expect(rulesOf(found)).toEqual([]);
+  });
+
+  test('та же кнопка без добора — нарушение с числами рамки', async ({ page: p }) => {
+    const found = await measure(
+      p,
+      page('<button aria-label="Закрыть" style="width:24px;height:24px;padding:0"></button>'),
+      { theme: 'light', touch: true },
+    );
+    expect(rulesOf(found)).toEqual(['target-size-touch']);
+    expect(found[0]?.detail).toBe('24×24 при минимуме 44');
+  });
+
   test('скрытый по шаблону sr-only ввод с подписью не считается целью', async ({ page: p }) => {
     const found = await measure(
       p,

@@ -180,6 +180,20 @@ function measure({ density, tap }) {
     return parts.join(' > ');
   };
 
+  /**
+   * 🔴 Осознанное различие с измерителем инвариантов (issue #548). Здесь
+   * вопрос — «нарисован ли контрол»: замер плотности сверяет высоты и должен
+   * отбрасывать то, чего на экране нет вовсе. В `e2e/vr/invariants/measure.ts`
+   * вопрос другой — «виден ли узел человеку»: там нужен обход предков ради
+   * `aria-hidden` и содержимого закрытого `<details>` (#474), и цель 0×0 там
+   * остаётся целью, потому что правило `target-size` заводилось ровно ради
+   * неё.
+   *
+   * Следствие названо вслух: схлопнувшуюся цель 0×0 этот замер не покажет —
+   * её ловит `target-size` на всех историях витрины, включая `Админка/`.
+   * Свести две функции значило бы поменять смысл замера плотности, а не
+   * починить расхождение.
+   */
   const visible = (el) => {
     const rect = el.getBoundingClientRect();
     if (rect.width === 0 && rect.height === 0) return false;
@@ -187,27 +201,74 @@ function measure({ density, tap }) {
   };
 
   /**
-   * Настоящая тап-зона: у мелкой кнопки-иконки её добирает прозрачный
-   * псевдоэлемент (`IconButton::after` растягивается до `--tap`), и мерить
-   * только рамку — значит объявлять нарушением то, что уже починено.
+   * Зона попадания цели: рамка вместе с подписью и вместе с прозрачным
+   * добором псевдоэлементом.
+   *
+   * 🔴 Две половины этого правила жили порознь (issue #548): добор
+   * псевдоэлементом знал только замер, подпись — только измеритель
+   * инвариантов. Отсюда и единственное «нарушение» плотности в заказах:
+   * галочка «Выбрать все» обёрнута подписью с отбивкой, зона по существу
+   * 44×44, а замер мерил сам `<input>` 24×24 и объявлял дефект вёрстки там,
+   * где был спор измерителей.
+   *
+   * 🔴 Тело дословно повторяет `e2e/vr/invariants/measure.ts` — общий модуль
+   * туда не доедет (см. `isVisuallyHidden` ниже). Сверку держит
+   * `scripts/admin-density.test.mjs`.
    */
-  const target = (el) => {
+  const targetBox = (el) => {
     const rect = el.getBoundingClientRect();
-    let width = rect.width;
-    let height = rect.height;
+    let left = rect.left;
+    let top = rect.top;
+    let right = rect.right;
+    let bottom = rect.bottom;
 
+    /* Цель поля с подписью — вся подпись вместе с полем (WCAG 2.5.8: цель —
+       то, по чему нажимают, а по `<label>` нажимают). */
+    if (
+      el instanceof HTMLInputElement ||
+      el instanceof HTMLSelectElement ||
+      el instanceof HTMLTextAreaElement
+    ) {
+      for (const label of Array.from(el.labels ?? [])) {
+        const style = getComputedStyle(label);
+        if (style.display === 'none' || style.visibility === 'hidden') continue;
+        if (isVisuallyHidden(label, style)) continue;
+        const box = label.getBoundingClientRect();
+        left = Math.min(left, box.left);
+        top = Math.min(top, box.top);
+        right = Math.max(right, box.right);
+        bottom = Math.max(bottom, box.bottom);
+      }
+    }
+
+    let width = right - left;
+    let height = bottom - top;
+
+    /* Прозрачный псевдоэлемент добирает зону там, где коробке некуда расти
+       (ADR-301): `IconButton::after` растянут до `--tap`. Мерить одну рамку
+       значит объявлять нарушением то, что уже починено. */
     for (const pseudo of ['::before', '::after']) {
       const style = getComputedStyle(el, pseudo);
       if (style.content === 'none' || style.content === 'normal') continue;
       if (style.position !== 'absolute' && style.position !== 'fixed') continue;
-
       const w = Number.parseFloat(style.width);
       const h = Number.parseFloat(style.height);
       if (Number.isFinite(w)) width = Math.max(width, w);
       if (Number.isFinite(h)) height = Math.max(height, h);
     }
 
-    return { width, height };
+    /* Добор растит зону вокруг центра рамки — псевдоэлемент так и рисуется.
+       Края нужны исключению «Spacing», стороны — порогу. */
+    const cx = (left + right) / 2;
+    const cy = (top + bottom) / 2;
+    return {
+      left: cx - width / 2,
+      top: cy - height / 2,
+      right: cx + width / 2,
+      bottom: cy + height / 2,
+      width,
+      height,
+    };
   };
 
   /**
@@ -281,9 +342,72 @@ function measure({ density, tap }) {
     };
   });
 
-  /* Интерактивная цель — всё, до чего человек дотягивается пальцем. */
-  const INTERACTIVE =
-    'a[href], button, input:not([type="hidden"]), select, textarea, summary, [role="button"], [role="tab"], [role="switch"], [role="checkbox"], [role="radio"], [tabindex]:not([tabindex="-1"])';
+  /* Интерактивная цель — всё, до чего человек дотягивается пальцем.
+     🔴 Перечень дословно повторяет `e2e/vr/invariants/measure.ts` (issue
+     #548): роли `link`, `menuitem` и `option` знал только измеритель
+     инвариантов, и замер молча их не считал. Сверку держит
+     `scripts/admin-density.test.mjs`. */
+  const INTERACTIVE = [
+    'a[href]',
+    'button',
+    'input:not([type="hidden"])',
+    'select',
+    'textarea',
+    'summary',
+    '[role="button"]',
+    '[role="link"]',
+    '[role="checkbox"]',
+    '[role="radio"]',
+    '[role="switch"]',
+    '[role="tab"]',
+    '[role="menuitem"]',
+    '[role="option"]',
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(', ');
+
+  /**
+   * Цель ли это — вопрос, на который два измерителя отвечали по-разному
+   * (issue #548): `pointer-events: none` и строчную ссылку в тексте замер
+   * считал целями, а измеритель инвариантов — нет. Теперь ответ один и
+   * записан дословно в обоих файлах; тела сверяет
+   * `scripts/admin-density.test.mjs`.
+   *
+   * Видимость сюда не входит намеренно: её два измерителя считают по-своему
+   * — см. `visible` выше.
+   */
+  const isTarget = (el, style) => {
+    /* Отключённый контрол указатель не принимает — целью он не является. */
+    if (
+      (el instanceof HTMLButtonElement ||
+        el instanceof HTMLInputElement ||
+        el instanceof HTMLSelectElement ||
+        el instanceof HTMLTextAreaElement) &&
+      el.disabled
+    ) {
+      return false;
+    }
+    /* То же самое, сказанное стилем: по такому узлу не попасть. */
+    if (style.pointerEvents === 'none') return false;
+    /* Скрытый ввод (sr-only): нажимают по подписи или по видимому напарнику
+       рядом, и обе эти цели меряются своими рамками (ADR-297). */
+    if (isVisuallyHidden(el, style)) return false;
+    /* Ссылка в потоке текста исключена самим WCAG 2.5.8 («Inline»): её размер
+       задаёт строка, а не дизайн. */
+    if (el instanceof HTMLAnchorElement && style.display === 'inline') return false;
+    /* 🔴 Исключение объявляет сама разметка атрибутом `data-tap-size` со
+       значением `essential` (ADR-236). Оно снимает порог там, где размер и
+       положение цели **и есть** передаваемая информация: у записи календаря
+       прямоугольник означает начало, длительность и пересечение с соседней,
+       а у часа сетки — час. Растянуть их до 44×44 значит не поднять цель, а
+       соврать про время.
+
+       Это не лазейка на любой случай: WCAG 2.5.8 такое исключение называет
+       прямо («Essential»), а ADR-236 требует, чтобы у каждого такого узла был
+       второй путь к тому же действию — в календаре это вид дня, где та же
+       запись занимает всю ширину колонки. */
+    if (el.getAttribute('data-tap-size') === 'essential') return false;
+    return true;
+  };
 
   const small = new Map();
   let targets = 0;
@@ -291,25 +415,10 @@ function measure({ density, tap }) {
   if (tap > 0) {
     for (const el of document.querySelectorAll(INTERACTIVE)) {
       if (!visible(el)) continue;
-      if ('disabled' in el && el.disabled === true) continue;
-      /* Скрытый ввод целью не считается — см. `isVisuallyHidden` выше. */
-      if (isVisuallyHidden(el, getComputedStyle(el))) continue;
-
-      /* 🔴 Исключение объявляет сама разметка атрибутом `data-tap-size` со
-         значением `essential` (ADR-236). Оно снимает порог там, где размер и
-         положение цели **и есть** передаваемая информация: у записи календаря
-         прямоугольник означает начало, длительность и пересечение с соседней,
-         а у часа сетки — час. Растянуть их до 44×44 значит не поднять цель, а
-         соврать про время.
-
-         Это не лазейка на любой случай: WCAG 2.5.8 такое исключение называет
-         прямо («Essential»), а ADR-236 требует, чтобы у каждого такого узла
-         был второй путь к тому же действию — в календаре это вид дня, где та
-         же запись занимает всю ширину колонки. */
-      if (el.getAttribute('data-tap-size') === 'essential') continue;
+      if (!isTarget(el, getComputedStyle(el))) continue;
 
       targets += 1;
-      const { width, height } = target(el);
+      const { width, height } = targetBox(el);
       if (width >= tap && height >= tap) continue;
 
       /* Ключ — только селектор: у одного и того же элемента ширина пляшет от
