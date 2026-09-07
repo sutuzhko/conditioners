@@ -13,6 +13,7 @@ nav.Pager__pager  358×52 @16,16
   span.Pager__position  84×44 @137,4  Manrope 600 15/17  r100  b1  lines=1  «13 из 26»
   a.Pager__step#2  44×44 @229,4  Manrope 600 15/17  r100  b1  lines=1  «→»
     span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+  p[role=status]  1×1 @179,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 13 из 26»
 
 [геометрия 768]
 nav.Pager__pager  736×52 @16,16
@@ -28,6 +29,7 @@ nav.Pager__pager  736×52 @16,16
     a.Pager__number#4  44×44 @230,0  Manrope 600 15/17  r100  b1  lines=1  «26»
   a.Pager__step#2  100×44 @511,4  Manrope 600 15/17  r100  b1  lines=1  «→»
     span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+  p[role=status]  1×1 @368,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 13 из 26»
 
 [геометрия 1440]
 nav.Pager__pager  1408×52 @16,16
@@ -43,6 +45,7 @@ nav.Pager__pager  1408×52 @16,16
     a.Pager__number#4  44×44 @230,0  Manrope 600 15/17  r100  b1  lines=1  «26»
   a.Pager__step#2  100×44 @847,4  Manrope 600 15/17  r100  b1  lines=1  «→»
     span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+  p[role=status]  1×1 @704,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 13 из 26»
 
 [палитра light]
 nav.Pager__pager
@@ -58,6 +61,7 @@ nav.Pager__pager
     a.Pager__number#4  color #0e7490  border transparent
   a.Pager__step#2  color #0e7490  border #7e8fa6
     span.Pager__stepText  color #0e7490
+  p[role=status]  color #0f172a
 [палитра light @390]
 nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
 
@@ -75,5 +79,6 @@ nav.Pager__pager
     a.Pager__number#4  color #22d3ee  border transparent
   a.Pager__step#2  color #22d3ee  border #566d95
     span.Pager__stepText  color #22d3ee
+  p[role=status]  color #eaf1f8
 [палитра dark @390]
 nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490

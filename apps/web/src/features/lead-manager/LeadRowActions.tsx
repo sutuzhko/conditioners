@@ -15,6 +15,8 @@ export interface LeadRowActionsProps {
   readonly id: string;
   readonly number: number;
   readonly phone: string;
+  /** Класс обёртки: раздел поднимает меню над перекрытием строки-цели. */
+  readonly className?: string | undefined;
   readonly remove?: LeadRemove | undefined;
   /** Шов для тестов и историй: окно кита подменяется своим ответом (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
@@ -43,6 +45,7 @@ export function LeadRowActions({
   id,
   number,
   phone,
+  className,
   remove = removeLead,
   confirmRemove,
   onChanged,
@@ -90,7 +93,7 @@ export function LeadRowActions({
   };
 
   return (
-    <div className={styles.wrap}>
+    <div className={[styles.wrap, className].filter(Boolean).join(' ')}>
       <RowMenu
         label={texts.rowActions(number)}
         items={[

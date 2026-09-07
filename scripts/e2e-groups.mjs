@@ -52,6 +52,7 @@ export const GROUPS = Object.freeze({
     'lead',
     'lead-delete',
     'lead-fluid',
+    'lead-row',
     'reviews-fluid',
     'review-moderation',
     'price-update',

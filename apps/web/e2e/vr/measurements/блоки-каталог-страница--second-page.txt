@@ -159,6 +159,7 @@ section.CatalogList__section  320×1999 @0,0
           a.Pager__step  87×44 @27,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
           span.Pager__position  139×44 @122,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
           span.Pager__stepOff  99×44 @94,56  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+          p[role=status]  1×1 @144,52  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [геометрия 375]
 section.CatalogList__section  375×2076 @0,0
@@ -312,6 +313,7 @@ section.CatalogList__section  375×2076 @0,0
           a.Pager__step  87×44 @1,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
           span.Pager__position  139×44 @96,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
           span.Pager__stepOff  99×44 @243,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+          p[role=status]  1×1 @171,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [геометрия 768]
 section.CatalogList__section  768×1290 @0,0
@@ -465,6 +467,7 @@ section.CatalogList__section  768×1290 @0,0
           a.Pager__step  91×44 @183,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
           span.Pager__position  143×44 @286,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
           span.Pager__stepOff  103×44 @441,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+          p[role=status]  1×1 @363,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [геометрия 1200]
 section.CatalogList__section  1200×1132 @0,0
@@ -617,6 +620,7 @@ section.CatalogList__section  1200×1132 @0,0
           a.Pager__step  91×44 @249,4  Manrope 600 15/17  r100  b1  lines=1  «← Назад»
           span.Pager__position  143×44 @352,4  Manrope 600 15/17  r100  b1  lines=1  «Страница 2 из 2»
           span.Pager__stepOff  103×44 @507,4  Manrope 600 15/17  r100  b1  lines=1  «Дальше →»
+          p[role=status]  1×1 @430,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 2»
 
 [палитра light]
 section.CatalogList__section  bg #ffffff
@@ -769,6 +773,7 @@ section.CatalogList__section  bg #ffffff
           a.Pager__step  color #0e7490  border #7e8fa6
           span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
           span.Pager__stepOff  color #556173  border #eef2f6
+          p[role=status]  color #0f172a
 [палитра light @320]
 section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #0f172a
 section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a
@@ -930,6 +935,7 @@ section.CatalogList__section  bg #0b1220
           a.Pager__step  color #22d3ee  border #566d95
           span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
           span.Pager__stepOff  color #8598ac  border #182338
+          p[role=status]  color #eaf1f8
 [палитра dark @320]
 section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > summary.CatalogFilters__summary  color #eaf1f8
 section.CatalogList__section > div.CatalogList__container > div.CatalogList__layout > section.CatalogFilters__filters > details.CatalogFilters__box > div.CatalogFilters__panel  border #e2e8f0 #0f172a #0f172a #0f172a

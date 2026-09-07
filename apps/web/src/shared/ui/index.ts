@@ -141,6 +141,8 @@ export type {
   TableActionTone,
   TableActionsProps,
 } from './Table/TableActions';
+export { TableRow, TableRowLink, tableAboveClassName } from './Table/TableRow';
+export type { TableRowLinkProps, TableRowProps } from './Table/TableRow';
 
 export { Accordion } from './Accordion/Accordion';
 export type { AccordionItem, AccordionProps } from './Accordion/Accordion';

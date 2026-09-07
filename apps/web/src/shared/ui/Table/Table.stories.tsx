@@ -1,7 +1,9 @@
 import type { ReactElement } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, within } from 'storybook/test';
 import { Table } from './Table';
 import { TableAction, TableActionAnchor, TableActionLink, TableActions } from './TableActions';
+import { TableRow, TableRowLink, tableAboveClassName } from './TableRow';
 import { Badge } from '../Badge/Badge';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton/IconButton';
@@ -381,5 +383,168 @@ export const OuterLinkAction: Story = {
 export const CardsBelow600: Story = {
   name: 'Карточками ниже 600',
   args: { children: orderRows, variant: 'cards', label: 'Наряды' },
+  decorators: [panel],
+};
+
+/* ——— Строка-цель: список, в котором нажимается вся строка (issue #740).
+   Обращения выдуманы для витрины кита — настоящие приходят из БД
+   (инвариант 8). ——— */
+
+const queue = [
+  {
+    number: 12,
+    name: 'Жуков Кирилл',
+    address: 'Щёкино, Пионерская 4 · гостиная 32 м²',
+    topic: 'Установка кондиционера',
+    when: '2 часа назад',
+  },
+  {
+    number: 13,
+    name: 'Белова Ирина',
+    address: 'Тула, Кирова 18 · нужен замер',
+    topic: 'Консультация',
+    when: 'вчера',
+  },
+  {
+    number: 14,
+    name: 'Соколов Пётр',
+    address: 'Тула, Оборонная 12, кв. 34',
+    topic: 'Обслуживание',
+    when: '3 дня назад',
+  },
+] as const;
+
+/**
+ * Открытая строка — вторая: её краску задаёт раздел, кит только помечает её
+ * признаком `data-current`, чтобы не подсвечивать наведением поверх заливки.
+ */
+const OPENED = 13;
+
+const queueRows = (
+  <>
+    <thead>
+      <tr>
+        <th scope="col">Кто и что</th>
+        <th scope="col">Тема</th>
+        <th scope="col">Когда</th>
+        <th scope="col">
+          <span className="srOnly">Действия</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {queue.map((lead) => (
+        <TableRow
+          key={lead.number}
+          current={lead.number === OPENED}
+          style={
+            lead.number === OPENED
+              ? { background: 'var(--accent-bg)', boxShadow: 'inset 3px 0 0 var(--accent-ink)' }
+              : undefined
+          }
+        >
+          <td role="cell" data-label="Кто и что">
+            <TableRowLink
+              className="tapAction"
+              href="/"
+              label={`Обращение № ${lead.number}, ${lead.name}`}
+              aria-current={lead.number === OPENED ? 'page' : undefined}
+              style={{ display: 'block', color: 'var(--ink)', fontWeight: 600 }}
+            >
+              {lead.name}
+            </TableRowLink>
+
+            {/* 🔴 Адрес поднят над перекрытием: его копируют, а под
+                перекрытием протяжка мышью даёт пустую строку и засчитывается
+                как нажатие по ссылке. */}
+            <span
+              className={tableAboveClassName()}
+              style={{ display: 'block', color: 'var(--muted)', fontSize: 'var(--fs-caption)' }}
+            >
+              {lead.address}
+            </span>
+          </td>
+          <td role="cell" data-label="Тема">
+            <Badge variant="neutral" size="sm" wrap>
+              {lead.topic}
+            </Badge>
+          </td>
+          <td role="cell" data-label="Когда" style={{ color: 'var(--body)' }}>
+            {lead.when}
+          </td>
+          <td role="cell">
+            {/* 🔴 Действия подняты над перекрытием: «Позвонить» обязано
+                звонить, а не открывать карточку. */}
+            <TableActions
+              className={tableAboveClassName()}
+              label={`Действия над обращением № ${lead.number}`}
+            >
+              <TableActionAnchor
+                tone="open"
+                label={`Позвонить: ${lead.name}`}
+                icon={<Icon name="phone" size={16} />}
+                href="tel:+70000000000"
+              />
+              <TableAction
+                tone="remove"
+                label={`Удалить обращение № ${lead.number}`}
+                icon={<Icon name="trash" size={16} />}
+              />
+            </TableActions>
+          </td>
+        </TableRow>
+      ))}
+    </tbody>
+  </>
+);
+
+/**
+ * 🔴 Нажимается вся строка, а не одно имя. Владелец целится в тему и во время
+ * и не попадает никуда: строка выглядит целью, целью не являясь. Площадь
+ * строке отдаёт растянутое перекрытие единственной её ссылки — поэтому целей
+ * у строки не прибавляется: клавиатура и озвучка получают одну остановку с
+ * подписью, называющей запись, а не по остановке на ячейку.
+ *
+ * Наведения среди историй нет намеренно: `:hover` не воспроизводится
+ * синтетическим событием, и снимок такого состояния был бы неправдой.
+ * Подсветку строки сторожит тест кита (`TableRow.test.tsx`).
+ */
+export const RowTarget: Story = {
+  name: 'Строка-цель',
+  args: { children: queueRows, label: 'Очередь обращений' },
+  decorators: [panel],
+};
+
+/**
+ * 🔴 Кольцо фокуса обводит строку, а не два слова имени: цель — строка, и
+ * рамка вокруг имени сообщала бы, что нажимается только оно. Рисуется внутрь:
+ * у таблицы своя область прокрутки, и внешнее кольцо срезалось бы её краем.
+ */
+export const RowTargetFocused: Story = {
+  name: 'Строка-цель — фокус',
+  args: { children: queueRows, label: 'Очередь обращений' },
+  decorators: [panel],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole('link', { name: 'Обращение № 12, Жуков Кирилл' });
+
+    /* Фокус ставится напрямую, а не синтетическим Tab: `userEvent` доверенным
+       вводом браузеру не является, и модальность ввода от него не меняется —
+       лишний шаг табуляции только увёл бы фокус на контейнер прокрутки
+       таблицы. Показывать ли кольцо, решает эвристика `:focus-visible`. */
+    link.focus();
+
+    await expect(link).toHaveFocus();
+  },
+};
+
+/**
+ * Ниже 600px строка разворачивается карточкой на пол-экрана — там разница
+ * между «нажимается имя» и «нажимается строка» самая большая. Кольцо фокуса
+ * повторяет скругление карточки: радиус приходит от таблицы переменной.
+ */
+export const RowTargetCards: Story = {
+  name: 'Строка-цель карточками ниже 600',
+  args: { children: queueRows, variant: 'cards', label: 'Очередь обращений' },
   decorators: [panel],
 };
