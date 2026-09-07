@@ -56,6 +56,16 @@ export type SnapshotRun = {
   /** Все ширины проекта — набор, из которого берутся теги `vr-<ширина>`. */
   readonly widths: readonly number[];
   readonly theme: string;
+  /**
+   * Порог сравнения этого набора историй, если он не общий (issue #801).
+   *
+   * 🔴 Порог приходит от спека, а не от проекта Playwright, нарочно. Проект
+   * `panel` сегодня снимает только кит, но разделы `Админка/` войдут в него
+   * же (#427) — и порог кита им не подходит: там кадр с таблицами и текстом,
+   * где кромка законна. Порог, привязанный к проекту, переехал бы на разделы
+   * молча; порог, стоящий в строке вызова, придётся назвать вслух.
+   */
+  readonly screenshot?: { readonly threshold: number; readonly maxDiffPixels: number };
 };
 
 export async function snapshotStories(page: Page, run: SnapshotRun): Promise<void> {
@@ -134,6 +144,7 @@ export async function snapshotStories(page: Page, run: SnapshotRun): Promise<voi
       await expect.soft(page).toHaveScreenshot(`${story.id}--${run.width}-${run.theme}.png`, {
         animations: 'disabled',
         caret: 'hide',
+        ...run.screenshot,
       });
       const messages = test
         .info()

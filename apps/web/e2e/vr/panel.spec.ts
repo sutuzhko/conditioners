@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { VR_PANEL_WIDTHS, VR_THEMES } from '../../playwright.vr.config';
+import { VR_KIT_SCREENSHOT, VR_PANEL_WIDTHS, VR_THEMES } from '../../playwright.vr.config';
 import { PANEL_KIT_SECTIONS } from './sections';
 import { snapshotStories } from './snapshot-run';
 import { loadStories } from './story-index';
@@ -29,6 +29,12 @@ import { loadStories } from './story-index';
  * 🔴 Эталон, как и у публичного раннера, не лежит в репозитории (ADR-230):
  * это кадры `merge-base`, снятые той же работой пайплайна. Как это устроено —
  * в `snapshot-run.ts`.
+ *
+ * 🔴 Порог сравнения у кита свой, строгий — `VR_KIT_SCREENSHOT` (issue #801).
+ * Общий калиброван под кадр целиком и не видит правки краски малого контрола:
+ * граница кнопки 87×44 не набирает ни одной точки расхождения при
+ * `threshold: 0.2`. Счёт — в комментариях к обоим порогам в конфиге,
+ * доказательство — `threshold.spec.ts`.
  */
 
 /* Разделы приходят из общего перечня (issue #517). */
@@ -45,6 +51,10 @@ for (const width of VR_PANEL_WIDTHS) {
         width,
         widths: VR_PANEL_WIDTHS,
         theme,
+        /* 🔴 Порог кита строгий и назван здесь, а не в проекте (issue #801):
+           разделы `Админка/` войдут в этот же проект (#427), и порог малых
+           контролов им не подходит. */
+        screenshot: VR_KIT_SCREENSHOT,
       });
     });
   }
