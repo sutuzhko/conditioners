@@ -20,8 +20,20 @@ export type AdminUserRecord = {
   active: boolean;
 };
 
-const ROLE_FROM_DB: Record<DbRole, AdminRole> = { OWNER: 'owner', INSTALLER: 'installer' };
-const ROLE_TO_DB: Record<AdminRole, DbRole> = { owner: 'OWNER', installer: 'INSTALLER' };
+/* 🔴 Записи, а не функции разбора: `Record` требует значения на каждую роль,
+   и новая роль в перечислении не проедет мимо перевода молча (ADR-344). */
+const ROLE_FROM_DB: Record<DbRole, AdminRole> = {
+  OWNER: 'owner',
+  ADMIN: 'admin',
+  MANAGER: 'manager',
+  INSTALLER: 'installer',
+};
+const ROLE_TO_DB: Record<AdminRole, DbRole> = {
+  owner: 'OWNER',
+  admin: 'ADMIN',
+  manager: 'MANAGER',
+  installer: 'INSTALLER',
+};
 
 type StaffRow = {
   id: string;

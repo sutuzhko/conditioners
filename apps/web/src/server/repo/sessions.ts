@@ -7,7 +7,12 @@ import type { AdminRole as DbRole } from '@prisma/client';
 import type { AdminRole } from '@/entities/staff/model';
 import { db } from '@/server/db';
 
-const ROLE_FROM_DB: Record<DbRole, AdminRole> = { OWNER: 'owner', INSTALLER: 'installer' };
+const ROLE_FROM_DB: Record<DbRole, AdminRole> = {
+  OWNER: 'owner',
+  ADMIN: 'admin',
+  MANAGER: 'manager',
+  INSTALLER: 'installer',
+};
 
 export type StoredSession = {
   id: string;
