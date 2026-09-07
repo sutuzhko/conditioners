@@ -176,13 +176,27 @@ describe('отказ записывается целиком', () => {
       rejectedBy: { name: 'Богдан', login: 'owner' },
     });
 
-    const dto = await reviews.setStatus('r5', { status: 'rejected', reason: 'Реклама' }, 'u1');
+    const { review: dto } = await reviews.setStatus(
+      'r5',
+      { status: 'rejected', reason: 'Реклама' },
+      'u1',
+    );
 
     expect(dto.reject).toEqual({
       reason: 'Реклама конкурента',
       by: 'Богдан',
       at: '2026-09-04T09:00:00.000Z',
     });
+  });
+
+  /* 🔴 Прежний статус знает только тот, кто менял: следом за обновлением его
+     в базе уже нет, а журналу он нужен для «было → стало» (ADR-345). */
+  it('вместе с отзывом возвращается статус, каким он был до правки', async () => {
+    review.findUnique.mockResolvedValue({ status: 'APPROVED' });
+
+    const { from } = await reviews.setStatus('r5', { status: 'pending' }, 'u1');
+
+    expect(from).toBe('approved');
   });
 
   it('у отзыва без отказа блока нет вовсе — не половина записи', async () => {

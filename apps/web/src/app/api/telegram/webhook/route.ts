@@ -22,7 +22,7 @@ import {
   unbindTelegramChat,
 } from '@/server/repo/admin-users';
 import type { ReviewModeration } from '@/entities/review/model';
-import { setStatus } from '@/server/repo/reviews';
+import { moderateReview } from '@/server/services/review-moderation';
 import { revalidateReviews } from '@/server/revalidate';
 import { env } from '@/shared/config/env';
 import { safeEqual } from '@/server/auth';
@@ -107,7 +107,10 @@ export async function POST(request: Request): Promise<Response> {
       : { status: command.status };
 
   try {
-    await setStatus(command.reviewId, moderation, null);
+    /* 🔴 Тот же сервис, что и у панели: модерация из Telegram — та же
+       операция и обязана оставлять тот же след. Автора у неё нет —
+       нажимает телеграм-аккаунт, а не учётная запись панели. */
+    await moderateReview({ id: command.reviewId, moderation, actorId: null });
     revalidateReviews();
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);

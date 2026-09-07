@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { testEnv, reviewsMock, telegramMock, revalidateMock, usersMock } = vi.hoisted(() => ({
+const { testEnv, moderationMock, telegramMock, revalidateMock, usersMock } = vi.hoisted(() => ({
   testEnv: {
     NODE_ENV: 'test',
     DATABASE_URL: 'postgresql://user:pass@db:5432/test',
@@ -13,7 +13,7 @@ const { testEnv, reviewsMock, telegramMock, revalidateMock, usersMock } = vi.hoi
     TELEGRAM_TRANSPORT: 'direct',
     TELEGRAM_WEBHOOK_SECRET: 'secret-token-42',
   } as Record<string, unknown>,
-  reviewsMock: { setStatus: vi.fn() },
+  moderationMock: { moderateReview: vi.fn() },
   telegramMock: {
     answerCallbackQuery: vi.fn(),
     editMessageText: vi.fn(),
@@ -28,7 +28,10 @@ const { testEnv, reviewsMock, telegramMock, revalidateMock, usersMock } = vi.hoi
 }));
 
 vi.mock('@/shared/config/env', () => ({ env: testEnv }));
-vi.mock('@/server/repo/reviews', () => reviewsMock);
+/* 🔴 Модерация ушла из репозитория в сервис (ADR-142): рядом со сменой
+   статуса в одной транзакции пишется событие журнала. Вебхук проверяется
+   как контроллер — тем, что он разбирает нажатие и зовёт модерацию. */
+vi.mock('@/server/services/review-moderation', () => moderationMock);
 vi.mock('@/server/notifications/channels/telegram', () => telegramMock);
 vi.mock('@/server/revalidate', () => revalidateMock);
 vi.mock('@/server/repo/admin-users', () => usersMock);
@@ -70,7 +73,7 @@ const INSTALLER = { id: 'u2', name: 'Дмитрий Соколов', login: 'sok
 beforeEach(() => {
   vi.clearAllMocks();
   testEnv.TELEGRAM_WEBHOOK_SECRET = 'secret-token-42';
-  reviewsMock.setStatus.mockResolvedValue({ id: REVIEW_ID, status: 'approved' });
+  moderationMock.moderateReview.mockResolvedValue({ id: REVIEW_ID, status: 'approved' });
   telegramMock.answerCallbackQuery.mockResolvedValue(undefined);
   telegramMock.editMessageText.mockResolvedValue(undefined);
   telegramMock.sendChatMessage.mockResolvedValue(undefined);
@@ -84,14 +87,14 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`), 'wrong-token'));
 
     expect(response.status).toBe(404);
-    expect(reviewsMock.setStatus).not.toHaveBeenCalled();
+    expect(moderationMock.moderateReview).not.toHaveBeenCalled();
   });
 
   it('🔴 без заголовка секрета — тоже 404: адрес не подтверждает сам себя', async () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`), null));
 
     expect(response.status).toBe(404);
-    expect(reviewsMock.setStatus).not.toHaveBeenCalled();
+    expect(moderationMock.moderateReview).not.toHaveBeenCalled();
   });
 
   it('🔴 секрет не задан в окружении — вебхук выключен целиком', async () => {
@@ -100,27 +103,38 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`), 'secret-token-42'));
 
     expect(response.status).toBe(404);
-    expect(reviewsMock.setStatus).not.toHaveBeenCalled();
+    expect(moderationMock.moderateReview).not.toHaveBeenCalled();
   });
 
   it('одобрение меняет статус отзыва и сбрасывает кеш страницы', async () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`)));
 
     expect(response.status).toBe(200);
-    expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, { status: 'approved' }, null);
+    expect(moderationMock.moderateReview).toHaveBeenCalledWith({
+      id: REVIEW_ID,
+      moderation: { status: 'approved' },
+      actorId: null,
+    });
     expect(revalidateMock.revalidateReviews).toHaveBeenCalled();
   });
 
   it('запрет и архив переводят отзыв в свои статусы', async () => {
     await POST(request(update(`rev:reject:${REVIEW_ID}`)));
-    expect(reviewsMock.setStatus).toHaveBeenLastCalledWith(
-      REVIEW_ID,
-      { status: 'rejected', reason: expect.stringContaining('Отклонено кнопкой в Telegram') },
-      null,
-    );
+    expect(moderationMock.moderateReview).toHaveBeenLastCalledWith({
+      id: REVIEW_ID,
+      moderation: {
+        status: 'rejected',
+        reason: expect.stringContaining('Отклонено кнопкой в Telegram'),
+      },
+      actorId: null,
+    });
 
     await POST(request(update(`rev:archive:${REVIEW_ID}`)));
-    expect(reviewsMock.setStatus).toHaveBeenLastCalledWith(REVIEW_ID, { status: 'archived' }, null);
+    expect(moderationMock.moderateReview).toHaveBeenLastCalledWith({
+      id: REVIEW_ID,
+      moderation: { status: 'archived' },
+      actorId: null,
+    });
   });
 
   /* 🔴 ADR-300: отказ обязан нести причину, а кнопка её не собирает — канал
@@ -128,7 +142,7 @@ describe('POST /api/telegram/webhook', () => {
   it('отказ из чата записывает, что причины не написали, и кто нажал', async () => {
     await POST(request(update(`rev:reject:${REVIEW_ID}`)));
 
-    const moderation = reviewsMock.setStatus.mock.lastCall?.[1];
+    const moderation = moderationMock.moderateReview.mock.lastCall?.[0]?.moderation;
     expect(moderation).toEqual({
       status: 'rejected',
       reason: 'Отклонено кнопкой в Telegram — Ирина. Причина не записана.',
@@ -138,7 +152,7 @@ describe('POST /api/telegram/webhook', () => {
   it('🔴 отказ из чата не приписывается учётной записи панели', async () => {
     await POST(request(update(`rev:reject:${REVIEW_ID}`)));
 
-    expect(reviewsMock.setStatus.mock.lastCall?.[2]).toBeNull();
+    expect(moderationMock.moderateReview.mock.lastCall?.[0]?.actorId).toBeNull();
   });
 
   it('отвечает на нажатие и дописывает итог в сообщение, убирая кнопки', async () => {
@@ -162,7 +176,7 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request(update('drop:table:reviews')));
 
     expect(response.status).toBe(200);
-    expect(reviewsMock.setStatus).not.toHaveBeenCalled();
+    expect(moderationMock.moderateReview).not.toHaveBeenCalled();
     expect(telegramMock.answerCallbackQuery).toHaveBeenCalledWith('cb-1', 'Неизвестная команда');
   });
 
@@ -170,12 +184,12 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request({ message: { text: 'привет' } }));
 
     expect(response.status).toBe(200);
-    expect(reviewsMock.setStatus).not.toHaveBeenCalled();
+    expect(moderationMock.moderateReview).not.toHaveBeenCalled();
     expect(telegramMock.answerCallbackQuery).not.toHaveBeenCalled();
   });
 
   it('🔴 сбой базы отвечает 200: иначе Telegram повторяет доставку по кругу', async () => {
-    reviewsMock.setStatus.mockRejectedValue(new Error('база недоступна'));
+    moderationMock.moderateReview.mockRejectedValue(new Error('база недоступна'));
 
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`)));
 
@@ -193,7 +207,11 @@ describe('POST /api/telegram/webhook', () => {
     const response = await POST(request(update(`rev:approve:${REVIEW_ID}`)));
 
     expect(response.status).toBe(200);
-    expect(reviewsMock.setStatus).toHaveBeenCalledWith(REVIEW_ID, { status: 'approved' }, null);
+    expect(moderationMock.moderateReview).toHaveBeenCalledWith({
+      id: REVIEW_ID,
+      moderation: { status: 'approved' },
+      actorId: null,
+    });
   });
 });
 

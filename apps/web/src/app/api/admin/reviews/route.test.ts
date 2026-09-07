@@ -20,14 +20,18 @@ vi.mock('@/server/repo/admin-users', () => ({}));
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 vi.mock('@/server/repo/reviews', () => ({
   listByStatus: vi.fn(),
-  setStatus: vi.fn(),
   remove: vi.fn(),
 }));
+/* 🔴 Смена статуса ушла из репозитория в сервис (ADR-142): рядом с ней в одной
+   транзакции пишется событие журнала. Обработчик проверяется как контроллер —
+   тем, что он зовёт сервис с разобранными данными и ничем сверх них. */
+vi.mock('@/server/services/review-moderation', () => ({ moderateReview: vi.fn() }));
 vi.mock('@/server/uploads/store', () => ({ deleteStoredImage: vi.fn() }));
 
 import { getAdminSession } from '@/server/auth';
 import { deleteStoredImage } from '@/server/uploads/store';
 import * as reviews from '@/server/repo/reviews';
+import { moderateReview } from '@/server/services/review-moderation';
 import { GET } from './route';
 import { PATCH } from './[id]/status/route';
 import { DELETE } from './[id]/route';
@@ -71,7 +75,7 @@ beforeEach(() => {
     page: 1,
     pages: 1,
   });
-  vi.mocked(reviews.setStatus).mockResolvedValue({ ...stored, status: 'approved' });
+  vi.mocked(moderateReview).mockResolvedValue({ ...stored, status: 'approved' });
   vi.mocked(reviews.remove).mockResolvedValue({ photo: null, avatar: null });
 });
 
@@ -129,7 +133,11 @@ describe('смена статуса', () => {
     );
 
     expect(response.status).toBe(200);
-    expect(reviews.setStatus).toHaveBeenCalledWith('r5', { status: 'approved' }, 'u1');
+    expect(moderateReview).toHaveBeenCalledWith({
+      id: 'r5',
+      moderation: { status: 'approved' },
+      actorId: 'u1',
+    });
   });
 
   it('без сессии статус не меняется', async () => {
@@ -145,7 +153,7 @@ describe('смена статуса', () => {
     );
 
     expect(response.status).toBe(401);
-    expect(reviews.setStatus).not.toHaveBeenCalled();
+    expect(moderateReview).not.toHaveBeenCalled();
   });
 
   it('несуществующий статус не принимается', async () => {
@@ -175,7 +183,7 @@ describe('текст отзыва изменить нельзя', () => {
     );
 
     expect(response.status).toBe(400);
-    expect(reviews.setStatus).not.toHaveBeenCalled();
+    expect(moderateReview).not.toHaveBeenCalled();
   });
 
   it.each(['text', 'name', 'rating', 'photo', 'district'])(
@@ -191,7 +199,7 @@ describe('текст отзыва изменить нельзя', () => {
       );
 
       expect(response.status).toBe(400);
-      expect(reviews.setStatus).not.toHaveBeenCalled();
+      expect(moderateReview).not.toHaveBeenCalled();
     },
   );
 
@@ -205,8 +213,13 @@ describe('текст отзыва изменить нельзя', () => {
       context('r5'),
     );
 
-    expect(reviews.setStatus).toHaveBeenCalledWith('r5', { status: 'archived' }, 'u1');
-    expect(vi.mocked(reviews.setStatus).mock.calls[0]).toHaveLength(3);
+    /* Сравнение объектом и есть проверка «ничего сверх»: лишний ключ в
+       аргументе не пройдёт глубокое равенство. */
+    expect(moderateReview).toHaveBeenCalledWith({
+      id: 'r5',
+      moderation: { status: 'archived' },
+      actorId: 'u1',
+    });
   });
 });
 
@@ -224,21 +237,21 @@ describe('отказ без причины не принимается', () => {
 
   it('статус rejected без поля причины — 400', async () => {
     expect((await reject({ status: 'rejected' })).status).toBe(400);
-    expect(reviews.setStatus).not.toHaveBeenCalled();
+    expect(moderateReview).not.toHaveBeenCalled();
   });
 
   it('отговорка в два слова причиной не считается', async () => {
     expect((await reject({ status: 'rejected', reason: 'спам' })).status).toBe(400);
-    expect(reviews.setStatus).not.toHaveBeenCalled();
+    expect(moderateReview).not.toHaveBeenCalled();
   });
 
   it('причина с пробелами по краям обрезается, а не проходит длиной', async () => {
     expect((await reject({ status: 'rejected', reason: '   спам    ' })).status).toBe(400);
-    expect(reviews.setStatus).not.toHaveBeenCalled();
+    expect(moderateReview).not.toHaveBeenCalled();
   });
 
-  it('причина уходит в репозиторий вместе с автором решения', async () => {
-    vi.mocked(reviews.setStatus).mockResolvedValue({
+  it('причина уходит в модерацию вместе с автором решения', async () => {
+    vi.mocked(moderateReview).mockResolvedValue({
       ...stored,
       status: 'rejected',
       reject: { reason: 'Реклама конкурента', by: 'admin', at: '2026-09-04T09:00:00.000Z' },
@@ -247,16 +260,16 @@ describe('отказ без причины не принимается', () => {
     const response = await reject({ status: 'rejected', reason: 'Реклама конкурента' });
 
     expect(response.status).toBe(200);
-    expect(reviews.setStatus).toHaveBeenCalledWith(
-      'r5',
-      { status: 'rejected', reason: 'Реклама конкурента' },
-      'u1',
-    );
+    expect(moderateReview).toHaveBeenCalledWith({
+      id: 'r5',
+      moderation: { status: 'rejected', reason: 'Реклама конкурента' },
+      actorId: 'u1',
+    });
   });
 
   it('🔴 причина к одобрению не приделывается: это не поле на все случаи', async () => {
     expect((await reject({ status: 'approved', reason: 'Хороший отзыв' })).status).toBe(400);
-    expect(reviews.setStatus).not.toHaveBeenCalled();
+    expect(moderateReview).not.toHaveBeenCalled();
   });
 });
 
