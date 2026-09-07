@@ -147,13 +147,20 @@ export function viewQuery(place: CalendarPlace, next: CalendarView): CalendarQue
 }
 
 /**
- * Адрес строкой — для `router.push`, который объекта маршрута не принимает.
+ * Адрес календаря — известный путь плюс запрос.
  *
- * Тип сужен до формы адреса, а не оставлен `string`: типизированные маршруты
- * Next пропускают «известный путь плюс запрос», и такой возврат проходит
- * проверку без единого приведения.
+ * 🔴 Тип именованный, а не `string`, и передавать его дальше нужно тоже им.
+ * Типизированные маршруты Next пропускают только такую форму: стоит
+ * расширить проп до `string`, и `next build` падает «Type 'string' is not
+ * assignable to type RouteImpl» — при том что `tsc --noEmit` проходит, потому
+ * что типы маршрутов живут в `.next` и на хосте другие (ADR-147).
  */
-export function crmHref(query: CalendarQuery): `${typeof CRM_PATH}?${string}` {
+export type CrmHref = `${typeof CRM_PATH}?${string}`;
+
+/**
+ * Адрес строкой — для `router.push`, который объекта маршрута не принимает.
+ */
+export function crmHref(query: CalendarQuery): CrmHref {
   return `${CRM_PATH}?${new URLSearchParams(query).toString()}`;
 }
 
@@ -175,6 +182,6 @@ export function layerFiltered(place: CalendarPlace): boolean {
  * гасить его заодно со сбросом значило бы менять экран сильнее, чем просил
  * человек, нажавший «Показать все записи».
  */
-export function layerResetHref(place: CalendarPlace): `${typeof CRM_PATH}?${string}` {
+export function layerResetHref(place: CalendarPlace): CrmHref {
   return crmHref(withLayer(hereQuery(place), { team: place.team, who: null, kinds: null }));
 }

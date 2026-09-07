@@ -73,7 +73,7 @@ describe('Повестка недели', () => {
    */
   it('🔴 под отбором говорит про отбор и даёт ссылку, снимающую его', () => {
     const week = weekColumns(source({ events: [], orders: [], leads: [] }), DAY);
-    const here = `/admin/crm?view=week&day=${DAY}`;
+    const here = `/admin/crm?view=week&day=${DAY}` as const;
 
     render(<Agenda columns={week} filtered resetHref={here} />);
 

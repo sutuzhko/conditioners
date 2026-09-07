@@ -482,73 +482,73 @@ async function tabTo(page: Page, target: Target, stops: FocusStop[], limit = 250
   throw new Error(`Цель ${JSON.stringify(target)} не достигнута за ${limit} шагов`);
 }
 
+/**
+ * 🔴 Сценарий 5: падение блока локально в трёх разделах — issue #495, #581,
+ * #583.
+ *
+ * Сценарий 1 доказывает это на заявках подробно: «Повторить» действительно
+ * повторяет, соседний раздел открывается и возвращается. Здесь проверяется
+ * то, что нельзя увидеть на одном разделе, — что приём работает не только
+ * там, где его написали: раздел падает **своим** блоком, а шапка, вкладки и
+ * колонка разделов переживают падение.
+ *
+ * Три раздела выбраны не подряд: у заявок блок один, у каталога их два
+ * (счёт и таблица), у отзывов над блоком стоят вкладки и отбор — и именно
+ * они обязаны пережить обрыв, иначе владелец теряет и открытую вкладку, и
+ * набранные условия.
+ */
+const FALLING = [
+  { name: 'Заявки', path: LEADS, marker: LEADS_FLIGHT, failed: leadTexts.loadFailed },
+  {
+    name: 'Каталог',
+    path: '/admin/catalog',
+    marker: '"data-block":"catalog"',
+    failed: catalogTexts.loadFailed,
+  },
+  {
+    name: 'Отзывы',
+    path: '/admin/reviews',
+    marker: '"data-block":"reviews"',
+    failed: reviewTexts.loadFailed,
+  },
+] as const;
+
+for (const section of FALLING) {
+  test(`🔴 сценарий 5 · ${section.name}: упавший блок не уносит раздел и навигацию`, async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await loginViaUi(page);
+
+    await page.goto('/admin');
+    await settled(page);
+    await page.route(isRscOf(section.path), (route) => dropChunk(route, section.marker));
+
+    const column = page.locator('aside');
+    await column.getByRole('link', { name: section.name }).click();
+
+    /* 🔴 Внутри `main`: у Next есть свой `role="alert"` — объявление
+       маршрута для читалки, и по всей странице ошибок нашлось бы две. */
+    const alert = page.locator('main').getByRole('alert');
+    await expect(alert.getByRole('heading', { name: section.failed })).toBeVisible();
+    await expect(alert.getByRole('button', { name: errorTexts.retry })).toBeVisible();
+
+    /* Соседи живы: заголовок раздела на месте, а колонка разделов уводит
+       в другой раздел — то есть панель не перезагружают, из неё уходят. */
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(column.getByRole('link', { name: 'Заказы' })).toBeVisible();
+
+    await column.getByRole('link', { name: 'Заказы' }).click();
+    await expect(page.getByRole('heading', { level: 1, name: orderTexts.title })).toBeVisible();
+    await expect(page.locator('main').getByRole('alert')).toHaveCount(0);
+  });
+}
+
 for (const shell of [
   { name: 'десктоп', width: 1440, height: 900 },
   { name: 'телефон', width: 390, height: 844 },
 ]) {
-  /**
-   * 🔴 Сценарий 5: падение блока локально в трёх разделах — issue #495, #581,
-   * #583.
-   *
-   * Сценарий 1 доказывает это на заявках подробно: «Повторить» действительно
-   * повторяет, соседний раздел открывается и возвращается. Здесь проверяется
-   * то, что нельзя увидеть на одном разделе, — что приём работает не только
-   * там, где его написали: раздел падает **своим** блоком, а шапка, вкладки и
-   * колонка разделов переживают падение.
-   *
-   * Три раздела выбраны не подряд: у заявок блок один, у каталога их два
-   * (счёт и таблица), у отзывов над блоком стоят вкладки и отбор — и именно
-   * они обязаны пережить обрыв, иначе владелец теряет и открытую вкладку, и
-   * набранные условия.
-   */
-  const FALLING = [
-    { name: 'Заявки', path: LEADS, marker: LEADS_FLIGHT, failed: leadTexts.loadFailed },
-    {
-      name: 'Каталог',
-      path: '/admin/catalog',
-      marker: '"data-block":"catalog"',
-      failed: catalogTexts.loadFailed,
-    },
-    {
-      name: 'Отзывы',
-      path: '/admin/reviews',
-      marker: '"data-block":"reviews"',
-      failed: reviewTexts.loadFailed,
-    },
-  ] as const;
-
-  for (const section of FALLING) {
-    test(`🔴 сценарий 5 · ${section.name}: упавший блок не уносит раздел и навигацию`, async ({
-      page,
-    }) => {
-      test.setTimeout(180_000);
-      await page.setViewportSize({ width: 1440, height: 900 });
-      await loginViaUi(page);
-
-      await page.goto('/admin');
-      await settled(page);
-      await page.route(isRscOf(section.path), (route) => dropChunk(route, section.marker));
-
-      const column = page.locator('aside');
-      await column.getByRole('link', { name: section.name }).click();
-
-      /* 🔴 Внутри `main`: у Next есть свой `role="alert"` — объявление
-         маршрута для читалки, и по всей странице ошибок нашлось бы две. */
-      const alert = page.locator('main').getByRole('alert');
-      await expect(alert.getByRole('heading', { name: section.failed })).toBeVisible();
-      await expect(alert.getByRole('button', { name: errorTexts.retry })).toBeVisible();
-
-      /* Соседи живы: заголовок раздела на месте, а колонка разделов уводит
-         в другой раздел — то есть панель не перезагружают, из неё уходят. */
-      await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-      await expect(column.getByRole('link', { name: 'Заказы' })).toBeVisible();
-
-      await column.getByRole('link', { name: 'Заказы' }).click();
-      await expect(page.getByRole('heading', { level: 1, name: orderTexts.title })).toBeVisible();
-      await expect(page.locator('main').getByRole('alert')).toHaveCount(0);
-    });
-  }
-
   test(`🔴 сценарий 3 · ${shell.name}: клавиатура насквозь — вход, «Заказы», наряд, расход, сохранение`, async ({
     page,
   }) => {

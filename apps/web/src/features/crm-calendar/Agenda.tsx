@@ -4,6 +4,7 @@ import { ButtonLink } from '@/shared/ui';
 
 import { CRM_PATH, crmContent as texts } from './content';
 import { EventChip } from './EventChip';
+import type { CrmHref } from './navigation';
 import { monthRows, type ScheduleColumn } from './schedule';
 import styles from './Agenda.module.css';
 
@@ -25,7 +26,7 @@ export interface AgendaProps {
    */
   readonly filtered?: boolean | undefined;
   /** Тот же вид и та же неделя, но без отбора слоя. Есть только при `filtered`. */
-  readonly resetHref?: string | undefined;
+  readonly resetHref?: CrmHref | undefined;
 }
 
 /**

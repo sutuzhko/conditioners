@@ -1,5 +1,6 @@
 import { Agenda } from './Agenda';
 import { crmContent as texts } from './content';
+import type { CrmHref } from './navigation';
 import { TimeGrid } from './TimeGrid';
 import type { HourRange, ScheduleColumn } from './schedule';
 import styles from './WeekBoard.module.css';
@@ -21,7 +22,7 @@ export interface WeekBoardProps {
    */
   readonly filtered?: boolean | undefined;
   /** Тот же вид и та же неделя без отбора слоя — выход из «ничего не видно». */
-  readonly resetHref?: string | undefined;
+  readonly resetHref?: CrmHref | undefined;
 }
 
 /**
