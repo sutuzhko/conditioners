@@ -1061,6 +1061,8 @@ marginSkipped }`, только владельцу. `marginSkipped` — скол�
 
 ### 17.2. Маршруты `/api/admin/*`
 
+🔴 **Таблица отвечает за три роли из четырёх.** Администратору любой её адрес открывает переключатель владельца — перечень про него не спрашивают вовсе (§17.4). Исключения помечены 🔒: их не открывает ничто.
+
 | Маршрут                                                                 | Методы                  | Перечень       |
 | ----------------------------------------------------------------------- | ----------------------- | -------------- |
 | `/models`, `/models/{id}/**`                                            | все                     | `OWNER`        |
@@ -1068,7 +1070,7 @@ marginSkipped }`, только владельцу. `marginSkipped` — скол�
 | `/prices`                                                               | `GET` `PUT`             | `OWNER`        |
 | `/reviews`, `/reviews/{id}/**`                                          | все                     | `OWNER`        |
 | `/settings`, `/settings/{key}`, `/settings/readiness`                   | все                     | `OWNER`        |
-| `/revalidate`                                                           | `POST`                  | `OWNER`        |
+| `/revalidate`                                                           | `POST`                  | `OWNER` 🔒     |
 | `/clients`, `/clients/{id}/**`                                          | все                     | `OWNER`        |
 | `/leads`, `/leads/{id}`                                                 | `GET` `PATCH`           | `CLIENT_CYCLE` |
 | `/leads/{id}/photo`                                                     | `GET`                   | `CLIENT_CYCLE` |

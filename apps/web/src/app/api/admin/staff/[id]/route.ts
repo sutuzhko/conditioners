@@ -46,13 +46,31 @@ export const PATCH = withOwner(async (request, context: Context, session) => {
     return apiError('forbidden', 'Себе оформление не меняют');
   }
 
+  /* 🔴 Себе пароль меняют в профиле, и там спрашивают текущий. Здесь текущий
+     не спрашивается — раздел заведён под правку чужих учётных записей, где
+     старого пароля никто и не знает. Для своей это значит, что дошедший до
+     открытой панели ставит себе пароль, не зная прежнего: сессия, забытая на
+     чужом компьютере, превращается в постоянный доступ, а все остальные
+     сессии человека тем же запросом гасятся. */
+  if (id === session.userId && parsed.data.password !== undefined) {
+    return apiError('forbidden', 'Себе пароль меняют в профиле — там спрашивают текущий');
+  }
+
   const { password, ...rest } = parsed.data;
 
+  /* 🔴 Кто правит — из сессии, и дальше это решает репозиторий. Раздел открыт
+     не только владельцу: администратору его выдаёт переключатель «Сотрудники»
+     вместе с «Управлением людьми» (ADR-344), и учётная запись владельца или
+     равного администратора этой ручкой ему не правится. */
   return json(
-    await update(id, {
-      ...rest,
-      ...(password === undefined ? {} : { passwordHash: await hashPassword(password) }),
-    }),
+    await update(
+      id,
+      {
+        ...rest,
+        ...(password === undefined ? {} : { passwordHash: await hashPassword(password) }),
+      },
+      { userId: session.userId, role: session.role },
+    ),
   );
 });
 
@@ -61,6 +79,6 @@ export const DELETE = withOwner(async (_request, context: Context, session) => {
 
   if (id === session.userId) return apiError('forbidden', 'Себя удалить нельзя');
 
-  await remove(id);
+  await remove(id, { userId: session.userId, role: session.role });
   return noContent();
 });

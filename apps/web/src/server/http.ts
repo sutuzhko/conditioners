@@ -6,6 +6,7 @@
  */
 import { NextResponse, type NextRequest } from 'next/server';
 import { ZodError } from 'zod';
+import { ApiException, STATUS, type ApiErrorCode } from '@/server/api-error';
 import { OWNER } from '@/entities/staff/access';
 import { isAdminRole, type AdminRole } from '@/entities/staff/model';
 import { getAdminSession, type AdminSession } from '@/server/auth';
@@ -13,28 +14,19 @@ import { accessAllows, apiPermissionRule, permissionsOf } from '@/server/permiss
 import { clientIp } from '@/server/client-ip';
 import { hit } from '@/server/repo/rate-limit';
 
-export type ApiErrorCode =
-  | 'validation_error'
-  | 'unauthorized'
-  | 'forbidden'
-  | 'not_found'
-  | 'conflict'
-  | 'payload_too_large'
-  | 'rate_limited'
-  | 'internal_error';
+/* 🔴 Код ошибки и `ApiException` переехали в `server/api-error`, а сюда
+   реэкспортируются: адрес `@/server/http` остаётся прежним для четырнадцати
+   репозиториев, которые их зовут.
 
-const STATUS: Record<ApiErrorCode, number> = {
-  validation_error: 400,
-  unauthorized: 401,
-  forbidden: 403,
-  not_found: 404,
-  /* 409 — «за это время карточку изменил кто-то другой». Отличается от 400:
-     тело запроса верное, изменилось состояние на сервере. */
-  conflict: 409,
-  payload_too_large: 413,
-  rate_limited: 429,
-  internal_error: 500,
-};
+   Переезд не косметический. `repo/admin-users` брал `ApiException` отсюда,
+   `http` берёт сессию из `auth`, а `auth` — из `repo/admin-users`: круг
+   импортов замыкался, и на полпути по нему `http` получал **настоящий**
+   `getAdminSession` мимо подмены. Полтора десятка проверок маршрутов обходили
+   это, подменяя заодно `repo/admin-users` пустым модулем, — то есть проверить
+   маршрут вместе с его репозиторием было нечем. Модуль ошибки не импортирует
+   ничего, и круга больше нет (ADR-149). */
+export { ApiException };
+export type { ApiErrorCode };
 
 /**
  * Кодировку указываем явно: контракт (docs/API.md) обещает
@@ -114,22 +106,6 @@ export async function readJson(request: Request): Promise<unknown> {
     return await request.json();
   } catch {
     return undefined;
-  }
-}
-
-/**
- * Ошибка, которую можно показать пользователю. Бросается из глубины
- * (репозиторий, загрузка файла) и превращается в ответ обёрткой маршрута.
- */
-export class ApiException extends Error {
-  readonly code: ApiErrorCode;
-  readonly field: string | undefined;
-
-  constructor(code: ApiErrorCode, message: string, field?: string) {
-    super(message);
-    this.name = 'ApiException';
-    this.code = code;
-    this.field = field;
   }
 }
 

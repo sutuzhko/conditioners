@@ -99,12 +99,35 @@ const API_OVERRIDES: Readonly<Record<string, PermissionRule>> = {
   'reviews/* DELETE': needs('reviews', 'data_delete'),
   'stock/items/* DELETE': needs('stock', 'data_delete'),
   'stock/zones/* DELETE': needs('stock', 'data_delete'),
+  /* 🔴 Отлучка (`blocks/* DELETE`) «Удаления данных» не требует, и это выбор,
+     а не пропуск: свою отлучку человек снимает каждый день — передумал ехать
+     в отпуск, перенёс приём у врача. Переключатель, который для этого нужен,
+     выдавали бы всем, а его смысл — редкое и необратимое. Снять чужую отлучку
+     нельзя и без него: выборку сужает `listBlocks(viewer)`. */
 
-  /* Деньги: суммы, которые видит клиент, и закупочные цены. */
+  /* Деньги: суммы, которые видит клиент, и закупочные цены.
+
+     🔴 Заведение и правка модели тоже здесь, а не в одном «Каталоге». Тело
+     карточки везёт `priceNum` — цену на публичной витрине, ту самую, которую
+     перечёркивает скидка. Закрыть скидку и оставить открытой исходную цену
+     значит закрыть половину замка: поднять цену правкой карточки — ровно тот
+     приём, который сайт разоблачает в разделе «Как обманывают при установке»
+     (красная линия «не врать в цене», инвариант 14). */
   'prices PUT': needs('prices', 'money'),
+  'models POST': needs('catalog', 'money'),
+  'models/* PUT': needs('catalog', 'money'),
+  'models/* PATCH': needs('catalog', 'money'),
   'models/*/sale PATCH': needs('catalog', 'money'),
   'stock/items POST': needs('stock', 'money'),
   'stock/items/* PATCH': needs('stock', 'money'),
+
+  /* 🔴 Две ручки обращения заводят записи чужого раздела, и разрешения на
+     «Заявки» им мало. `POST /leads/{id}/client` заводит карточку клиента — а
+     при совпадении телефона возвращает **уже заведённую**, со всей историей
+     обращений, то есть отдаёт содержимое закрытого раздела (`repo/clients`).
+     `POST /leads/{id}/order` заводит клиента и наряд разом. */
+  'leads/*/client POST': needs('leads', 'clients'),
+  'leads/*/order POST': needs('leads', 'clients', 'orders'),
 
   /* Настройки компании: реквизиты, контакты, часы, разметка сайта. */
   'settings/* PUT': needs('company', 'company_settings'),
@@ -205,7 +228,23 @@ export function apiPermissionRule(pathname: string, method: string): PermissionR
   );
   if (override !== undefined) return override.rule;
 
-  return API_SECTIONS[segments[0] ?? ''] ?? null;
+  return sectionRule(API_SECTIONS, segments[0] ?? '');
+}
+
+/**
+ * Правило раздела по имени сегмента.
+ *
+ * 🔴 `Object.hasOwn`, а не `map[key] ?? null`. Адрес приходит снаружи, и
+ * сегментом бывает `toString`, `constructor`, `__proto__`: обычный доступ
+ * находит их в прототипе объекта, `??` не срабатывает — и вместо честного
+ * отказа наружу уезжает функция, на которой падает разбор правила. Опечатка в
+ * адресе не должна давать пятисотку.
+ */
+function sectionRule(
+  sections: Readonly<Record<string, PermissionRule>>,
+  segment: string,
+): PermissionRule | null {
+  return Object.hasOwn(sections, segment) ? (sections[segment] ?? null) : null;
 }
 
 /** То же для страницы панели. `null` — адрес карте неизвестен, значит отказ. */
@@ -213,7 +252,7 @@ export function pagePermissionRule(pathname: string): PermissionRule | null {
   const segments = segmentsOf(pathname, PAGE_PREFIX);
   if (segments === null) return null;
 
-  return PAGE_SECTIONS[segments[0] ?? ''] ?? null;
+  return sectionRule(PAGE_SECTIONS, segments[0] ?? '');
 }
 
 /**

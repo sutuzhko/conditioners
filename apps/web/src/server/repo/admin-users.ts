@@ -14,7 +14,7 @@ import type {
 import type { AdminRole, InstallerNoteCard, StaffCard, StaffDetails } from '@/entities/staff/model';
 import type { AdminPermission } from '@/entities/staff/permissions';
 import { db } from '@/server/db';
-import { ApiException } from '@/server/http';
+import { ApiException } from '@/server/api-error';
 import { employmentFromDb, employmentToDb } from '@/server/repo/employment';
 import { permissionsFromDb, permissionsToDb, roleFromDb, roleToDb } from '@/server/repo/roles';
 import type { Employment } from '@/shared/lib/employment';
@@ -164,6 +164,59 @@ export async function findDetails(id: string): Promise<StaffDetails | null> {
 }
 
 /**
+ * Кто правит — сессия, из-под которой пришёл запрос.
+ *
+ * 🔴 Обязательный аргумент, а не необязательный с умолчанием. Пока раздел
+ * «Сотрудники» был закрыт `withOwner`, вопрос «кто правит» имел один ответ, и
+ * функции записи его не задавали. Разрешения администратора (ADR-344) этот
+ * ответ размножили, и умолчание здесь означало бы «считаем, что владелец» —
+ * ровно та подстановка, которой администратор с «Управлением людьми» менял
+ * пароль владельцу.
+ */
+export type StaffActor = {
+  readonly userId: string;
+  readonly role: AdminRole;
+};
+
+/**
+ * Кого этот человек вправе править в разделе «Сотрудники».
+ *
+ * 🔴 Правило про **роль цели**, а не про её имя или номер: администратор
+ * распоряжается теми, кем управляет по работе, — менеджерами и монтажниками.
+ * Учётная запись владельца и учётная запись равного администратора — дело
+ * владельца (CRM §6.3, «Права других людей: администратор не правит»).
+ *
+ * 🔴 Почему пароль сюда входит. «Управление людьми» открывает заведение
+ * сотрудника и заметки о нём, но смена пароля чужой учётной записи — это не
+ * управление человеком, это вход под ним: пароль после смены знает тот, кто
+ * его поставил, а все сессии владельца этим же действием гасятся. По
+ * горизонтали цена та же: сбросив пароль равному администратору, человек
+ * получает его набор разрешений — то есть обходит обещание «администратор не
+ * меняет ни свои, ни чужие права», не трогая `/access` вовсе.
+ *
+ * Свою учётную запись правит каждый: это свой профиль, и им закрыт
+ * `PATCH /api/admin/profile`.
+ */
+function mayManage(actor: StaffActor, target: { id: string; role: DbRole }): boolean {
+  if (actor.role === 'owner') return true;
+  if (actor.userId === target.id) return true;
+
+  const role = roleFromDb(target.role);
+  return actor.role === 'admin' && (role === 'manager' || role === 'installer');
+}
+
+/**
+ * Отказ — общий на все действия над учётной записью: он не рассказывает, что
+ * именно в цели особенного. Кто есть кто, администратор с открытым разделом
+ * «Сотрудники» и так видит в списке, но повторять это в тексте отказа незачем.
+ */
+function assertMayManage(actor: StaffActor, target: { id: string; role: DbRole }): void {
+  if (mayManage(actor, target)) return;
+
+  throw new ApiException('forbidden', 'Эту учётную запись правит только владелец');
+}
+
+/**
  * Логин занят — это ошибка человека, а не повод подобрать свободный с
  * суффиксом: логин диктуют по телефону, и `petrov-2` вместо `petrov`
  * обнаружился бы только при неудачной попытке войти.
@@ -205,8 +258,13 @@ export async function createInstaller(input: {
  * Правка учётной записи.
  *
  * Отвечает карточкой без ИНН: ту же функцию зовёт свой профиль, доступный
- * обеим ролям. Владелец видит сохранённый ИНН чтением карточки — форма после
- * успеха и так перечитывает страницу.
+ * всем четырём ролям. Владелец видит сохранённый ИНН чтением карточки — форма
+ * после успеха и так перечитывает страницу.
+ *
+ * 🔴 Кто правит — обязательный аргумент, и это не церемония. Здесь меняются
+ * пароль, логин и признак доступа, то есть всё, из чего состоит вход в панель;
+ * без имени действующего эта функция отдаёт учётную запись владельца любому,
+ * кого пустил страж маршрута.
  */
 export async function update(
   id: string,
@@ -219,9 +277,15 @@ export async function update(
     passwordHash?: string | undefined;
     active?: boolean | undefined;
   },
+  actor: StaffActor,
 ): Promise<StaffCard> {
-  const current = await db.adminUser.findUnique({ where: { id }, select: { id: true } });
+  const current = await db.adminUser.findUnique({
+    where: { id },
+    select: { id: true, role: true },
+  });
   if (current === null) throw new ApiException('not_found', 'Сотрудник не найден');
+
+  assertMayManage(actor, current);
 
   if (input.login !== undefined) await assertLoginFree(input.login, id);
 
@@ -252,14 +316,21 @@ export async function update(
 /**
  * Удаление учётной записи. Владельца удалить нельзя: панель без владельца
  * закрывается насовсем, и восстановить доступ можно будет только из консоли.
+ *
+ * 🔴 Проверка роли цели стояла здесь и до разрешений, а у `update` — нет, и
+ * ровно в этом зазоре администратор с «Управлением людьми» получал пароль
+ * владельца: удалить его он не мог, а переписать — мог. Теперь обе функции
+ * спрашивают одно и то же у одного правила.
  */
-export async function remove(id: string): Promise<void> {
-  const row = await db.adminUser.findUnique({ where: { id }, select: { role: true } });
+export async function remove(id: string, actor: StaffActor): Promise<void> {
+  const row = await db.adminUser.findUnique({ where: { id }, select: { id: true, role: true } });
   if (row === null) throw new ApiException('not_found', 'Сотрудник не найден');
 
   if (row.role === 'OWNER') {
     throw new ApiException('forbidden', 'Учётную запись владельца удалить нельзя');
   }
+
+  assertMayManage(actor, row);
 
   await db.adminUser.delete({ where: { id } });
 }
@@ -303,9 +374,22 @@ export async function setAccess(
 
   const role = input.role ?? roleFromDb(current.role);
 
-  /* 🔴 Роль сменилась на неадминистраторскую — набор гасится. Разрешения
-     спрашивают у одной роли, и сохранённый набор у менеджера означал бы
-     настройку, которая не работает: в карточке она есть, в доступе её нет. */
+  /* 🔴 Набор у не-администратора не принимается, а не гасится молча. Ответ
+     `200` на то, чего не сохранили, — худший вид отказа: владелец расставил
+     переключатели, увидел «Права сохранены» и ушёл уверенным, что настроил
+     доступ. Разрешения спрашивают у одной роли, и набор у менеджера был бы
+     настройкой, которой нет в доступе. */
+  if (role !== 'admin' && input.permissions !== undefined && input.permissions.length > 0) {
+    throw new ApiException(
+      'validation_error',
+      'Разрешения есть только у администратора: у остальных ролей доступ задан ролью целиком',
+      'permissions',
+    );
+  }
+
+  /* Смена роли на неадминистраторскую гасит набор: он перестал что-либо
+     значить, и оставлять его в карточке значило бы показывать настройку,
+     которая не работает. */
   const permissions = role === 'admin' ? (input.permissions ?? undefined) : [];
 
   const row = await db.adminUser.update({

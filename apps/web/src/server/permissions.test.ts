@@ -81,6 +81,42 @@ describe('карта разрешений: разбор адреса ручки'
     ]);
   });
 
+  /* 🔴 Ручка, заводящая запись чужого раздела, требует и его разрешения.
+     Заведение клиента при совпадении телефона возвращает **уже заведённую**
+     карточку со всей историей обращений — то есть отдаёт содержимое закрытого
+     раздела, а не только пишет в него. */
+  it('🔴 ручка обращения, заводящая клиента и наряд, требует их разделов', () => {
+    expect([
+      apiPermissionRule('/api/admin/leads/l1/client', 'POST'),
+      apiPermissionRule('/api/admin/leads/l1/order', 'POST'),
+    ]).toEqual([
+      { kind: 'permissions', required: ['leads', 'clients'] },
+      { kind: 'permissions', required: ['leads', 'clients', 'orders'] },
+    ]);
+  });
+
+  /* 🔴 Красная линия «не врать в цене»: скидка под замком «Денег», а цена,
+     которую скидка перечёркивает, ехала в теле карточки модели и была открыта
+     одним «Каталогом». Закрыть половину замка — значит не закрыть ничего. */
+  it('🔴 цена модели закрыта «Деньгами» так же, как скидка', () => {
+    expect([
+      apiPermissionRule('/api/admin/models', 'POST'),
+      apiPermissionRule('/api/admin/models/m1', 'PUT'),
+      apiPermissionRule('/api/admin/models/m1', 'PATCH'),
+      apiPermissionRule('/api/admin/models/m1/sale', 'PATCH'),
+      /* Чтение карточки и работа с фотографиями цены не касаются. */
+      apiPermissionRule('/api/admin/models/m1', 'GET'),
+      apiPermissionRule('/api/admin/models/m1/photos', 'POST'),
+    ]).toEqual([
+      { kind: 'permissions', required: ['catalog', 'money'] },
+      { kind: 'permissions', required: ['catalog', 'money'] },
+      { kind: 'permissions', required: ['catalog', 'money'] },
+      { kind: 'permissions', required: ['catalog', 'money'] },
+      { kind: 'permissions', required: ['catalog'] },
+      { kind: 'permissions', required: ['catalog'] },
+    ]);
+  });
+
   it('🔴 адрес, которого в карте нет, разрешения не получает', () => {
     expect([
       apiPermissionRule('/api/admin/unknown', 'GET'),
@@ -182,6 +218,22 @@ describe('карта разрешений: страницы панели', () =>
       { kind: 'permissions', required: ['team'] },
       { kind: 'owner' },
     ]);
+  });
+
+  /* 🔴 Сегментом адреса бывает имя из прототипа объекта: `toString`,
+     `constructor`, `__proto__`. Обычный доступ по ключу находит их у
+     `Object.prototype`, `?? null` не срабатывает — и вместо отказа наружу
+     уезжает функция, на которой разбор правила падает пятисоткой. Опечатка в
+     адресе не должна давать 500. */
+  it('🔴 имя из прототипа объекта разделом не считается', () => {
+    expect([
+      pagePermissionRule('/admin/toString'),
+      pagePermissionRule('/admin/constructor'),
+      pagePermissionRule('/admin/__proto__'),
+      pagePermissionRule('/admin/hasOwnProperty'),
+      apiPermissionRule('/api/admin/toString', 'GET'),
+      apiPermissionRule('/api/admin/constructor', 'POST'),
+    ]).toEqual([null, null, null, null, null, null]);
   });
 
   it('🔴 без адреса администратор не проходит: не узнали раздел — значит нет', () => {

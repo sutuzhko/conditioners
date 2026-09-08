@@ -58,6 +58,26 @@ describe('setAccess', () => {
     });
   });
 
+  /* 🔴 Набор не-администратору не принимается, а не гасится молча: ответ
+     `200` на то, чего не сохранили, — худший вид отказа. Владелец расставил
+     переключатели, прочитал «Права сохранены» и ушёл уверенным, что настроил
+     доступ. */
+  it('🔴 набор вместе с неадминистраторской ролью отклоняется, а не гасится', async () => {
+    await expect(
+      setAccess('u3', { role: 'manager', permissions: ['leads'] }),
+    ).rejects.toMatchObject({ code: 'validation_error', field: 'permissions' });
+    expect(adminUser.update).not.toHaveBeenCalled();
+  });
+
+  it('🔴 набор у менеджера не принимается и без смены роли', async () => {
+    adminUser.findUnique.mockResolvedValue({ role: 'MANAGER' });
+
+    await expect(setAccess('u5', { permissions: ['leads'] })).rejects.toMatchObject({
+      code: 'validation_error',
+    });
+    expect(adminUser.update).not.toHaveBeenCalled();
+  });
+
   /* 🔴 Разрешения спрашивают у одной роли. Набор, оставшийся у менеджера,
      означал бы настройку, которая в карточке есть, а в доступе не работает. */
   it('🔴 смена роли на неадминистраторскую гасит набор', async () => {
