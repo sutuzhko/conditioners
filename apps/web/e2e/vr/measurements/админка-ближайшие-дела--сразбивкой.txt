@@ -2,13 +2,13 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1630
+390 → 390×1601
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  326×1566 @32,32  r14  b1
-  div.SummaryFilters__bar  284×132 @21,21
+section.Card__card  326×1537 @32,32  r14  b1
+  div.SummaryFilters__bar  284×104 @21,21
     div.SummaryFilters__pills  284×44 @0,0
       details.SummaryFilters__filter  77×44 @0,0
         summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -39,8 +39,7 @@ section.Card__card  326×1566 @32,32  r14  b1
       div.Field__field  284×52 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
         input  284×52 @0,0  r999  b1
-    p.SummaryFilters__total  284×20 @0,112  Manrope 400 13/20  lines=1  «4 дела в списке»
-  div.Table__viewport  284×1319 @21,163
+  div.Table__viewport  284×1319 @21,135
     table.Table__table  284×1319 @0,0
       tr[role=row]  1×56 @0,0
         th.SummaryTable__whenCol  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -195,17 +194,17 @@ section.Card__card  326×1566 @32,32  r14  b1
                 a.TableActions__action#3  44×44 @0,0  r100
                   span.TableActions__iconArea#2  44×44 @0,0
                     svg#3  18×18 @13,13
-  nav.Pager__pager  284×52 @21,1493
-    a.Pager__step  44×44 @57,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-      span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
-    span.Pager__position  66×44 @109,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
-    a.Pager__step#2  44×44 @183,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-      span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+  nav.Pager__pager  284×52 @21,1464
+    a.Pager__step  44×44 @72,4  r8  b1
+      span  8×16 @18,14  Manrope 600 13/16  lines=1  «‹»
+    span.Pager__count  36×20 @124,16  Manrope 600 13/20  lines=1  «2 из 3»
+    a.Pager__step#2  44×44 @168,4  r8  b1
+      span  8×16 @18,14  Manrope 600 13/16  lines=1  «›»
     p[role=status]  1×1 @142,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
 
 [геометрия 768]
-section.Card__card  704×753 @32,32  r14  b1
-  div.SummaryFilters__bar  662×132 @21,21
+section.Card__card  704×725 @32,32  r14  b1
+  div.SummaryFilters__bar  662×104 @21,21
     div.SummaryFilters__pills  662×44 @0,0
       details.SummaryFilters__filter  77×44 @0,0
         summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -236,8 +235,7 @@ section.Card__card  704×753 @32,32  r14  b1
       div.Field__field  662×52 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
         input  662×52 @0,0  r999  b1
-    p.SummaryFilters__total  662×20 @0,112  Manrope 400 13/20  lines=1  «4 дела в списке»
-  div.Table__viewport  662×507 @21,163
+  div.Table__viewport  662×507 @21,135
     table.Table__table  720×507 @0,0
       tr[role=row]  720×56 @0,0
         th.SummaryTable__whenCol  115×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -359,21 +357,21 @@ section.Card__card  704×753 @32,32  r14  b1
                 a.TableActions__action#3  44×44 @0,0  r100
                   span.TableActions__iconArea#2  44×44 @0,0
                     svg#3  18×18 @13,13
-  nav.Pager__pager  662×52 @21,680
-    a.Pager__step  88×44 @157,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-      span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
-    ol.Pager__numbers  135×44 @257,4
-      a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-      span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-      a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-    a.Pager__step#2  100×44 @404,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-      span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+  nav.Pager__pager  662×52 @21,652
+    a.Pager__step  44×44 @205,4  r8  b1
+      span  8×16 @18,14  Manrope 600 13/16  lines=1  «‹»
+    ol.Pager__numbers  140×44 @261,4
+      a.Pager__number  44×44 @0,0  Manrope 600 13/16  r8  b1  lines=1  «1»
+      span.Pager__current  44×44 @48,0  Manrope 700 13/16  r8  b1  lines=1  «2»
+      a.Pager__number#2  44×44 @96,0  Manrope 600 13/16  r8  b1  lines=1  «3»
+    a.Pager__step#2  44×44 @413,4  r8  b1
+      span  8×16 @18,14  Manrope 600 13/16  lines=1  «›»
     p[role=status]  1×1 @331,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
 
 [геометрия 1440]
-section.Card__card  1376×537 @32,32  r14  b1
-  div.SummaryFilters__bar  1334×76 @21,21
-    div.SummaryFilters__pills  1120×34 @0,0
+section.Card__card  1376×508 @32,32  r14  b1
+  div.SummaryFilters__bar  1334×48 @21,21
+    div.SummaryFilters__pills  1042×34 @0,0
       details.SummaryFilters__filter  77×34 @0,0
         summary.SummaryFilters__pill  77×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
         div.SummaryFilters__sheet  220×221 @0,40  r14  b1
@@ -399,12 +397,11 @@ section.Card__card  1376×537 @32,32  r14  b1
               span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
             a.SummaryFilters__item#3  83×34 @90,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
               span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
-    form.SummaryFilters__form  202×48 @1132,0
-      div.Field__field  202×48 @0,0
+    form.SummaryFilters__form  280×48 @1054,0
+      div.Field__field  280×48 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
-        input  202×48 @0,0  r999  b1
-    p.SummaryFilters__total  1334×20 @0,56  Manrope 400 13/20  lines=1  «4 дела в списке»
-  div.Table__viewport  1334×358 @21,107
+        input  280×48 @0,0  r999  b1
+  div.Table__viewport  1334×358 @21,79
     table.Table__table  1334×358 @0,0
       tr[role=row]  1334×56 @0,0
         th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -539,15 +536,15 @@ section.Card__card  1376×537 @32,32  r14  b1
                 a.TableActions__action#3  32×32 @0,0  r100
                   span.TableActions__iconArea#2  32×32 @0,0
                     svg#3  18×18 @7,7
-  nav.Pager__pager  1334×40 @21,476
-    a.Pager__step  88×32 @505,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-      span.Pager__stepText  43×17 @30,7  Manrope 600 15/17  lines=1  «Назад»
-    ol.Pager__numbers  111×32 @605,4
-      a.Pager__number  32×32 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-      span.Pager__position  39×32 @36,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-      a.Pager__number#2  32×32 @79,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-    a.Pager__step#2  100×32 @728,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-      span.Pager__stepText  56×17 @15,7  Manrope 600 15/17  lines=1  «Дальше»
+  nav.Pager__pager  1334×40 @21,447
+    a.Pager__step  32×32 @571,4  r8  b1
+      span  8×16 @12,8  Manrope 600 13/16  lines=1  «‹»
+    ol.Pager__numbers  104×32 @615,4
+      a.Pager__number  32×32 @0,0  Manrope 600 13/16  r8  b1  lines=1  «1»
+      span.Pager__current  32×32 @36,0  Manrope 700 13/16  r8  b1  lines=1  «2»
+      a.Pager__number#2  32×32 @72,0  Manrope 600 13/16  r8  b1  lines=1  «3»
+    a.Pager__step#2  32×32 @731,4  r8  b1
+      span  8×16 @12,8  Manrope 600 13/16  lines=1  «›»
     p[role=status]  1×1 @667,20  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
 
 [палитра light]
@@ -583,7 +580,6 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px
       div.Field__field
         label.Field__label  color #556173
         input  bg #f8fafc  border #7e8fa6
-    p.SummaryFilters__total  color #5b6a7d
   div.Table__viewport
     table.Table__table
       tr[role=row]
@@ -720,14 +716,14 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px
                   span.TableActions__iconArea#2
                     svg#3
   nav.Pager__pager
-    a.Pager__step  color #0e7490  border #7e8fa6
-      span.Pager__stepText  color #0e7490
+    a.Pager__step  border transparent
+      span  color #0e7490
     ol.Pager__numbers
       a.Pager__number  color #0e7490  border transparent
-      span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+      span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
       a.Pager__number#2  color #0e7490  border transparent
-    a.Pager__step#2  color #0e7490  border #7e8fa6
-      span.Pager__stepText  color #0e7490
+    a.Pager__step#2  border transparent
+      span  color #0e7490
     p[role=status]  color #475569
 [палитра light @390]
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0  gradient linear-gradient(#be123c14, #be123c14)
@@ -773,7 +769,7 @@ section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 >
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__statusCol > td.SummaryTable__statusCol::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__sumCol > td.SummaryTable__sumCol::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__actions  border #eef2f6 #334155 #334155 #334155
-section.Card__card > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+section.Card__card > nav.Pager__pager > span.Pager__count  color #556173
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
@@ -808,7 +804,6 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px
       div.Field__field
         label.Field__label  color #8598ac
         input  bg #0e1729  border #566d95
-    p.SummaryFilters__total  color #7e92a7
   div.Table__viewport
     table.Table__table
       tr[role=row]
@@ -945,14 +940,14 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px
                   span.TableActions__iconArea#2
                     svg#3
   nav.Pager__pager
-    a.Pager__step  color #22d3ee  border #566d95
-      span.Pager__stepText  color #22d3ee
+    a.Pager__step  border transparent
+      span  color #22d3ee
     ol.Pager__numbers
       a.Pager__number  color #22d3ee  border transparent
-      span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+      span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
       a.Pager__number#2  color #22d3ee  border transparent
-    a.Pager__step#2  color #22d3ee  border #566d95
-      span.Pager__stepText  color #22d3ee
+    a.Pager__step#2  border transparent
+      span  color #22d3ee
     p[role=status]  color #a8b6c6
 [палитра dark @390]
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41  gradient linear-gradient(#fb71851f, #fb71851f)
@@ -998,4 +993,4 @@ section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 >
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__statusCol > td.SummaryTable__statusCol::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__sumCol > td.SummaryTable__sumCol::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.SummaryTable__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-section.Card__card > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+section.Card__card > nav.Pager__pager > span.Pager__count  color #8598ac

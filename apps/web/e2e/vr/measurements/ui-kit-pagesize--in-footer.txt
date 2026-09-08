@@ -1,0 +1,67 @@
+# ui-kit-pagesize--in-footer · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+span  170×20 @48,57  Manrope 400 13/20  lines=1  «Показано 20 из 137 позиций»
+span.PageSize__root  74×44 @268,45
+  span.PageSize__title  1×1 @0,22  Manrope 400 13/20  lines=1  clipped  «Строк на странице»
+  div.Field__field  74×44 @0,0
+    span.Select__wrapper  74×44 @0,0
+      select.Select__select  74×44 @0,0  r8  b1
+        option  0×0 @-268,-45  Manrope 400 14/20  lines=0  «8»
+        option#2  0×0 @-268,-45  Manrope 400 14/20  lines=0  «20»
+        option#3  0×0 @-268,-45  Manrope 400 14/20  lines=0  «50»
+      svg.Select__chevron  14×14 @46,15
+
+[геометрия 768]
+span  170×20 @48,57  Manrope 400 13/20  lines=1  «Показано 20 из 137 позиций»
+span.PageSize__root  199×44 @521,45
+  span.PageSize__title  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+  div.Field__field  74×44 @125,0
+    span.Select__wrapper  74×44 @0,0
+      select.Select__select  74×44 @0,0  r8  b1
+        option  0×0 @-646,-45  Manrope 400 14/20  lines=0  «8»
+        option#2  0×0 @-646,-45  Manrope 400 14/20  lines=0  «20»
+        option#3  0×0 @-646,-45  Manrope 400 14/20  lines=0  «50»
+      svg.Select__chevron  14×14 @46,15
+
+[геометрия 1440]
+span  170×20 @48,51  Manrope 400 13/20  lines=1  «Показано 20 из 137 позиций»
+span.PageSize__root  199×32 @1193,45
+  span.PageSize__title  117×20 @0,6  Manrope 400 13/20  lines=1  «Строк на странице»
+  div.Field__field  74×32 @125,0
+    span.Select__wrapper  74×32 @0,0
+      select.Select__select  74×32 @0,0  r8  b1
+        option  0×0 @-1318,-45  Manrope 400 14/20  lines=0  «8»
+        option#2  0×0 @-1318,-45  Manrope 400 14/20  lines=0  «20»
+        option#3  0×0 @-1318,-45  Manrope 400 14/20  lines=0  «50»
+      svg.Select__chevron  14×14 @46,9
+
+[палитра light]
+span  color #5b6a7d
+span.PageSize__root
+  span.PageSize__title  color #5b6a7d
+  div.Field__field
+    span.Select__wrapper
+      select.Select__select  border #7e8fa6
+        option  color #0f172a
+        option#2  color #0f172a
+        option#3  color #0f172a
+      svg.Select__chevron
+
+[палитра dark]
+span  color #7e92a7
+span.PageSize__root
+  span.PageSize__title  color #7e92a7
+  div.Field__field
+    span.Select__wrapper
+      select.Select__select  border #566d95
+        option  color #eaf1f8
+        option#2  color #eaf1f8
+        option#3  color #eaf1f8
+      svg.Select__chevron
