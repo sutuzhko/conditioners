@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { getAdminSession } from '@/server/auth';
+
 import { FORBIDDEN_CONTENT as t } from './forbidden-content';
 import { ForbiddenView } from './ForbiddenView';
 
@@ -25,6 +27,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function Forbidden() {
-  return <ForbiddenView />;
+/**
+ * 🔴 Роль читается здесь, а не приходит от раскладки: границе отказа Next не
+ * передаёт от неё ничего. Без роли не выбрать выход — менеджер, отправленный
+ * на календарь выездов, получил бы второй отказ вместо выхода из первого
+ * (ADR-344). В базу за этим уходит ноль запросов: `getAdminSession` обёрнут
+ * `cache()`, и сессию за этот запрос уже прочитала раскладка панели, которая
+ * отказ и бросила.
+ *
+ * Разворачивать на вход при истёкшей сессии нельзя: разворот — это 307, а
+ * ответ обязан остаться 403 (issue #353). Поэтому вход предлагается ссылкой.
+ */
+export default async function Forbidden() {
+  const session = await getAdminSession();
+
+  return <ForbiddenView role={session?.role ?? null} />;
 }

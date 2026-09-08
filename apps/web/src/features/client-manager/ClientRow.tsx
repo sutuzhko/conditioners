@@ -3,15 +3,19 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { formatPhone, phoneHref } from '@/shared/lib/format';
+import { rowActionTexts as rowTexts } from '@/shared/config/row-actions';
+import { formatPhone, phoneHref, phonePlain } from '@/shared/lib/format';
 import {
   Avatar,
+  Icon,
   RowMenu,
   TableRow,
   TableRowLink,
   tableAboveClassName,
   useConfirm,
+  useCopy,
   type Confirm,
+  type RowMenuItem,
 } from '@/shared/ui';
 
 import { clientManagerContent as texts } from './content';
@@ -40,14 +44,27 @@ export interface ClientRowProps {
  * целей у строки от этого не прибавляется. Над перекрытием подняты только
  * те, что обязаны действовать сами: телефон и меню строки.
  *
- * 🔴 Действия достижимы из списка (ADR-307 §4): открыть, позвонить, удалить.
- * Удаление — исполнение требования 152-ФЗ, и оно спрашивает подтверждение
- * (ADR-113). Меню, а не круглые кнопки со значками: у кита нет «глаза»,
- * «карандаша» и «корзины», а кнопка без подписи не читается (PIXEL_SPEC).
+ * 🔴 Действия достижимы из списка (ADR-307 §4): открыть, позвонить,
+ * скопировать, удалить. Удаление — исполнение требования 152-ФЗ, и оно
+ * спрашивает подтверждение (ADR-113). Меню, а не круглые кнопки со значками:
+ * у кита нет «глаза», «карандаша» и «корзины», а кнопка без подписи не
+ * читается (PIXEL_SPEC).
+ *
+ * 🔴 Меню знало два действия из четырёх (issue #744): открыть карточку из
+ * него было нельзя, скопировать номер — тоже, а «Позвонить» было присвоением
+ * `location.href`. На рабочем столе, где обработчика `tel:` нет, присвоение
+ * выглядит как «ничего не произошло», — а список клиентов открывают именно
+ * чтобы позвонить. Теперь это настоящие ссылки: их видит браузер, их
+ * открывают средней кнопкой.
+ *
+ * 🔴 Копирование — вторым уровнем меню, с выбором поля (ADR-351). Поднимать
+ * ради него ячейку над перекрытием строки больше не нужно: выделение мышью
+ * было точным приёмом, который на телефоне не работает вовсе.
  */
 export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }: ClientRowProps) {
   const router = useRouter();
   const { confirm, dialog } = useConfirm();
+  const { copy, status } = useCopy();
   const ask = confirmRemove ?? confirm;
 
   const [busy, setBusy] = useState(false);
@@ -70,6 +87,61 @@ export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }:
     }
     setMessage(result.message);
   };
+
+  /* Проверка внутри самого действия, а не только вокруг пункта: обработчик
+     переживает перерисовку строки, и «адрес точно есть» здесь — то, что
+     обязано быть написано, а не подразумеваться сужением типа снаружи. */
+  const copyAddress = (): void => {
+    if (client.address === null) return;
+    copy(client.address, rowTexts.fieldAddress);
+  };
+
+  /* Что можно скопировать из этой строки. Адрес — только когда он есть:
+     пункт, кладущий в буфер пустоту, хуже отсутствующего. */
+  const copyItems: readonly RowMenuItem[] = [
+    {
+      id: 'copy-phone',
+      label: rowTexts.fieldPhone,
+      onSelect: () => copy(phonePlain(client.phone), rowTexts.fieldPhone),
+    },
+    ...(client.address === null
+      ? []
+      : [{ id: 'copy-address', label: rowTexts.fieldAddress, onSelect: copyAddress }]),
+    {
+      id: 'copy-name',
+      label: rowTexts.fieldName,
+      onSelect: () => copy(client.name, rowTexts.fieldName),
+    },
+  ];
+
+  const items: readonly RowMenuItem[] = [
+    {
+      id: 'open',
+      label: rowTexts.open,
+      icon: <Icon name="eye" size={16} />,
+      href: { pathname: `/admin/clients/${client.id}` },
+    },
+    {
+      id: 'call',
+      label: rowTexts.call,
+      icon: <Icon name="phone" size={16} />,
+      anchor: phoneHref(client.phone),
+    },
+    {
+      id: 'copy',
+      label: rowTexts.copy,
+      icon: <Icon name="bill" size={16} />,
+      items: copyItems,
+    },
+    {
+      id: 'remove',
+      label: texts.remove,
+      icon: <Icon name="trash" size={16} />,
+      danger: true,
+      disabled: busy,
+      onSelect: () => void handleRemove(),
+    },
+  ];
 
   return (
     <TableRow>
@@ -134,23 +206,12 @@ export function ClientRow({ client, api = clientApi, confirmRemove, onChanged }:
         <RowMenu
           className={tableAboveClassName()}
           label={texts.rowActions(client.name)}
-          items={[
-            {
-              id: 'call',
-              label: texts.rowCall,
-              onSelect: () => {
-                window.location.href = phoneHref(client.phone);
-              },
-            },
-            {
-              id: 'remove',
-              label: texts.remove,
-              danger: true,
-              disabled: busy,
-              onSelect: () => void handleRemove(),
-            },
-          ]}
+          items={items}
         />
+
+        {/* Подтверждение копирования и запасной путь, когда буфер недоступен
+            (issue #744): область живёт всегда, иначе читалка её не объявит. */}
+        {status}
 
         {message === '' ? null : (
           <p className={styles.error} role="alert">

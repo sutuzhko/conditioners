@@ -97,12 +97,13 @@ export function LeadRowActions({
       <RowMenu
         label={texts.rowActions(number)}
         items={[
+          /* 🔴 Ссылка, а не присвоение `location.href` (issue #744): присвоение
+             уводит со страницы вместо перехода по `tel:`, и на рабочем столе,
+             где обработчика схемы нет, выглядит как «ничего не произошло». */
           {
             id: 'call',
             label: texts.rowCall,
-            onSelect: () => {
-              window.location.href = phoneHref(phone);
-            },
+            anchor: phoneHref(phone),
           },
           {
             id: 'remove',

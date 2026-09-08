@@ -7,14 +7,14 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×201 @16,16  r20  b1
-  form.ClientSearch__form  316×159 @21,21
+section.Card__card  358×228 @16,16  r20  b1
+  form.ClientSearch__form  316×186 @21,21
     div.Field__field  316×103 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
       input  316×49 @0,27  r11  b1
       p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Имя, адрес или любой кусок телефона»
-    div.ClientSearch__actions  69×44 @0,115
-      button.Button__button  69×44 @0,0  r9  b1
+    div.ClientSearch__actions  69×71 @0,115
+      button.Button__button  69×44 @0,27  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
 
@@ -25,8 +25,8 @@ section.Card__card  736×145 @16,16  r20  b1
       label.Field__label  613×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
       input  613×49 @0,27  r11  b1
       p.Field__hint  613×19 @0,83  Manrope 400 13/19  lines=1  «Имя, адрес или любой кусок телефона»
-    div.ClientSearch__actions  69×70 @625,0
-      button.Button__button  69×44 @0,26  r9  b1
+    div.ClientSearch__actions  69×71 @625,0
+      button.Button__button  69×44 @0,27  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
 
@@ -37,8 +37,8 @@ section.Card__card  1408×145 @16,16  r20  b1
       label.Field__label  1285×20 @0,0  Manrope 600 13/20  lines=1  «Поиск клиента»
       input  1285×49 @0,27  r11  b1
       p.Field__hint  1285×19 @0,83  Manrope 400 13/19  lines=1  «Имя, адрес или любой кусок телефона»
-    div.ClientSearch__actions  69×66 @1297,0
-      button.Button__button  69×40 @0,26  r9  b1
+    div.ClientSearch__actions  69×67 @1297,0
+      button.Button__button  69×40 @0,27  r9  b1
         span.Button__content  39×16 @15,12
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
 

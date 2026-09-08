@@ -1,24 +1,26 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 
+import { rowActionTexts as rowTexts } from '@/shared/config/row-actions';
+import { phoneHref, phonePlain } from '@/shared/lib/format';
 import {
   Avatar,
   Badge,
-  IconButton,
+  Icon,
+  RowMenu,
   Switch,
-  TableActions,
   TableRow,
   TableRowLink,
   Tooltip,
   tableAboveClassName,
   useConfirm,
+  useCopy,
   type Confirm,
+  type RowMenuItem,
 } from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
-import { EyeIcon, TrashIcon } from './icons';
 import { StaffLoadBar } from './StaffLoadBar';
 import type { StaffApi, StaffDetails, StaffRowStats } from './model';
 import { employmentTitle, isSelfEmployedWithoutInn, staffTitle } from './model';
@@ -35,24 +37,39 @@ export interface StaffRowProps {
 }
 
 /**
- * Монтажник строкой таблицы команды (issue #602, макет `Team.png`).
+ * Монтажник строкой таблицы команды (issue #602, макет `Team.body.html`).
  *
  * 🔴 Таблица, а не карточки: раздел открывают, чтобы сравнить людей между
  * собой — кто загружен, кто заработал, у кого удержание. У карточек эти
  * значения стоят в разных местах каждой карточки, и сравнение превращается в
  * поиск глазами.
  *
- * 🔴 Предупреждения — короткий ярлык, а объяснение на нём подсказкой. Абзац в
+ * 🔴 Ярлыки оформления стоят своей колонкой, а не третьим ярусом под именем
+ * (issue #745, #746). Ярусом они растили строку до 99,8px при высоте
+ * содержимого в 17–42px: семь ячеек прижимались к верху, ярлыки висели на
+ * 46,6px ниже всех, и сравнение по рядам — то, ради чего таблица заведена, —
+ * переставало работать. Колонку освободил телефон: он «жрёт кучу места»
+ * (слова владельца) ради текста, который из строки не читают, а копируют
+ * кнопкой. Ниже 600px, где строка разворачивается карточкой, номер
+ * возвращается: там его читают, а не сравнивают.
+ *
+ * 🔴 Подпись ярлыка короткая, а объяснение — подсказкой на нём. Абзац в
  * ячейке («Пока оформление не заведено, наряд не уменьшает вознаграждение…»)
- * растил строку до двухсот пикселей, и таблица переставала читаться
- * колонками. Смысл при этом не теряется: ярлык называет состояние сам, а
- * `Tooltip` открывается и наведением, и фокусом (WCAG 1.4.13).
+ * растил строку до двухсот пикселей. Смысл не теряется: ярлык называет
+ * состояние сам, колонка называет, о чём он, а `Tooltip` открывается и
+ * наведением, и фокусом (WCAG 1.4.13).
  *
  * 🔴 Строка нажимается целиком (issue #743): карточка монтажника открывается
- * нажатием в любую её точку, а не одним именем. Приём китовый (`TableRow`,
- * `TableRowLink`, ADR-347). Над перекрытием подняты те, что обязаны работать
- * сами: ярлыки с подсказками, телефон, переключатель доступа и колонка
- * действий.
+ * нажатием в любую её точку. Приём китовый (`TableRow`, `TableRowLink`,
+ * ADR-347). Над перекрытием подняты те, что обязаны работать сами: ярлыки с
+ * подсказками, переключатель доступа и меню действий.
+ *
+ * 🔴 Действия — меню строки, ровно то же и в том же порядке, что у клиентов
+ * (issue #744, #745): открыть · позвонить · скопировать · удалить. Два списка
+ * людей в одной панели не должны требовать двух разных привычек. Круг
+ * «Открыть карточку» из ряда убран (issue #866): он вёл по тому же адресу,
+ * что и вся строка, — «глаз делает то же самое, что и клик», слова
+ * владельца.
  *
  * 🔴 Доступ переключается прямо в строке: закрыть вход уволившемуся нужно
  * немедленно, и заходить ради этого в карточку — лишний шаг. Переключатель, а
@@ -61,6 +78,7 @@ export interface StaffRowProps {
  */
 export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffRowProps) {
   const { confirm, dialog } = useConfirm();
+  const { copy, status } = useCopy();
   const ask = confirmRemove ?? confirm;
 
   const [busy, setBusy] = useState(false);
@@ -84,9 +102,7 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
 
   /**
    * 🔴 Удаление закрыто, пока за человеком закреплены наряды: иначе наряд
-   * остался бы без исполнителя. То же правило, что в «Опасной зоне» карточки,
-   * и причина написана рядом с кнопкой — отключённая кнопка без объяснения
-   * хуже отсутствующей.
+   * остался бы без исполнителя. То же правило, что в «Опасной зоне» карточки.
    */
   const orders = stats?.orders ?? 0;
   const removeBlocked = orders > 0;
@@ -115,6 +131,70 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
   const noEmployment = staff.employment === null;
   const innMissing = isSelfEmployedWithoutInn(staff.employment, staff.inn);
 
+  const phone = staff.phone;
+
+  /* Проверка внутри самого действия, а не только вокруг пункта: обработчик
+     переживает перерисовку строки, и «телефон точно есть» здесь — то, что
+     обязано быть написано, а не подразумеваться сужением типа снаружи. */
+  const copyPhone = (): void => {
+    if (staff.phone === null) return;
+    copy(phonePlain(staff.phone), rowTexts.fieldPhone);
+  };
+
+  /* Что копируют из строки (ADR-351). Телефона может не быть вовсе — пункт,
+     кладущий в буфер пустоту, хуже отсутствующего. */
+  const copyItems: readonly RowMenuItem[] = [
+    ...(phone === null
+      ? []
+      : [{ id: 'copy-phone', label: rowTexts.fieldPhone, onSelect: copyPhone }]),
+    {
+      id: 'copy-name',
+      label: rowTexts.fieldName,
+      onSelect: () => copy(who, rowTexts.fieldName),
+    },
+  ];
+
+  /* 🔴 Отключённый пункт называет причину прямо в подписи, а не подсказкой на
+     себе: подсказка на отключённом элементе не открывается ни фокусом, ни
+     половиной указателей, и «Удалить» серым без объяснения читается как
+     поломка. */
+  const items: readonly RowMenuItem[] = [
+    {
+      id: 'open',
+      label: rowTexts.open,
+      icon: <Icon name="eye" size={16} />,
+      href: { pathname: `/admin/team/${staff.id}` },
+    },
+    phone === null
+      ? {
+          id: 'call',
+          label: texts.rowCallBlocked,
+          icon: <Icon name="phone" size={16} />,
+          disabled: true,
+          onSelect: () => undefined,
+        }
+      : {
+          id: 'call',
+          label: rowTexts.call,
+          icon: <Icon name="phone" size={16} />,
+          anchor: phoneHref(phone),
+        },
+    {
+      id: 'copy',
+      label: rowTexts.copy,
+      icon: <Icon name="bill" size={16} />,
+      items: copyItems,
+    },
+    {
+      id: 'remove',
+      label: removeBlocked ? texts.rowRemoveBlocked(orders) : texts.remove,
+      icon: <Icon name="trash" size={16} />,
+      danger: true,
+      disabled: busy || removeBlocked,
+      onSelect: () => void handleRemove(),
+    },
+  ];
+
   return (
     <TableRow className={staff.active ? undefined : styles.off}>
       <td role="cell" className={styles.who} data-label={texts.colStaff}>
@@ -132,26 +212,44 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
             <span className={styles.since}>{texts.inTeamSince(staff.createdAt)}</span>
           </div>
         </div>
+      </td>
 
+      {/* 🔴 Колонка живёт только на карточке телефона (issue #745): выше 600px
+          номер копируют из меню строки, а место отдано показателям — тому,
+          ради чего таблица заводилась. Ячейка не удалена, а скрыта: на 390
+          строка разворачивается карточкой, и там номер нужен глазами. */}
+      <td role="cell" className={styles.phone} data-label={texts.colPhone}>
+        {phone === null ? (
+          <span className={styles.missing}>{texts.phoneMissing}</span>
+        ) : (
+          /* 🔴 Телефон поднят над перекрытием: «позвонить» обязано звонить,
+             а не открывать карточку. */
+          <a className={tableAboveClassName('tapAction')} href={phoneHref(phone)}>
+            {phone}
+          </a>
+        )}
+      </td>
+
+      <td role="cell" className={styles.employment} data-label={texts.employment}>
         {/* 🔴 Ярлыки подняты над перекрытием строки не потому, что они цели —
             фокуса у них нет, — а потому, что их подсказка открывается
             наведением (WCAG 1.4.13). Под перекрытием курсор физически стоит
             на ссылке, `mouseenter` до ярлыка не доходит, и объяснение
-            «Оформление не заведено» исчезло бы для указателя. */}
+            «Не заведено» исчезло бы для указателя. */}
         <div className={tableAboveClassName(styles.badges)}>
           {/* Подсказка объясняет последствие: у оформления — что будет с
               удержанием в наряде, у пропущенного ИНН — чем это грозит в день
-              выплаты. Ярлык при этом читается и без подсказки.
+              выплаты. Ярлык при этом читается и без подсказки: колонка
+              называет, о чём он.
 
               🔴 Полный текст лежит рядом скрытым от глаз, а не только в
               подсказке. Плашка не получает фокуса, и подсказка на ней
               достижима одним указателем: без этой строки объяснение исчезло
-              бы для озвучки вовсе — а до правки оно было абзацем и читалось
-              всеми. */}
+              бы для озвучки вовсе. */}
           <Tooltip
             text={noEmployment ? texts.employmentUnsetHint : texts.employmentHint(staff.employment)}
           >
-            <Badge variant={noEmployment ? 'warning' : 'neutral'} size="sm">
+            <Badge variant={noEmployment ? 'warning' : 'neutral'} size="sm" wrap>
               {noEmployment ? texts.employmentUnsetShort : employmentTitle(staff.employment)}
             </Badge>
           </Tooltip>
@@ -162,7 +260,7 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
           {innMissing ? (
             <>
               <Tooltip text={texts.innMissing}>
-                <Badge variant="danger" size="sm">
+                <Badge variant="danger" size="sm" wrap>
                   {texts.innMissingShort}
                 </Badge>
               </Tooltip>
@@ -170,21 +268,6 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
             </>
           ) : null}
         </div>
-      </td>
-
-      <td role="cell" className={styles.phone} data-label={texts.colPhone}>
-        {staff.phone === null ? (
-          <span className={styles.missing}>{texts.phoneMissing}</span>
-        ) : (
-          /* 🔴 Телефон поднят над перекрытием: «позвонить» обязано звонить,
-             а не открывать карточку. */
-          <a
-            className={tableAboveClassName('tapAction')}
-            href={`tel:${staff.phone.replace(/\D/g, '')}`}
-          >
-            {staff.phone}
-          </a>
-        )}
       </td>
 
       <td role="cell" data-label={texts.colLoad}>
@@ -222,8 +305,7 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
             Слово «Активен» повторяло в каждой строке то, что дорожка уже
             показывает положением бегунка, и занимало место в колонке. Именем
             ввода оно остаётся: `labelHidden` прячет подпись, но оставляет её
-            в разметке и в связи через `htmlFor`. Приём в разделе уже принят —
-            так же устроены ярлыки «Оформление» и «ИНН» в соседних колонках. */}
+            в разметке и в связи через `htmlFor`. */}
         {/* Поднят весь пузырёк подсказки, а не один переключатель: наведение
             ловит обёртка `Tooltip`, и под перекрытием оно до неё не дойдёт. */}
         <Tooltip
@@ -247,39 +329,11 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
       </td>
 
       <td role="cell" className={styles.actions}>
-        <TableActions className={tableAboveClassName()} label={texts.rowActions(who)}>
-          {/* Открыть — ссылка, а не кнопка: это переход, и его открывают в
-              новой вкладке средней кнопкой мыши так же, как имя строки. */}
-          <Link
-            className={styles.action}
-            href={`/admin/team/${staff.id}`}
-            aria-label={texts.rowOpen}
-            title={texts.rowOpen}
-          >
-            <EyeIcon />
-          </Link>
+        <RowMenu className={tableAboveClassName()} label={texts.rowActions(who)} items={items} />
 
-          {removeBlocked ? (
-            <Tooltip text={texts.rowRemoveBlocked(orders)}>
-              <IconButton
-                label={texts.remove}
-                icon={<TrashIcon />}
-                variant="ghost"
-                size="sm"
-                disabled
-              />
-            </Tooltip>
-          ) : (
-            <IconButton
-              label={texts.remove}
-              icon={<TrashIcon />}
-              variant="ghost"
-              size="sm"
-              disabled={busy}
-              onClick={() => void handleRemove()}
-            />
-          )}
-        </TableActions>
+        {/* Подтверждение копирования и запасной путь, когда буфер недоступен
+            (issue #744): область живёт всегда, иначе читалка её не объявит. */}
+        {status}
 
         {dialog}
       </td>

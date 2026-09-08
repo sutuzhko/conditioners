@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import { RouteModal, useRouteClose } from '@/shared/ui';
+import { RouteModal, useRouteClose, useUnsavedInput } from '@/shared/ui';
 
 import { orderManagerContent as texts } from './content';
 import { OrderForm } from './OrderForm';
@@ -57,24 +55,28 @@ export function OrderCreateModal({
   const close = useRouteClose(ORDERS_PATH);
 
   /**
-   * 🔴 Несохранённый ввод — это любое изменение в форме. Признак снимается
-   * событием, а не полями: наряд — два десятка полей и список позиций, и
-   * правило «чем считать заполненным», разложенное по ним, разошлось бы на
-   * первой правке. Ложное срабатывание тут дешевле пропуска: лишний вопрос
-   * стоит одного клика, потерянная форма — звонка клиента (ADR-141).
+   * 🔴 Несохранённый ввод — это любое изменение в форме: и правка поля, и
+   * нажатие кнопки. Признак снимается китом, а не полями: наряд — два десятка
+   * полей и список позиций, и правило «чем считать заполненным», разложенное
+   * по ним, разошлось бы на первой правке. Ложное срабатывание тут дешевле
+   * пропуска: лишний вопрос стоит одного клика, потерянная форма — звонка
+   * клиента (ADR-141).
    *
-   * 🔴 Именно `onChange`, а не `onInput`. У `<select>` нативный `input`
-   * приходит раньше `change`: перерисовка от `setDirty` откатывает управляемый
-   * список к прежнему значению, и первый выбор пропадает молча. В наряде
-   * списков три — клиент, монтажник, статус, — и потерянный монтажник стоит
-   * дороже всего. React'овский `onChange` приходит и на каждый символ в
-   * текстовом поле, так что ничего не теряется.
+   * Списков в наряде три — клиент, монтажник, статус, — и потерянный
+   * монтажник стоит дороже всего: почему признак снимается с `change`, а не с
+   * `input`, написано в `useUnsavedInput` (ADR-144).
    */
-  const [dirty, setDirty] = useState(false);
+  const unsaved = useUnsavedInput();
 
   return (
-    <RouteModal title={title} description={hint} size="lg" fallbackHref={ORDERS_PATH} dirty={dirty}>
-      <div onChange={() => setDirty(true)}>
+    <RouteModal
+      title={title}
+      description={hint}
+      size="lg"
+      fallbackHref={ORDERS_PATH}
+      dirty={unsaved.dirty}
+    >
+      <div {...unsaved.scope}>
         <OrderForm
           api={api}
           clients={clients}
@@ -90,7 +92,7 @@ export function OrderCreateModal({
                🔴 Обновление просится у кита пропуском, а не своим
                `router.refresh()` рядом с закрытием: «назад» — это переход, и
                запрос, начатый до него, роутер отбрасывает. */
-            setDirty(false);
+            unsaved.markSaved();
             close({ refresh: true });
           }}
         />

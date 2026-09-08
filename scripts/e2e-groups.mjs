@@ -77,6 +77,7 @@ export const GROUPS = Object.freeze({
     'installer-order',
     'panel-access',
     'order-card',
+    'panel-unsaved',
   ],
   /** Сценарии до базы: заявка, отзыв, цена, пустые состояния, поиск. */
   flows: [

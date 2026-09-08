@@ -118,8 +118,11 @@ div.AdminSummary__summary  358×2116 @16,16
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg  18×18 @9,6
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#2  18×18 @9,9
         tr[role=row]#3  316×317 @0,317  r14  b1
           td.SummaryTable__whenCol  314×56 @1,5
             td.SummaryTable__whenCol::before  36×20 @0,0
@@ -153,13 +156,16 @@ div.AdminSummary__summary  358×2116 @16,16
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg#2  18×18 @9,6
-              span.Tooltip__wrap#2  36×36 @80,0  r100
-                span.Tooltip__anchor  36×36 @0,0
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor#2  36×36 @0,0
                   a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
+                    span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
+              span.Tooltip__wrap#3  36×36 @80,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#3  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#3  18×18 @9,9
         tr[role=row]#4  316×307 @0,643  r14  b1
           td.SummaryTable__whenCol  314×56 @1,5
             td.SummaryTable__whenCol::before  36×20 @0,0
@@ -218,13 +224,16 @@ div.AdminSummary__summary  358×2116 @16,16
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#4  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg#3  18×18 @9,6
-              span.Tooltip__wrap#2  36×36 @80,0  r100
-                span.Tooltip__anchor#2  36×36 @0,0
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor#3  36×36 @0,0
                   a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea#2  36×36 @0,0
+                    span.TableActions__iconArea#3  36×36 @0,0
                       svg#2  18×18 @9,9
+              span.Tooltip__wrap#3  36×36 @80,0  r100
+                span.Tooltip__anchor#2  36×36 @0,0
+                  a.TableActions__action#3  36×36 @0,0  r100
+                    span.TableActions__iconArea#2  36×36 @0,0
+                      svg#3  18×18 @9,9
     a.AdminSummary__link  316×44 @21,1569  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  358×116 @0,2000  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
@@ -338,7 +347,7 @@ div.AdminSummary__summary  736×1649 @16,16
             span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
         tr[role=row]#2  720×94 @0,56
           td.SummaryTable__whenCol  116×94 @0,0  b0 0 1 0
-            time.SummaryTable__when  80×41 @18,15
+            time.SummaryTable__when  80×41 @18,27
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
           td.SummaryTable__workCol  173×94 @116,0  b0 0 1 0
@@ -348,21 +357,24 @@ div.AdminSummary__summary  736×1649 @16,16
                 span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
               span.SummaryTable__place  137×37 @0,28  Manrope 400 12/19  lines=2  «Сергей Данилов · Тула, Первомайская 12»
           td.SummaryTable__statusCol  161×94 @289,0  b0 0 1 0
-            span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+            span.Badge__badge  98×24 @18,36  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×94 @450,0  Manrope 400 13/20  b0 0 1 0  lines=1  «—»
           td.SummaryTable__actions  152×94 @568,0  b0 0 1 0
-            div.TableActions__actions  116×36 @18,15
+            div.TableActions__actions  116×36 @18,29
               span.Tooltip__wrap  36×36 @40,0  r100
                 span.Tooltip__anchor  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @80,0  r100
-                svg  18×18 @9,6
+              span.Tooltip__wrap#2  36×36 @80,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#2  18×18 @9,9
         tr[role=row]#3  720×94 @0,150
           td.SummaryTable__whenCol  116×94 @0,0  b0 0 1 0
-            time.SummaryTable__when#2  80×41 @18,15
+            time.SummaryTable__when#2  80×41 @18,27
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «сегодня»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «09:00 · 3 ч»
           td.SummaryTable__workCol  173×94 @116,0  b0 0 1 0
@@ -372,26 +384,29 @@ div.AdminSummary__summary  736×1649 @16,16
                 span.Badge__badge#2  57×24 @64,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
               span.SummaryTable__place  137×37 @0,28  Manrope 400 12/19  lines=2  «Ирина Соколова · Тула, Оборонная 12, кв.»
           td.SummaryTable__statusCol  161×94 @289,0  b0 0 1 0
-            span.Badge__badge#2  84×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+            span.Badge__badge#2  84×24 @18,36  Manrope 600 12/16  r100  b1  lines=1  «В работе»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×94 @450,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «34 900 ₽»
           td.SummaryTable__actions  152×94 @568,0  b0 0 1 0
-            div.TableActions__actions#2  116×36 @18,15
+            div.TableActions__actions#2  116×36 @18,29
               span.Tooltip__wrap  36×36 @0,0  r100
                 span.Tooltip__anchor#2  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg#2  18×18 @9,6
-              span.Tooltip__wrap#2  36×36 @80,0  r100
-                span.Tooltip__anchor  36×36 @0,0
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor#2  36×36 @0,0
                   a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
+                    span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
+              span.Tooltip__wrap#3  36×36 @80,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#3  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#3  18×18 @9,9
         tr[role=row]#4  720×113 @0,245
           td.SummaryTable__whenCol  116×113 @0,0  b0 0 1 0
-            time.SummaryTable__when#3  80×41 @18,15
+            time.SummaryTable__when#3  80×41 @18,36
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «сегодня»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «18:00 · 1 ч»
           td.SummaryTable__workCol  173×113 @116,0  b0 0 1 0
@@ -401,11 +416,11 @@ div.AdminSummary__summary  736×1649 @16,16
                 span.Badge__badge#3  51×24 @53,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
               span.SummaryTable__place  137×56 @0,28  Manrope 400 12/19  lines=3  «Ирина Белова · Новомосковск, Березовая 4»
           td.SummaryTable__statusCol  161×113 @289,0  b0 0 1 0
-            span.Badge__badge#3  125×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Запланировано»
+            span.Badge__badge#3  125×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Запланировано»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×113 @450,0  Manrope 400 13/20  b0 0 1 0  lines=1  «—»
           td.SummaryTable__actions  152×113 @568,0  b0 0 1 0
-            div.TableActions__actions#3  116×36 @18,15
+            div.TableActions__actions#3  116×36 @18,38
               span.Tooltip__wrap  36×36 @80,0  r100
                 span.Tooltip__anchor#3  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
@@ -413,7 +428,7 @@ div.AdminSummary__summary  736×1649 @16,16
                       svg  18×18 @9,9
         tr[role=row]#5  720×94 @0,357
           td.SummaryTable__whenCol  116×94 @0,0
-            time.SummaryTable__when#4  80×41 @18,15
+            time.SummaryTable__when#4  80×41 @18,27
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «завтра»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «10:00 · 4 ч»
           td.SummaryTable__workCol  173×94 @116,0
@@ -423,23 +438,26 @@ div.AdminSummary__summary  736×1649 @16,16
                 span.Badge__badge#4  57×24 @28,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
               span.SummaryTable__place  137×37 @0,28  Manrope 400 12/19  lines=2  «Ольга Кузьмина · Щёкино, Пионерская 4»
           td.SummaryTable__statusCol  161×94 @289,0
-            span.Badge__badge#4  70×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+            span.Badge__badge#4  70×24 @18,36  Manrope 600 12/16  r100  b1  lines=1  «Новый»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×94 @450,0  JetBrains Mono 700 15/22  lines=1  «8 400 ₽»
           td.SummaryTable__actions  152×94 @568,0
-            div.TableActions__actions#4  116×36 @18,15
+            div.TableActions__actions#4  116×36 @18,29
               span.Tooltip__wrap  36×36 @0,0  r100
                 span.Tooltip__anchor#4  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#4  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg#3  18×18 @9,6
-              span.Tooltip__wrap#2  36×36 @80,0  r100
-                span.Tooltip__anchor#2  36×36 @0,0
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor#3  36×36 @0,0
                   a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea#2  36×36 @0,0
+                    span.TableActions__iconArea#3  36×36 @0,0
                       svg#2  18×18 @9,9
+              span.Tooltip__wrap#3  36×36 @80,0  r100
+                span.Tooltip__anchor#2  36×36 @0,0
+                  a.TableActions__action#3  36×36 @0,0  r100
+                    span.TableActions__iconArea#2  36×36 @0,0
+                      svg#3  18×18 @9,9
     a.AdminSummary__link  694×44 @21,729  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  736×94 @0,1555  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
@@ -565,7 +583,7 @@ div.AdminSummary__summary  1408×1377 @16,16
             span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
         tr[role=row]#2  1366×76 @0,56
           td.SummaryTable__whenCol  116×76 @0,0  b0 0 1 0
-            time.SummaryTable__when  80×41 @18,15
+            time.SummaryTable__when  80×41 @18,18
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
           td.SummaryTable__workCol  639×76 @116,0  b0 0 1 0
@@ -575,23 +593,26 @@ div.AdminSummary__summary  1408×1377 @16,16
                 span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
               span.SummaryTable__place  603×19 @0,28  Manrope 400 12/19  lines=1  «Сергей Данилов · Тула, Первомайская 12»
           td.SummaryTable__installerCol  180×76 @755,0  b0 0 1 0
-            span.SummaryTable__none  102×18 @18,17  Manrope 400 13/20  lines=1  «дело без выезда»
+            span.SummaryTable__none  102×18 @18,29  Manrope 400 13/20  lines=1  «дело без выезда»
           td.SummaryTable__statusCol  161×76 @935,0  b0 0 1 0
-            span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+            span.Badge__badge  98×24 @18,26  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×76 @1096,0  Manrope 400 13/20  b0 0 1 0  lines=1  «—»
           td.SummaryTable__actions  152×76 @1214,0  b0 0 1 0
-            div.TableActions__actions  116×36 @18,15
+            div.TableActions__actions  116×36 @18,20
               span.Tooltip__wrap  36×36 @40,0  r100
                 span.Tooltip__anchor  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @80,0  r100
-                svg  18×18 @9,6
+              span.Tooltip__wrap#2  36×36 @80,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#2  18×18 @9,9
         tr[role=row]#3  1366×76 @0,132
           td.SummaryTable__whenCol  116×76 @0,0  b0 0 1 0
-            time.SummaryTable__when#2  80×41 @18,15
+            time.SummaryTable__when#2  80×41 @18,18
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «сегодня»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «09:00 · 3 ч»
           td.SummaryTable__workCol  639×76 @116,0  b0 0 1 0
@@ -601,32 +622,35 @@ div.AdminSummary__summary  1408×1377 @16,16
                 span.Badge__badge#2  57×24 @64,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
               span.SummaryTable__place  603×19 @0,28  Manrope 400 12/19  lines=1  «Ирина Соколова · Тула, Оборонная 12, кв.»
           td.SummaryTable__installerCol  180×76 @755,0  b0 0 1 0
-            span.SummaryTable__person  144×28 @18,15
+            span.SummaryTable__person  144×28 @18,24
               span.Avatar__avatar  28×28 @0,0  r100  b1
                 span.Avatar__initials  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ПК»
                 span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Пётр Кузнецов»
               span.SummaryTable__personName  92×20 @36,4  Manrope 400 13/20  lines=1  «Пётр Кузнецов»
           td.SummaryTable__statusCol  161×76 @935,0  b0 0 1 0
-            span.Badge__badge#2  84×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+            span.Badge__badge#2  84×24 @18,26  Manrope 600 12/16  r100  b1  lines=1  «В работе»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×76 @1096,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «34 900 ₽»
           td.SummaryTable__actions  152×76 @1214,0  b0 0 1 0
-            div.TableActions__actions#2  116×36 @18,15
+            div.TableActions__actions#2  116×36 @18,20
               span.Tooltip__wrap  36×36 @0,0  r100
                 span.Tooltip__anchor#2  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg#2  18×18 @9,6
-              span.Tooltip__wrap#2  36×36 @80,0  r100
-                span.Tooltip__anchor  36×36 @0,0
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor#2  36×36 @0,0
                   a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
+                    span.TableActions__iconArea#2  36×36 @0,0
                       svg#2  18×18 @9,9
+              span.Tooltip__wrap#3  36×36 @80,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#3  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#3  18×18 @9,9
         tr[role=row]#4  1366×76 @0,207
           td.SummaryTable__whenCol  116×76 @0,0  b0 0 1 0
-            time.SummaryTable__when#3  80×41 @18,15
+            time.SummaryTable__when#3  80×41 @18,18
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «сегодня»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «18:00 · 1 ч»
           td.SummaryTable__workCol  639×76 @116,0  b0 0 1 0
@@ -636,13 +660,13 @@ div.AdminSummary__summary  1408×1377 @16,16
                 span.Badge__badge#3  51×24 @53,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
               span.SummaryTable__place  603×19 @0,28  Manrope 400 12/19  lines=1  «Ирина Белова · Новомосковск, Березовая 4»
           td.SummaryTable__installerCol  180×76 @755,0  b0 0 1 0
-            span.SummaryTable__none#2  102×18 @18,17  Manrope 400 13/20  lines=1  «дело без выезда»
+            span.SummaryTable__none#2  102×18 @18,29  Manrope 400 13/20  lines=1  «дело без выезда»
           td.SummaryTable__statusCol  161×76 @935,0  b0 0 1 0
-            span.Badge__badge#3  125×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Запланировано»
+            span.Badge__badge#3  125×24 @18,26  Manrope 600 12/16  r100  b1  lines=1  «Запланировано»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×76 @1096,0  Manrope 400 13/20  b0 0 1 0  lines=1  «—»
           td.SummaryTable__actions  152×76 @1214,0  b0 0 1 0
-            div.TableActions__actions#3  116×36 @18,15
+            div.TableActions__actions#3  116×36 @18,20
               span.Tooltip__wrap  36×36 @80,0  r100
                 span.Tooltip__anchor#3  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
@@ -650,7 +674,7 @@ div.AdminSummary__summary  1408×1377 @16,16
                       svg  18×18 @9,9
         tr[role=row]#5  1366×75 @0,283
           td.SummaryTable__whenCol  116×75 @0,0
-            time.SummaryTable__when#4  80×41 @18,15
+            time.SummaryTable__when#4  80×41 @18,18
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «завтра»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «10:00 · 4 ч»
           td.SummaryTable__workCol  639×75 @116,0
@@ -660,25 +684,28 @@ div.AdminSummary__summary  1408×1377 @16,16
                 span.Badge__badge#4  57×24 @28,0  Manrope 600 12/16  r100  b1  lines=1  «Наряд»
               span.SummaryTable__place  603×19 @0,28  Manrope 400 12/19  lines=1  «Ольга Кузьмина · Щёкино, Пионерская 4»
           td.SummaryTable__installerCol  180×75 @755,0
-            span.SummaryTable__none#3  77×18 @18,17  Manrope 400 13/20  lines=1  «не назначен»
+            span.SummaryTable__none#3  77×18 @18,29  Manrope 400 13/20  lines=1  «не назначен»
           td.SummaryTable__statusCol  161×75 @935,0
-            span.Badge__badge#4  70×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новый»
+            span.Badge__badge#4  70×24 @18,26  Manrope 600 12/16  r100  b1  lines=1  «Новый»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×75 @1096,0  JetBrains Mono 700 15/22  lines=1  «8 400 ₽»
           td.SummaryTable__actions  152×75 @1214,0
-            div.TableActions__actions#4  116×36 @18,15
+            div.TableActions__actions#4  116×36 @18,20
               span.Tooltip__wrap  36×36 @0,0  r100
                 span.Tooltip__anchor#4  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#4  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg#3  18×18 @9,6
-              span.Tooltip__wrap#2  36×36 @80,0  r100
-                span.Tooltip__anchor#2  36×36 @0,0
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor#3  36×36 @0,0
                   a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea#2  36×36 @0,0
+                    span.TableActions__iconArea#3  36×36 @0,0
                       svg#2  18×18 @9,9
+              span.Tooltip__wrap#3  36×36 @80,0  r100
+                span.Tooltip__anchor#2  36×36 @0,0
+                  a.TableActions__action#3  36×36 @0,0  r100
+                    span.TableActions__iconArea#2  36×36 @0,0
+                      svg#3  18×18 @9,9
     a.AdminSummary__link  1366×24 @21,584  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  1408×95 @0,1282  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
@@ -826,8 +853,11 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea
                       svg
-              a.SummaryTable__phone
-                svg
+              span.Tooltip__wrap#2
+                span.Tooltip__anchor
+                  a.TableActions__action#2
+                    span.TableActions__iconArea
+                      svg#2
         tr[role=row]#3
           td.SummaryTable__whenCol  border #334155 #334155 #eef2f6 #334155
             time.SummaryTable__when#2
@@ -856,13 +886,16 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea#2
                       svg
-              a.SummaryTable__phone
-                svg#2
               span.Tooltip__wrap#2
-                span.Tooltip__anchor
+                span.Tooltip__anchor#2
                   a.TableActions__action#2
-                    span.TableActions__iconArea
+                    span.TableActions__iconArea#2
                       svg#2
+              span.Tooltip__wrap#3
+                span.Tooltip__anchor
+                  a.TableActions__action#3
+                    span.TableActions__iconArea
+                      svg#3
         tr[role=row]#4
           td.SummaryTable__whenCol  border #334155 #334155 #eef2f6 #334155
             time.SummaryTable__when#3
@@ -911,13 +944,16 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea#4
                       svg
-              a.SummaryTable__phone
-                svg#3
               span.Tooltip__wrap#2
-                span.Tooltip__anchor#2
+                span.Tooltip__anchor#3
                   a.TableActions__action#2
-                    span.TableActions__iconArea#2
+                    span.TableActions__iconArea#3
                       svg#2
+              span.Tooltip__wrap#3
+                span.Tooltip__anchor#2
+                  a.TableActions__action#3
+                    span.TableActions__iconArea#2
+                      svg#3
     a.AdminSummary__link  color #0e7490
   section.Card__card#2  bg #f8fafc  border #eef2f6
     h2.AdminSummary__cardTitle  color #0f172a
@@ -1109,8 +1145,11 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea
                       svg
-              a.SummaryTable__phone
-                svg
+              span.Tooltip__wrap#2
+                span.Tooltip__anchor
+                  a.TableActions__action#2
+                    span.TableActions__iconArea
+                      svg#2
         tr[role=row]#3
           td.SummaryTable__whenCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             time.SummaryTable__when#2
@@ -1139,13 +1178,16 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea#2
                       svg
-              a.SummaryTable__phone
-                svg#2
               span.Tooltip__wrap#2
-                span.Tooltip__anchor
+                span.Tooltip__anchor#2
                   a.TableActions__action#2
-                    span.TableActions__iconArea
+                    span.TableActions__iconArea#2
                       svg#2
+              span.Tooltip__wrap#3
+                span.Tooltip__anchor
+                  a.TableActions__action#3
+                    span.TableActions__iconArea
+                      svg#3
         tr[role=row]#4
           td.SummaryTable__whenCol  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
             time.SummaryTable__when#3
@@ -1194,13 +1236,16 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea#4
                       svg
-              a.SummaryTable__phone
-                svg#3
               span.Tooltip__wrap#2
-                span.Tooltip__anchor#2
+                span.Tooltip__anchor#3
                   a.TableActions__action#2
-                    span.TableActions__iconArea#2
+                    span.TableActions__iconArea#3
                       svg#2
+              span.Tooltip__wrap#3
+                span.Tooltip__anchor#2
+                  a.TableActions__action#3
+                    span.TableActions__iconArea#2
+                      svg#3
     a.AdminSummary__link  color #22d3ee
   section.Card__card#2  bg #0e1729  border #182338
     h2.AdminSummary__cardTitle  color #eaf1f8

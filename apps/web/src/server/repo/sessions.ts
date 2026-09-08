@@ -2,12 +2,9 @@
  * Хранилище сессий админки. В базе лежит только хеш токена: утечка дампа не
  * должна давать возможность войти (docs/TECH_DECISIONS §8).
  */
-import type { AdminRole as DbRole } from '@prisma/client';
-
 import type { AdminRole } from '@/entities/staff/model';
 import { db } from '@/server/db';
-
-const ROLE_FROM_DB: Record<DbRole, AdminRole> = { OWNER: 'owner', INSTALLER: 'installer' };
+import { roleFromDb } from '@/server/repo/roles';
 
 export type StoredSession = {
   id: string;
@@ -49,7 +46,7 @@ export async function findByTokenHash(tokenHash: string): Promise<StoredSession 
     userId: row.userId,
     login: row.user.login,
     name: row.user.name,
-    role: ROLE_FROM_DB[row.user.role],
+    role: roleFromDb(row.user.role),
     active: row.user.active,
     expiresAt: row.expiresAt,
   };

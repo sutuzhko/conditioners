@@ -7,9 +7,9 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×763 @16,16  r20  b1
+section.Card__card  358×790 @16,16  r20  b1
   h2.StockJournal__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Журнал движений»
-  div.StockJournalFilters__filters  316×423 @21,52
+  div.StockJournalFilters__filters  316×450 @21,52
     nav.StockJournalFilters__row  316×148 @0,0
       a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
       a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
@@ -21,17 +21,17 @@ section.Card__card  358×763 @16,16  r20  b1
       a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
       a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
       a.StockJournalFilters__chip#3  131×44 @0,52  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-    form.StockJournalFilters__form  316×159 @0,264
+    form.StockJournalFilters__form  316×186 @0,264
       div.Field__field  316×103 @0,0
         label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
         input  316×49 @0,27  r11  b1
         p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-      div.StockJournalFilters__actions  193×44 @0,115
-        button.Button__button  69×44 @0,0  r9  b1
+      div.StockJournalFilters__actions  193×71 @0,115
+        button.Button__button  69×44 @0,27  r9  b1
           span.Button__content  39×16 @15,14
             span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-        a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
-  div.EmptyState__box  316×268 @21,474
+        a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
+  div.EmptyState__box  316×268 @21,501
     span.EmptyState__badge  48×48 @134,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  157×21 @79,88  Onest 700 17/21  ls0  lines=1  «Ничего не нашлось»
@@ -61,11 +61,11 @@ section.Card__card  736×583 @16,16  r20  b1
         label.Field__label  489×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
         input  489×49 @0,27  r11  b1
         p.Field__hint  489×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-      div.StockJournalFilters__actions  193×70 @501,0
-        button.Button__button  69×44 @0,26  r9  b1
+      div.StockJournalFilters__actions  193×71 @501,0
+        button.Button__button  69×44 @0,27  r9  b1
           span.Button__content  39×16 @15,14
             span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-        a.StockJournalFilters__reset  112×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить отбор»
+        a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
   div.EmptyState__box  694×247 @21,315
     span.EmptyState__badge  48×48 @323,28  r100
       svg  20×20 @14,14
@@ -96,11 +96,11 @@ section.Card__card  1408×509 @16,16  r20  b1
         label.Field__label  1161×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
         input  1161×49 @0,27  r11  b1
         p.Field__hint  1161×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-      div.StockJournalFilters__actions  193×66 @1173,0
-        button.Button__button  69×40 @0,26  r9  b1
+      div.StockJournalFilters__actions  193×67 @1173,0
+        button.Button__button  69×40 @0,27  r9  b1
           span.Button__content  39×16 @15,12
             span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-        a.StockJournalFilters__reset  112×24 @81,34  Manrope 400 15/22  lines=1  «Сбросить отбор»
+        a.StockJournalFilters__reset  112×24 @81,35  Manrope 400 15/22  lines=1  «Сбросить отбор»
   div.EmptyState__box  1366×244 @21,245
     span.EmptyState__badge  48×48 @659,28  r100
       svg  20×20 @14,14

@@ -13,7 +13,11 @@ import styles from './not-found.module.css';
  */
 export function PanelNotFoundView({ kind, role }: { kind: PanelNotFoundKind; role: AdminRole }) {
   const text = t[kind];
-  const exit = role === 'owner' ? t.owner : t.installer;
+  /* 🔴 Выход берётся по роли, а не ветвлением «владелец или монтажник»:
+     ролей четыре, и пропущенная уехала бы в чужой тупик молча. Индекс по
+     объединению ролей требует ключа на каждую — новую роль компилятор
+     остановит здесь (ADR-344). */
+  const exit = t[role];
 
   return (
     <section className={styles.page}>

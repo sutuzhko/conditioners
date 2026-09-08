@@ -29,8 +29,14 @@ export interface StaffListProps {
  * (ADR-117). Форма, разворачивавшаяся над списком, уводила карточки вниз ровно
  * тогда, когда на них смотрят, — а список открывают, чтобы позвонить.
  *
- * Ниже 600px строки разворачиваются карточками (`variant="cards"`): восемь
+ * Ниже 600px строки разворачиваются карточками (`variant="cards"`): девять
  * колонок на телефоне не читаются вовсе.
+ *
+ * 🔴 Колонка телефона уступила место оформлению (issue #745). Номер «жрёт
+ * кучу места» (слова владельца) ради текста, который из строки не читают, а
+ * копируют кнопкой; ярлыки оформления, наоборот, висели третьим ярусом под
+ * именем и растили строку вдвое (issue #746). Ниже 600px обе ячейки стоят в
+ * карточке рядом.
  */
 export function StaffList({ staff, stats, query = '', api = staffApi }: StaffListProps) {
   const router = useRouter();
@@ -70,7 +76,16 @@ export function StaffList({ staff, stats, query = '', api = staffApi }: StaffLis
           <thead>
             <tr>
               <th scope="col">{texts.colStaff}</th>
-              <th scope="col">{texts.colPhone}</th>
+              {/* 🔴 Колонка телефона живёт только на карточке телефона
+                  (issue #745): выше 600px её место занято оформлением, а
+                  номер копируют из меню строки. Заголовок скрыт вместе со
+                  своей ячейкой — иначе колонки шапки и тела разъедутся. */}
+              <th scope="col" className={styles.colPhone}>
+                {texts.colPhone}
+              </th>
+              <th scope="col" className={styles.colEmployment}>
+                {texts.employment}
+              </th>
               <th scope="col">{texts.colLoad}</th>
               <th scope="col">{texts.colDone}</th>
               <th scope="col">{texts.colEarned}</th>

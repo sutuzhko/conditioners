@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { screen, userEvent, within } from 'storybook/test';
 
+import { rowActionTexts as rowTexts } from '@/shared/config/row-actions';
 import { Table } from '@/shared/ui';
 
 import { ClientRow } from './ClientRow';
@@ -72,4 +74,34 @@ export const ДлинныеПодписи: Story = {
 
 export const ОтказСервера: Story = {
   args: { api: failingApi },
+};
+
+/**
+ * 🔴 Меню строки знает полный набор действий (issue #744): открыть карточку,
+ * позвонить, скопировать, удалить. До этой правки в нём было два пункта из
+ * четырёх, а «Позвонить» было присвоением `location.href` — на рабочем столе
+ * это выглядело как «ничего не произошло».
+ */
+export const МенюДействий: Story = {
+  play: async ({ canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole('button', { name: texts.rowActions(client.name) }),
+    );
+  },
+};
+
+/**
+ * 🔴 Второй уровень меню: что именно скопировать (ADR-351). Уровень заменяет
+ * содержимое того же меню — выехавший сбоку список на 390 ушёл бы за край
+ * окна, потому что меню строки и так прижато к правому краю.
+ */
+export const Скопировать: Story = {
+  play: async ({ canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole('button', { name: texts.rowActions(client.name) }),
+    );
+    /* Меню уходит порталом в конец body (issue #573): поиск идёт по
+       документу, а не по холсту истории. */
+    await userEvent.click(await screen.findByRole('menuitem', { name: rowTexts.copy }));
+  },
 };

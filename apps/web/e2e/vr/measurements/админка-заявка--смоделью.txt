@@ -68,6 +68,7 @@ article.Card__card  358×1304 @16,16  r20  b1
     button.Button__button#2  95×44 @0,54  r9  b1
       span.Button__content  65×16 @15,14
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+    p[role=status]  1×1 @-1,49
   div.LeadCardView__danger  316×125 @21,1157  b1 0 0 0
     p.LeadCardView__dangerHint  316×60 @0,13  Manrope 400 13/20  lines=3  «Уничтожение персональных данных по требо»
     button.Button__button  157×44 @0,81  r9  b1
@@ -135,6 +136,7 @@ article.Card__card  736×856 @16,16  r20  b1
     button.Button__button#2  95×44 @254,0  r9  b1
       span.Button__content  65×16 @15,14
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+    p[role=status]  1×1 @-1,22
   div.LeadCardView__danger  694×57 @21,778  b1 0 0 0
     p.LeadCardView__dangerHint  521×40 @0,15  Manrope 400 13/20  lines=2  «Уничтожение персональных данных по требо»
     button.Button__button  157×44 @537,13  r9  b1
@@ -202,6 +204,7 @@ article.Card__card  1408×660 @16,16  r20  b1
     button.Button__button#2  95×40 @254,0  r9  b1
       span.Button__content  65×16 @15,12
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
+    p[role=status]  1×1 @-1,20
   div.LeadCardView__danger  1366×53 @21,586  b1 0 0 0
     p.LeadCardView__dangerHint  1193×20 @0,23  Manrope 400 13/20  lines=1  «Уничтожение персональных данных по требо»
     button.Button__button  157×40 @1209,13  r9  b1
@@ -269,6 +272,7 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     button.Button__button#2  bg #ffffff  border #7e8fa6
       span.Button__content
         span.Button__label#2  color #0f172a
+    p[role=status]
   div.LeadCardView__danger  border #eef2f6 #475569 #475569 #475569
     p.LeadCardView__dangerHint  color #556173
     button.Button__button  bg #be123c14  border #be123cb3
@@ -339,6 +343,7 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
     button.Button__button#2  bg #121d31  border #566d95
       span.Button__content
         span.Button__label#2  color #eaf1f8
+    p[role=status]
   div.LeadCardView__danger  border #182338 #a8b6c6 #a8b6c6 #a8b6c6
     p.LeadCardView__dangerHint  color #8598ac
     button.Button__button  bg #fb71851f  border #fb7185b3

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { RouteModal, useRouteClose } from '@/shared/ui';
+import { RouteModal, useRouteClose, useUnsavedInput } from '@/shared/ui';
 
 import { ArticleForm } from './ArticleForm';
 import { articleFormContent as texts } from './content';
@@ -39,16 +39,15 @@ export function ArticleCreateModal({
 
   /**
    * 🔴 Несохранённый ввод — это любое изменение в форме. Признак снимается
-   * событием изменения, а не полями: копия правила «чем считать заполненным»
-   * разошлась бы с китом и с соседними разделами на первой правке (ADR-141).
-   * Лишний вопрос стоит одного клика, потерянный текст статьи — вечера работы.
+   * китом, а не полями: копия правила «чем считать заполненным» разошлась бы
+   * с китом и с соседними разделами на первой правке (ADR-141). Лишний вопрос
+   * стоит одного клика, потерянный текст статьи — вечера работы.
    *
-   * Именно `onChange`, а не `onInput`: у `<select>` React берёт `onChange` из
-   * нативного `change`, а `input` приходит раньше — перерисовка по нему
-   * откатывает управляемый список к прежнему значению, и первый выбор
-   * теряется молча.
+   * 🔴 Здесь правка кнопкой не редкость, а обычный способ работы: панель
+   * разметки вставляет заголовок, список и врезку прямо в текст, не трогая
+   * клавиатуру. До issue #34 такое окно закрывалось молча.
    */
-  const [dirty, setDirty] = useState(false);
+  const unsaved = useUnsavedInput();
 
   return (
     <RouteModal
@@ -56,10 +55,10 @@ export function ArticleCreateModal({
       description={texts.createHint}
       size="lg"
       fallbackHref={KNOWLEDGE_PATH}
-      dirty={dirty}
+      dirty={unsaved.dirty}
       confirmText={texts.createConfirm}
     >
-      <div onChange={() => setDirty(true)}>
+      <div {...unsaved.scope}>
         {/* Разделы формы уходят на третий уровень: второй занят названием
             окна, и заголовки без пропусков — инвариант 4. */}
         <ArticleForm
@@ -74,7 +73,7 @@ export function ArticleCreateModal({
                `router.refresh()` рядом с закрытием бесполезно, «назад»
                отбрасывает начатый до него запрос. Обложка загружается уже в
                карточке статьи, ей нужен её адрес. */
-            setDirty(false);
+            unsaved.markSaved();
             close({ refresh: true });
           }}
         />

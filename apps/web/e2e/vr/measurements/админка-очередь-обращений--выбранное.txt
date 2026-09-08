@@ -123,13 +123,13 @@ section.Card__card  736×511 @16,16  r20  b1
           a.LeadQueue__name  45×44 @18,15  Manrope 600 15/22  lines=1  «Ирина»
           span.LeadQueue__address  155×40 @18,59  Manrope 400 13/20  lines=2  «Щёкино, Пионерская 4 · гостиная 32 м²»
         td.LeadQueue__topic  174×113 @244,0  b0 0 1 0
-          span.Badge__badge  138×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
+          span.Badge__badge  138×40 @18,36  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
         td.LeadQueue__when  114×113 @418,0  b0 0 1 0
-          time  38×18 @18,16  Manrope 400 13/20  lines=1  «20 авг»
+          time  38×18 @18,48  Manrope 400 13/20  lines=1  «20 авг»
         td[role=cell]  122×113 @532,0  b0 0 1 0
-          span.Badge__badge  56×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+          span.Badge__badge  56×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Новая»
         td.LeadQueue__actions  80×113 @654,0  b0 0 1 0
-          div.LeadRowActions__wrap  44×44 @18,15
+          div.LeadRowActions__wrap  44×44 @18,35
             div.RowMenu__root  44×44 @0,0
               button.RowMenu__trigger  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
@@ -140,13 +140,13 @@ section.Card__card  736×511 @16,16  r20  b1
           a.LeadQueue__name#2  155×45 @18,15  Manrope 600 15/22  lines=2  «Федотова Лидия Ивановна»
           span.LeadQueue__address#2  155×40 @18,59  Manrope 400 13/20  lines=2  «Тула, Кирова 18 · нужен замер»
         td.LeadQueue__topic  174×114 @244,0  b0 0 1 0
-          span.Badge__badge#2  138×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
+          span.Badge__badge#2  138×40 @18,37  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
         td.LeadQueue__when  114×114 @418,0  b0 0 1 0
-          time#2  78×18 @18,16  Manrope 400 13/20  lines=1  «2 часа назад»
+          time#2  78×18 @18,48  Manrope 400 13/20  lines=1  «2 часа назад»
         td[role=cell]  122×114 @532,0  b0 0 1 0
-          span.Badge__badge#2  72×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__badge#2  72×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «В работе»
         td.LeadQueue__actions  80×114 @654,0  b0 0 1 0
-          div.LeadRowActions__wrap#2  44×44 @18,15
+          div.LeadRowActions__wrap#2  44×44 @18,35
             div.RowMenu__root  44×44 @0,0
               button.RowMenu__trigger#2  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
@@ -157,13 +157,13 @@ section.Card__card  736×511 @16,16  r20  b1
           a.LeadQueue__name#3  44×44 @18,15  Manrope 600 15/22  lines=1  «Игорь»
           span.LeadQueue__address#3  155×40 @18,59  Manrope 400 13/20  lines=2  «Телефон оставлен, адреса нет»
         td.LeadQueue__topic  174×113 @244,0  b0 0 1 0
-          span.Badge__badge#3  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+          span.Badge__badge#3  103×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
         td.LeadQueue__when  114×113 @418,0  b0 0 1 0
-          time#3  37×18 @18,16  Manrope 400 13/20  lines=1  «23 авг»
+          time#3  37×18 @18,48  Manrope 400 13/20  lines=1  «23 авг»
         td[role=cell]  122×113 @532,0  b0 0 1 0
-          span.Badge__badge#3  54×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+          span.Badge__badge#3  54×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
         td.LeadQueue__actions  80×113 @654,0  b0 0 1 0
-          div.LeadRowActions__wrap#3  44×44 @18,15
+          div.LeadRowActions__wrap#3  44×44 @18,35
             div.RowMenu__root  44×44 @0,0
               button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
@@ -174,13 +174,13 @@ section.Card__card  736×511 @16,16  r20  b1
           a.LeadQueue__name#4  105×44 @18,15  Manrope 600 15/22  lines=1  «Беляева Ольга»
           span.LeadQueue__address#4  155×40 @18,59  Manrope 400 13/20  lines=2  «Тула, Оборонная 12, кв. 34»
         td.LeadQueue__topic  174×113 @244,0
-          span.Badge__badge#4  64×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
+          span.Badge__badge#4  64×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
         td.LeadQueue__when  114×113 @418,0
-          time#4  35×18 @18,16  Manrope 400 13/20  lines=1  «15 авг»
+          time#4  35×18 @18,48  Manrope 400 13/20  lines=1  «15 авг»
         td[role=cell]  122×113 @532,0
-          span.Badge__badge#4  86×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+          span.Badge__badge#4  86×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
         td.LeadQueue__actions  80×113 @654,0
-          div.LeadRowActions__wrap#4  44×44 @18,15
+          div.LeadRowActions__wrap#4  44×44 @18,35
             div.RowMenu__root  44×44 @0,0
               button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
@@ -201,13 +201,13 @@ section.Card__card  1408×349 @16,16  r20  b1
         td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «41»
         td.LeadQueue__who  489×73 @53,0  b0 0 1 0
           a.LeadQueue__name  453×22 @18,15  Manrope 600 15/22  lines=1  «Ирина»
-          span.LeadQueue__address  453×20 @18,37  Manrope 400 13/20  lines=1  «Щёкино, Пионерская 4 · гостиная 32 м²»
+          span.LeadQueue__address  453×20 @18,38  Manrope 400 13/20  lines=1  «Щёкино, Пионерская 4 · гостиная 32 м²»
         td.LeadQueue__topic  365×73 @542,0  b0 0 1 0
-          span.Badge__badge  169×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
+          span.Badge__badge  169×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
         td.LeadQueue__when  202×73 @907,0  b0 0 1 0
-          time  38×18 @18,16  Manrope 400 13/20  lines=1  «20 авг»
+          time  38×18 @18,27  Manrope 400 13/20  lines=1  «20 авг»
         td[role=cell]  217×73 @1109,0  b0 0 1 0
-          span.Badge__badge  56×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+          span.Badge__badge  56×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Новая»
         td.LeadQueue__actions  80×73 @1326,0  b0 0 1 0
           div.LeadRowActions__wrap  44×44 @18,15
             div.RowMenu__root  44×44 @0,0
@@ -218,13 +218,13 @@ section.Card__card  1408×349 @16,16  r20  b1
         td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «40»
         td.LeadQueue__who  489×73 @53,0  b0 0 1 0
           a.LeadQueue__name#2  453×22 @18,15  Manrope 600 15/22  lines=1  «Федотова Лидия Ивановна»
-          span.LeadQueue__address#2  453×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
+          span.LeadQueue__address#2  453×20 @18,38  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
         td.LeadQueue__topic  365×73 @542,0  b0 0 1 0
-          span.Badge__badge#2  169×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
+          span.Badge__badge#2  169×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
         td.LeadQueue__when  202×73 @907,0  b0 0 1 0
-          time#2  78×18 @18,16  Manrope 400 13/20  lines=1  «2 часа назад»
+          time#2  78×18 @18,27  Manrope 400 13/20  lines=1  «2 часа назад»
         td[role=cell]  217×73 @1109,0  b0 0 1 0
-          span.Badge__badge#2  72×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В работе»
+          span.Badge__badge#2  72×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «В работе»
         td.LeadQueue__actions  80×73 @1326,0  b0 0 1 0
           div.LeadRowActions__wrap#2  44×44 @18,15
             div.RowMenu__root  44×44 @0,0
@@ -235,13 +235,13 @@ section.Card__card  1408×349 @16,16  r20  b1
         td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «39»
         td.LeadQueue__who  489×73 @53,0  b0 0 1 0
           a.LeadQueue__name#3  453×22 @18,15  Manrope 600 15/22  lines=1  «Игорь»
-          span.LeadQueue__address#3  453×20 @18,37  Manrope 400 13/20  lines=1  «Телефон оставлен, адреса нет»
+          span.LeadQueue__address#3  453×20 @18,38  Manrope 400 13/20  lines=1  «Телефон оставлен, адреса нет»
         td.LeadQueue__topic  365×73 @542,0  b0 0 1 0
-          span.Badge__badge#3  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+          span.Badge__badge#3  103×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
         td.LeadQueue__when  202×73 @907,0  b0 0 1 0
-          time#3  37×18 @18,16  Manrope 400 13/20  lines=1  «23 авг»
+          time#3  37×18 @18,27  Manrope 400 13/20  lines=1  «23 авг»
         td[role=cell]  217×73 @1109,0  b0 0 1 0
-          span.Badge__badge#3  54×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
+          span.Badge__badge#3  54×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
         td.LeadQueue__actions  80×73 @1326,0  b0 0 1 0
           div.LeadRowActions__wrap#3  44×44 @18,15
             div.RowMenu__root  44×44 @0,0
@@ -252,13 +252,13 @@ section.Card__card  1408×349 @16,16  r20  b1
         td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  lines=1  «38»
         td.LeadQueue__who  489×73 @53,0
           a.LeadQueue__name#4  453×22 @18,15  Manrope 600 15/22  lines=1  «Беляева Ольга»
-          span.LeadQueue__address#4  453×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
+          span.LeadQueue__address#4  453×20 @18,38  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
         td.LeadQueue__topic  365×73 @542,0
-          span.Badge__badge#4  64×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
+          span.Badge__badge#4  64×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
         td.LeadQueue__when  202×73 @907,0
-          time#4  35×18 @18,16  Manrope 400 13/20  lines=1  «15 авг»
+          time#4  35×18 @18,27  Manrope 400 13/20  lines=1  «15 авг»
         td[role=cell]  217×73 @1109,0
-          span.Badge__badge#4  86×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
+          span.Badge__badge#4  86×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
         td.LeadQueue__actions  80×73 @1326,0
           div.LeadRowActions__wrap#4  44×44 @18,15
             div.RowMenu__root  44×44 @0,0

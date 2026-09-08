@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.StockJournalFilters__filters  358×423 @16,26
+div.StockJournalFilters__filters  358×450 @16,26
   nav.StockJournalFilters__row  358×148 @0,0
     a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
     a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
@@ -19,16 +19,16 @@ div.StockJournalFilters__filters  358×423 @16,26
     a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
     a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
     a.StockJournalFilters__chip#3  131×44 @0,52  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.StockJournalFilters__form  358×159 @0,264
+  form.StockJournalFilters__form  358×186 @0,264
     div.Field__field  358×103 @0,0
       label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
       input  358×49 @0,27  r11  b1
       p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-    div.StockJournalFilters__actions  193×44 @0,115
-      button.Button__button  69×44 @0,0  r9  b1
+    div.StockJournalFilters__actions  193×71 @0,115
+      button.Button__button  69×44 @0,27  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 768]
 div.StockJournalFilters__filters  736×263 @16,26
@@ -48,11 +48,11 @@ div.StockJournalFilters__filters  736×263 @16,26
       label.Field__label  531×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
       input  531×49 @0,27  r11  b1
       p.Field__hint  531×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-    div.StockJournalFilters__actions  193×70 @543,0
-      button.Button__button  69×44 @0,26  r9  b1
+    div.StockJournalFilters__actions  193×71 @543,0
+      button.Button__button  69×44 @0,27  r9  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.StockJournalFilters__reset  112×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 1440]
 div.StockJournalFilters__filters  1408×191 @16,26
@@ -72,11 +72,11 @@ div.StockJournalFilters__filters  1408×191 @16,26
       label.Field__label  1203×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
       input  1203×49 @0,27  r11  b1
       p.Field__hint  1203×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-    div.StockJournalFilters__actions  193×66 @1215,0
-      button.Button__button  69×40 @0,26  r9  b1
+    div.StockJournalFilters__actions  193×67 @1215,0
+      button.Button__button  69×40 @0,27  r9  b1
         span.Button__content  39×16 @15,12
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.StockJournalFilters__reset  112×24 @81,34  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      a.StockJournalFilters__reset  112×24 @81,35  Manrope 400 15/22  lines=1  «Сбросить отбор»
 
 [палитра light]
 div.StockJournalFilters__filters

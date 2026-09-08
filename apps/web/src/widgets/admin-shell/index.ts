@@ -4,6 +4,7 @@ export { AdminTabs, type AdminTabsProps } from './AdminTabs';
 export { AdminMoreFooter, AdminMoreSheet, type AdminMoreSheetProps } from './AdminMoreSheet';
 export {
   ADMIN_GROUP_TITLES,
+  ADMIN_LEADS_ROLES,
   ADMIN_ROLE_TITLES,
   ADMIN_SECTIONS,
   ADMIN_SETTINGS_PATH,

@@ -3,7 +3,16 @@
 import { useRef, useState, type FocusEvent, type FormEvent } from 'react';
 
 import type { SettingKey } from '@/entities/settings/model';
-import { Alert, Badge, Button, Card, CardBody, CardHeader, useConfirm } from '@/shared/ui';
+import {
+  Alert,
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  useConfirm,
+  useLeaveGuard,
+} from '@/shared/ui';
 
 import { GroupFields } from './GroupFields';
 import { settingsFormContent as texts } from './content';
@@ -83,6 +92,26 @@ export function SettingsGroups({ entries, save = putGroup, onSaved }: SettingsGr
     differs(drafts[entry.group.key], saved[entry.group.key]),
   );
   const dirty = changed.length > 0;
+
+  /**
+   * 🔴 Уход со страницы с несохранённым вводом спрашивает (issue #32). Форма
+   * прежних значений не хранит, «Отменить правки» после ухода звать негде, а
+   * тринадцать групп реквизитов заполняют не за минуту.
+   *
+   * Вопрос ставится только пока правки есть и пока их не отправляют: во время
+   * отправки уходить некуда — кнопки заблокированы, а по окончании точка
+   * отсчёта сдвигается и `dirty` гаснет сам.
+   */
+  useLeaveGuard({
+    when: dirty && !sending,
+    confirm,
+    request: {
+      title: texts.leaveTitle,
+      description: texts.leaveDescription(changed.map((entry) => entry.group.title)),
+      confirmLabel: texts.leaveConfirm,
+      cancelLabel: texts.leaveCancel,
+    },
+  });
 
   const ready = entries.filter((entry) => entry.ready).length;
   /* Пустой список групп процента не имеет: делить на ноль нечем, а «100 %»

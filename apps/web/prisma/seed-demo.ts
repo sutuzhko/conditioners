@@ -33,6 +33,7 @@ import sharp from 'sharp';
 import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import { env } from '@/shared/config/env';
 
+import { DEMO_MANAGER_LOGIN, DEMO_PASSWORD } from './demo-accounts';
 import { productionReasons } from './guard';
 
 const prisma = new PrismaClient();
@@ -824,16 +825,16 @@ const articles: readonly DemoArticle[] = [
 
 // ---------- Команда ----------
 
-/**
- * Пароль один на всех демо-учёток и заведомо несекретный: стенд открыт только
- * внутри дев-контура. Хеш считается argon2id тем же вызовом, что и в админке.
- */
-const DEMO_PASSWORD = 'demo-parol-2026';
-
 type DemoStaff = {
   readonly login: string;
   readonly name: string;
   readonly phone: string;
+  /**
+   * Роль в панели. Не указана — монтажник: их на стенде большинство, и
+   * выписывать роль каждому значило бы семь одинаковых строк ради одной
+   * отличающейся (ADR-344).
+   */
+  readonly role?: 'MANAGER';
   readonly employment: 'SELF_EMPLOYED' | 'CONTRACT' | 'STAFF' | null;
   readonly active: boolean;
   readonly notes: readonly string[];
@@ -876,6 +877,26 @@ const staff: readonly DemoStaff[] = [
     employment: null,
     active: false,
     notes: ['Ушёл в другую бригаду в мае. Учётная запись отключена, наряды за ним остались.'],
+  },
+
+  /**
+   * Менеджер — единственный способ увидеть роль на стенде до раздела
+   * «Сотрудники» (план «Роли», Фаза 6): заведение через панель и API пока
+   * создаёт только монтажников, и без этой записи менеджера негде взять ни
+   * глазами, ни сквозным сценарием (issue #771).
+   *
+   * 🔴 Оформления нет намеренно: оформление — условие расчётов по нарядам, а
+   * нарядов менеджер не выполняет. Заметок тоже нет — заметка владельца
+   * заводится о монтажнике.
+   */
+  {
+    login: DEMO_MANAGER_LOGIN,
+    name: 'Лебедева Ольга',
+    phone: '+7 (900) 000-02-08',
+    role: 'MANAGER',
+    employment: null,
+    active: true,
+    notes: [],
   },
 ];
 
@@ -2763,8 +2784,14 @@ async function wipe(): Promise<void> {
   await prisma.priceRow.deleteMany();
   await prisma.article.deleteMany();
 
-  // сессии монтажников умрут вместе с учётками, но владелец остаётся в панели
-  await prisma.adminUser.deleteMany({ where: { role: 'INSTALLER' } });
+  /* Сессии умрут вместе с учётками, но владелец остаётся в панели: его
+     заводит базовый сид, и без него в панель не войти вовсе.
+
+     🔴 Роли перечислены, а не «все, кроме владельца». Прогон убирает ровно те
+     роли, которые сам и заводит: администратора он не создаёт, и уносить
+     заведённого руками ему незачем. Заведёт — строка пополнится вместе с
+     `staff`. */
+  await prisma.adminUser.deleteMany({ where: { role: { in: ['INSTALLER', 'MANAGER'] } } });
 }
 
 /**
@@ -2934,7 +2961,7 @@ async function warnIfNoOwner(): Promise<void> {
 
   console.error('');
   console.error('🔴 Владельца в базе нет — войти в панель сейчас невозможно.');
-  console.error('   Демо-сид заводит только монтажников. Владельца создаёт базовый сид:');
+  console.error('   Демо-сид заводит команду без владельца. Владельца создаёт базовый сид:');
   console.error('     docker compose -f docker-compose.dev.yml exec -T web pnpm --filter web seed');
   console.error('   Порядок после сброса базы: migrate reset → seed → seed:demo.');
 }
@@ -3046,7 +3073,7 @@ async function main(): Promise<void> {
       data: {
         login: person.login,
         passwordHash,
-        role: 'INSTALLER',
+        role: person.role ?? 'INSTALLER',
         employment: person.employment,
         name: person.name,
         phone: person.phone,
@@ -3445,7 +3472,11 @@ async function main(): Promise<void> {
   console.error('Готово. На стенде теперь:');
   console.error(`  каталог — ${products.length} моделей, прайс — ${prices.length} строк`);
   console.error(`  статьи — ${articles.length} (одна черновиком)`);
-  console.error(`  команда — ${staff.length} монтажников, пароль у всех: ${DEMO_PASSWORD}`);
+  const installers = staff.filter((person) => person.role === undefined).length;
+  console.error(
+    `  команда — ${installers} монтажников и ${staff.length - installers} менеджер, ` +
+      `пароль у всех: ${DEMO_PASSWORD}`,
+  );
   console.error(
     `  клиенты — ${clients.length}, обращения — ${leads.length}, отзывы — ${reviews.length}`,
   );
