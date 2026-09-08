@@ -9,6 +9,9 @@ import {
   TableAction,
   TableActionLink,
   TableActions,
+  TableRow,
+  TableRowLink,
+  tableAboveClassName,
 } from '@/shared/ui';
 
 import { adminKnowledgeContent as texts } from './content';
@@ -46,6 +49,12 @@ export interface AdminArticleListProps {
 
 /**
  * Список статей базы знаний.
+ *
+ * 🔴 Строка нажимается целиком и ведёт в правку статьи (issue #743). До этого
+ * заголовок был обычным текстом, и открыть статью можно было одним кругом
+ * 32×32 у правого края. Приём китовый (`TableRow`, `TableRowLink`, ADR-347);
+ * над перекрытием поднята только колонка действий — «смотреть на сайте» и
+ * «удалить» обязаны делать своё, а не открывать правку.
  *
  * 🔴 Под заголовком — адрес статьи и длина её текста (issue #614). Слаг задаёт
  * владелец, и на него завязаны разосланные ссылки; число знаков отвечает на
@@ -110,14 +119,20 @@ export function AdminArticleList({ articles, filtered = false }: AdminArticleLis
         </thead>
         <tbody>
           {articles.map((article) => (
-            <tr key={article.id} role="row">
+            <TableRow key={article.id}>
               <td className={styles.titleCell} role="cell" data-label={texts.colTitle}>
                 {/* 🔴 Заголовок и подпись — один узел, а не два. Ниже 600px кит
                     раскладывает ячейку карточкой с `display: flex`, и двумя
                     детьми они встали бы в строку по разные стороны подписи
                     поля (тот же приём, что у названия модели в каталоге). */}
                 <span className={styles.names}>
-                  <span className={styles.name}>{article.title}</span>
+                  <TableRowLink
+                    className={`${styles.name} tapAction`}
+                    href={{ pathname: `/admin/knowledge/${article.id}` }}
+                    label={texts.rowLabel(article.title)}
+                  >
+                    {article.title}
+                  </TableRowLink>
                   {/* Подпись строки: адрес, длина текста и — только когда её
                       нет — отсутствие обложки. Точками через `·`, как в
                       остальных списках панели. */}
@@ -154,7 +169,10 @@ export function AdminArticleList({ articles, filtered = false }: AdminArticleLis
                 {/* 🔴 Открыть · править · убрать — один набор на все списки
                     панели (issue #575). Удаление красное и спрашивает
                     подтверждение диалогом кита (ADR-113). */}
-                <TableActions label={texts.rowActions(article.title)}>
+                <TableActions
+                  className={tableAboveClassName()}
+                  label={texts.rowActions(article.title)}
+                >
                   {article.published ? (
                     <TableActionLink
                       tone="open"
@@ -185,7 +203,7 @@ export function AdminArticleList({ articles, filtered = false }: AdminArticleLis
                   <ArticleRowRemove id={article.id} title={article.title} />
                 </TableActions>
               </td>
-            </tr>
+            </TableRow>
           ))}
         </tbody>
       </Table>

@@ -9,6 +9,7 @@ import {
   Icon,
   Pager,
   Table,
+  TableActionAnchor,
   TableActionLink,
   TableActions,
   type BadgeVariant,
@@ -226,17 +227,25 @@ function Row({
 
           {/* Позвонить — второе по частоте действие над строкой: «где вы?»
               спрашивают из списка, не открывая наряд. Дело без телефона его не
-              получает: ссылка `tel:` в никуда — это кнопка, которая не работает. */}
+              получает: ссылка `tel:` в никуда — это кнопка, которая не работает.
+
+              🔴 Действие собрано китом, как и два соседних (issue #763).
+              `TableActionAnchor`, а не `TableActionLink`: `tel:` — не маршрут
+              приложения, и типизированный `Link` о нём ничего не знает.
+
+              🔴 Имя одно на подсказку и на озвучку, и номер в нём остаётся:
+              раньше подсказка показывала телефон, а читалка называла клиента.
+              Колонок с телефоном у сводки нет — ни «Когда», ни «Работа», ни
+              «Монтажник», ни «Статус», ни «Сумма» его не показывают, — и
+              выброшенный номер владелец не прочитает нигде. */}
           {item.clientPhone === null ? null : (
-            <a
-              className={styles.phone}
+            <TableActionAnchor
+              className={styles.action}
               href={phoneHref(item.clientPhone)}
-              aria-label={texts.rowCall(item.clientName)}
-            >
-              <span aria-hidden="true" title={formatPhone(item.clientPhone)}>
-                <Icon name="phone" size={18} />
-              </span>
-            </a>
+              tone="open"
+              label={texts.rowCall(item.clientName, formatPhone(item.clientPhone))}
+              icon={<Icon name="phone" size={18} />}
+            />
           )}
 
           {/* 🔴 Третьим действием стоит переход в день календаря, а не удаление

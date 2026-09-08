@@ -27,6 +27,14 @@ import {
 } from './fixtures';
 import { adminSummaryContent as texts } from './summary-content';
 import type { SummaryDeltas } from './summary-tiles';
+/* Подпись «Позвонить» кончается номером клиента (issue #763), а у одной
+   строки фикстуры телефона нет вовсе — складывать имя целиком не из чего.
+   Поэтому сверяется его начало, и текст для сверки берётся из того же
+   словаря, а не пишется в тесте второй раз. */
+const callTo =
+  (client: string) =>
+  (name: string): boolean =>
+    name.startsWith(texts.rowCall(client, ''));
 
 /** Сегмент «Обзор» с заданными числами: три четверти тестов начинаются с него. */
 function overview(
@@ -273,7 +281,7 @@ describe('Сводка панели управления', () => {
   it('в строке три безопасных действия и ни одного разрушающего', () => {
     show(overview());
 
-    expect(screen.getByRole('link', { name: texts.rowCall('Ирина Соколова') })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: callTo('Ирина Соколова') })).toHaveAttribute(
       'href',
       'tel:+79101552469',
     );
@@ -283,7 +291,7 @@ describe('Сводка панели управления', () => {
   it('дело без телефона не получает кнопку звонка в никуда', () => {
     show(overview());
 
-    expect(screen.queryByRole('link', { name: texts.rowCall('Ирина Белова') })).toBeNull();
+    expect(screen.queryByRole('link', { name: callTo('Ирина Белова') })).toBeNull();
   });
 
   it('просроченная строка помечена словом, а не одним цветом', () => {

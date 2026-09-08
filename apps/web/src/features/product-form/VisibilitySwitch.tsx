@@ -15,6 +15,13 @@ export interface VisibilitySwitchProps {
   /** Название модели: подпись переключателя в списке из десяти строк общая. */
   readonly name: string;
   readonly visible: boolean;
+  /**
+   * Класс на корень. Нужен списку каталога: строка там нажимается целиком, и
+   * переключатель обязан подняться над её перекрытием — иначе нажатие по
+   * дорожке открывало бы карточку модели вместо того, чтобы снять её с
+   * продажи (issue #743).
+   */
+  readonly className?: string | undefined;
   /** Шов для историй и тестов; по умолчанию — `PATCH /api/admin/models/{id}`. */
   readonly save?: SetVisible | undefined;
 }
@@ -35,6 +42,7 @@ export function VisibilitySwitch({
   id,
   name,
   visible,
+  className,
   save = setProductVisible,
 }: VisibilitySwitchProps) {
   const router = useRouter();
@@ -64,8 +72,10 @@ export function VisibilitySwitch({
     setMessage(result.message ?? texts.serverError);
   };
 
+  /* Свой класс первым, добавленный снаружи — вторым: сборщик измерений
+     называет узел первым классом-модулем (ADR-234). */
   return (
-    <div className={styles.root}>
+    <div className={[styles.root, className].filter(Boolean).join(' ')}>
       {/* 🔴 Подпись состояния уехала в подсказку, а видимой не осталось:
           в колонке она повторялась двадцать раз подряд и занимала место
           рядом с самим переключателем, который то же самое и показывает.

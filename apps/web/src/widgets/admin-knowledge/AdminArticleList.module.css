@@ -13,9 +13,19 @@
   min-width: 0;
 }
 
+/* Заголовок — ссылка в правку статьи, и площадь ей отдаёт вся строка
+   (issue #743). Подчёркивания в покое нет: в строке таблицы оно спорит с
+   адресом статьи под заголовком. */
 .name {
   color: var(--ink);
   font-weight: 600;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.name:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
 }
 
 /* Подпись строки: адрес, длина текста, отсутствие обложки.

@@ -9,7 +9,10 @@ import {
   IconButton,
   Switch,
   TableActions,
+  TableRow,
+  TableRowLink,
   Tooltip,
+  tableAboveClassName,
   useConfirm,
   type Confirm,
 } from '@/shared/ui';
@@ -44,6 +47,12 @@ export interface StaffRowProps {
  * растил строку до двухсот пикселей, и таблица переставала читаться
  * колонками. Смысл при этом не теряется: ярлык называет состояние сам, а
  * `Tooltip` открывается и наведением, и фокусом (WCAG 1.4.13).
+ *
+ * 🔴 Строка нажимается целиком (issue #743): карточка монтажника открывается
+ * нажатием в любую её точку, а не одним именем. Приём китовый (`TableRow`,
+ * `TableRowLink`, ADR-347). Над перекрытием подняты те, что обязаны работать
+ * сами: ярлыки с подсказками, телефон, переключатель доступа и колонка
+ * действий.
  *
  * 🔴 Доступ переключается прямо в строке: закрыть вход уволившемуся нужно
  * немедленно, и заходить ради этого в карточку — лишний шаг. Переключатель, а
@@ -107,20 +116,29 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
   const innMissing = isSelfEmployedWithoutInn(staff.employment, staff.inn);
 
   return (
-    <tr role="row" className={staff.active ? undefined : styles.off}>
+    <TableRow className={staff.active ? undefined : styles.off}>
       <td role="cell" className={styles.who} data-label={texts.colStaff}>
         <div className={styles.person}>
           <Avatar name={who} size="sm" />
 
           <div className={styles.names}>
-            <Link className={`${styles.name} tapAction`} href={`/admin/team/${staff.id}`}>
+            <TableRowLink
+              className={`${styles.name} tapAction`}
+              href={{ pathname: `/admin/team/${staff.id}` }}
+              label={texts.rowLabel(who)}
+            >
               {who}
-            </Link>
+            </TableRowLink>
             <span className={styles.since}>{texts.inTeamSince(staff.createdAt)}</span>
           </div>
         </div>
 
-        <div className={styles.badges}>
+        {/* 🔴 Ярлыки подняты над перекрытием строки не потому, что они цели —
+            фокуса у них нет, — а потому, что их подсказка открывается
+            наведением (WCAG 1.4.13). Под перекрытием курсор физически стоит
+            на ссылке, `mouseenter` до ярлыка не доходит, и объяснение
+            «Оформление не заведено» исчезло бы для указателя. */}
+        <div className={tableAboveClassName(styles.badges)}>
           {/* Подсказка объясняет последствие: у оформления — что будет с
               удержанием в наряде, у пропущенного ИНН — чем это грозит в день
               выплаты. Ярлык при этом читается и без подсказки.
@@ -158,7 +176,12 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
         {staff.phone === null ? (
           <span className={styles.missing}>{texts.phoneMissing}</span>
         ) : (
-          <a className="tapAction" href={`tel:${staff.phone.replace(/\D/g, '')}`}>
+          /* 🔴 Телефон поднят над перекрытием: «позвонить» обязано звонить,
+             а не открывать карточку. */
+          <a
+            className={tableAboveClassName('tapAction')}
+            href={`tel:${staff.phone.replace(/\D/g, '')}`}
+          >
             {staff.phone}
           </a>
         )}
@@ -201,7 +224,12 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
             ввода оно остаётся: `labelHidden` прячет подпись, но оставляет её
             в разметке и в связи через `htmlFor`. Приём в разделе уже принят —
             так же устроены ярлыки «Оформление» и «ИНН» в соседних колонках. */}
-        <Tooltip text={staff.active ? texts.active : texts.inactive}>
+        {/* Поднят весь пузырёк подсказки, а не один переключатель: наведение
+            ловит обёртка `Tooltip`, и под перекрытием оно до неё не дойдёт. */}
+        <Tooltip
+          className={tableAboveClassName()}
+          text={staff.active ? texts.active : texts.inactive}
+        >
           <Switch
             label={staff.active ? texts.active : texts.inactive}
             labelHidden
@@ -219,7 +247,7 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
       </td>
 
       <td role="cell" className={styles.actions}>
-        <TableActions label={texts.rowActions(who)}>
+        <TableActions className={tableAboveClassName()} label={texts.rowActions(who)}>
           {/* Открыть — ссылка, а не кнопка: это переход, и его открывают в
               новой вкладке средней кнопкой мыши так же, как имя строки. */}
           <Link
@@ -255,6 +283,6 @@ export function StaffRow({ staff, api, stats, confirmRemove, onChanged }: StaffR
 
         {dialog}
       </td>
-    </tr>
+    </TableRow>
   );
 }

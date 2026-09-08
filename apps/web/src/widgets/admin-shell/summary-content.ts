@@ -285,7 +285,7 @@ export const adminSummaryContent = {
   rowActions: (title: string): string => `Действия: ${title}`,
   rowOpenOrder: (number: number): string => `Открыть наряд № ${number}`,
   rowOpenEvent: (title: string): string => `Открыть в календаре: ${title}`,
-  rowCall: (name: string): string => `Позвонить: ${name}`,
+  rowCall: (name: string, phone: string): string => `Позвонить: ${name}, ${phone}`,
   rowDay: (title: string): string => `Открыть день календаря: ${title}`,
 
   /* Разбивка на страницы. */
