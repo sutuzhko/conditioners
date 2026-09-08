@@ -117,6 +117,23 @@ describe('карта разрешений: разбор адреса ручки'
     ]);
   });
 
+  /* 🔴 Журнал владельческий целиком, и переключателя на чтение у него нет:
+     раздела «Журнал» среди тринадцати не существует. Открывается ровно одно —
+     чистка, и она открывается своим опасным действием (ADR-345, ADR-392). */
+  it('🔴 в журнале администратору открывается только чистка', () => {
+    expect([
+      apiPermissionRule('/api/admin/activity', 'GET'),
+      apiPermissionRule('/api/admin/activity/e1', 'PATCH'),
+      apiPermissionRule('/api/admin/activity/cleanup', 'POST'),
+      pagePermissionRule('/admin/activity'),
+    ]).toEqual([
+      { kind: 'owner' },
+      { kind: 'owner' },
+      { kind: 'permissions', required: ['activity_purge'] },
+      { kind: 'owner' },
+    ]);
+  });
+
   it('🔴 адрес, которого в карте нет, разрешения не получает', () => {
     expect([
       apiPermissionRule('/api/admin/unknown', 'GET'),

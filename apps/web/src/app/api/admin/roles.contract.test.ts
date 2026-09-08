@@ -12,7 +12,7 @@ import {
   PANEL_SECTION_PERMISSIONS,
   type AdminPermission,
 } from '@/entities/staff/permissions';
-import { apiPermissionRule, type PermissionRule } from '@/server/permissions';
+import { apiPermissionRule, pagePermissionRule, type PermissionRule } from '@/server/permissions';
 import { ADMIN_SECTIONS } from '@/widgets/admin-shell';
 
 /**
@@ -478,6 +478,13 @@ const EXPECTED_PERMISSIONS: Readonly<Record<string, string>> = {
      договорённость (ADR-344). */
   'staff/[id]/access PATCH': 'только владелец',
 
+  /* Журнал событий. Читать и комментировать — владельческое: журнал про то,
+     кто что сделал, и администратор в нём тоже записан. Чистка — единственное,
+     что открывается, и открывается своим опасным действием (ADR-345). */
+  'activity GET': 'только владелец',
+  'activity/[id] PATCH': 'только владелец',
+  'activity/cleanup POST': 'activity_purge',
+
   /* Уведомления. */
   'notifications/[id]/retry POST': 'notifications',
   'notifications/recipients/[id] PATCH': 'notifications',
@@ -584,21 +591,50 @@ describe('контракт разрешений: /api/admin/**', () => {
 
     const unused = ADMIN_PERMISSIONS.filter((permission) => !used.has(permission));
 
-    /* «Обзор» и «Журнал» своих ручек не имеют: сводка собирается серверными
-       компонентами страницы, а чистки журнала в коде ещё нет (Журнал · Фаза 2).
-       Обе закрыты страницами — см. server/permissions.pages.test.ts. */
-    expect(unused).toEqual(['activity_purge']);
+    /* 🔴 Исключений больше нет: последнее — «Чистка журнала» — держалось на
+       том, что чистки в коде не существовало. Она появилась, и разрешение
+       привязано к своей ручке. Переключатель, не закрывающий ни одного
+       адреса, — это переключатель, который владелец снимет и ничего не
+       заметит. */
+    expect(unused).toEqual([]);
   });
 
-  it('🔴 тринадцать разрешений разделов — это разделы колонки панели', () => {
-    /* 🔴 Сверка, а не импорт: `entities` не имеет права знать про `widgets`
-       (правило слоёв), поэтому список разделов выписан в словаре разрешений
-       значениями. Разъехаться им не даёт эта проверка. */
-    const nav = ADMIN_SECTIONS.filter(
-      (section) => section.href !== '/admin/settings' && section.href !== '/admin/profile',
-    ).map((section) => section.href.replace('/admin/', '').replace('/admin', 'overview'));
+  /**
+   * 🔴 Сверка, а не импорт: `entities` не имеет права знать про `widgets`
+   * (правило слоёв), поэтому тринадцать разделов выписаны в словаре разрешений
+   * значениями. Разъехаться им не даёт эта проверка.
+   *
+   * 🔴 Что именно сверяется — вопрос, у которого был неверный ответ. Сначала
+   * тут стояло «колонка минус страница-указатель минус Профиль», и это молча
+   * предполагало, что всё остальное в колонке переключаемое. Журнал событий,
+   * приехавший в колонку владельческим, предположение опроверг. Правило
+   * поимённого исключения («и ещё минус журнал») не годится: следующий
+   * владельческий раздел даст ту же красноту, его впишут так же, и список
+   * исключений станет длиннее списка правил.
+   *
+   * Поэтому раздел участвует в сверке **по признаку, а не по имени**: если
+   * центральная карта закрывает его страницу разрешением — он переключаемый и
+   * обязан быть в словаре; если карта отвечает «только владелец» или «открыт
+   * всегда» — переключателя у него нет и быть не должно. Признак берётся из
+   * того же источника, по которому пускает страж.
+   */
+  it('🔴 тринадцать разрешений разделов — это переключаемые разделы колонки', () => {
+    const rules = ADMIN_SECTIONS.map(
+      (section) => [section.href, pagePermissionRule(section.href)] as const,
+    );
 
-    expect([...PANEL_SECTION_PERMISSIONS].sort()).toEqual([...nav].sort());
+    /* Адрес колонки, которого карта не знает вовсе, — не «непереключаемый»,
+       а пропущенный: молча выпасть из сверки он не должен. */
+    const unknown = rules.filter(([, rule]) => rule === null).map(([href]) => href);
+
+    const switchable = rules.flatMap(([, rule]) =>
+      rule !== null && rule.kind === 'permissions' ? rule.required : [],
+    );
+
+    expect({ unknown, switchable: [...switchable].sort() }).toEqual({
+      unknown: [],
+      switchable: [...PANEL_SECTION_PERMISSIONS].sort(),
+    });
   });
 
   it('разделов тринадцать, опасных действий пять', () => {
