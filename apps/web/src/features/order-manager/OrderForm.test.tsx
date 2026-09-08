@@ -19,9 +19,10 @@ import {
   staffInstaller,
   unassignedDraft,
   vacationBlocks,
+  workTypes,
 } from './fixtures';
 
-const lists = { clients, installers } as const;
+const lists = { clients, installers, workTypes } as const;
 
 /* У обязательного поля к подписи добавляется звёздочка — ищем по началу. */
 const reasonLabel = new RegExp(`^${texts.deductionReason}`);

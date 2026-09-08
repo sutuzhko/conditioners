@@ -184,20 +184,31 @@ model Lead {
   // обязана быть непрерывной, иначе по ней нельзя сослаться.
   number Int @unique
 
-  name     String
-  phone    String
-  topic    String
+  name  String
+  phone String
+  // Тема своими словами: человек пишет её сам, и это ценно (ADR-343).
+  // Остаётся полем рядом с видом работ, а не заменяется им.
+  topic String
+
+  // Вид работ из справочника. Необязателен: поле появилось вместе со
+  // справочником, и у всех обращений, пришедших до него, вида нет. Разбирать
+  // накопленные темы задним числом нельзя — угаданный по словам вид честнее
+  // не становится (ADR-343).
+  //
+  // `Restrict`, как у дела и наряда: занятый вид работ отключают, а не удаляют.
+  workTypeId String?
+  workType   WorkType? @relation(fields: [workTypeId], references: [id], onDelete: Restrict)
   // Модель, ради которой человек нажал кнопку: видимое поле формы, а не
   // невидимый снимок из `context` (ADR-129). Приходит заполненным по адресу
   // `?model=<слаг>`, но правится и стирается — это подсказка, а не замок,
   // поэтому здесь свободный текст, а не связь с моделью каталога.
-  model    String?
-  place    String?
-  qty      String?
-  callTime String?
-  address  String?
-  comment  String?
-  photo    String?
+  model      String?
+  place      String?
+  qty        String?
+  callTime   String?
+  address    String?
+  comment    String?
+  photo      String?
 
   sourceUrl String?
   referrer  String?
@@ -245,6 +256,7 @@ model Lead {
 
   @@index([status, createdAt])
   @@index([clientId])
+  @@index([workTypeId])
 }
 
 // ---------- Клиенты ----------
@@ -310,12 +322,6 @@ model ClientUnit {
 // Работа с деньгами, датой и исполнителем. Дело в календаре — напоминание
 // без денег; монтаж, ТО и ремонт заводятся нарядом (ADR-093).
 
-enum OrderType {
-  INSTALL // монтаж
-  SERVICE // обслуживание, ТО
-  REPAIR // ремонт
-}
-
 enum OrderStatus {
   NEW // заведён, исполнитель не назначен
   ASSIGNED // назначен монтажнику
@@ -357,8 +363,16 @@ model Order {
   // свой (`Setting.orderSeq`), а не автоинкремент Postgres: тот оставляет
   // дыры на каждой откатанной транзакции.
   number Int         @unique
-  type   OrderType
   status OrderStatus @default(NEW)
+
+  // Вид работ — ссылка на справочник, а не перечисление (ADR-343). Тип наряда
+  // и вид дела в календаре стали одним понятием: «монтаж» в наряде и «монтаж»
+  // в деле красятся одной записью справочника, и разойтись им больше нечем.
+  //
+  // `Restrict`: вид работ, на который ссылаются наряды, не удаляют — его
+  // отключают. Удаление стёрло бы вид у выполненных работ.
+  workTypeId String
+  workType   WorkType @relation(fields: [workTypeId], references: [id], onDelete: Restrict)
 
   // Клиент обязателен: наряд без человека, к которому едут, — это дело в
   // календаре, а не работа. `Restrict`: клиента с историей работ не удаляют
@@ -445,6 +459,7 @@ model Order {
   @@index([clientId])
   @@index([installerId, at])
   @@index([at])
+  @@index([workTypeId])
 }
 
 enum OrderEquip {
@@ -687,7 +702,7 @@ model StockMovement {
 // Перечислением, а не строкой: набор красок растёт только вместе с новыми
 // токенами, то есть правкой кода, — и база обязана отклонять краску, для
 // которой токенов нет. Контраст каждой пары в обеих темах держит
-// `entities/work-type/palette.test.ts`.
+// `features/crm-calendar/palette.test.ts`.
 enum WorkTypeTone {
   ACCENT
   INFO
@@ -731,6 +746,25 @@ model WorkType {
   // на часовую сетку молча.
   dayLong Boolean @default(false)
 
+  // 🔴 Работа этого вида ставит клиенту технику: закрытый наряд заводит её в
+  // карточке клиента и начинает отсчёт гарантии (CRM.md §3.3).
+  //
+  // Признак справочника, а не правило в коде — по той же причине, что и
+  // `dayLong`. До ADR-343 это решала строка `order.type !== 'INSTALL'` в
+  // `repo/client-units.ts`: заведи владелец «Монтаж мультизоны», и техника с
+  // таких нарядов молча не попадала бы в карточку клиента.
+  installsUnits Boolean @default(false)
+
+  // Инструмент, который берут на работу этого вида: первые строки чеклиста
+  // выезда (CRM.md §3.3).
+  //
+  // 🔴 Данные, а не перечень в коде (инвариант 8, ADR-343). До переезда список
+  // лежал в `entities/order/lib/checklist.ts` таблицей на три типа наряда — то
+  // есть был последним перечнем видов работ в коде: заведи владелец «Чистку
+  // дренажа», и монтажник уехал бы на неё без единой строки про инструмент, а
+  // добавить её было бы некуда, кроме как правкой кода.
+  tools String[] @default([])
+
   // Отключённый вид не предлагается нигде, но остаётся у прежних записей:
   // удалять вид работ, на который ссылаются дела, нельзя (`Restrict`).
   active Boolean @default(true)
@@ -739,6 +773,8 @@ model WorkType {
   updatedAt DateTime @updatedAt
 
   events CrmEvent[]
+  orders Order[]
+  leads  Lead[]
 
   @@index([active, sort])
 }

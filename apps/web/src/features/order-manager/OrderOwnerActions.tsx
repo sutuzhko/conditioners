@@ -15,12 +15,7 @@ import {
   type Confirm,
 } from '@/shared/ui';
 
-import {
-  ORDER_STATUS_TITLE,
-  ORDER_STATUS_VARIANT,
-  ORDER_TYPE_TITLE,
-  orderManagerContent as texts,
-} from './content';
+import { ORDER_STATUS_TITLE, ORDER_STATUS_VARIANT, orderManagerContent as texts } from './content';
 import { orderApi } from './lib';
 import { ORDERS_PATH, orderCanMarkDone, type OrderApi, type OrderFormStatus } from './model';
 import styles from './OrderOwnerActions.module.css';
@@ -136,7 +131,7 @@ export function OrderOwnerActions({
         <Badge variant={ORDER_STATUS_VARIANT[order.status]} dot>
           {ORDER_STATUS_TITLE[order.status]}
         </Badge>
-        <Badge variant="neutral">{ORDER_TYPE_TITLE[order.type]}</Badge>
+        <Badge variant="neutral">{order.workType.title}</Badge>
         {order.address === '' ? null : <span className={styles.address}>{order.address}</span>}
       </div>
 

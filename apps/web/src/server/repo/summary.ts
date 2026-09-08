@@ -12,13 +12,9 @@
  * рост с нуля, то есть число ни о чём; такой чип не рисуется вовсе, а не
  * подменяется стрелкой вверх.
  */
-import type {
-  OrderStatus as DbOrderStatus,
-  OrderType as DbOrderType,
-  Prisma,
-} from '@prisma/client';
+import type { OrderStatus as DbOrderStatus, Prisma } from '@prisma/client';
 
-import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { OrderStatus } from '@/entities/order/model';
 import {
   dayKeyOf,
   momentOf,
@@ -294,16 +290,12 @@ export type UpcomingSort = 'time' | 'sum';
 /**
  * Строка «Ближайших дел» в том виде, в каком её отдаёт база.
  *
- * 🔴 У наряда — ключ, а не подпись: `install`, а не «Монтаж». Словарь типов
- * наряда пока живёт в своём разделе (`features/order-manager`), и
- * репозиторий, знающий русские названия, стал бы вторым таким словарём — он
- * разошёлся бы с первым на первой же правке.
- *
- * 🔴 У дела наоборот — подпись, а не ключ, и это не противоречие (ADR-343).
- * Вид работ у дела живёт в базе, и словаря, с которым можно разойтись,
- * больше нет: справочник и есть единственный источник названия. Следующая
- * фаза переводит на него и наряд, и оговорка выше уйдёт вместе с
- * `OrderType`.
+ * 🔴 Вид работ приходит подписью, а не ключом (ADR-343). Раньше у наряда
+ * здесь стоял ключ `install`, а у дела — название, и это была не прихоть:
+ * названия типов наряда жили словарём в разделе заказов, и репозиторий,
+ * знающий русские слова, стал бы вторым таким словарём. С переездом наряда на
+ * справочник словаря в коде не осталось вовсе — название приходит из базы, и
+ * разойтись ему не с чем.
  */
 export type UpcomingRow = {
   readonly id: string;
@@ -313,14 +305,11 @@ export type UpcomingRow = {
   readonly durationMin: number;
   /** Номер наряда. У дела номера нет — оно живёт днём календаря, а не карточкой. */
   readonly number: number | null;
-  /** Тип наряда либо вид дела — ровно один из двух, по природе строки. */
-  readonly orderType: OrderType | null;
   /**
-   * Название вида работ у дела — из справочника, а не ключ (ADR-343). Ниже
-   * оговорка про ключи касается наряда: его тип всё ещё перечисление схемы и
-   * переезжает в справочник следующей фазой.
+   * Название вида работ — одно поле и у наряда, и у дела. Двух полей больше
+   * нет: понятие одно, и разводить его по природе строки незачем.
    */
-  readonly eventWorkType: string | null;
+  readonly workType: string;
   readonly status: OrderStatus | null;
   readonly clientName: string;
   readonly clientPhone: string | null;
@@ -351,12 +340,6 @@ export type UpcomingQuery = {
 
 /** Наряды, которые ещё предстоит сделать: закрытые и отменённые сюда не идут. */
 const OPEN_STATUSES = ['NEW', 'ASSIGNED', 'IN_PROGRESS'] as const;
-
-const ORDER_TYPE_FROM_DB: Record<DbOrderType, OrderType> = {
-  INSTALL: 'install',
-  SERVICE: 'service',
-  REPAIR: 'repair',
-};
 
 const ORDER_STATUS_FROM_DB: Record<DbOrderStatus, OrderStatus> = {
   NEW: 'new',
@@ -451,7 +434,7 @@ export async function upcomingWork(params: UpcomingQuery): Promise<Page<Upcoming
           select: {
             id: true,
             number: true,
-            type: true,
+            workType: { select: { title: true } },
             status: true,
             at: true,
             durationMin: true,
@@ -486,8 +469,7 @@ export async function upcomingWork(params: UpcomingQuery): Promise<Page<Upcoming
       at: row.at.toISOString(),
       durationMin: row.durationMin,
       number: row.number,
-      orderType: ORDER_TYPE_FROM_DB[row.type],
-      eventWorkType: null,
+      workType: row.workType.title,
       status: ORDER_STATUS_FROM_DB[row.status],
       clientName: row.client.name,
       clientPhone: row.client.phone,
@@ -501,8 +483,7 @@ export async function upcomingWork(params: UpcomingQuery): Promise<Page<Upcoming
       at: row.at.toISOString(),
       durationMin: row.durationMin,
       number: null,
-      orderType: null,
-      eventWorkType: row.workType.title,
+      workType: row.workType.title,
       status: null,
       clientName: row.clientName,
       clientPhone: row.clientPhone,

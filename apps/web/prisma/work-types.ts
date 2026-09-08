@@ -27,6 +27,21 @@ export type SeedWorkType = {
   readonly onSite: boolean;
   /** Дело этого вида занимает день целиком: «Заметка» висит на дне. */
   readonly dayLong: boolean;
+  /**
+   * Работа этого вида ставит клиенту технику: закрытый наряд заводит её в
+   * карточке клиента и начинает отсчёт гарантии. До ADR-343 это решала строка
+   * `order.type !== 'INSTALL'` в репозитории.
+   */
+  readonly installsUnits: boolean;
+  /**
+   * Инструмент, который берут на работу этого вида, — первые строки чеклиста
+   * выезда. До ADR-343 лежал таблицей на три типа наряда в
+   * `entities/order/lib/checklist.ts`; здесь те же строки дословно.
+   *
+   * Пусто у видов, которыми наряды не заводят: на звонок и на встречу
+   * инструмент не берут, а придумывать его за владельца незачем.
+   */
+  readonly tools: readonly string[];
 };
 
 /**
@@ -49,6 +64,8 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 10,
     onSite: false,
     dayLong: false,
+    installsUnits: false,
+    tools: [],
   },
   {
     id: 'wt_measure',
@@ -59,6 +76,8 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 20,
     onSite: true,
     dayLong: false,
+    installsUnits: false,
+    tools: [],
   },
   {
     id: 'wt_install',
@@ -69,6 +88,13 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 30,
     onSite: true,
     dayLong: false,
+    installsUnits: true,
+    tools: [
+      'Перфоратор с бурами и удлинителем',
+      'Вакуумный насос и манометрический коллектор',
+      'Труборез, вальцовка и трубогиб',
+      'Стремянка',
+    ],
   },
   {
     id: 'wt_service',
@@ -79,6 +105,12 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 40,
     onSite: true,
     dayLong: false,
+    installsUnits: false,
+    tools: [
+      'Мойка высокого давления и пакет для чистки',
+      'Антибактериальное средство, щётки и ветошь',
+      'Стремянка',
+    ],
   },
   {
     id: 'wt_repair',
@@ -89,6 +121,12 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 50,
     onSite: true,
     dayLong: false,
+    installsUnits: false,
+    tools: [
+      'Манометрический коллектор и вакуумный насос',
+      'Течеискатель и мультиметр',
+      'Баллон с хладагентом',
+    ],
   },
   {
     id: 'wt_meeting',
@@ -99,6 +137,8 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 60,
     onSite: false,
     dayLong: false,
+    installsUnits: false,
+    tools: [],
   },
   /* 🔴 Заметка висит на дне, а не на часе — до справочника это решала строка
      в раскладке календаря, и это был последний вид работ, зашитый в код. */
@@ -111,5 +151,7 @@ export const SEED_WORK_TYPES: readonly SeedWorkType[] = [
     sort: 70,
     onSite: false,
     dayLong: true,
+    installsUnits: false,
+    tools: [],
   },
 ];

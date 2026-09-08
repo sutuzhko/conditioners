@@ -158,7 +158,9 @@ async function main() {
     await prisma.workType.upsert({
       where: { code: type.code },
       update: {},
-      create: type,
+      /* `tools` в сиде помечен `readonly`, а Prisma ждёт изменяемый массив:
+         копия дешевле, чем ослабление типа справочника. */
+      create: { ...type, tools: [...type.tools] },
     });
   }
 

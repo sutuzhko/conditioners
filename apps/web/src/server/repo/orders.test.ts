@@ -235,7 +235,15 @@ describe('🔴 версия карточки: сохранение не зати
   const CARD = {
     id: 'o1',
     number: 1059,
-    type: 'INSTALL',
+    workType: {
+      id: 'wt_install',
+      code: 'install',
+      title: 'Монтаж',
+      icon: 'wrench',
+      tone: 'OK',
+      dayLong: false,
+      tools: ['Стремянка'],
+    },
     status: 'NEW',
     client: { id: 'c1', name: 'Ирина', phone: '+79101552468' },
     installer: null,

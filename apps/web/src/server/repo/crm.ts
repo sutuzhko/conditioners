@@ -2,11 +2,7 @@
  * Календарь работ. Раздел только для панели: наружу он не отдаётся нигде —
  * это внутренний график владельца с телефонами и адресами клиентов.
  */
-import type {
-  CrmEventStatus as DbStatus,
-  OrderStatus as DbOrderStatus,
-  OrderType as DbOrderType,
-} from '@prisma/client';
+import type { CrmEventStatus as DbStatus, OrderStatus as DbOrderStatus } from '@prisma/client';
 
 import type {
   CrmEventCreate,
@@ -15,20 +11,14 @@ import type {
   CrmSearchHit,
 } from '@/entities/crm/model';
 import { overtimeMinutes } from '@/entities/crm/lib/overtime';
-import type { OrderStatus, OrderType } from '@/entities/order/model';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { OrderStatus } from '@/entities/order/model';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 import { momentOf } from '@/shared/lib/calendar';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import type { Viewer } from '@/server/repo/day-blocks';
 import { workWindow } from '@/server/repo/settings';
 import { MARK_FIELDS, toMark, type WorkTypeMarkRow } from '@/server/repo/work-types';
-
-const ORDER_TYPE_FROM_DB: Record<DbOrderType, OrderType> = {
-  INSTALL: 'install',
-  SERVICE: 'service',
-  REPAIR: 'repair',
-};
 
 const ORDER_STATUS_FROM_DB: Record<DbOrderStatus, OrderStatus> = {
   NEW: 'new',
@@ -268,7 +258,12 @@ export async function remove(id: string): Promise<void> {
 export type CalendarOrderDto = {
   id: string;
   number: number;
-  type: OrderType;
+  /**
+   * Вид работ целиком — как у дела (ADR-343). Метка наряда в сетке берёт из
+   * него значок, краску и подпись: с переездом наряда на справочник «монтаж»
+   * в наряде и «монтаж» в деле стали одной записью, и разойтись им нечем.
+   */
+  workType: WorkTypeMark;
   status: OrderStatus;
   /** ISO. День и время вычисляются при показе — в поясе работ, а не браузера. */
   at: string;
@@ -282,7 +277,7 @@ export type CalendarOrderDto = {
 const ORDER_FIELDS = {
   id: true,
   number: true,
-  type: true,
+  workType: { select: MARK_FIELDS },
   status: true,
   at: true,
   durationMin: true,
@@ -320,7 +315,7 @@ export async function listOrdersRange(
   return rows.map((row) => ({
     id: row.id,
     number: row.number,
-    type: ORDER_TYPE_FROM_DB[row.type],
+    workType: toMark(row.workType),
     status: ORDER_STATUS_FROM_DB[row.status],
     at: row.at.toISOString(),
     durationMin: row.durationMin,

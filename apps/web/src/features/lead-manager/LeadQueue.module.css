@@ -67,6 +67,18 @@
   min-width: 0;
 }
 
+/* Свободная тема под ярлыком вида работ: вид отвечает на вопрос «что за
+   работа», тема — «что именно у человека случилось», и второе первым не
+   заменяется (ADR-343). Ниже ярлыка, а не рядом: в узкой колонке очереди два
+   элемента в строку не помещаются. */
+.topicText {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+  overflow-wrap: anywhere;
+}
+
 .when {
   color: var(--body);
   font-size: var(--fs-caption);

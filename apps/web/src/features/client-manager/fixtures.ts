@@ -212,7 +212,7 @@ export const failingUnitApi: ClientUnitApi = {
 export const doneOrder: ClientOrder = {
   id: 'o1',
   number: 1059,
-  type: 'install',
+  workType: 'Монтаж',
   status: 'done',
   at: '2026-08-14T07:00:00.000Z',
   address: 'Тула, ул. Токарева, 88, кв. 204',
@@ -223,7 +223,7 @@ export const doneOrder: ClientOrder = {
 export const runningOrder: ClientOrder = {
   id: 'o2',
   number: 1064,
-  type: 'service',
+  workType: 'Обслуживание',
   status: 'in_progress',
   at: '2026-08-28T09:30:00.000Z',
   address: 'Тула, Красноармейский проспект, 12, офис 3',
@@ -235,7 +235,7 @@ export const runningOrder: ClientOrder = {
 export const pricelessOrder: ClientOrder = {
   id: 'o3',
   number: 1071,
-  type: 'repair',
+  workType: 'Ремонт',
   status: 'new',
   at: '2026-09-04T06:00:00.000Z',
   address: 'Тула, ул. Демонстрации, 1',

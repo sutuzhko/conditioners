@@ -80,7 +80,7 @@ export default async function AdminOrderNewPage({ searchParams }: PageProps) {
 
 /** Форма заведения — то, что приезжает отдельным куском потока. */
 async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null }) {
-  const { clients, installers, blocks, work } = await orderFormLists();
+  const { clients, installers, workTypes, blocks, work } = await orderFormLists();
 
   if (lead === null) {
     return (
@@ -88,6 +88,7 @@ async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null })
         <OrderEditor
           clients={clients}
           installers={installers}
+          workTypes={workTypes}
           blocks={blocks}
           work={work}
           surface="bare"
@@ -100,6 +101,7 @@ async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null })
     <OrderEditor
       clients={clients}
       installers={installers}
+      workTypes={workTypes}
       blocks={blocks}
       work={work}
       initial={lead.draft}

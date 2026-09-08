@@ -1,7 +1,7 @@
 /**
  * Чеклист выезда — «что взять с собой».
  *
- * 🔴 Собирается из данных наряда, а не пишется руками: тип работ даёт
+ * 🔴 Собирается из данных наряда, а не пишется руками: вид работ даёт
  * инструмент, каждая позиция — свою трассу и диаметр, штробление добавляет
  * штроборез, высотные работы — страховку, оплата наличными — сумму, которую
  * нужно принять от клиента (docs/CRM.md §3.3).
@@ -12,7 +12,7 @@
  */
 import { formatMoney } from '@/shared/lib/format';
 
-import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '../model';
+import type { OrderEquip, PaymentMode, UnitSource } from '../model';
 
 /** Позиция наряда в том виде, в каком её читает сборка чеклиста. */
 export type ChecklistUnit = {
@@ -26,36 +26,22 @@ export type ChecklistUnit = {
 
 /** Наряд глазами чеклиста: только то, из чего он собирается. */
 export type ChecklistSource = {
-  readonly type: OrderType;
+  /**
+   * Инструмент, который берут на работу этого вида, — из справочника видов
+   * работ (ADR-343).
+   *
+   * 🔴 Не `Record` по типу наряда, как было до переезда: тот `Record`
+   * перечислял виды работ в коде и потому запрещал владельцу завести новый
+   * (инвариант 8). Теперь список — данные, и наряд привозит его с собой.
+   *
+   * Список короткий намеренно: чеклист читают у машины перед выездом, и десять
+   * строк на каждый наряд перестают читать целиком уже на второй неделе.
+   */
+  readonly tools: readonly string[];
   readonly heightWorks: boolean;
   readonly payment: PaymentMode;
   readonly price: number;
   readonly units: readonly ChecklistUnit[];
-};
-
-/**
- * Инструмент по виду работ.
- *
- * Список короткий намеренно: чеклист читают у машины перед выездом, и десять
- * строк на каждый наряд перестают читать целиком уже на второй неделе.
- */
-const TOOLS: Readonly<Record<OrderType, readonly string[]>> = {
-  install: [
-    'Перфоратор с бурами и удлинителем',
-    'Вакуумный насос и манометрический коллектор',
-    'Труборез, вальцовка и трубогиб',
-    'Стремянка',
-  ],
-  service: [
-    'Мойка высокого давления и пакет для чистки',
-    'Антибактериальное средство, щётки и ветошь',
-    'Стремянка',
-  ],
-  repair: [
-    'Манометрический коллектор и вакуумный насос',
-    'Течеискатель и мультиметр',
-    'Баллон с хладагентом',
-  ],
 };
 
 const SHTROB_LINE = 'Штроборез, диски и строительный пылесос';
@@ -110,7 +96,7 @@ export function buildChecklist(order: ChecklistSource): readonly string[] {
 
   for (const [index, unit] of order.units.entries()) lines.push(...unitLines(unit, index));
 
-  lines.push(...TOOLS[order.type]);
+  lines.push(...order.tools);
 
   if (order.units.some((unit) => unit.shtrob)) lines.push(SHTROB_LINE);
   if (order.heightWorks) lines.push(HEIGHT_LINE);

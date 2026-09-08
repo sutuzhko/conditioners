@@ -15,18 +15,9 @@
  * Считается по выполненным нарядам месяца: выручка — это сделанная работа, а
  * не выставленный план. Отказ в неё не попадает по построению.
  */
-import type { OrderType as DbType } from '@prisma/client';
-
-import type { OrderType } from '@/entities/order/model';
 import { momentOf, shiftMonth, type MonthKey } from '@/shared/lib/calendar';
 
 import { db } from '../db';
-
-const TYPE_FROM_DB: Record<DbType, OrderType> = {
-  INSTALL: 'install',
-  SERVICE: 'service',
-  REPAIR: 'repair',
-};
 
 /** Полночь первого дня месяца — в поясе работ, а не в поясе сервера. */
 function monthRange(month: MonthKey): { readonly gte: Date; readonly lt: Date } {
@@ -36,9 +27,15 @@ function monthRange(month: MonthKey): { readonly gte: Date; readonly lt: Date } 
   };
 }
 
-/** Доля вида работ в выручке месяца: «из чего сложилась». */
+/**
+ * Доля вида работ в выручке месяца: «из чего сложилась».
+ *
+ * 🔴 Подпись, а не ключ (ADR-343). Названия видов работ живут в справочнике, и
+ * словаря «ключ → русское слово», в котором сводка могла бы их искать, в коде
+ * больше нет: раздел заказов держал такой до переезда наряда.
+ */
 export type MoneyShare = {
-  readonly type: OrderType;
+  readonly title: string;
   readonly sum: number;
   /** Целые проценты: доли процента в этом разговоре ничего не решают. */
   readonly percent: number;
@@ -92,7 +89,7 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
     where: { status: 'DONE', at: range },
     select: {
       at: true,
-      type: true,
+      workType: { select: { title: true } },
       price: true,
       installerFee: true,
       deductionSum: true,
@@ -100,7 +97,7 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
     },
   });
 
-  const byType = new Map<OrderType, number>();
+  const byType = new Map<string, number>();
   const weeks = WEEK_STARTS.map(() => 0);
 
   let revenue = 0;
@@ -108,13 +105,13 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
   let cash = 0;
 
   for (const row of rows) {
-    const type = TYPE_FROM_DB[row.type];
+    const title = row.workType.title;
 
     revenue += row.price;
     payout += Math.max(row.installerFee - row.deductionSum, 0);
     if (row.payment === 'CASH_TO_INSTALLER') cash += row.price;
 
-    byType.set(type, (byType.get(type) ?? 0) + row.price);
+    byType.set(title, (byType.get(title) ?? 0) + row.price);
 
     /* День берётся в поясе работ: наряд, закрытый в три часа ночи первого
        числа по Москве, принадлежит этому месяцу и этой неделе, а не UTC. */
@@ -127,8 +124,8 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
   }
 
   const shares = [...byType.entries()]
-    .map(([type, sum]) => ({
-      type,
+    .map(([title, sum]) => ({
+      title,
       sum,
       percent: revenue === 0 ? 0 : Math.round((sum / revenue) * 100),
     }))

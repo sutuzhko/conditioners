@@ -15,12 +15,13 @@ import {
   staffDraft,
   staffInstaller,
   unassignedDraft,
+  workTypes,
 } from './fixtures';
 
 const meta = {
   title: 'Админка/Заказы/Форма наряда',
   component: OrderForm,
-  args: { api: acceptingApi, clients, installers, confirm: async () => true },
+  args: { api: acceptingApi, clients, installers, workTypes, confirm: async () => true },
 } satisfies Meta<typeof OrderForm>;
 
 export default meta;

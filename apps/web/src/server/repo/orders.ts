@@ -16,7 +16,6 @@ import type {
   OrderDocKind as DbDocKind,
   OrderEquip as DbEquip,
   OrderStatus as DbStatus,
-  OrderType as DbType,
   PaymentMode as DbPayment,
   PhotoStage as DbStage,
   UnitSource as DbSource,
@@ -52,7 +51,6 @@ import {
   type OrderResultInput,
   type OrderStatus,
   type OrderTab,
-  type OrderType,
   type OrderUnitCard,
   type OrderUnitInput,
   type OrderUpdate,
@@ -79,21 +77,10 @@ import { ApiException } from '@/server/http';
 import { cancelReasonFromDb, cancelReasonToDb } from '@/server/repo/cancel-reason';
 import { employmentFromDb } from '@/server/repo/employment';
 import { workWindow } from '@/server/repo/settings';
+import { MARK_FIELDS, toMark, type WorkTypeMarkRow } from '@/server/repo/work-types';
 import { protectedImageExists } from '@/server/uploads/store';
 
 // ---------- Словари: база ↔ контракт ----------
-
-const TYPE_TO_DB: Record<OrderType, DbType> = {
-  install: 'INSTALL',
-  service: 'SERVICE',
-  repair: 'REPAIR',
-};
-
-const TYPE_FROM_DB: Record<DbType, OrderType> = {
-  INSTALL: 'install',
-  SERVICE: 'service',
-  REPAIR: 'repair',
-};
 
 const STATUS_TO_DB: Record<OrderStatus, DbStatus> = {
   new: 'NEW',
@@ -188,7 +175,14 @@ const unitSelect = {
 const orderSelect = {
   id: true,
   number: true,
-  type: true,
+  /* Вид работ приезжает вместе с нарядом: подпись, значок и краска нужны и
+     списку, и карточке, и метке в календаре — второй запрос за ними означал
+     бы запрос на каждую строку списка (ADR-343).
+
+     `tools` сверх метки — ими начинается чеклист выезда, и пересборка идёт
+     той же транзакцией, что запись наряда: за инструментом она обращается к
+     уже прочитанной записи, а не ходит в базу второй раз. */
+  workType: { select: { ...MARK_FIELDS, tools: true } },
   status: true,
   client: { select: { id: true, name: true, phone: true } },
   installer: { select: { id: true, name: true, login: true, employment: true } },
@@ -264,7 +258,7 @@ type OrderUnitRow = {
 type OrderRow = {
   id: string;
   number: number;
-  type: DbType;
+  workType: WorkTypeMarkRow & { tools: string[] };
   status: DbStatus;
   client: { id: string; name: string; phone: string };
   installer: {
@@ -360,7 +354,7 @@ function toCard(row: OrderRow, role: AdminRole, margin?: OrderMargin | undefined
   const shared = {
     id: row.id,
     number: row.number,
-    type: TYPE_FROM_DB[row.type],
+    workType: toMark(row.workType),
     status: STATUS_FROM_DB[row.status],
     client: row.client,
     installer:
@@ -1126,7 +1120,8 @@ async function writeHistory(
  */
 export type ChecklistOrderRow = {
   readonly id: string;
-  readonly type: DbType;
+  /** Инструмент выезда — из справочника видов работ, а не из кода (ADR-343). */
+  readonly workType: { readonly tools: readonly string[] };
   readonly heightWorks: boolean;
   readonly payment: DbPayment;
   readonly price: number;
@@ -1143,7 +1138,7 @@ export type ChecklistOrderRow = {
 /** Словари базы разворачиваются в домен: считает список чистая функция. */
 function checklistSourceOf(row: ChecklistOrderRow): ChecklistSource {
   return {
-    type: TYPE_FROM_DB[row.type],
+    tools: row.workType.tools,
     heightWorks: row.heightWorks,
     payment: PAYMENT_FROM_DB[row.payment],
     price: row.price,
@@ -1200,7 +1195,7 @@ export async function applyChecklist(
 }
 
 /**
- * Правка задела чеклист: тип работ, высотные работы, оплата, сумма или
+ * Правка задела чеклист: вид работ, высотные работы, оплата, сумма или
  * позиции. Всё остальное на список сборов не влияет, и трогать его незачем.
  *
  * Пересборка идёт сама, а не кнопкой: наряд, в который добавили вторую
@@ -1210,7 +1205,7 @@ export async function applyChecklist(
  */
 function touchesChecklist(input: OrderUpdate): boolean {
   return (
-    input.type !== undefined ||
+    input.workTypeId !== undefined ||
     input.heightWorks !== undefined ||
     input.payment !== undefined ||
     input.price !== undefined ||
@@ -1267,7 +1262,7 @@ async function createRow(
     const row = await tx.order.create({
       data: {
         number,
-        type: TYPE_TO_DB[input.type],
+        workTypeId: input.workTypeId,
         /* «Новый» по схеме означает «исполнитель не назначен»: наряд, который
            сразу завели на человека, — уже назначенный, и висеть во вкладке
            «Новые» ему незачем. */
@@ -1576,7 +1571,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
     const expected = input.updatedAt === undefined ? undefined : new Date(input.updatedAt);
 
     const data = {
-      ...(input.type === undefined ? {} : { type: TYPE_TO_DB[input.type] }),
+      ...(input.workTypeId === undefined ? {} : { workTypeId: input.workTypeId }),
       ...(status === undefined ? {} : { status }),
       ...(input.clientId === undefined ? {} : { clientId: input.clientId }),
       ...(input.installerId === undefined ? {} : { installerId: input.installerId }),

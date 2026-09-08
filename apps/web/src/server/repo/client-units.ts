@@ -301,7 +301,11 @@ export async function fromCompletedOrder(
       where: { id: orderId },
       select: {
         clientId: true,
-        type: true,
+        /* Ставит ли работа этого вида технику — признак справочника, а не
+           правило в коде (ADR-343): до переезда здесь стояло
+           `type !== 'INSTALL'`, и новый вид работ владельца молча не заводил
+           бы технику в карточке клиента. */
+        workType: { select: { installsUnits: true } },
         at: true,
         units: {
           orderBy: { sort: 'asc' },
@@ -319,8 +323,11 @@ export async function fromCompletedOrder(
     });
 
     /* Техника растёт из монтажа. ТО и ремонт ничего нового не ставят — они
-       приезжают к тому, что уже стоит. */
-    if (order === null || order.type !== 'INSTALL' || order.units.length === 0) return NOTHING;
+       приезжают к тому, что уже стоит. Какие виды работ ставят технику,
+       решает справочник, а не этот файл. */
+    if (order === null || !order.workType.installsUnits || order.units.length === 0) {
+      return NOTHING;
+    }
 
     const recorded = await client.clientUnit.findMany({
       where: { orderId },

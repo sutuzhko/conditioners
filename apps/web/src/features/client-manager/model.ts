@@ -4,7 +4,7 @@ import type { Route } from 'next';
 import { dayOf } from '@/entities/client/lib/units';
 import type { ClientUnitCard } from '@/entities/client/model';
 import type { LeadStatus } from '@/entities/lead/model';
-import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { OrderStatus } from '@/entities/order/model';
 import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 
 export type { ClientCard, ClientCreate, ClientPage, ClientUpdate } from '@/entities/client/model';
@@ -57,7 +57,8 @@ export function clientCardTabFromParam(value: unknown): ClientCardTab {
 export type ClientOrder = {
   readonly id: string;
   readonly number: number;
-  readonly type: OrderType;
+  /** Вид работ подписью: название живёт в справочнике, а не в словаре кода. */
+  readonly workType: string;
   readonly status: OrderStatus;
   /** ISO в UTC: в московское время переводит подпись при показе. */
   readonly at: string;

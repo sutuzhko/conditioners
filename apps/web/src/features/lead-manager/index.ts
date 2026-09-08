@@ -8,7 +8,6 @@ export { LeadSearch, type LeadSearchProps } from './LeadSearch';
 export { leadManagerContent } from './content';
 export { leadToClient, leadToOrder, patchLead, removeLead } from './lib';
 export { LEAD_STALE_HOURS, leadIsStale, leadWaiting } from './when';
-export { guessOrderType } from './order-type';
 export {
   LEADS_PATH,
   LEAD_STATUSES,

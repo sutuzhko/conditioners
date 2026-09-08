@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useId, useState } from 'react';
 
 import { LEAD_STATUS_VARIANT } from '@/entities/lead/model';
+import { WorkTypeBadge } from '@/entities/work-type/ui';
 import {
   CANCEL_REASON_OPTIONS,
   isCancelReason,
@@ -308,6 +309,19 @@ export function LeadCardView({
       </header>
 
       <dl className={styles.details}>
+        {/* 🔴 Вид работ первым: он отвечает на вопрос «что за работа», а тема
+            ниже — «что именно случилось». Заявки без вида работ строки не
+            получают вовсе и открываются как прежде (issue #841): такими
+            пришли все, кто написал до справочника. */}
+        {lead.workType === null ? null : (
+          <div className={styles.detail}>
+            <dt className={styles.detailLabel}>{texts.workType}</dt>
+            <dd className={styles.detailValue}>
+              <WorkTypeBadge workType={lead.workType} />
+            </dd>
+          </div>
+        )}
+
         {details
           .filter((detail): detail is { label: string; value: string } => detail.value !== null)
           .map((detail) => (

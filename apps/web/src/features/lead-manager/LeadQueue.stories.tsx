@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { LeadQueue } from './LeadQueue';
-import { leadQueueFixture, leadQueueNow } from './fixtures';
+import { leadQueueFixture, leadQueueNow, workTypeInstall } from './fixtures';
 
 /**
  * Очередь обращений — левая колонка раздела заявок (issue #349).
@@ -48,6 +48,7 @@ export const ДлинныеПодписи: Story = {
         number: 1041,
         name: 'Константинопольская-Твердолобова Аполлинария Аристарховна',
         phone: '+79001234567',
+        workType: workTypeInstall,
         topic: 'Установка мультисплит-системы на два внутренних блока с прокладкой трассы',
         address: 'Новомосковск, микрорайон Урванский, Комсомольская 108, корпус 2, квартира 341',
         status: 'new',

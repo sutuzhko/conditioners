@@ -1,0 +1,74 @@
+/* Ярлык вида работ — краска справочника плюс значок и слово (ADR-343).
+
+   Геометрия снята с плашки кита (`shared/ui/Badge`, размер `sm`): ярлык стоит
+   в одном ряду со статусом обращения, и вторая высота в той же строке читалась
+   бы как сбой вёрстки. */
+
+.badge {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 24px;
+  max-width: 100%;
+  padding: 3px 9px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-family: var(--font-text);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1.35;
+
+  /* 🔴 Перенос разрешён: название вида работ пишет владелец, и его длину
+     задаёт он, а не вёрстка (ADR-126). «Обслуживание мультисплит-системы»
+     одной строкой выносило бы ячейку очереди за край и тянуло бы за собой всю
+     таблицу — ровно так это уже случалось с темой обращения. */
+  overflow-wrap: anywhere;
+}
+
+/* Значок — украшение рядом с подписью: озвучивать его значит заставить
+   человека выслушать «монтаж монтаж». */
+.icon {
+  flex: none;
+}
+
+/* ---------- Краски палитры (ADR-343) ----------
+
+   🔴 Те же пары токенов, что у записи календаря: «монтаж» в заявке и «монтаж»
+   в сетке обязаны быть одного цвета — ради этого справочник и заводился.
+   Контраст каждой пары в обеих темах меряет `crm-calendar/palette.test.ts`. */
+
+.toneAccent {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+.toneInfo {
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+.toneOk {
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.toneWarn {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.toneSale {
+  background: var(--sale-bg);
+  color: var(--sale-ink);
+}
+
+.toneError {
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+.toneNeutral {
+  background: var(--line-soft);
+  color: var(--ink2);
+}

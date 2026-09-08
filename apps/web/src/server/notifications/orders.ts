@@ -36,7 +36,7 @@ export function installerBrief(order: OrderCard): OrderBrief {
   return {
     orderId: order.id,
     number: order.number,
-    type: order.type,
+    workType: order.workType.title,
     at: order.at,
     durationMin: order.durationMin,
     address: order.address,
@@ -87,7 +87,7 @@ function sameUnits(before: readonly OrderUnitBrief[], after: readonly OrderUnitB
 export function briefChanges(before: OrderBrief, after: OrderBrief): readonly OrderBriefField[] {
   const changed: OrderBriefField[] = [];
 
-  if (before.type !== after.type) changed.push('type');
+  if (before.workType !== after.workType) changed.push('workType');
   if (before.at !== after.at) changed.push('at');
   if (before.durationMin !== after.durationMin) changed.push('durationMin');
   if (before.address !== after.address) changed.push('address');

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState, useTransition, type ReactNode } from 'react';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 import { type DayKey, weekdayOf } from '@/shared/lib/calendar';
 import { useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';

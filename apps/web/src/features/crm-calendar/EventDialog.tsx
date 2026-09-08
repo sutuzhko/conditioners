@@ -7,7 +7,7 @@ import { loadTitle } from '@/entities/crm/content';
 import { clashesWith, spanOf } from '@/entities/crm/lib/load';
 import { crmEventCreateSchema } from '@/entities/crm/model';
 import { BusyNote, ClashNote } from '@/entities/crm/ui';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 import { dayKeyOf, minutesOfDay } from '@/shared/lib/calendar';
 import {
   Button,
@@ -22,7 +22,7 @@ import {
 } from '@/shared/ui';
 import type { DateSegments } from '@/shared/ui';
 
-import { ORDER_LOOK, crmContent as texts } from './content';
+import { crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
 import {
   DURATION_STEP_MIN,
@@ -166,7 +166,7 @@ export function EventDialog({
 
   const clashTitles = clashes.map((clash) => {
     const order = sameDay.find((entry) => entry.id === clash.id);
-    const look = order === undefined ? null : ORDER_LOOK[order.type];
+    const look = order === undefined ? null : order.workType;
 
     return [
       texts.orderMark(order?.number ?? 0),

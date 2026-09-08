@@ -4,7 +4,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { OrderCreateModal } from './OrderCreateModal';
 import { orderManagerContent as texts } from './content';
-import { acceptingApi, clients, draft, installers, selfEmployedInstaller } from './fixtures';
+import {
+  acceptingApi,
+  clients,
+  draft,
+  installers,
+  selfEmployedInstaller,
+  workTypes,
+} from './fixtures';
 
 const back = vi.fn();
 const replace = vi.fn();
@@ -19,7 +26,7 @@ function historyLength(length: number): void {
   vi.spyOn(globalThis.history, 'length', 'get').mockReturnValue(length);
 }
 
-const lists = { clients, installers } as const;
+const lists = { clients, installers, workTypes } as const;
 
 beforeEach(() => {
   back.mockClear();

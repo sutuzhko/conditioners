@@ -170,7 +170,7 @@ async function ClientCard({
   const works: readonly ClientOrder[] = orders.items.map((order) => ({
     id: order.id,
     number: order.number,
-    type: order.type,
+    workType: order.workType.title,
     status: order.status,
     at: order.at,
     address: order.address,

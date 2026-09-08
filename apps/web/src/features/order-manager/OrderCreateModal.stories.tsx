@@ -9,6 +9,7 @@ import {
   installers,
   selfEmployedInstaller,
   unassignedDraft,
+  workTypes,
 } from './fixtures';
 
 /**
@@ -26,7 +27,7 @@ const meta = {
   title: 'Админка/Заказы · Окно заведения',
   component: OrderCreateModal,
   parameters: { layout: 'fullscreen' },
-  args: { clients, installers, api: acceptingApi },
+  args: { clients, installers, workTypes, api: acceptingApi },
 } satisfies Meta<typeof OrderCreateModal>;
 
 export default meta;

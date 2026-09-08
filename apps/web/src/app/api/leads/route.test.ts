@@ -67,6 +67,9 @@ beforeEach(() => {
   dbMock.lead.create.mockImplementation(async ({ data }) => ({
     id: 'lead-1',
     status: 'NEW',
+    /* Заявка приходит без вида работ: поле появилось вместе со справочником,
+       и форма сайта заполнит его следующей фазой (ADR-343). */
+    workType: null,
     managerComment: null,
     clientId: null,
     createdAt: new Date('2026-08-28T09:00:00Z'),

@@ -7,7 +7,7 @@
  */
 import { notFound } from 'next/navigation';
 
-import { guessOrderType, leadManagerContent as leadTexts } from '@/features/lead-manager';
+import { leadManagerContent as leadTexts } from '@/features/lead-manager';
 import {
   emptyOrderDraft,
   type OrderBlock,
@@ -17,9 +17,11 @@ import {
   type OrderWorkSpan,
 } from '@/features/order-manager';
 import { requireOwnerPage } from '@/server/guards';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
 import { findById as findLead } from '@/server/repo/leads';
+import { listActive as listWorkTypes } from '@/server/repo/work-types';
 import { todayKey } from '@/shared/lib/calendar';
 
 import { loadBlocks, loadWork } from './blocks';
@@ -33,6 +35,8 @@ export type OrderLeadSource = {
 export type OrderFormData = {
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
+  /** Виды работ из справочника: перечня в коде не осталось (ADR-343). */
+  readonly workTypes: readonly WorkTypeMark[];
   readonly blocks: readonly OrderBlock[];
   readonly work: readonly OrderWorkSpan[];
   readonly lead: OrderLeadSource | null;
@@ -79,7 +83,13 @@ export async function orderLeadSource(params: OrderNewParams): Promise<OrderLead
   return {
     draft: {
       ...emptyOrderDraft(),
-      type: guessOrderType(lead.topic),
+      /* 🔴 Вид работ берётся у обращения, а не угадывается по словам темы
+         (ADR-343). До справочника здесь стоял `guessOrderType(lead.topic)` —
+         разбор темы по корням слов; вместе со справочником он снят: у заявки
+         вид работ теперь свой, а у старой заявки его нет, и подставлять
+         угаданный честнее не становится. Не выбран — форма покажет первый вид
+         справочника, и владелец поправит одним щелчком, пока наряд черновик. */
+      workTypeId: lead.workType?.id ?? '',
       clientId: lead.clientId ?? '',
       address: lead.address ?? '',
       comment: lead.comment ?? '',
@@ -95,9 +105,10 @@ export async function orderFormLists(): Promise<Omit<OrderFormData, 'lead'>> {
 
   /* Только работающие: назначать наряд человеку, у которого закрыт доступ,
      значит отправить его в пустоту — он не увидит наряд в панели. */
-  const [clients, installers, blocks, work] = await Promise.all([
+  const [clients, installers, workTypes, blocks, work] = await Promise.all([
     listAll(),
     listInstallers(true),
+    listWorkTypes(),
     /* Занятость вокруг сегодняшнего дня: наряд заводят, пока клиент на линии,
        и чаще всего на ближайшие дни. */
     loadBlocks(session, todayKey()),
@@ -116,6 +127,7 @@ export async function orderFormLists(): Promise<Omit<OrderFormData, 'lead'>> {
       login: staff.login,
       employment: staff.employment,
     })),
+    workTypes,
     blocks,
     work,
   };

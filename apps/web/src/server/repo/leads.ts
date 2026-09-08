@@ -15,6 +15,8 @@ import type { LeadContext, LeadUpdate } from '@/entities/lead/model';
 import type { CancelReason as DbCancelReason } from '@prisma/client';
 
 import type { CancelReason } from '@/shared/lib/cancel-reason';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
+import { MARK_FIELDS, toMark, type WorkTypeMarkRow } from '@/server/repo/work-types';
 import { cancelReasonFromDb, cancelReasonToDb } from '@/server/repo/cancel-reason';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 import { phoneBody } from '@/shared/lib/phone';
@@ -46,6 +48,15 @@ export type LeadDto = {
   name: string;
   phone: string;
   topic: string;
+  /**
+   * Вид работ из справочника — или `null` (ADR-343).
+   *
+   * 🔴 `null` — рабочее состояние, а не сбой: поле появилось вместе со
+   * справочником, и у всех обращений, пришедших до него, вида нет. Разбирать
+   * накопленные темы задним числом нельзя — угаданный по словам вид честнее не
+   * становится, а красить им ярлык значит врать краской.
+   */
+  workType: WorkTypeMark | null;
   /**
    * Модель, ради которой человек нажал кнопку, — то, что он видел в поле формы
    * и подтвердил (ADR-129). Не путать с `context.model`: там снимок того, с
@@ -89,8 +100,9 @@ export type LeadDto = {
 
 type LeadRow = Omit<
   LeadDto,
-  'status' | 'context' | 'consentAt' | 'createdAt' | 'updatedAt' | 'cancelReason'
+  'status' | 'context' | 'consentAt' | 'createdAt' | 'updatedAt' | 'cancelReason' | 'workType'
 > & {
+  workType: WorkTypeMarkRow | null;
   status: LeadStatus;
   cancelReason: DbCancelReason | null;
   context: Prisma.JsonValue;
@@ -105,6 +117,14 @@ type LeadRow = Omit<
  * В колонке лежит имя файла: снимок хранится в закрытом подкаталоге, куда
  * публичный `/api/media/{name}` не дотягивается (ADR-171).
  */
+/**
+ * Вид работ приезжает вместе с заявкой: подпись, значок и краска ярлыка в
+ * очереди — из справочника (ADR-343). `include`, а не `select`: остальные
+ * поля заявки берутся целиком, и перечислять их вторым списком значило бы
+ * держать копию колонок таблицы.
+ */
+const LEAD_INCLUDE = { workType: { select: MARK_FIELDS } } as const;
+
 export function leadPhotoUrl(leadId: string): string {
   return `/api/admin/leads/${leadId}/photo`;
 }
@@ -112,6 +132,10 @@ export function leadPhotoUrl(leadId: string): string {
 function toDto(row: LeadRow): LeadDto {
   return {
     ...row,
+    /* Заявка без вида работ — обычное дело: такими пришли все, кто написал до
+       справочника (ADR-343). Экран показывает одну свободную тему и не
+       падает. */
+    workType: row.workType === null ? null : toMark(row.workType),
     photo: row.photo === null ? null : leadPhotoUrl(row.id),
     status: FROM_DB[row.status],
     /* 🔴 Разбирать больше нечего: колонка — перечисление базы, и чужого кода
@@ -175,7 +199,12 @@ export async function create(
   data: Omit<Prisma.LeadCreateInput, 'number'>,
   client: Prisma.TransactionClient = db,
 ): Promise<LeadDto> {
-  return toDto(await client.lead.create({ data: { ...data, number: await nextNumber(client) } }));
+  return toDto(
+    await client.lead.create({
+      data: { ...data, number: await nextNumber(client) },
+      include: LEAD_INCLUDE,
+    }),
+  );
 }
 
 /** Ключ счётчика номеров обращений в `Setting` — по образцу нарядов. */
@@ -243,6 +272,7 @@ export async function listByStatus(
     orderBy: { createdAt: 'desc' },
     skip,
     take,
+    include: LEAD_INCLUDE,
   });
 
   return { items: rows.map(toDto), total, page, pages };
@@ -272,12 +302,13 @@ export async function listCreatedBetween(viewer: Viewer, from: Date, to: Date): 
   const rows = await db.lead.findMany({
     where: { createdAt: { gte: from, lt: to } },
     orderBy: { createdAt: 'asc' },
+    include: LEAD_INCLUDE,
   });
   return rows.map(toDto);
 }
 
 export async function findById(id: string): Promise<LeadDto | null> {
-  const row = await db.lead.findUnique({ where: { id } });
+  const row = await db.lead.findUnique({ where: { id }, include: LEAD_INCLUDE });
   return row === null ? null : toDto(row);
 }
 
@@ -312,6 +343,7 @@ export async function listByClient(clientId: string): Promise<LeadDto[]> {
   const rows = await db.lead.findMany({
     where: { clientId },
     orderBy: { createdAt: 'desc' },
+    include: LEAD_INCLUDE,
   });
   return rows.map(toDto);
 }
@@ -325,12 +357,18 @@ export async function listByClient(clientId: string): Promise<LeadDto[]> {
  * второе нажатие ничего не меняет.
  */
 export async function startWork(id: string): Promise<LeadDto> {
-  const lead = await db.lead.findUnique({ where: { id } });
+  const lead = await db.lead.findUnique({ where: { id }, include: LEAD_INCLUDE });
   if (lead === null) throw new ApiException('not_found', 'Заявка не найдена');
 
   if (lead.status !== 'NEW') return toDto(lead);
 
-  return toDto(await db.lead.update({ where: { id }, data: { status: 'IN_PROGRESS' } }));
+  return toDto(
+    await db.lead.update({
+      where: { id },
+      data: { status: 'IN_PROGRESS' },
+      include: LEAD_INCLUDE,
+    }),
+  );
 }
 
 /** Менеджер меняет статус и оставляет комментарий; данные клиента не правятся. */
@@ -345,6 +383,7 @@ export async function update(id: string, input: LeadUpdate): Promise<LeadDto> {
       ...(input.managerComment === undefined ? {} : { managerComment: input.managerComment }),
       ...cancelData(input),
     },
+    include: LEAD_INCLUDE,
   });
 
   return toDto(row);

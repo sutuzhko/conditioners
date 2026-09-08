@@ -1,6 +1,6 @@
 /** Данные для историй и тестов календаря работ. */
 import type { StaffCard } from '@/entities/staff/model';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 
 import type { CalendarLead, CalendarOrderCard, CrmEventCard, DayBlockCard } from './model';
 
@@ -309,7 +309,7 @@ export const installers: readonly StaffCard[] = [dmitry, sergey];
 export const morningInstall: CalendarOrderCard = {
   id: 'o1',
   number: 1059,
-  type: 'install',
+  workType: workTypeInstall,
   status: 'assigned',
   at: '2026-08-23T07:00:00.000Z',
   durationMin: 180,
@@ -323,7 +323,7 @@ export const morningInstall: CalendarOrderCard = {
 export const clashingRepair: CalendarOrderCard = {
   id: 'o2',
   number: 1060,
-  type: 'repair',
+  workType: workTypeRepair,
   status: 'assigned',
   at: '2026-08-23T09:00:00.000Z',
   durationMin: 120,
@@ -337,7 +337,7 @@ export const clashingRepair: CalendarOrderCard = {
 export const parallelService: CalendarOrderCard = {
   id: 'o3',
   number: 1061,
-  type: 'service',
+  workType: workTypeService,
   status: 'in_progress',
   at: '2026-08-23T08:00:00.000Z',
   durationMin: 90,
@@ -351,7 +351,7 @@ export const parallelService: CalendarOrderCard = {
 export const looseOrder: CalendarOrderCard = {
   id: 'o4',
   number: 1062,
-  type: 'install',
+  workType: workTypeInstall,
   status: 'new',
   at: '2026-08-25T12:00:00.000Z',
   durationMin: 120,

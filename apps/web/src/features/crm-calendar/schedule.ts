@@ -37,7 +37,7 @@ import {
   loadTitle,
 } from '@/entities/crm/content';
 import { staffShortTitle, staffTitle } from '@/entities/staff/model';
-import type { WorkTypeTone } from '@/entities/work-type/model';
+import type { WorkTypeTone } from '@/shared/lib/work-type';
 import {
   type DayKey,
   dayKeyOf,
@@ -52,7 +52,6 @@ import type { IconName } from '@/shared/ui';
 import {
   LEADS_PATH,
   ORDERS_PATH,
-  ORDER_LOOK,
   ORDER_STATUS_TITLE,
   STATUS_TITLE,
   WEEKDAYS,
@@ -86,8 +85,8 @@ export const DEFAULT_WORK_WINDOW: WorkWindow = { fromMin: 9 * 60, toMin: 19 * 60
 
 /**
  * Краска записи в сетке. Та же палитра, из которой владелец выбирает цвет
- * вида работ (ADR-343): у дела она приезжает из справочника, у наряда пока
- * стоит в `ORDER_LOOK` — до переезда наряда на тот же справочник.
+ * вида работ (ADR-343): и дело, и наряд приезжают со своей записью
+ * справочника, и одинаковые виды работ красятся одинаково по построению.
  */
 export type ScheduleTone = WorkTypeTone;
 
@@ -385,7 +384,7 @@ function itemOfOrder(
   const at = new Date(order.at);
   const day = dayKeyOf(at);
   const span = spanOf(minutesOfDay(at), order.durationMin);
-  const look = ORDER_LOOK[order.type];
+  const look = order.workType;
   const mark = texts.orderMark(order.number);
   const range = timeRange(span.fromMin, span.toMin);
 

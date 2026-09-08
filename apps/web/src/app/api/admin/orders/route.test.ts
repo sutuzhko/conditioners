@@ -92,7 +92,15 @@ const unitRow = {
 const orderRow = {
   id: 'o1',
   number: 1059,
-  type: 'INSTALL',
+  workType: {
+    id: 'wt_install',
+    code: 'install',
+    title: 'Монтаж',
+    icon: 'wrench',
+    tone: 'OK',
+    dayLong: false,
+    tools: ['Стремянка'],
+  },
   status: 'ASSIGNED',
   client: { id: 'c1', name: 'Ирина Соколова', phone: '+7 (910) 155-24-68' },
   installer: { id: 'u2', name: 'Дмитрий Соколов', login: 'sokolov', employment: 'SELF_EMPLOYED' },
@@ -130,7 +138,7 @@ const orderRow = {
 };
 
 const createBody = {
-  type: 'install',
+  workTypeId: 'wt_install',
   clientId: 'c1',
   installerId: 'u2',
   day: '2026-08-28',
@@ -366,7 +374,7 @@ describe('карточка наряда', () => {
 
     expect(body).toMatchObject({
       number: 1059,
-      type: 'install',
+      workType: { code: 'install', title: 'Монтаж' },
       status: 'assigned',
       price: 38500,
       deductionSum: 500,

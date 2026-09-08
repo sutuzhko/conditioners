@@ -200,7 +200,10 @@ async function seed(api: OwnerApi): Promise<Fixture> {
   }
 
   const order = await api.post('/api/admin/orders', {
-    type: 'install',
+    /* 🔴 Идентификатор записи справочника, а не ключ перечисления (ADR-343).
+       Он произведён из кода миграцией и сидом именно затем, чтобы сценарий мог
+       сослаться на вид работ, не запрашивая справочник отдельным вызовом. */
+    workTypeId: 'wt_install',
     clientId,
     installerId,
     day: today(),
@@ -216,7 +219,7 @@ async function seed(api: OwnerApi): Promise<Fixture> {
   /* 🔴 Наряд без исполнителя: для монтажника его не существует. Заводится
      здесь, а не отдельным сценарием, — проверка стоит одного запроса. */
   const foreign = await api.post('/api/admin/orders', {
-    type: 'service',
+    workTypeId: 'wt_service',
     clientId,
     day: today(),
     time: '16:00',

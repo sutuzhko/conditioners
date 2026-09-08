@@ -1,7 +1,7 @@
 import type { DayBlockLike } from '@/entities/crm/lib/busy';
 import type { CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
-import type { OrderStatus, OrderType } from '@/entities/order/model';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { OrderStatus } from '@/entities/order/model';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 
 /**
  * Вид календаря. 🔴 Живёт в адресе (`?view=week`) и по-английски, как месяц и
@@ -142,7 +142,8 @@ export type CalendarLead = {
 export type CalendarOrderCard = {
   readonly id: string;
   readonly number: number;
-  readonly type: OrderType;
+  /** Вид работ из справочника — как у дела: одно понятие, одна краска (ADR-343). */
+  readonly workType: WorkTypeMark;
   readonly status: OrderStatus;
   readonly at: string;
   readonly durationMin: number;

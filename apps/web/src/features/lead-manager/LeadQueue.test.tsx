@@ -12,7 +12,7 @@ vi.mock('next/navigation', () => ({ useRouter: () => ({ push, refresh }) }));
 
 import { LeadQueue } from './LeadQueue';
 import { leadManagerContent as texts } from './content';
-import { leadQueueFixture, leadQueueNow } from './fixtures';
+import { leadQueueFixture, leadQueueNow, workTypeInstall } from './fixtures';
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -142,6 +142,52 @@ describe('Очередь обращений', () => {
        кнопку, и число обёрток между ними — его дело, а не очереди. */
     const menu = within(row).getByRole('button', { name: texts.rowActions(first?.number ?? 0) });
     expect(menu.closest(`.${tableAboveClassName()}`)).not.toBeNull();
+  });
+
+  /**
+   * 🔴 Ярлык темы красит справочник, а не раздел (ADR-343, issue #839): у
+   * «монтажа» в очереди тот же цвет, что у монтажа в календаре и в наряде.
+   * Рядом с краской обязательно стоит слово — цвет не единственный признак
+   * (WCAG 1.4.1, issue #840).
+   */
+  it('🔴 ярлык вида работ несёт подпись из справочника, а не один цвет', () => {
+    render(<LeadQueue leads={leadQueueFixture} now={leadQueueNow} />);
+
+    const row = screen.getAllByRole('row')[1];
+    expect(row).toBeDefined();
+    if (row === undefined) return;
+
+    expect(within(row).getByText(workTypeInstall.title)).toBeInTheDocument();
+  });
+
+  /** Переименование вида работ в справочнике видно в очереди сразу. */
+  it('подпись ярлыка приходит из записи справочника, а не из словаря раздела', () => {
+    const [first] = leadQueueFixture;
+    expect(first).toBeDefined();
+    if (first === undefined) return;
+
+    render(
+      <LeadQueue
+        leads={[{ ...first, workType: { ...workTypeInstall, title: 'Чистка дренажа' } }]}
+        now={leadQueueNow}
+      />,
+    );
+
+    expect(screen.getByText('Чистка дренажа')).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Проверка задачи #841: такими пришли все обращения до справочника, и их
+   * в базе большинство. Строка обязана показать свободную тему и не упасть.
+   */
+  it('🔴 заявка без вида работ остаётся в очереди со своей темой', () => {
+    const bare = leadQueueFixture.find((lead) => lead.workType === null);
+    expect(bare).toBeDefined();
+    if (bare === undefined) return;
+
+    render(<LeadQueue leads={[bare]} now={leadQueueNow} />);
+
+    expect(screen.getByText(bare.topic)).toBeInTheDocument();
   });
 
   /* 🔴 Действия строки достижимы из списка, а не только из открытой карточки

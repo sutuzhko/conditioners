@@ -7,6 +7,7 @@ import { requireOwnerPage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
 import { findById } from '@/server/repo/orders';
+import { listActive as listWorkTypes } from '@/server/repo/work-types';
 import { dayKeyOf } from '@/shared/lib/calendar';
 import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
@@ -94,9 +95,10 @@ async function EditForm({
 }) {
   const day = dayKeyOf(new Date(order.at));
 
-  const [clients, installers, blocks, work] = await Promise.all([
+  const [clients, installers, workTypes, blocks, work] = await Promise.all([
     listAll(),
     listInstallers(true),
+    listWorkTypes(),
     loadBlocks(session, day),
     loadWork(session, day, orderId),
   ]);
@@ -117,6 +119,7 @@ async function EditForm({
         login: staff.login,
         employment: staff.employment,
       }))}
+      workTypes={workTypes}
       blocks={blocks}
       work={work}
       title={texts.cardTitle}

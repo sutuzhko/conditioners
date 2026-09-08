@@ -5,7 +5,6 @@ import type {
   OrderPeriod,
   OrderStatus,
   OrderTab,
-  OrderType,
   PaymentMode,
   PhotoStage,
   UnitSource,
@@ -17,16 +16,12 @@ import { plural, pluralize } from '@/shared/lib/plural';
 
 import type { DeductionMode, OrderCardTab, StockUnit } from './model';
 
-/**
- * Вид работ. `service` называется «Обслуживанием», а не «ТО»: тем же словом
- * подписан вид дела в календаре работ и услуга на сайте, а два названия
- * одной работы в соседних разделах панели владелец читает как сбой.
+/*
+ * 🔴 Словаря видов работ здесь больше нет (ADR-343). Названия «Монтаж» и
+ * «Обслуживание» лежат в справочнике, которым владелец управляет сам, и
+ * наряд везёт своё название с собой: копия в разделе разошлась бы с базой
+ * в тот день, когда владелец переименует вид работ.
  */
-export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
-  install: 'Монтаж',
-  service: 'Обслуживание',
-  repair: 'Ремонт',
-};
 
 export { ORDER_STATUS_VARIANT } from '@/entities/order/model';
 
@@ -407,7 +402,10 @@ export const orderManagerContent = {
   moneyTitle: 'Деньги',
   notesTitle: 'Комментарии',
 
-  type: 'Тип работ',
+  workType: 'Вид работ',
+  /* Пустой выбор в справочнике: поле обязательно, и умолчания у него нет —
+     набор видов работ задаёт владелец, а не код. */
+  workTypePlaceholder: 'Выберите вид работ',
   status: 'Статус',
   day: 'Дата',
   time: 'Время',

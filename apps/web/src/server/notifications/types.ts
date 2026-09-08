@@ -1,12 +1,7 @@
 import { z } from 'zod';
 
 import { leadContextSchema } from '@/entities/lead/model';
-import {
-  orderEquipSchema,
-  orderTypeSchema,
-  paymentModeSchema,
-  unitSourceSchema,
-} from '@/entities/order/model';
+import { orderEquipSchema, paymentModeSchema, unitSourceSchema } from '@/entities/order/model';
 import { stockUnitSchema } from '@/entities/stock/model';
 
 /**
@@ -88,7 +83,13 @@ const orderUnitBriefSchema = z.object({
 const orderBriefFields = {
   orderId: z.string(),
   number: z.number().int(),
-  type: orderTypeSchema,
+  /**
+   * Вид работ подписью, а не ключом (ADR-343): справочник правит владелец, а
+   * снимок уведомления обязан пережить его правку. Сообщение — это то, что
+   * человеку отправили; переименуй владелец «Монтаж» в «Установку» завтра,
+   * вчерашнее сообщение переписываться не должно.
+   */
+  workType: z.string(),
   /** Момент в UTC; в московское время переводит показ. */
   at: z.string(),
   durationMin: z.number().int(),
@@ -111,7 +112,7 @@ const orderBriefFields = {
  * подпись для человека собирает `format.ts`, снимок хранит факт.
  */
 export const orderBriefFieldSchema = z.enum([
-  'type',
+  'workType',
   'at',
   'durationMin',
   'address',
