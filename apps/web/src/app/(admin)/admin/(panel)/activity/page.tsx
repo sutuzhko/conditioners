@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import {
   activityFilterOf,
+  activityParam,
   type ActivityFilter,
   type ActivitySearchParams,
 } from '@/entities/activity/model';
@@ -39,16 +40,20 @@ export const dynamic = 'force-dynamic';
  * журнал — раздел владельца; разрешения «Журнал» и «Чистка» для администратора
  * приходят с механизмом ADR-344 (issue #823).
  *
- * 🔴 В свой кусок потока уехал список, а ряд отбора — нет (issue #495, #581).
- * Упавший журнал не имеет права уносить с экрана набранные условия:
- * «Повторить» стоит на месте списка, а поля остаются заполненными.
+ * 🔴 Блока два, и падают они порознь (issue #495, #581). Отбору нужен список
+ * сотрудников, списку — сам журнал: это разные запросы к разным таблицам, и
+ * ни один не имеет права унести с экрана всё остальное. До правки список
+ * сотрудников читался прямо здесь, и его отказ забирал страницу целиком —
+ * вместе с шапкой и с рядом отбора, то есть ровно то, ради чего поток и
+ * делили.
  *
- * Список сотрудников для отбора «Кто» читается здесь же, до потока. Своей
- * заготовки ряд не получает, и это не упущение: на переходе его рисует
- * `loading.tsx` — тем же компонентом с пустым списком людей. Высота тогда
- * совпадает по построению, а не по числу, снятому на глаз: полей столько же,
- * и переносятся они одинаково. Сам запрос стоит одного чтения крошечной
- * таблицы и падает ровно тогда, когда падает и журнал.
+ * 🔴 Заготовка ряда отбора — сам ряд отбора с пустым списком людей, а не
+ * полоса заданной высоты. Высота тогда совпадает по построению: полей
+ * столько же, и переносятся они одинаково на каждой ширине. Число под полосу
+ * пришлось бы выдумать — ряд из шести условий переносится по-разному, и
+ * разошедшаяся заготовка это прыжок вёрстки в момент, когда данные приехали.
+ * Набранные условия при этом видны уже в заготовке: они из адреса, а не из
+ * базы. Тем же приёмом рисует ряд `loading.tsx`.
  */
 export default async function AdminActivityPage({
   searchParams,
@@ -59,7 +64,6 @@ export default async function AdminActivityPage({
 
   const params = await searchParams;
   const filter = activityFilterOf(params);
-  const people = await peopleOfPanel();
 
   return (
     <div className={styles.page}>
@@ -68,21 +72,28 @@ export default async function AdminActivityPage({
         <p className={styles.lead}>{texts.lead}</p>
       </header>
 
-      <ActivityFilters filter={filter} people={people} />
+      <DataBlock
+        skeleton={<ActivityFilters filter={filter} people={[]} />}
+        title={texts.filtersLoadFailed}
+        note={blockErrorNote(ACTIVITY_PATH)}
+        surface="bare"
+      >
+        <FiltersBlock filter={filter} />
+      </DataBlock>
 
       <DataBlock
         skeleton={<ActivitySkeleton />}
         title={texts.loadFailed}
         note={blockErrorNote(ACTIVITY_PATH)}
       >
-        <ActivityBlock page={pageNumber(params.page)} filter={filter} />
+        <ActivityBlock page={pageNumber(activityParam(params.page))} filter={filter} />
       </DataBlock>
     </div>
   );
 }
 
 /**
- * Кого предлагает отбор «Кто».
+ * Ряд отбора — то, что приезжает своим куском потока.
  *
  * 🔴 Наружу отдаются только `id` и имя (`ActivityPersonView`). У карточки
  * сотрудника в базе лежат телефон и ИНН, а `Select` — клиентский компонент:
@@ -91,10 +102,14 @@ export default async function AdminActivityPage({
  * Уволенные из списка не вычёркиваются: их события в журнале остались, и
  * отобрать «что делал уволившийся в июле» — обычный вопрос к журналу.
  */
-async function peopleOfPanel(): Promise<readonly ActivityPersonView[]> {
+async function FiltersBlock({ filter }: { readonly filter: ActivityFilter }) {
   const staff = await listStaff();
+  const people: readonly ActivityPersonView[] = staff.map((person) => ({
+    id: person.id,
+    name: staffTitle(person),
+  }));
 
-  return staff.map((person) => ({ id: person.id, name: staffTitle(person) }));
+  return <ActivityFilters filter={filter} people={people} />;
 }
 
 /** Сам список — то, что приезжает отдельным куском потока. */

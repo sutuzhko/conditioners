@@ -28,6 +28,7 @@ import {
   type ActivityEntity,
   type ActivityFilter,
 } from '@/entities/activity/model';
+import type { AdminRole } from '@/entities/staff/model';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { roleToDb } from '@/server/repo/roles';
@@ -172,15 +173,19 @@ export async function create(
  * страниц обязаны отбирать одно и то же. Разойдясь, они дают «страница 3 из 7»
  * над пустой таблицей — то есть разбивку, которая ведёт в никуда.
  */
-function whereOf(filter: ActivityFilter): Prisma.ActivityEventWhereInput {
+function whereOf(
+  filter: ActivityFilter,
+  /**
+   * Учётные записи, попавшие под отбор по роли. `null` — роль не выбрана.
+   * Пустой массив — роли не нашлось ни у кого, и это законный ответ «ничего»,
+   * а не «условия нет».
+   */
+  roleActors: readonly string[] | null,
+): Prisma.ActivityEventWhereInput {
   const { since, until } = activityPeriod(filter);
 
   return {
-    ...(filter.actor === '' ? {} : { actorId: filter.actor }),
-    /* Роль читается у самой учётной записи: своей копии роли у события нет
-       (см. `ActivityFilter`). Событие без автора в такой отбор не попадает —
-       у системы роли не бывает. */
-    ...(filter.role === undefined ? {} : { actor: { role: roleToDb(filter.role) } }),
+    ...actorWhere(filter.actor, roleActors),
     ...(filter.section === undefined
       ? {}
       : { action: { in: [...activityActionsOfSection(filter.section)] } }),
@@ -197,6 +202,55 @@ function whereOf(filter: ActivityFilter): Prisma.ActivityEventWhereInput {
           },
         }),
   };
+}
+
+/**
+ * Условие по автору: выбранный человек, выбранная роль или оба сразу.
+ *
+ * 🔴 Роль приходит уже развёрнутой в перечень учётных записей — `actorId IN
+ * (…)`, а не связанный фильтр `actor: { role }`. Связанный фильтр уводит
+ * запрос в чужую таблицу, и отбор перестаёт ложиться на индекс самого
+ * журнала: `[actorId, createdAt]` для него не подходит. Пока роль действовала
+ * часто, это незаметно; на «что делал монтажник за прошлый год» планировщик
+ * идёт по времени сверху вниз и ищет автора у каждой строки — и так дважды,
+ * потому что рядом с выборкой считается ещё и `count` для разбивки, а он
+ * обходит весь отобранный диапазон целиком, а не восемь строк.
+ *
+ * Перечень при этом крошечный и ограничен числом учётных записей панели.
+ *
+ * Человек и роль вместе — пересечение, а не «победит последнее»: выбрать
+ * Ирину и роль монтажника значит спросить «события Ирины, если она монтажник»,
+ * и честный ответ на это — пусто, а не все события Ирины.
+ */
+function actorWhere(
+  actor: string,
+  roleActors: readonly string[] | null,
+): Prisma.ActivityEventWhereInput {
+  if (roleActors === null) return actor === '' ? {} : { actorId: actor };
+
+  const chosen = actor === '' ? roleActors : roleActors.filter((id) => id === actor);
+  return { actorId: { in: [...chosen] } };
+}
+
+/**
+ * Учётные записи, которые **сейчас** числятся в этой роли.
+ *
+ * 🔴 Именно сейчас, а не на момент действия: своей копии роли у события нет
+ * (см. `ActivityFilter`). Отбор отвечает на вопрос ровно так, как он звучит в
+ * панели: «менеджеры» — это те, кто числится менеджером сегодня.
+ *
+ * Читается здесь, а не в `repo/admin-users`: журнал спрашивает не «кто есть
+ * кто», а «чьи события показать», и ответ ему нужен одним столбцом
+ * идентификаторов — ровно тем, что ляжет в условие `actorId IN (…)`. Запрос
+ * обслуживает индекс `[role, active]` на `AdminUser`.
+ */
+async function actorsWithRole(role: AdminRole): Promise<readonly string[]> {
+  const rows = await db.adminUser.findMany({
+    where: { role: roleToDb(role) },
+    select: { id: true },
+  });
+
+  return rows.map((row) => row.id);
 }
 
 /**
@@ -217,7 +271,11 @@ function whereOf(filter: ActivityFilter): Prisma.ActivityEventWhereInput {
 export async function list(
   params: { page?: number | undefined; filter?: ActivityFilter | undefined } = {},
 ): Promise<Page<ActivityEventDto>> {
-  const where = whereOf(params.filter ?? EMPTY_ACTIVITY_FILTER);
+  const filter = params.filter ?? EMPTY_ACTIVITY_FILTER;
+  const where = whereOf(
+    filter,
+    filter.role === undefined ? null : await actorsWithRole(filter.role),
+  );
 
   const total = await db.activityEvent.count({ where });
   const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
@@ -246,18 +304,27 @@ export async function list(
  * на вопрос «когда комментировали», и у записи без комментария ответа нет.
  */
 export async function setNote(id: string, note: string): Promise<ActivityEventDto> {
-  const exists = await db.activityEvent.findUnique({ where: { id }, select: { id: true } });
-  if (exists === null) throw new ApiException('not_found', 'Запись журнала не найдена', 'id');
-
   const text = note.trim();
-  const row = await db.activityEvent.update({
-    where: { id },
-    data:
-      text === '' ? { note: null, noteUpdatedAt: null } : { note: text, noteUpdatedAt: new Date() },
-    select: ACTIVITY_SELECT,
-  });
 
-  return toDto(row);
+  /* 🔴 Проверка и запись — одной транзакцией. Между ними в журнал ходит
+     чистка за период, и запись, существовавшая при `findUnique`, к моменту
+     `update` может быть уже унесена: Prisma бросит `P2025`, и человек получит
+     «что-то пошло не так» вместо «запись не найдена». */
+  return db.$transaction(async (tx) => {
+    const exists = await tx.activityEvent.findUnique({ where: { id }, select: { id: true } });
+    if (exists === null) throw new ApiException('not_found', 'Запись журнала не найдена', 'id');
+
+    const row = await tx.activityEvent.update({
+      where: { id },
+      data:
+        text === ''
+          ? { note: null, noteUpdatedAt: null }
+          : { note: text, noteUpdatedAt: new Date() },
+      select: ACTIVITY_SELECT,
+    });
+
+    return toDto(row);
+  });
 }
 
 /**
@@ -282,6 +349,16 @@ export async function removeBetween(
   const { count } = await client.activityEvent.deleteMany({
     where: {
       createdAt: { gte: period.since, lt: period.until },
+      /* 🔴 События безопасности ручная чистка не уносит. Срок хранения у них
+         втрое длиннее не по случайности (36 месяцев против 12, ADR-345), и
+         кнопка в панели не должна быть сильнее того, что решено про хранение:
+         журнал, из которого владелец убирает отказы входа и смены ролей,
+         перестаёт защищать в ту сторону, ради которой заведён. */
+      kind: { not: 'SECURITY' },
+      /* Отдельно от вида — сам след чистки. Условие выглядит лишним, пока след
+         записан видом «безопасность», и перестаёт быть лишним в тот день,
+         когда вид у него поменяют: выживание следа не должно зависеть от
+         чужого решения о сроках хранения (issue #822). */
       action: { notIn: [...ACTIVITY_CLEANUP_TRAIL] },
     },
   });

@@ -121,6 +121,26 @@ describe('список журнала', () => {
     expect(response.status).toBe(200);
     expect(list).toHaveBeenCalledWith(expect.objectContaining({ page: 1 }));
   });
+
+  /**
+   * 🔴 Повторённый параметр снимает условие — так же, как на самой странице.
+   *
+   * `get` отдал бы первое значение, и ссылка, присланная из панели в запрос к
+   * API, ответила бы не тем же списком: страница на этом адресе показывает
+   * весь журнал, а ручка показывала бы события `a`.
+   */
+  it('повторённый параметр снимает условие, а не берёт первое значение', async () => {
+    const response = await GET(
+      request('/api/admin/activity?actor=u1&actor=u2&page=2&page=3'),
+      undefined,
+    );
+
+    expect(response.status).toBe(200);
+    expect(list).toHaveBeenCalledWith({
+      page: 1,
+      filter: expect.objectContaining({ actor: '' }),
+    });
+  });
 });
 
 describe('🔴 пометка — единственное правимое поле записи', () => {

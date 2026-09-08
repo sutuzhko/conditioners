@@ -13,6 +13,7 @@ import {
   activityFilterQuery,
   activityImmutableFieldsIn,
   activityNoteSchema,
+  activityParam,
   activityPeriod,
   activityPeriodKey,
   activitySectionOf,
@@ -97,6 +98,36 @@ describe('отбор из адреса', () => {
     });
 
     expect(filter).toEqual(EMPTY_ACTIVITY_FILTER);
+  });
+
+  /**
+   * 🔴 Повторённый параметр Next отдаёт массивом, а не строкой.
+   *
+   * `?actor=a&actor=b` — это мусор, и вести он себя обязан как мусор: снимать
+   * условие. До правки на нём падал `.trim()`, то есть раздел отвечал ошибкой
+   * ровно там, где обещал мягкость к правленому руками адресу.
+   */
+  it('повторённый параметр снимает условие, а не роняет разбор', () => {
+    const filter = activityFilterOf({
+      actor: ['u1', 'u2'],
+      role: ['manager', 'owner'],
+      section: ['review', 'activity'],
+      entity: ['review', 'activity'],
+      from: ['2026-09-01', '2026-09-02'],
+      to: ['2026-09-07', '2026-09-08'],
+    });
+
+    expect(filter).toEqual(EMPTY_ACTIVITY_FILTER);
+  });
+
+  /* 🔴 Именно снимает, а не «берёт первое»: `?actor=a&actor=b` не значит ни
+     `a`, ни `b`, и выбрать за человека одно из двух — значит показать ему
+     отбор, которого он не просил. */
+  it('из повторённого параметра не берётся первое значение', () => {
+    expect(activityParam(['u1', 'u2'])).toBeUndefined();
+    expect(activityParam([])).toBeUndefined();
+    expect(activityParam(undefined)).toBeUndefined();
+    expect(activityParam('u1')).toBe('u1');
   });
 
   it('пустой отбор не даёт ни одного параметра адреса', () => {

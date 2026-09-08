@@ -106,6 +106,7 @@ describe('разделы панели по ролям', () => {
     expect(navHrefOf('/admin/company')).toBe('/admin/settings');
     expect(navHrefOf('/admin/prices')).toBe('/admin/settings');
     expect(navHrefOf('/admin/notifications')).toBe('/admin/settings');
+    expect(navHrefOf('/admin/activity')).toBe('/admin/settings');
     expect(navHrefOf('/admin/catalog/42')).toBe('/admin/catalog');
     expect(navHrefOf('/admin/nothing-here')).toBeUndefined();
   });
@@ -117,7 +118,12 @@ describe('разделы панели по ролям', () => {
 
     expect(column).toContain('/admin/catalog');
     expect(bottom).toEqual(['/admin/settings', '/admin/profile']);
-    expect(settings).toEqual(['/admin/company', '/admin/prices', '/admin/notifications']);
+    expect(settings).toEqual([
+      '/admin/company',
+      '/admin/prices',
+      '/admin/notifications',
+      '/admin/activity',
+    ]);
 
     for (const href of [...bottom, ...settings]) {
       expect(column).not.toContain(href);
@@ -177,13 +183,29 @@ describe('🔴 допуск по адресу', () => {
   });
 
   /* 🔴 Незнакомый адрес проходит намеренно, и это не дыра, а половина
-     договорённости: так живёт `/admin/activity` — раздел без пункта в
-     колонке, закрытый `requireOwnerPage()` на самой странице. Вторая половина
-     договорённости — страж на странице; проверка стоит здесь затем, чтобы
-     мягкость этой ветки была видимым решением, а не случайностью. */
+     договорённости: раздел не обязан появляться в колонке раньше, чем он
+     готов, а закрывает его `requireOwnerPage()` на самой странице (ADR-095).
+     Проверка стоит здесь затем, чтобы мягкость этой ветки была видимым
+     решением, а не случайностью.
+
+     Адрес взят заведомо несуществующий. Раньше на этом месте стоял
+     `/admin/activity` — журнал жил без пункта в колонке с фазы 1, — но пункт
+     он получил (issue #815), и живого примера у этой ветки больше нет. */
   it('🔴 адрес вне колонки раскладка пропускает — закрывает его страница', () => {
     for (const role of ADMIN_ROLES) {
-      expect(sectionAllows('/admin/activity', role)).toBe(true);
+      expect(sectionAllows('/admin/nothing-here', role)).toBe(true);
+    }
+  });
+
+  /* 🔴 И обратная сторона той же договорённости: журнал в колонке есть, и он
+     владельческий. До фазы 4 раздел открывался только набранным наизусть
+     адресом, а критерий фазы — «найти, что менеджер делал в среду, за три
+     нажатия». */
+  it('журнал событий стоит в настройках и открыт только владельцу', () => {
+    expect(sectionAllows('/admin/activity', 'owner')).toBe(true);
+
+    for (const role of ADMIN_ROLES.filter((item) => item !== 'owner')) {
+      expect(sectionAllows('/admin/activity', role)).toBe(false);
     }
   });
 

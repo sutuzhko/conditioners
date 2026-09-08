@@ -13,7 +13,35 @@ const activityEvent = vi.hoisted(() => ({
   count: vi.fn<(args?: unknown) => Promise<number>>(),
 }));
 
-vi.mock('@/server/db', () => ({ db: { activityEvent } }));
+/* Учётные записи: отбор по роли разворачивается в перечень авторов до
+   запроса к журналу, и этот перечень читается здесь. */
+const adminUser = vi.hoisted(() => ({
+  findMany: vi.fn<(args?: unknown) => Promise<{ id: string }[]>>(),
+}));
+
+/** Идёт ли прямо сейчас транзакция — этим проверяется неразделимость. */
+const state = vi.hoisted(() => ({ inTransaction: false }));
+
+vi.mock('@/server/db', () => {
+  const client = { activityEvent, adminUser };
+
+  return {
+    db: {
+      ...client,
+      /* Пометка правится в транзакции: между проверкой и записью в журнал
+         ходит чистка за период. Тот же приём, что в `services/activity.test`:
+         флаг поднят ровно на время работы обратного вызова. */
+      $transaction: async (run: (tx: typeof client) => Promise<unknown>): Promise<unknown> => {
+        state.inTransaction = true;
+        try {
+          return await run(client);
+        } finally {
+          state.inTransaction = false;
+        }
+      },
+    },
+  };
+});
 
 import { EMPTY_ACTIVITY_FILTER } from '@/entities/activity/model';
 import * as activity from '@/server/repo/activity';
@@ -33,12 +61,14 @@ const row = {
 
 beforeEach(() => {
   vi.clearAllMocks();
+  state.inTransaction = false;
   activityEvent.findMany.mockResolvedValue([row]);
   activityEvent.findUnique.mockResolvedValue({ id: 'a1' });
   activityEvent.count.mockResolvedValue(1);
   activityEvent.create.mockResolvedValue({ id: 'a1' });
   activityEvent.update.mockResolvedValue(row);
   activityEvent.deleteMany.mockResolvedValue({ count: 0 });
+  adminUser.findMany.mockResolvedValue([{ id: 'u2' }, { id: 'u7' }]);
 });
 
 /** Условия запроса последнего вызова `findMany` — им проверяется отбор. */
@@ -156,12 +186,53 @@ describe('отбор журнала', () => {
     expect(lastWhere()).toEqual({ actorId: 'u2' });
   });
 
-  /* Своей копии роли у события нет: она читается у самой учётной записи
-     (см. `ActivityFilter`). Событие без автора в такой отбор не попадает. */
-  it('роль отбирается у автора, а не у события', async () => {
+  /**
+   * 🔴 Роль разворачивается в перечень учётных записей **до** запроса к
+   * журналу, и условие ложится на индекс `[actorId, createdAt]` самого
+   * журнала.
+   *
+   * Связанный фильтр `actor: { role }` уводил запрос в чужую таблицу: пока
+   * роль действовала часто, это незаметно, а на «что делал монтажник за
+   * прошлый год» планировщик шёл по времени сверху вниз и искал автора у
+   * каждой строки — и так дважды, потому что рядом считается ещё и `count`
+   * для разбивки.
+   */
+  it('роль разворачивается в перечень авторов, а не уходит фильтром по связи', async () => {
     await activity.list({ filter: { ...EMPTY_ACTIVITY_FILTER, role: 'manager' } });
 
-    expect(lastWhere()).toEqual({ actor: { role: 'MANAGER' } });
+    expect(adminUser.findMany).toHaveBeenCalledWith({
+      where: { role: 'MANAGER' },
+      select: { id: true },
+    });
+    expect(lastWhere()).toEqual({ actorId: { in: ['u2', 'u7'] } });
+  });
+
+  /* Роль, которой нет ни у кого, — законный ответ «ничего», а не «условия
+     нет»: иначе отбор по пустой роли показал бы весь журнал. */
+  it('роль без единой учётной записи даёт пустую выборку, а не весь журнал', async () => {
+    adminUser.findMany.mockResolvedValue([]);
+
+    await activity.list({ filter: { ...EMPTY_ACTIVITY_FILTER, role: 'installer' } });
+
+    expect(lastWhere()).toEqual({ actorId: { in: [] } });
+  });
+
+  /* Человек и роль вместе — пересечение: «события Ирины, если она монтажник».
+     Честный ответ на это бывает и пустым. */
+  it('человек и роль вместе пересекаются, а не спорят', async () => {
+    await activity.list({ filter: { ...EMPTY_ACTIVITY_FILTER, actor: 'u2', role: 'manager' } });
+    expect(lastWhere()).toEqual({ actorId: { in: ['u2'] } });
+
+    await activity.list({ filter: { ...EMPTY_ACTIVITY_FILTER, actor: 'u9', role: 'manager' } });
+    expect(lastWhere()).toEqual({ actorId: { in: [] } });
+  });
+
+  /* Без отбора по роли лишнего запроса не уходит: перечень авторов нужен
+     ровно тогда, когда роль выбрана. */
+  it('без роли учётные записи не читаются вовсе', async () => {
+    await activity.list({ filter: { ...EMPTY_ACTIVITY_FILTER, actor: 'u2' } });
+
+    expect(adminUser.findMany).not.toHaveBeenCalled();
   });
 
   /* 🔴 Списком действий, а не сравнением с началом строки: индекс по `action`
@@ -237,6 +308,28 @@ describe('пометка человека у записи', () => {
     );
     expect(activityEvent.update).not.toHaveBeenCalled();
   });
+
+  /* 🔴 Проверка и запись идут одной транзакцией: между ними в журнал ходит
+     чистка за период, и запись, существовавшая при чтении, к моменту правки
+     может быть уже унесена. Без транзакции Prisma бросит `P2025`, и человек
+     увидит «что-то пошло не так» вместо «запись не найдена». */
+  it('проверка и правка идут одной транзакцией', async () => {
+    let readInside = false;
+    let wroteInside = false;
+
+    activityEvent.findUnique.mockImplementation(async () => {
+      readInside = state.inTransaction;
+      return { id: 'a1' };
+    });
+    activityEvent.update.mockImplementation(async () => {
+      wroteInside = state.inTransaction;
+      return row;
+    });
+
+    await activity.setNote('a1', 'разобрались');
+
+    expect({ readInside, wroteInside }).toEqual({ readInside: true, wroteInside: true });
+  });
 });
 
 describe('🔴 чистка за период', () => {
@@ -245,31 +338,63 @@ describe('🔴 чистка за период', () => {
     until: new Date('2026-01-01T00:00:00.000Z'),
   };
 
-  it('удаляет только то, что попало в период', async () => {
+  /**
+   * 🔴 Условие удаления сравнивается целиком, а не по вхождению подстроки.
+   *
+   * Проверка «в условии упоминается `activity.cleanup`» прошла бы и на `in`
+   * вместо `notIn` — то есть на запросе, который удаляет ровно то, что обязан
+   * беречь. Полное сравнение утверждает ровно то, что читается.
+   *
+   * Условий здесь три, и каждое своё: период, щада к событиям безопасности
+   * (issue #822, срок 36 месяцев против 12) и отдельно — сам след чистки.
+   */
+  it('удаляет то, что попало в период, щадя безопасность и след чистки', async () => {
     await activity.removeBetween(period);
 
     expect(activityEvent.deleteMany).toHaveBeenCalledWith({
       where: {
         createdAt: { gte: period.since, lt: period.until },
+        kind: { not: 'SECURITY' },
         action: { notIn: ['activity.cleanup'] },
       },
     });
   });
 
   /**
-   * 🔴 След чистки исключается условием запроса, а не порядком вызовов
-   * (issue #822).
+   * 🔴 События безопасности ручная чистка не уносит.
    *
-   * Порядок «сначала удалить, потом записать» защищает ровно один раз: вторая
-   * чистка того же периода унесла бы след первой, и журнал перестал бы
-   * отвечать, кто и когда его чистил. Проверка смотрит именно на условие —
-   * она останется красной и в том случае, если след будут беречь порядком.
+   * Срок хранения у них втрое длиннее не по случайности (ADR-345), и кнопка в
+   * панели не должна быть сильнее того, что решено про хранение: журнал, из
+   * которого владелец убирает отказы входа и смены ролей, перестаёт защищать
+   * в ту сторону, ради которой заведён.
    */
-  it('след чистки исключён самим условием удаления', async () => {
+  it('события безопасности из чистки исключены отдельным условием', async () => {
     await activity.removeBetween(period);
 
-    const where: unknown = activityEvent.deleteMany.mock.calls[0]?.[0];
-    expect(JSON.stringify(where)).toContain('activity.cleanup');
+    const call = activityEvent.deleteMany.mock.calls[0]?.[0];
+    const where: unknown =
+      typeof call === 'object' && call !== null && 'where' in call ? call.where : {};
+
+    expect(where).toMatchObject({ kind: { not: 'SECURITY' } });
+  });
+
+  /**
+   * 🔴 След чистки исключается условием запроса, а не порядком вызовов
+   * (issue #822), и отдельно от вида события.
+   *
+   * Порядок «сначала удалить, потом записать» защищает ровно один раз: вторая
+   * чистка того же периода унесла бы след первой. А условие по виду перестанет
+   * беречь след в тот день, когда вид у него поменяют, — поэтому имя действия
+   * названо отдельно и проверяется отдельно.
+   */
+  it('след чистки исключён по имени действия, а не только по виду события', async () => {
+    await activity.removeBetween(period);
+
+    const call = activityEvent.deleteMany.mock.calls[0]?.[0];
+    const where: unknown =
+      typeof call === 'object' && call !== null && 'where' in call ? call.where : {};
+
+    expect(where).toMatchObject({ action: { notIn: ['activity.cleanup'] } });
   });
 
   it('возвращает число удалённых записей — им подписан след', async () => {

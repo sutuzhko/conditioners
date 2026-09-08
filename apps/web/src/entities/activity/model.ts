@@ -224,16 +224,36 @@ export const EMPTY_ACTIVITY_FILTER: ActivityFilter = {
   to: undefined,
 };
 
-/** Что журнал читает из адреса — ровно то, что приходит в `searchParams`. */
+/**
+ * Что журнал читает из адреса.
+ *
+ * 🔴 Значение параметра — строка **или массив строк**, и это не перестраховка:
+ * повторённый параметр (`?actor=a&actor=b`) Next отдаёт массивом. Тип,
+ * обещавший строку, врал ровно в том месте, где раздел обещает мягкость к
+ * мусору в адресе.
+ */
 export type ActivitySearchParams = {
-  readonly page?: string | undefined;
-  readonly actor?: string | undefined;
-  readonly role?: string | undefined;
-  readonly section?: string | undefined;
-  readonly entity?: string | undefined;
-  readonly from?: string | undefined;
-  readonly to?: string | undefined;
+  readonly page?: string | readonly string[] | undefined;
+  readonly actor?: string | readonly string[] | undefined;
+  readonly role?: string | readonly string[] | undefined;
+  readonly section?: string | readonly string[] | undefined;
+  readonly entity?: string | readonly string[] | undefined;
+  readonly from?: string | readonly string[] | undefined;
+  readonly to?: string | readonly string[] | undefined;
 };
+
+/**
+ * Одно значение параметра адреса.
+ *
+ * 🔴 Повторённый параметр — это мусор, а мусор снимает условие, а не роняет
+ * раздел. Массив здесь не «берём первый»: `?actor=a&actor=b` не значит ни `a`,
+ * ни `b`, и выбрать за человека одно из двух — значит показать ему отбор,
+ * которого он не просил. Второе значение и `undefined` дают одно и то же —
+ * условия нет.
+ */
+export function activityParam(value: string | readonly string[] | undefined): string | undefined {
+  return typeof value === 'string' ? value : undefined;
+}
 
 /**
  * Отбор из адреса.
@@ -243,17 +263,17 @@ export type ActivitySearchParams = {
  * объясняет (issue #341). Ровно так же разбирается отбор отзывов.
  */
 export function activityFilterOf(params: ActivitySearchParams): ActivityFilter {
-  const role = adminRoleSchema.safeParse(params.role);
-  const section = params.section ?? '';
-  const entity = activityEntitySchema.safeParse(params.entity);
+  const role = adminRoleSchema.safeParse(activityParam(params.role));
+  const section = activityParam(params.section) ?? '';
+  const entity = activityEntitySchema.safeParse(activityParam(params.entity));
 
   return {
-    actor: params.actor?.trim() ?? '',
+    actor: activityParam(params.actor)?.trim() ?? '',
     role: role.success ? role.data : undefined,
     section: ACTIVITY_SECTIONS.find((known) => known === section),
     entity: entity.success ? entity.data : undefined,
-    from: parseDayKey(params.from ?? '') ?? undefined,
-    to: parseDayKey(params.to ?? '') ?? undefined,
+    from: parseDayKey(activityParam(params.from) ?? '') ?? undefined,
+    to: parseDayKey(activityParam(params.to) ?? '') ?? undefined,
   };
 }
 

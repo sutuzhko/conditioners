@@ -12,7 +12,8 @@ const mocks = vi.hoisted(() => ({
      проекте запрещён. */
   activityCreate: vi.fn<(args: { data: Record<string, unknown> }) => Promise<{ id: string }>>(),
   /** Удаление периода: чистка обязана идти той же транзакцией, что и её след. */
-  activityDeleteMany: vi.fn<(args: { where: unknown }) => Promise<{ count: number }>>(),
+  activityDeleteMany:
+    vi.fn<(args: { where: Record<string, unknown> }) => Promise<{ count: number }>>(),
   /** Идёт ли прямо сейчас транзакция — этим проверяется неразделимость. */
   inTransaction: false,
 }));
@@ -279,11 +280,38 @@ describe('чистка журнала за период', () => {
    * Проверка чистит период, внутрь которого попадает сама запись о чистке, —
    * то есть повторяет худший случай: вторую чистку того же периода. Условие
    * удаления обязано исключать след независимо от того, что и когда записано.
+   *
+   * Сравнение полное, а не по вхождению подстроки: «в условии упоминается
+   * `activity.cleanup`» прошло бы и на `in` вместо `notIn` — то есть на
+   * запросе, который удаляет ровно то, что обязан беречь.
    */
   it('чистка периода, в который попадает и она сама, след не уносит', async () => {
     await cleanupActivity({ period: { from: '2025-01-01', to: '2099-12-31' }, actorId: 'u1' });
 
-    const where: unknown = mocks.activityDeleteMany.mock.calls[0]?.[0].where;
-    expect(JSON.stringify(where)).toContain('activity.cleanup');
+    expect(mocks.activityDeleteMany.mock.calls[0]?.[0].where).toEqual({
+      createdAt: {
+        gte: new Date('2024-12-31T21:00:00.000Z'),
+        lt: new Date('2099-12-31T21:00:00.000Z'),
+      },
+      kind: { not: 'SECURITY' },
+      action: { notIn: ['activity.cleanup'] },
+    });
+  });
+
+  /**
+   * 🔴 Событий безопасности ручная чистка не касается вовсе.
+   *
+   * Срок хранения у них 36 месяцев против 12 (ADR-345), и кнопка в панели не
+   * должна быть сильнее того, что решено про хранение: журнал, из которого
+   * владелец убирает отказы входа и смены ролей, перестаёт защищать в ту
+   * сторону, ради которой заведён. Уборка по расписанию (фаза 6) свои сроки
+   * применит сама.
+   */
+  it('чистка не трогает события безопасности — ни отказ входа, ни смену роли', async () => {
+    await cleanupActivity({ period, actorId: 'u1' });
+
+    expect(mocks.activityDeleteMany.mock.calls[0]?.[0].where).toMatchObject({
+      kind: { not: 'SECURITY' },
+    });
   });
 });

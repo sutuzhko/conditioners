@@ -111,7 +111,9 @@ async function drainBlocks(node: unknown, out: ReactElement[]): Promise<void> {
   await drainBlocks(element.props.children, out);
 }
 
-async function open(searchParams: Record<string, string> = {}): Promise<ReactElement[]> {
+/* Значение параметра — строка или массив: повторённый параметр Next отдаёт
+   массивом, и раздел обязан это переживать. */
+async function open(searchParams: Record<string, string | string[]> = {}): Promise<ReactElement[]> {
   const page = await AdminActivityPage({ searchParams: Promise.resolve(searchParams) });
   const blocks: ReactElement[] = [];
   await drainBlocks(page, blocks);
@@ -173,14 +175,35 @@ describe('отбор доезжает из адреса до запроса', ()
     expect(lastWhere()).toEqual({});
   });
 
-  /* 🔴 Ряд отбора рисуется вне куска потока (issue #581): упавший журнал не
-     должен уносить с экрана набранные условия. Отсюда и то, что список
-     сотрудников читается до потока, а сам журнал — внутри него. */
-  it('список сотрудников читается до потока, а журнал — внутри него', async () => {
+  /**
+   * 🔴 Блока два, и оба — свои куски потока (issue #495, #581).
+   *
+   * Ни один запрос не выполняется, пока страница только собрана: список
+   * сотрудников для отбора и сам журнал ходят в разные таблицы, и отказ
+   * одного не имеет права унести страницу целиком — вместе с шапкой и вторым
+   * блоком.
+   */
+  it('ни один запрос не идёт до того, как поток дошёл до блока', async () => {
     await AdminActivityPage({ searchParams: Promise.resolve({}) });
 
-    expect(adminUser.findMany).toHaveBeenCalled();
+    expect(adminUser.findMany).not.toHaveBeenCalled();
     expect(activityEvent.findMany).not.toHaveBeenCalled();
+  });
+
+  it('оба блока ходят каждый в свою таблицу', async () => {
+    await open();
+
+    expect(adminUser.findMany).toHaveBeenCalled();
+    expect(activityEvent.findMany).toHaveBeenCalled();
+  });
+
+  /* Повторённый параметр Next отдаёт массивом: раздел обязан снять условие, а
+     не упасть на нём. */
+  it('повторённый параметр адреса не роняет раздел', async () => {
+    await open({ actor: ['u1', 'u2'], page: ['2', '3'] });
+
+    expect(lastWhere()).toEqual({});
+    expect(activityEvent.findMany).toHaveBeenCalledWith(expect.objectContaining({ skip: 0 }));
   });
 });
 
