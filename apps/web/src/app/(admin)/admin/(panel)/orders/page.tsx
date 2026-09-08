@@ -137,7 +137,7 @@ export default async function AdminOrdersPage({
             Свой кусок потока: строка стоит над стопками, и ждать ради неё
             таблицу значит держать пустым весь экран. */}
         <DataBlock
-          surface="bare"
+          surface="line"
           skeleton={<Skeleton variant="text" width="28ch" />}
           title={texts.loadFailed}
           note={blockErrorNote(ORDERS_PATH)}

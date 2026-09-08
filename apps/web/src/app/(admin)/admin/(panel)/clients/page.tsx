@@ -71,7 +71,7 @@ export default async function AdminClientsPage({
             сам список значит держать пустым весь экран. Заготовка занимает ту
             же строку — плашка под ней не двигается (ADR-239). */}
         <DataBlock
-          surface="bare"
+          surface="line"
           skeleton={<Skeleton variant="text" width="16ch" />}
           title={texts.loadFailed}
           note={blockErrorNote(CLIENTS_PATH)}

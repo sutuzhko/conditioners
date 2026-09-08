@@ -66,7 +66,7 @@ export default async function AdminKnowledgePage({
               пустым весь экран. Заготовка занимает ту же строку — отбор под
               ней не двигается (ADR-239). */}
           <DataBlock
-            surface="bare"
+            surface="line"
             skeleton={<KnowledgeSummarySkeleton />}
             title={texts.loadFailed}
             note={blockErrorNote(KNOWLEDGE_PATH)}

@@ -3,7 +3,7 @@
 import { unstable_rethrow, useRouter } from 'next/navigation';
 import { Component, Suspense, useTransition, type ErrorInfo, type ReactNode } from 'react';
 
-import { Button, Card, ErrorState } from '@/shared/ui';
+import { Alert, Button, Card, ErrorState } from '@/shared/ui';
 
 import { blockErrorContent as texts } from './content';
 
@@ -69,9 +69,15 @@ export function BlockError({ title, note, onReset }: BlockErrorProps) {
 
 /**
  * На чём стоит ошибка: в своей карточке — когда блок сам был списком карточек
- * или таблицей; без неё — когда блок живёт внутри чужой карточки.
+ * или таблицей; без неё — когда блок живёт внутри чужой карточки; строкой —
+ * когда блоком была одна строка текста.
+ *
+ * 🔴 `line` заведён потому, что `bare` отвечал сразу на два вопроса: «рисовать
+ * ли карточку вокруг» и «сколько места занимает блок». Строка счёта над
+ * плитками и целый раздел уведомлений оба стоят внутри чужой поверхности, но
+ * ошибка у них обязана быть разной по размеру (issue #890).
  */
-export type BlockSurface = 'card' | 'bare';
+export type BlockSurface = 'card' | 'bare' | 'line';
 
 type BoundaryProps = {
   readonly title: string;
@@ -116,6 +122,19 @@ class Boundary extends Component<BoundaryProps, BoundaryState> {
 
   override render(): ReactNode {
     if (this.state.error !== null) {
+      /* 🔴 Блок-строка отвечает строкой (issue #890). Полноразмерная карточка
+         на месте одной строки счёта занимала пол-экрана и повторяла слово в
+         слово то, что сказано ниже, — раздел показывал одну беду дважды. Пары
+         кнопок здесь нет намеренно: «Повторить» соседней карточки просит у
+         сервера свежий ответ на весь адрес и чинит оба блока разом, а две
+         одинаковые кнопки на экране не отвечают, какая из них что чинит.
+
+         Озвучка приглушена до `polite`: карточка ниже объявляет ту же беду
+         сама, и два `assertive` подряд перебивают друг друга. */
+      if (this.props.surface === 'line') {
+        return <Alert tone="danger" title={this.props.title} live="polite" />;
+      }
+
       const failed = (
         <BlockError title={this.props.title} note={this.props.note} onReset={this.reset} />
       );
@@ -133,7 +152,10 @@ export interface DataBlockProps {
   readonly title: string;
   /** Что с данными. По умолчанию — общее объяснение про базу. */
   readonly note?: string | undefined;
-  /** Поверхность ошибки: своя карточка (умолчание) или голый блок внутри чужой. */
+  /**
+   * Поверхность ошибки: своя карточка (умолчание), голый блок внутри чужой
+   * или строка — у блока, которым была одна строка текста.
+   */
   readonly surface?: BlockSurface | undefined;
   /** Асинхронный серверный компонент: его данные приезжают отдельным куском потока. */
   readonly children: ReactNode;

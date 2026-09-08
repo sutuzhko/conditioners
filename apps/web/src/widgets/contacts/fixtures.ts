@@ -1,3 +1,4 @@
+import type { MessengerLink } from '@/entities/settings/lib/messengers';
 import { SETTING_PLACEHOLDER } from '@/entities/settings/lib/readiness';
 import type { Address, Contacts, Geo, ServiceArea } from '@/entities/settings/model';
 
@@ -17,6 +18,15 @@ export const contactsFixture: Contacts = {
   responseTime: '',
   openingHours: ['Mo-Su 08:00-21:00'],
 };
+
+/**
+ * Обе кнопки мессенджеров включены и заполнены (issue #680). Адреса
+ * выдуманные: настоящие владелец заводит в админке (инвариант 8).
+ */
+export const messengersFixture: readonly MessengerLink[] = [
+  { kind: 'telegram', href: 'https://t.me/example' },
+  { kind: 'whatsapp', href: 'https://wa.me/79000000000' },
+];
 
 /** У компании бывает два номера: городской и мобильный. */
 export const contactsTwoPhones: Contacts = {

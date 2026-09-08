@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import type { MessengerLink } from '@/entities/settings/lib/messengers';
 import type {
   Address,
   Contacts as ContactsSettings,
@@ -7,7 +8,7 @@ import type {
   ServiceArea,
 } from '@/entities/settings/model';
 import { formatPhone, phoneHref } from '@/shared/lib/format';
-import { ButtonLink, Card, Icon } from '@/shared/ui';
+import { ButtonLink, Card, Icon, buttonClassName } from '@/shared/ui';
 import type { ButtonLinkHref } from '@/shared/ui';
 
 import { contactsContent as t } from './content';
@@ -29,6 +30,12 @@ export interface ContactsProps {
   geo?: Geo | null | undefined;
   /** Куда ведёт «Оставить заявку» — якорь формы задаёт страница. */
   leadHref?: ButtonLinkHref | undefined;
+  /**
+   * Кнопки мессенджеров: то, что владелец включил переключателем в
+   * «Интеграциях» **и** заполнил адресом в «Контактах» (issue #680). Список
+   * собирает страница — блок в настройки не ходит, как и за телефоном.
+   */
+  messengers?: readonly MessengerLink[] | undefined;
   /** Якорь секции: по нему на неё ведёт навигация в шапке. */
   id?: string | undefined;
 }
@@ -55,6 +62,7 @@ export function Contacts({
   area,
   geo,
   leadHref = '#lead',
+  messengers = [],
   id = 'contacts',
 }: ContactsProps) {
   const phones = contacts.phones.map((phone) => phone.trim()).filter((phone) => phone !== '');
@@ -139,6 +147,40 @@ export function Contacts({
             <ButtonLink href={leadHref} size="lg" fullWidth className={styles.cta}>
               {t.lead}
             </ButtonLink>
+
+            {/* 🔴 Кнопки мессенджеров стоят здесь, а не плавают над страницей
+                (issue #680). Нижний угол экрана уже занят: до 600 там липкая
+                панель действий, с 600 — кнопка «наверх», и обе ушли из чужого
+                угла именно потому, что две плавающие штуки спорят за один
+                палец (`features/scroll-top`). Место под ними отмеряет
+                `--bottom-reserve`, чтобы плавающее не накрыло ссылку на
+                политику в подвале, — третьему слою там места нет.
+
+                Секция контактов отвечает ровно на тот вопрос, ради которого
+                кнопку включают: «как с нами связаться». Ссылки обычные, без
+                стороннего виджета чата (ADR-024), и приходят в HTML с
+                сервера — робот и человек видят их одинаково.
+
+                Оформление вторичное: заявка остаётся целью страницы, а
+                мессенджер — другой путь к тому же разговору. */}
+            {messengers.length === 0 ? null : (
+              <div className={styles.messengers}>
+                {messengers.map((link) => (
+                  <a
+                    key={link.kind}
+                    className={[
+                      buttonClassName({ variant: 'bordered', size: 'md' }),
+                      styles.messenger,
+                    ].join(' ')}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t.messengerAction(t.messengerTitle[link.kind])}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* 🔴 Карта не встраивается, а открывается ссылкой: iframe
