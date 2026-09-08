@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
 import type { PersonTone } from '@/entities/crm/lib/palette';
+import type { WorkTypeTone } from '@/entities/work-type/model';
 import { crmClashContent } from '@/entities/crm/content';
 import type { DayKey } from '@/shared/lib/calendar';
 import { Icon } from '@/shared/ui';
@@ -76,6 +77,21 @@ const PERSON_CLASS: Record<PersonTone, string> = {
   d: styles.personD ?? '',
   e: styles.personE ?? '',
   f: styles.personF ?? '',
+};
+
+/**
+ * Краска вида работ → класс модуля. Прямой перевод, а не сборка имени
+ * строкой: так линтер видит, что все семь классов используются, а краска,
+ * которой в модуле нет, не даёт запись без оформления (ADR-343).
+ */
+const TONE_CLASS: Record<WorkTypeTone, string> = {
+  accent: styles.toneAccent ?? '',
+  info: styles.toneInfo ?? '',
+  ok: styles.toneOk ?? '',
+  warn: styles.toneWarn ?? '',
+  sale: styles.toneSale ?? '',
+  error: styles.toneError ?? '',
+  neutral: styles.toneNeutral ?? '',
 };
 
 /** Сколько держится подсветка находки. */
@@ -355,7 +371,7 @@ export function EventChip({
   const classes = [
     styles.chip,
     styles[variant],
-    item.person === null ? styles[item.tone] : PERSON_CLASS[item.person.tone],
+    item.person === null ? TONE_CLASS[item.tone] : PERSON_CLASS[item.person.tone],
     /* Запись человека из слоя занятости: краска у неё своя, и контур той же
        краской — единственное, что читается в тёмной теме (см. модуль). */
     item.person === null ? null : styles.marked,

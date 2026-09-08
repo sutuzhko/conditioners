@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { KIND_LOOK, monthTitle } from '@/features/crm-calendar';
+import { monthTitle } from '@/features/crm-calendar';
 import { ORDER_TYPE_TITLE, installerName, type OrderCard } from '@/features/order-manager';
 import { ORDER_STATUS_TITLE, ORDER_STATUS_VARIANT } from '@/entities/order/model';
 import { requireOwnerPage } from '@/server/guards';
@@ -323,7 +323,9 @@ function dayLabelOf(day: string, today: string, tomorrow: string, at: Date): str
 /** Что за работа: тип наряда либо вид дела. Ровно одно из двух по построению. */
 function kindOf(row: UpcomingRow): string {
   if (row.orderType !== null) return ORDER_TYPE_TITLE[row.orderType];
-  if (row.eventKind !== null) return KIND_LOOK[row.eventKind].title;
+  /* Название вида работ у дела приходит из справочника готовым (ADR-343):
+     словаря, в котором его можно было бы найти по ключу, больше нет. */
+  if (row.eventWorkType !== null) return row.eventWorkType;
   return texts.natureTitle(row.nature);
 }
 

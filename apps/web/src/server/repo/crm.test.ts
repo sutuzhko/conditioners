@@ -46,6 +46,30 @@ const row = {
   installer: { name: 'Дмитрий Соколов', login: 'dmitry' },
 };
 
+/** Дело в том виде, в каком его отдаёт база: вид работ приезжает связью. */
+function eventRow(tone: 'ACCENT' | 'ERROR' = 'ACCENT') {
+  return {
+    id: 'e1',
+    workType: {
+      id: 'wt_call',
+      code: 'call',
+      title: 'Звонок',
+      icon: 'phone',
+      tone,
+      dayLong: false,
+    },
+    status: 'PLANNED',
+    at: new Date('2026-08-24T07:00:00.000Z'),
+    durationMin: 30,
+    overtimeMin: 0,
+    clientName: 'Ирина Соколова',
+    clientPhone: '+7 (910) 155-24-68',
+    address: 'Тула, Первомайская, 12',
+    note: 'перезвонить после обеда',
+    leadId: null,
+  };
+}
+
 const from = new Date('2026-08-23T21:00:00.000Z');
 const to = new Date('2026-08-24T21:00:00.000Z');
 
@@ -133,29 +157,47 @@ describe('дела в календаре', () => {
   });
 
   it('владелец получает дела промежутка как раньше', async () => {
-    mocks.eventFindMany.mockResolvedValue([
-      {
-        id: 'e1',
-        kind: 'CALL',
-        status: 'PLANNED',
-        at: new Date('2026-08-24T07:00:00.000Z'),
-        durationMin: 30,
-        overtimeMin: 0,
-        clientName: 'Ирина Соколова',
-        clientPhone: '+7 (910) 155-24-68',
-        address: 'Тула, Первомайская, 12',
-        note: 'перезвонить после обеда',
-        leadId: null,
-      },
-    ]);
+    mocks.eventFindMany.mockResolvedValue([eventRow()]);
 
     const events = await listRange(OWNER, from, to);
 
     expect(events).toHaveLength(1);
-    expect(events[0]).toMatchObject({ id: 'e1', kind: 'call', clientName: 'Ирина Соколова' });
+    expect(events[0]).toMatchObject({ id: 'e1', clientName: 'Ирина Соколова' });
     expect(mocks.eventFindMany.mock.calls[0]?.[0]?.where).toMatchObject({
       at: { gte: from, lt: to },
     });
+  });
+
+  /**
+   * 🔴 Дело приезжает вместе со своим видом работ (ADR-343): подпись, значок и
+   * краска берутся из справочника, а не из перечня в коде. Проверяется цепочка
+   * целиком — от строки базы до того, что уедет в сетку.
+   */
+  it('🔴 дело везёт вид работ из справочника, а не ключ перечня', async () => {
+    mocks.eventFindMany.mockResolvedValue([eventRow()]);
+
+    const [event] = await listRange(OWNER, from, to);
+
+    expect(event?.workType).toEqual({
+      id: 'wt_call',
+      code: 'call',
+      title: 'Звонок',
+      icon: 'phone',
+      tone: 'accent',
+      dayLong: false,
+    });
+    /* Связь выбирается запросом, а не дочитывается вторым обращением: сетка
+       календаря показывает месяц дел разом. */
+    expect(mocks.eventFindMany.mock.calls[0]?.[0]?.select?.workType).toBeDefined();
+  });
+
+  /** Правка краски в базе — и метка едет другой краской. */
+  it('🔴 краска дела приходит из базы: другая строка справочника — другая краска', async () => {
+    mocks.eventFindMany.mockResolvedValue([eventRow('ERROR')]);
+
+    const [event] = await listRange(OWNER, from, to);
+
+    expect(event?.workType.tone).toBe('error');
   });
 
   it('🔴 просрочка чужих дел монтажнику не считается: у него их нет', async () => {
@@ -226,19 +268,7 @@ describe('поиск по календарю', () => {
 
   it('находки складываются в один список, свежие первыми', async () => {
     mocks.eventFindMany.mockResolvedValue([
-      {
-        id: 'e1',
-        kind: 'CALL',
-        status: 'PLANNED',
-        at: new Date('2026-08-20T09:00:00Z'),
-        durationMin: 60,
-        overtimeMin: 0,
-        clientName: 'Ирина Соколова',
-        clientPhone: null,
-        address: 'Тула, Первомайская, 12',
-        note: null,
-        leadId: null,
-      },
+      { ...eventRow(), at: new Date('2026-08-20T09:00:00Z'), clientPhone: null, note: null },
     ]);
     mocks.findMany.mockResolvedValue([
       {
@@ -270,7 +300,13 @@ describe('поиск по календарю', () => {
 
     expect(found.map((hit) => hit.kind)).toEqual(['order', 'event', 'lead']);
     expect(found[0]).toMatchObject({ kind: 'order', number: 1059 });
-    expect(found[1]).toMatchObject({ kind: 'event', clientName: 'Ирина Соколова' });
+    /* Название вида работ приходит готовым: словарь видов живёт в базе, и
+       переводить ключ на стороне интерфейса стало нечем (ADR-343). */
+    expect(found[1]).toMatchObject({
+      kind: 'event',
+      clientName: 'Ирина Соколова',
+      workTypeTitle: 'Звонок',
+    });
     expect(found[2]).toMatchObject({ kind: 'lead', topic: 'install' });
   });
 });

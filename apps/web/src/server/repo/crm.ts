@@ -3,7 +3,6 @@
  * это внутренний график владельца с телефонами и адресами клиентов.
  */
 import type {
-  CrmEventKind as DbKind,
   CrmEventStatus as DbStatus,
   OrderStatus as DbOrderStatus,
   OrderType as DbOrderType,
@@ -11,18 +10,19 @@ import type {
 
 import type {
   CrmEventCreate,
-  CrmEventKind,
   CrmEventStatus,
   CrmEventUpdate,
   CrmSearchHit,
 } from '@/entities/crm/model';
 import { overtimeMinutes } from '@/entities/crm/lib/overtime';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { WorkTypeMark } from '@/entities/work-type/model';
 import { momentOf } from '@/shared/lib/calendar';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import type { Viewer } from '@/server/repo/day-blocks';
 import { workWindow } from '@/server/repo/settings';
+import { MARK_FIELDS, toMark, type WorkTypeMarkRow } from '@/server/repo/work-types';
 
 const ORDER_TYPE_FROM_DB: Record<DbOrderType, OrderType> = {
   INSTALL: 'install',
@@ -36,24 +36,6 @@ const ORDER_STATUS_FROM_DB: Record<DbOrderStatus, OrderStatus> = {
   IN_PROGRESS: 'in_progress',
   DONE: 'done',
   CANCELLED: 'cancelled',
-};
-
-const KIND_TO_DB: Record<CrmEventKind, DbKind> = {
-  call: 'CALL',
-  measure: 'MEASURE',
-  install: 'INSTALL',
-  service: 'SERVICE',
-  meeting: 'MEETING',
-  note: 'NOTE',
-};
-
-const KIND_FROM_DB: Record<DbKind, CrmEventKind> = {
-  CALL: 'call',
-  MEASURE: 'measure',
-  INSTALL: 'install',
-  SERVICE: 'service',
-  MEETING: 'meeting',
-  NOTE: 'note',
 };
 
 const STATUS_TO_DB: Record<CrmEventStatus, DbStatus> = {
@@ -70,7 +52,13 @@ const STATUS_FROM_DB: Record<DbStatus, CrmEventStatus> = {
 
 export type CrmEventDto = {
   id: string;
-  kind: CrmEventKind;
+  /**
+   * Вид работ целиком, а не его ключ: подпись, значок и краска приезжают из
+   * справочника вместе с делом (ADR-343). Отдавать один код значило бы завести
+   * в разметке второй словарь видов работ — тот самый, который эта фаза
+   * снимает с кода.
+   */
+  workType: WorkTypeMark;
   status: CrmEventStatus;
   /** ISO. День и время вычисляются при показе — в поясе работ, а не браузера. */
   at: string;
@@ -86,7 +74,7 @@ export type CrmEventDto = {
 
 type CrmEventRow = {
   id: string;
-  kind: DbKind;
+  workType: WorkTypeMarkRow;
   status: DbStatus;
   at: Date;
   durationMin: number;
@@ -101,7 +89,7 @@ type CrmEventRow = {
 function toDto(row: CrmEventRow): CrmEventDto {
   return {
     id: row.id,
-    kind: KIND_FROM_DB[row.kind],
+    workType: toMark(row.workType),
     status: STATUS_FROM_DB[row.status],
     at: row.at.toISOString(),
     durationMin: row.durationMin,
@@ -116,7 +104,7 @@ function toDto(row: CrmEventRow): CrmEventDto {
 
 const FIELDS = {
   id: true,
-  kind: true,
+  workType: { select: MARK_FIELDS },
   status: true,
   at: true,
   durationMin: true,
@@ -205,7 +193,7 @@ export async function create(input: CrmEventCreate): Promise<CrmEventDto> {
 
   const row = await db.crmEvent.create({
     data: {
-      kind: KIND_TO_DB[input.kind],
+      workTypeId: input.workTypeId,
       at,
       durationMin: input.durationMin,
       /* Считаем при записи и храним числом: окно в настройках владелец
@@ -238,7 +226,7 @@ export async function update(id: string, input: CrmEventUpdate): Promise<CrmEven
   const row = await db.crmEvent.update({
     where: { id },
     data: {
-      ...(input.kind === undefined ? {} : { kind: KIND_TO_DB[input.kind] }),
+      ...(input.workTypeId === undefined ? {} : { workTypeId: input.workTypeId }),
       ...(input.status === undefined ? {} : { status: STATUS_TO_DB[input.status] }),
       // дата и время переносятся только вместе — схема это уже проверила
       ...(at === null ? {} : { at }),
@@ -426,7 +414,9 @@ export async function search(viewer: Viewer, query: string): Promise<CrmSearchHi
     ...events.map((row) => ({
       kind: 'event' as const,
       id: row.id,
-      eventKind: KIND_FROM_DB[row.kind],
+      /* Название вида работ, а не его ключ: словарь видов теперь и есть база,
+         и переводить его во второй раз в разметке было бы нечем (ADR-343). */
+      workTypeTitle: row.workType.title,
       clientName: row.clientName,
       address: row.address,
       at: row.at.toISOString(),

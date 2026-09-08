@@ -8,7 +8,7 @@ import { dayKeyOf } from '@/shared/lib/calendar';
 import { formatDate } from '@/shared/lib/format';
 import { Icon } from '@/shared/ui';
 
-import { KIND_LOOK, calendarSearchContent as texts } from './content';
+import { calendarSearchContent as texts } from './content';
 import { crmHref, withTeam } from './navigation';
 import styles from './CalendarSearch.module.css';
 
@@ -182,7 +182,9 @@ function kindTitle(hit: CrmSearchHit): string {
   if (hit.kind === 'order') return texts.order(hit.number);
   if (hit.kind === 'lead') return texts.lead;
 
-  return KIND_LOOK[hit.eventKind].title;
+  /* Название вида работ приходит с сервера: словарь видов живёт в базе, и
+     переводить ключ здесь стало бы нечем (ADR-343). */
+  return hit.workTypeTitle;
 }
 
 /**
