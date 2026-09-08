@@ -1,5 +1,6 @@
 import { leadManagerContent as leadTexts } from '@/features/lead-manager';
 import { OrderCreateModal } from '@/features/order-manager';
+import { requireOwnerPage } from '@/server/guards';
 
 import { orderFormData } from '../../data';
 
@@ -18,6 +19,14 @@ export default async function AdminOrderNewModal({
 }: {
   searchParams: Promise<{ lead?: string }>;
 }) {
+  /* 🔴 Страж стоит и здесь, хотя загрузчик данных зовёт его тоже: проверка
+     обязана быть видна в самой странице (ADR-095, issue #773). Загрузчик —
+     соседний модуль, и его переиспользуют: страница, собранная из другого
+     набора вызовов, молча остаётся без роли. Сессия читается один раз за
+     запрос — `getAdminSession` обёрнута в `cache`, — так что второй вызов
+     ничего не стоит. */
+  await requireOwnerPage();
+
   const { clients, installers, blocks, work, lead } = await orderFormData(await searchParams);
 
   return (

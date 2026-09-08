@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 
+import { requireOwnerPage } from '@/server/guards';
+
 /**
  * Прежний адрес журнала движений.
  *
@@ -7,7 +9,14 @@ import { redirect } from 'next/navigation';
  * Но адрес остаётся рабочим: владелец мог положить его в закладки, а
  * закладка, приводящая в «страница не найдена», — это потеря, за которую
  * никто не отвечает. Разворот, а не отказ: адрес именно что переехал.
+ *
+ * 🔴 Роль проверяется до разворота (issue #773). Разворот сам по себе доступа
+ * не даёт — цель тоже владельческая, — но адрес, отвечающий 307 кому угодно,
+ * рассказывает, что раздел существует; отказ на закрытом адресе обязан быть
+ * отказом, а не подсказкой.
  */
-export default function AdminStockJournalPage() {
+export default async function AdminStockJournalPage() {
+  await requireOwnerPage();
+
   redirect('/admin/stock?tab=log');
 }

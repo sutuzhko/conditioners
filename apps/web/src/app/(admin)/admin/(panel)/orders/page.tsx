@@ -21,7 +21,8 @@ import {
   pageNumber,
   type OrderFilterState,
 } from '@/features/order-manager';
-import { requirePage } from '@/server/guards';
+import { FIELD } from '@/entities/staff/access';
+import { requireRolePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { agenda, counts, historyTotals, list, type Viewer } from '@/server/repo/orders';
 import { Skeleton, TabLinks, buttonClassName } from '@/shared/ui';
@@ -37,11 +38,13 @@ export const dynamic = 'force-dynamic';
 /**
  * Наряды.
  *
- * 🔴 Раздел открыт обеим ролям, но экранов у него два, а не один урезанный
+ * 🔴 Раздел открыт владельцу и монтажнику, но экранов у него два, а не один урезанный
  * (issue #633). Владельцу — список со стопками, фильтрами и разбивкой:
  * «что где висит». Монтажнику — наряд дня, сгруппированный по времени:
- * «куда я еду дальше». Здесь `requirePage`, а не `requireOwnerPage` — у
- * монтажника это рабочий экран.
+ * «куда я еду дальше». Перечень ролей — `FIELD`, тот же, по которому раздел
+ * стоит в колонке: у монтажника это рабочий экран, а администратору и
+ * менеджеру наряд не показывают вовсе — он везёт вознаграждение исполнителя
+ * и удержания (ADR-344, issue #773).
  *
  * 🔴 Данные сужает репозиторий, а не разметка: и `agenda`, и `list` получают
  * смотрящего и ставят фильтр по исполнителю в сам запрос (ADR-114).
@@ -72,7 +75,7 @@ export default async function AdminOrdersPage({
     when?: string;
   }>;
 }) {
-  const session = await requirePage();
+  const session = await requireRolePage(FIELD);
 
   const params = await searchParams;
   const viewer = { role: session.role, userId: session.userId };

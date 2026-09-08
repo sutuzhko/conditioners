@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 
 import {
   CalendarGrid,
@@ -38,7 +37,9 @@ import {
   todayKey,
   weekRange,
 } from '@/shared/lib/calendar';
-import { getAdminSession, isOwner } from '@/server/auth';
+import { FIELD } from '@/entities/staff/access';
+import { isOwner } from '@/server/auth';
+import { requireRolePage } from '@/server/guards';
 import { listInstallers } from '@/server/repo/admin-users';
 import { countOverdue, listOrdersRange, listRange } from '@/server/repo/crm';
 import { listRange as listBlocks } from '@/server/repo/day-blocks';
@@ -102,11 +103,15 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     focus: focusParam,
   } = await searchParams;
 
-  /* Занятость и наряды личные, поэтому страница обязана знать, кто её открыл:
-     владелец видит всех, монтажник — себя. Layout панели сюда без сессии не
-     пускает, проверка здесь — от неожиданностей, а не вместо него. */
-  const session = await getAdminSession();
-  if (session === null) redirect('/admin/login');
+  /* 🔴 Раздел выездной работы: владелец и монтажник, остальным — 403
+     (ADR-344, issue #773). Прежде здесь стояла проверка «сессия есть», и она
+     пускала бы администратора с менеджером: календарь везёт заявки с
+     телефонами клиентов и занятость всех людей компании. Перечень — тот же
+     `FIELD`, по которому раздел стоит в колонке панели.
+
+     Проверка идёт до чтения данных (ADR-095) и возвращает сессию: занятость
+     и наряды личные, страница обязана знать, кто её открыл. */
+  const session = await requireRolePage(FIELD);
 
   const now = new Date();
   const today = todayKey(now);

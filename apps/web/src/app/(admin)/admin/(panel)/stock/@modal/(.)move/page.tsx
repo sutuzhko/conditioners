@@ -1,4 +1,5 @@
 import { StockCreateModal } from '@/features/stock-manager';
+import { requireOwnerPage } from '@/server/guards';
 
 import { moveFormData } from '../../data';
 
@@ -17,6 +18,14 @@ type PageProps = {
  * бы записью в журнале.
  */
 export default async function StockMoveModal({ searchParams }: PageProps) {
+  /* 🔴 Страж стоит и здесь, хотя загрузчик данных зовёт его тоже: проверка
+     обязана быть видна в самой странице (ADR-095, issue #773). Загрузчик —
+     соседний модуль, и его переиспользуют: страница, собранная из другого
+     набора вызовов, молча остаётся без роли. Сессия читается один раз за
+     запрос — `getAdminSession` обёрнута в `cache`, — так что второй вызов
+     ничего не стоит. */
+  await requireOwnerPage();
+
   const params = await searchParams;
   const { items, zones, initial } = await moveFormData(params);
 

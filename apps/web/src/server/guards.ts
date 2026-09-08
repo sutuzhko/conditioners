@@ -16,6 +16,7 @@
  */
 import { forbidden, redirect } from 'next/navigation';
 
+import { EVERYONE, OWNER } from '@/entities/staff/access';
 import type { AdminRole } from '@/entities/staff/model';
 import { getAdminSession, type AdminSession } from '@/server/auth';
 
@@ -39,9 +40,6 @@ export async function requireRolePage(roles: readonly AdminRole[]): Promise<Admi
   return session;
 }
 
-/** Перечень из одной роли: владелец. */
-const OWNER_ONLY: readonly AdminRole[] = ['owner'];
-
 /**
  * Страница раздела владельца. Всем прочим ролям отвечает отказом — 403.
  *
@@ -51,13 +49,18 @@ const OWNER_ONLY: readonly AdminRole[] = ['owner'];
  * разойтись.
  */
 export async function requireOwnerPage(): Promise<AdminSession> {
-  return requireRolePage(OWNER_ONLY);
+  return requireRolePage(OWNER);
 }
 
-/** Страница, доступная любому вошедшему: календарь, профиль. */
+/**
+ * Страница, доступная любому вошедшему: свой профиль.
+ *
+ * 🔴 Внутри — тот же закрытый перечень, а не «сессия есть — проходи». Разница
+ * видна только на следующей заведённой роли: проверка «сессия не пуста»
+ * открывает ей страницу молча, перечень `EVERYONE` — не открывает, пока роль в
+ * него не внесли. Это ровно тот способ, которым `withAdmin` открыл двадцать
+ * шесть методов API администратору и менеджеру (ADR-344).
+ */
 export async function requirePage(): Promise<AdminSession> {
-  const session = await getAdminSession();
-  if (session === null) redirect('/admin/login');
-
-  return session;
+  return requireRolePage(EVERYONE);
 }
