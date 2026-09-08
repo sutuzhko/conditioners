@@ -3,6 +3,8 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { cssBlock } from '@/shared/lib/css-block';
+
 /**
  * Шкала плотности панели — машиной, а не глазом.
  *
@@ -20,19 +22,20 @@ const TOKENS = readFileSync(join(__dirname, 'tokens.css'), 'utf8');
 const UI_TOKENS = readFileSync(join(__dirname, 'ui-tokens.css'), 'utf8');
 const GLOBAL = readFileSync(join(__dirname, 'global.css'), 'utf8');
 
-/** Объявления одного блока: от селектора до его закрывающей скобки. */
-function block(css: string, selector: string, from = 0): Record<string, string> {
-  const start = css.indexOf(selector, from);
-  expect(start, `блок «${selector}» не найден`).toBeGreaterThanOrEqual(0);
-
-  const body = css.slice(start, css.indexOf('}', start));
-  const values: Record<string, string> = {};
-  for (const match of body.matchAll(/--([\w-]+):\s*([^;]+);/g)) {
-    const [, name, value] = match;
-    if (name === undefined || value === undefined) continue;
-    values[name] = value.trim();
-  }
-  return values;
+/**
+ * Объявления одного блока.
+ *
+ * 🔴 Разбор считает скобки и гасит комментарии (`cssBlock`, issue #880).
+ * Прежняя редакция резала блок по первой закрывающей скобке — и комментарий,
+ * цитирующий правило макета со скобками, обрывал блок на середине: восемь
+ * токенов панели объявлялись «необъявленными», хотя лежали на месте. Обратный
+ * случай опаснее: не разобрав вторую половину, проверка не заметила бы и
+ * по-настоящему пропавший там токен.
+ */
+function block(css: string, selector: string, from = 0): Readonly<Record<string, string>> {
+  const values = cssBlock(css, selector, from);
+  expect(values, `блок «${selector}» не найден`).not.toBeNull();
+  return values ?? {};
 }
 
 /** Плотность и геометрия панели живут на её контейнере, а не в `:root` (ADR-187). */

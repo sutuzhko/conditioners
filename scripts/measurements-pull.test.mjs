@@ -4,7 +4,13 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { checkRun, MEASUREMENTS_DIR, syncDir } from './measurements-pull.mjs';
+import {
+  checkRun,
+  MEASUREMENTS_DIR,
+  readManifest,
+  syncDir,
+  vouchedStories,
+} from './measurements-pull.mjs';
 
 const dirs = [];
 afterEach(() => {
@@ -18,30 +24,123 @@ function tmp(files) {
   return dir;
 }
 
+/** Паспорт полного обхода: всё измерено, ничего не пропущено. */
+function manifest(extra = {}) {
+  return {
+    version: 1,
+    stories: 0,
+    files: 0,
+    measured: [],
+    failed: [],
+    skipped: [],
+    coverage: { complete: true, shards: 4, pairs: 56, missing: [], why: '' },
+    ...extra,
+  };
+}
+
 describe('синхронизация каталога измерений', () => {
-  it('обновляет изменённые, добавляет новые, удаляет пропавшие, считает совпавшие', () => {
+  it('обновляет изменённые, добавляет новые, удаляет названные ушедшими, считает совпавшие', () => {
     const src = tmp({ 'a.txt': 'A2', 'b.txt': 'B', 'new.txt': 'N' });
     const dest = tmp({ 'a.txt': 'A1', 'b.txt': 'B', 'gone.txt': 'G' });
-    const result = syncDir(src, dest);
+    const result = syncDir(src, dest, new Set(['a.txt', 'b.txt', 'new.txt']));
     expect(result).toEqual({
       added: ['new.txt'],
       updated: ['a.txt'],
       removed: ['gone.txt'],
+      kept: [],
       unchanged: 1,
     });
     expect(readdirSync(dest).sort()).toEqual(['a.txt', 'b.txt', 'new.txt']);
     expect(readFileSync(join(dest, 'a.txt'), 'utf8')).toBe('A2');
   });
 
-  it('трогает только .txt — посторонние файлы каталога не удаляет', () => {
+  it('🔴 не удаляет историю, которую прогон видел, но не мерял', () => {
+    const src = tmp({ 'a.txt': 'A2' });
+    const dest = tmp({ 'a.txt': 'A1', 'пропущенная.txt': 'S', 'ушедшая.txt': 'G' });
+    const result = syncDir(src, dest, new Set(['a.txt', 'пропущенная.txt']));
+    expect(result.kept).toEqual(['пропущенная.txt']);
+    expect(result.removed).toEqual(['ушедшая.txt']);
+    expect(readdirSync(dest).sort()).toEqual(['a.txt', 'пропущенная.txt']);
+  });
+
+  it('🔴 без свидетельства прогона не удаляет ничего', () => {
     const src = tmp({ 'a.txt': 'A' });
+    const dest = tmp({ 'a.txt': 'A', 'чужая.txt': 'X' });
+    const result = syncDir(src, dest, null);
+    expect(result.removed).toEqual([]);
+    expect(result.kept).toEqual(['чужая.txt']);
+    expect(readdirSync(dest).sort()).toEqual(['a.txt', 'чужая.txt']);
+  });
+
+  it('трогает только .txt — посторонние файлы каталога не удаляет', () => {
+    const src = tmp({ 'a.txt': 'A', 'manifest.json': '{}' });
     const dest = tmp({ 'a.txt': 'A', 'README.md': 'не измерение' });
-    syncDir(src, dest);
+    syncDir(src, dest, new Set(['a.txt']));
     expect(readdirSync(dest).sort()).toEqual(['README.md', 'a.txt']);
   });
 
   it('каталог назначения — измерения приложения от корня репозитория', () => {
     expect(MEASUREMENTS_DIR.endsWith(join('apps', 'web', 'e2e', 'vr', 'measurements'))).toBe(true);
+  });
+});
+
+describe('что артефакт разрешает удалить (issue #865)', () => {
+  it('🔴 артефакт без паспорта не даёт удалять: молчание — не «истории нет»', () => {
+    const verdict = vouchedStories(null, ['a.txt']);
+    expect(verdict.known).toBeNull();
+    expect(verdict.why).toContain('паспорт');
+  });
+
+  it('🔴 пропущенные по графу истории защищены от удаления', () => {
+    const verdict = vouchedStories(
+      manifest({ measured: ['кит-кнопка--базовое'], skipped: ['блоки-faq--базовое'] }),
+      ['кит-кнопка--базовое.txt'],
+    );
+    expect(verdict.known).toEqual(new Set(['кит-кнопка--базовое.txt', 'блоки-faq--базовое.txt']));
+  });
+
+  it('🔴 отказавшая история защищена наравне с пропущенной', () => {
+    const verdict = vouchedStories(
+      manifest({ failed: [{ story: 'блоки-hero--базовое', reason: 'сценарий отказал' }] }),
+      [],
+    );
+    expect(verdict.known).toEqual(new Set(['блоки-hero--базовое.txt']));
+  });
+
+  it('🔴 неполный обход отменяет удаления целиком', () => {
+    const verdict = vouchedStories(
+      manifest({
+        coverage: {
+          complete: false,
+          shards: 4,
+          pairs: 42,
+          missing: ['panel 3/4 390/dark'],
+          why: 'обход не закончен',
+        },
+      }),
+      [],
+    );
+    expect(verdict.known).toBeNull();
+    expect(verdict.why).toContain('обход не закончен');
+  });
+
+  it('🔴 обрезанная закачка не читается как «историй не мерили»', () => {
+    const verdict = vouchedStories(manifest({ measured: ['а--б', 'в--г'] }), ['а--б.txt']);
+    expect(verdict.known).toBeNull();
+    expect(verdict.why).toContain('закачка неполная');
+  });
+
+  it('незнакомая версия паспорта — отказ от удалений, а не догадки', () => {
+    const verdict = vouchedStories(manifest({ version: 99 }), []);
+    expect(verdict.known).toBeNull();
+    expect(verdict.why).toContain('99');
+  });
+
+  it('паспорт читается из каталога артефакта, а нечитаемый равен отсутствующему', () => {
+    const good = tmp({ 'manifest.json': JSON.stringify(manifest()) });
+    expect(readManifest(good)?.version).toBe(1);
+    expect(readManifest(tmp({ 'manifest.json': 'не json' }))).toBeNull();
+    expect(readManifest(tmp({}))).toBeNull();
   });
 });
 

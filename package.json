@@ -23,11 +23,12 @@
     "vr": "pnpm --filter web vr",
     "shot": "pnpm --filter web shot",
     "typecheck": "pnpm -r typecheck",
+    "typecheck:routes": "pnpm --filter web typecheck:routes",
     "lint": "eslint . --max-warnings 0",
     "lint:css": "stylelint \"apps/**/*.css\"",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "check": "pnpm format:check && pnpm lint && pnpm lint:css && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm lint:css && pnpm typecheck && pnpm typecheck:routes && pnpm test",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -46,7 +47,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,mjs}": [
-      "eslint --max-warnings 0",
+      "eslint --max-warnings 0 --no-warn-ignored",
       "prettier --check"
     ],
     "apps/web/src/**/*.{ts,tsx}": [
