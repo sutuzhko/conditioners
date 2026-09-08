@@ -236,3 +236,59 @@ describe('Подписи незаполненных полей', () => {
     expect(missingFieldLabels(contactsGroupFixture, [{ field: 'bankBik' }])).toEqual(['bankBik']);
   });
 });
+
+describe('Уход со страницы с несохранёнными правками (issue #32)', () => {
+  /** Ссылка панели рядом с формой: в приложении это пункт бокового меню. */
+  function withNav(onLeave: () => void) {
+    return (
+      <div>
+        <a
+          href="/admin/leads"
+          onClick={(event) => {
+            /* jsdom по-настоящему не ходит; проверяется, дошло ли нажатие. */
+            event.preventDefault();
+            onLeave();
+          }}
+        >
+          Заявки
+        </a>
+        <SettingsGroups entries={companyEntriesFixture} save={accepting} />
+      </div>
+    );
+  }
+
+  it('без правок уход молчит', async () => {
+    const onLeave = vi.fn();
+    render(withNav(onLeave));
+
+    await userEvent.click(screen.getByRole('link', { name: 'Заявки' }));
+
+    expect(onLeave).toHaveBeenCalledTimes(1);
+  });
+
+  it('🔴 вопрос называет тронутые группы, а не «есть изменения»', async () => {
+    const user = userEvent.setup();
+    const onLeave = vi.fn();
+    render(withNav(onLeave));
+
+    await user.type(screen.getByLabelText(/Почта/), 'x');
+    await user.click(screen.getByRole('link', { name: 'Заявки' }));
+
+    const ask = await screen.findByRole('dialog', { name: texts.leaveTitle });
+    expect(ask).toHaveTextContent(contactsGroupFixture.title);
+    expect(onLeave).not.toHaveBeenCalled();
+  });
+
+  it('сохранили — уход перестаёт спрашивать', async () => {
+    const user = userEvent.setup();
+    const onLeave = vi.fn();
+    render(withNav(onLeave));
+
+    await user.type(screen.getByLabelText(/Почта/), 'x');
+    await user.click(screen.getByRole('button', { name: texts.saveAll }));
+    await screen.findByText(texts.savedGroups([contactsGroupFixture.title]));
+    await user.click(screen.getByRole('link', { name: 'Заявки' }));
+
+    expect(onLeave).toHaveBeenCalledTimes(1);
+  });
+});
