@@ -13,7 +13,8 @@ import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { Readable } from 'node:stream';
 
-import { notFound, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { notFound, withRoles } from '@/server/http';
 import { findDocumentFile } from '@/server/repo/order-files';
 
 export const dynamic = 'force-dynamic';
@@ -29,7 +30,7 @@ function disposition(name: string): string {
   return `inline; filename*=UTF-8''${encodeURIComponent(name)}`;
 }
 
-export const GET = withAdmin(async (_request, context: Context, session) => {
+export const GET = withRoles(FIELD, async (_request, context: Context, session) => {
   const { id, docId } = await context.params;
 
   const doc = await findDocumentFile(id, docId, {

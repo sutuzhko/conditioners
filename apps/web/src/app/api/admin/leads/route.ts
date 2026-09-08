@@ -1,7 +1,14 @@
 /**
  * Заявки — docs/API.md §8. Внутренний раздел: на сайте не показывается нигде.
+ *
+ * 🔴 Открыт клиентскому циклу — владельцу, администратору и менеджеру
+ * (ADR-344). Раздел «Заявки» открыт им же, и разъехаться этим двум рубежам
+ * нельзя: страница читает те же обращения серверным компонентом, а ручка
+ * отвечала бы на них отказом. Монтажнику раздел закрыт целиком: имя, телефон и
+ * адрес человека к его работе отношения не имеют (CRM §6).
  */
-import { apiError, json, withOwner } from '@/server/http';
+import { CLIENT_CYCLE } from '@/entities/staff/access';
+import { apiError, json, withRoles } from '@/server/http';
 import { pageNumber } from '@/shared/lib/paging';
 import { listByStatus, type LeadStatusApi } from '@/server/repo/leads';
 
@@ -13,7 +20,7 @@ function isStatus(value: string): value is LeadStatusApi {
   return STATUSES.some((status) => status === value);
 }
 
-export const GET = withOwner(async (request) => {
+export const GET = withRoles(CLIENT_CYCLE, async (request) => {
   const raw = request.nextUrl.searchParams.get('status');
 
   if (raw !== null && raw !== '' && !isStatus(raw)) {

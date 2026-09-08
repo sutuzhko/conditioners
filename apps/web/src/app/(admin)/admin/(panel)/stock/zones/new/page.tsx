@@ -6,6 +6,7 @@ import {
   STOCK_ZONES_PATH,
   stockManagerContent as texts,
 } from '@/features/stock-manager';
+import { requireOwnerPage } from '@/server/guards';
 import { Card } from '@/shared/ui';
 
 import { zoneFormData } from '../../data';
@@ -22,6 +23,14 @@ export const dynamic = 'force-dynamic';
  * называет сам (инвариант 8).
  */
 export default async function AdminStockZoneNewPage() {
+  /* 🔴 Страж стоит и здесь, хотя загрузчик данных зовёт его тоже: проверка
+     обязана быть видна в самой странице (ADR-095, issue #773). Загрузчик —
+     соседний модуль, и его переиспользуют: страница, собранная из другого
+     набора вызовов, молча остаётся без роли. Сессия читается один раз за
+     запрос — `getAdminSession` обёрнута в `cache`, — так что второй вызов
+     ничего не стоит. */
+  await requireOwnerPage();
+
   const { people } = await zoneFormData();
 
   return (

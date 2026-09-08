@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { leadManagerContent as leadTexts } from '@/features/lead-manager';
 import { ORDERS_PATH, orderManagerContent as texts } from '@/features/order-manager';
+import { requireOwnerPage } from '@/server/guards';
 import { Card } from '@/shared/ui';
 import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
@@ -36,6 +37,14 @@ type PageProps = { searchParams: Promise<{ lead?: string }> };
  * клиентов, монтажников и занятость приезжают следом, отдельным куском.
  */
 export default async function AdminOrderNewPage({ searchParams }: PageProps) {
+  /* 🔴 Страж стоит и здесь, хотя загрузчик данных зовёт его тоже: проверка
+     обязана быть видна в самой странице (ADR-095, issue #773). Загрузчик —
+     соседний модуль, и его переиспользуют: страница, собранная из другого
+     набора вызовов, молча остаётся без роли. Сессия читается один раз за
+     запрос — `getAdminSession` обёрнута в `cache`, — так что второй вызов
+     ничего не стоит. */
+  await requireOwnerPage();
+
   const lead = await orderLeadSource(await searchParams);
 
   return (

@@ -1,4 +1,13 @@
-import { json, noContent, notFound, readJson, validationError, withOwner } from '@/server/http';
+import { CLIENT_CYCLE } from '@/entities/staff/access';
+import {
+  json,
+  noContent,
+  notFound,
+  readJson,
+  validationError,
+  withOwner,
+  withRoles,
+} from '@/server/http';
 import { findById, update } from '@/server/repo/leads';
 import { removeLead } from '@/server/services/leads';
 import { leadUpdateSchema } from '@/entities/lead/model';
@@ -7,7 +16,7 @@ export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string }> };
 
-export const GET = withOwner(async (_request, context: Context) => {
+export const GET = withRoles(CLIENT_CYCLE, async (_request, context: Context) => {
   const { id } = await context.params;
   const lead = await findById(id);
   return lead === null ? notFound('Заявка', 'f') : json(lead);
@@ -19,8 +28,12 @@ export const GET = withOwner(async (_request, context: Context) => {
  * Ревалидации нет: заявки на публичных страницах не показываются.
  *
  * Отмена приезжает сюда: она состояние, а не уничтожение (ADR-310).
+ *
+ * 🔴 Открыт клиентскому циклу: вести обращение — это и есть работа менеджера
+ * (ADR-344). Смена статуса — главное действие раздела, и без неё «Заявки»,
+ * открытые ему в фазе 1, остаются экраном для чтения.
  */
-export const PATCH = withOwner(async (request, context: Context) => {
+export const PATCH = withRoles(CLIENT_CYCLE, async (request, context: Context) => {
   const { id } = await context.params;
 
   const parsed = leadUpdateSchema.safeParse(await readJson(request));

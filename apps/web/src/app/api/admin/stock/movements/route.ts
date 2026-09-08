@@ -1,10 +1,11 @@
 /**
  * Движения склада — docs/API.md §14.
  *
- * 🔴 Проведение открыто обеим ролям, но не одинаково: монтажник проводит
- * только списание в наряд и возврат, только по своему наряду и только из своей
- * машины. Разбирает это `assertMayMove` — проверка стоит на сервере, а не в
- * разметке: монтажник знает адреса панели, он в ней работает.
+ * 🔴 Проведение открыто владельцу и монтажнику (перечень `FIELD`), но не
+ * одинаково: монтажник проводит только списание в наряд и возврат, только по
+ * своему наряду и только из своей машины. Разбирает это `assertMayMove` —
+ * проверка стоит на сервере, а не в разметке: монтажник знает адреса панели,
+ * он в ней работает.
  *
  * Журнал целиком — владельческий: по нему видно, кто, что и куда двигал по
  * всей компании.
@@ -16,7 +17,8 @@ import {
   type StockMoveKind,
   type StockPeriod,
 } from '@/entities/stock/model';
-import { json, readJson, validationError, withAdmin, withOwner } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { json, readJson, validationError, withOwner, withRoles } from '@/server/http';
 import { assertMayMove, move, movements } from '@/server/repo/stock';
 import { pageNumber } from '@/shared/lib/paging';
 
@@ -49,7 +51,7 @@ export const GET = withOwner(async (request) => {
   );
 });
 
-export const POST = withAdmin(async (request, _context, session) => {
+export const POST = withRoles(FIELD, async (request, _context, session) => {
   const parsed = stockMovementCreateSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 

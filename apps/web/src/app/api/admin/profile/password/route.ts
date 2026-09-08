@@ -6,19 +6,20 @@
  */
 import { passwordChangeSchema } from '@/entities/staff/model';
 import { SESSION_COOKIE, changePassword } from '@/server/auth';
+import { EVERYONE } from '@/entities/staff/access';
 import {
   PASSWORD_CHANGE_RATE_LIMIT as RULE,
   apiError,
   noContent,
   readJson,
   validationError,
-  withAdmin,
+  withRoles,
 } from '@/server/http';
 import { hit, reset } from '@/server/repo/rate-limit';
 
 export const dynamic = 'force-dynamic';
 
-export const POST = withAdmin(async (request, _context, session) => {
+export const POST = withRoles(EVERYONE, async (request, _context, session) => {
   const parsed = passwordChangeSchema.safeParse(await readJson(request));
   if (!parsed.success) return validationError(parsed.error);
 
