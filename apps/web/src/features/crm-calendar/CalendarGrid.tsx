@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import type { PersonTone } from '@/entities/crm/lib/palette';
+import type { WorkTypeTone } from '@/entities/work-type/model';
 
 import { CRM_PATH, WEEKDAYS, crmContent as texts } from './content';
 import { EventChip } from './EventChip';
@@ -26,9 +27,24 @@ const PERSON_CLASS: Record<PersonTone, string> = {
   f: styles.personF ?? '',
 };
 
+/**
+ * Краска вида работ → класс модуля. Прямой перевод, а не сборка имени
+ * строкой: так линтер видит, что все семь классов используются, а краска,
+ * которой в модуле нет, не даёт запись без оформления (ADR-343).
+ */
+const TONE_CLASS: Record<WorkTypeTone, string> = {
+  accent: styles.toneAccent ?? '',
+  info: styles.toneInfo ?? '',
+  ok: styles.toneOk ?? '',
+  warn: styles.toneWarn ?? '',
+  sale: styles.toneSale ?? '',
+  error: styles.toneError ?? '',
+  neutral: styles.toneNeutral ?? '',
+};
+
 /** Краска точки — та же, что у записи: человек из слоя перебивает вид работ. */
 function dotClass(item: ScheduleItem): string {
-  return item.person === null ? (styles[item.tone] ?? '') : PERSON_CLASS[item.person.tone];
+  return item.person === null ? TONE_CLASS[item.tone] : PERSON_CLASS[item.person.tone];
 }
 
 export interface CalendarGridProps {

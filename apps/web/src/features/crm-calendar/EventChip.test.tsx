@@ -5,7 +5,15 @@ import { describe, expect, it, vi } from 'vitest';
 import { CalendarActionsContext, type CalendarActions } from './actions';
 import { crmContent as texts } from './content';
 import { EventChip } from './EventChip';
-import { dayNote, monthEvents, monthLeads, monthOrders, viewerId } from './fixtures';
+import {
+  dayNote,
+  monthEvents,
+  monthLeads,
+  monthOrders,
+  plannedInstall,
+  viewerId,
+  workTypeInstall,
+} from './fixtures';
 import { dayColumns, type ScheduleItem } from './schedule';
 
 const DAY = '2026-08-23';
@@ -166,6 +174,42 @@ describe('Запись календаря', () => {
     chip(event);
 
     expect(screen.getByRole('button', { name: event.label })).toHaveTextContent(event.time);
+  });
+
+  /**
+   * 🔴 То, ради чего заводился справочник (ADR-343): цвет метки задаёт запись
+   * базы, а не перечень в коде.
+   *
+   * Проверяется поведение, а не имя класса: тот же вид работ с другой краской
+   * в базе обязан дать метку другого класса, а с прежней — того же. Между
+   * записью справочника и меткой не осталось ни одного словаря, который мог бы
+   * подменить краску по дороге.
+   */
+  it('🔴 метка красится краской из базы, и правка краски меняет её', () => {
+    const own = (event: (typeof monthEvents)[number]): string => {
+      const column = dayColumns(
+        { events: [event], orders: [], leads: [], blocks: [], viewerId, today: DAY },
+        DAY,
+      )[0];
+      const item = (column?.timed ?? [])[0]?.item;
+      if (item === undefined) throw new Error('дело не попало в сетку');
+
+      const { container, unmount } = render(<EventChip item={item} />);
+      const className = container.querySelector('button')?.className ?? '';
+      unmount();
+
+      return className;
+    };
+
+    const asIs = own(plannedInstall);
+    const repainted = own({
+      ...plannedInstall,
+      workType: { ...workTypeInstall, tone: 'error' },
+    });
+    const again = own({ ...plannedInstall, workType: { ...workTypeInstall } });
+
+    expect(asIs).not.toBe(repainted);
+    expect(asIs).toBe(again);
   });
 
   it('🔴 обрезанное имя раскрывается подсказкой — и карточкой для клавиатуры', () => {

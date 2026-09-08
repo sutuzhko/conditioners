@@ -10,7 +10,7 @@ import type { CrmEventDraft, CrmResult, DayBlockDraft } from './model';
 /** Пустое поле формы уходит на сервер пустой строкой — там она станет «не заполнено». */
 function payloadOf(draft: CrmEventDraft): Record<string, string | number | null> {
   return {
-    kind: draft.kind,
+    workTypeId: draft.workTypeId,
     day: draft.day,
     time: draft.time,
     /* 🔴 Длительность отправляется всегда: без неё запись нечем нарисовать на

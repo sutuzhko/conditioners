@@ -22,7 +22,7 @@ const hits: CrmSearchHit[] = [
   {
     kind: 'event',
     id: 'e1',
-    eventKind: 'measure',
+    workTypeTitle: 'Замер',
     clientName: 'Ирина Соколова',
     address: null,
     at: '2026-08-20T09:00:00.000Z',

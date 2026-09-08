@@ -288,9 +288,21 @@ model Client {                        // человек, с которым ра�
   createdAt DateTime @default(now())
 }
 
+model WorkType {                       // справочник видов работ (ADR-343)
+  id      String       @id @default(cuid())
+  code    String       @unique  // адресуемый ключ: уедет в форму заявки
+  title   String                // «Монтаж» — правит владелец из настроек
+  tone    WorkTypeTone          // краска палитры, а не #RRGGBB: тема меняет значения
+  icon    String                // имя значка из набора кита
+  sort    Int          @default(0)
+  onSite  Boolean      @default(false)  // предлагать ли посетителю в форме заявки
+  dayLong Boolean      @default(false)  // дело висит на дне, а не на часе
+  active  Boolean      @default(true)   // отключённый не предлагается, у прежних записей остаётся
+}
+
 model CrmEvent {                       // дело в календаре работ (ADR-080)
   id          String         @id @default(cuid())
-  kind        CrmEventKind   // CALL | MEASURE | INSTALL | SERVICE | MEETING | NOTE
+  workTypeId  String         // вид работ из справочника; onDelete: Restrict (ADR-343)
   status      CrmEventStatus @default(PLANNED)
   at          DateTime       // момент в UTC, показывается в московском
   clientName  String

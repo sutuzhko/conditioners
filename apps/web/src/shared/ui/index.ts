@@ -13,7 +13,7 @@ export type { IconButtonProps, IconButtonSize, IconButtonVariant } from './IconB
 export { Chip } from './Chip/Chip';
 export type { ChipProps } from './Chip/Chip';
 
-export { Icon } from './Icon';
+export { Icon, isIconName } from './Icon';
 export type { IconName, IconProps } from './Icon';
 
 export { BrandMark } from './BrandMark/BrandMark';

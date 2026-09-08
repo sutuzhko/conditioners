@@ -1,12 +1,97 @@
 /** Данные для историй и тестов календаря работ. */
 import type { StaffCard } from '@/entities/staff/model';
+import type { WorkTypeMark } from '@/entities/work-type/model';
 
 import type { CalendarLead, CalendarOrderCard, CrmEventCard, DayBlockCard } from './model';
+
+/**
+ * Справочник видов работ в том виде, в каком его отдаёт сервер (ADR-343).
+ *
+ * Значения — те же, что заводит сид: истории и снимки обязаны показывать те
+ * краски, которые владелец увидит на своей базе. 🔴 Это фикстура, а не
+ * перечень видов работ: настоящий список приезжает из базы, и подменить его
+ * здесь можно любым — на том и держится проверка «цвет из базы».
+ */
+export const workTypeInstall: WorkTypeMark = {
+  id: 'wt_install',
+  code: 'install',
+  title: 'Монтаж',
+  icon: 'wrench',
+  tone: 'ok',
+  dayLong: false,
+};
+
+export const workTypeMeasure: WorkTypeMark = {
+  id: 'wt_measure',
+  code: 'measure',
+  title: 'Замер',
+  icon: 'map-point',
+  tone: 'info',
+  dayLong: false,
+};
+
+export const workTypeService: WorkTypeMark = {
+  id: 'wt_service',
+  code: 'service',
+  title: 'Обслуживание',
+  icon: 'settings',
+  tone: 'warn',
+  dayLong: false,
+};
+
+export const workTypeCall: WorkTypeMark = {
+  id: 'wt_call',
+  code: 'call',
+  title: 'Звонок',
+  icon: 'phone',
+  tone: 'accent',
+  dayLong: false,
+};
+
+export const workTypeMeeting: WorkTypeMark = {
+  id: 'wt_meeting',
+  code: 'meeting',
+  title: 'Встреча',
+  icon: 'chat',
+  tone: 'sale',
+  dayLong: false,
+};
+
+/** Ремонт приходит из типов наряда: в поле дела он предлагается впервые. */
+export const workTypeRepair: WorkTypeMark = {
+  id: 'wt_repair',
+  code: 'repair',
+  title: 'Ремонт',
+  icon: 'pulse',
+  tone: 'error',
+  dayLong: false,
+};
+
+/** 🔴 Заметка висит на дне, а не на часе — признак справочника, не краска. */
+export const workTypeNote: WorkTypeMark = {
+  id: 'wt_note',
+  code: 'note',
+  title: 'Заметка',
+  icon: 'bill',
+  tone: 'neutral',
+  dayLong: true,
+};
+
+/** Порядок — тот, в каком справочник отдаёт сервер: по `sort` владельца. */
+export const workTypes: readonly WorkTypeMark[] = [
+  workTypeCall,
+  workTypeMeasure,
+  workTypeInstall,
+  workTypeService,
+  workTypeRepair,
+  workTypeMeeting,
+  workTypeNote,
+];
 
 /** 23 августа 2026, 10:00 по московскому времени. */
 export const plannedCall: CrmEventCard = {
   id: 'e1',
-  kind: 'call',
+  workType: workTypeCall,
   status: 'planned',
   at: '2026-08-23T07:00:00.000Z',
   durationMin: 30,
@@ -21,7 +106,7 @@ export const plannedCall: CrmEventCard = {
 /** Монтаж в тот же день: у дня бывает больше одного дела. */
 export const plannedInstall: CrmEventCard = {
   id: 'e2',
-  kind: 'install',
+  workType: workTypeInstall,
   status: 'planned',
   at: '2026-08-23T10:30:00.000Z',
   durationMin: 240,
@@ -35,7 +120,7 @@ export const plannedInstall: CrmEventCard = {
 
 export const doneMeasure: CrmEventCard = {
   id: 'e3',
-  kind: 'measure',
+  workType: workTypeMeasure,
   status: 'done',
   at: '2026-08-21T06:00:00.000Z',
   durationMin: 60,
@@ -49,7 +134,7 @@ export const doneMeasure: CrmEventCard = {
 
 export const cancelledService: CrmEventCard = {
   id: 'e4',
-  kind: 'service',
+  workType: workTypeService,
   status: 'cancelled',
   at: '2026-08-25T12:00:00.000Z',
   /* Работа до девяти вечера: два часа за рабочим окном (ADR-138). */
@@ -286,7 +371,7 @@ export const monthOrders: readonly CalendarOrderCard[] = [
 /** Заметка «не забыть»: висит на дне, а не на часе, — полоса «весь день». */
 export const dayNote: CrmEventCard = {
   id: 'e5',
-  kind: 'note',
+  workType: workTypeNote,
   status: 'planned',
   at: '2026-08-23T06:00:00.000Z',
   durationMin: 60,
@@ -304,7 +389,7 @@ export const dayNote: CrmEventCard = {
  */
 export const lateInstall: CrmEventCard = {
   id: 'e6',
-  kind: 'install',
+  workType: workTypeInstall,
   status: 'planned',
   at: '2026-08-23T16:00:00.000Z',
   durationMin: 180,

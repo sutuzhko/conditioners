@@ -4,12 +4,11 @@ import {
   crmEventCreateSchema,
   crmEventUpdateSchema,
   dayBlockCreateSchema,
-  isCrmEventKind,
   isDayBlockRepeat,
 } from './model';
 
 const valid = {
-  kind: 'measure',
+  workTypeId: 'wt_measure',
   day: '2026-08-23',
   time: '14:30',
   clientName: 'Иван',
@@ -59,10 +58,14 @@ describe('заведение дела', () => {
     }
   });
 
-  it('отклоняет незнакомый вид дела', () => {
-    expect(crmEventCreateSchema.safeParse({ ...valid, kind: 'ремонт' }).success).toBe(false);
-    expect(isCrmEventKind('ремонт')).toBe(false);
-    expect(isCrmEventKind('install')).toBe(true);
+  /* 🔴 Вид работ — ссылка на справочник, а не значение из перечня (ADR-343).
+     Схема отвечает только за «поле заполнено»: существование записи проверяет
+     внешний ключ базы, и второй проверки на границе быть не должно — она
+     всё равно оставила бы окно между чтением справочника и записью дела. */
+  it('требует вид работ и не принимает пустую ссылку', () => {
+    expect(crmEventCreateSchema.safeParse({ ...valid, workTypeId: '' }).success).toBe(false);
+    expect(crmEventCreateSchema.safeParse({ ...valid, workTypeId: '   ' }).success).toBe(false);
+    expect(crmEventCreateSchema.safeParse({ ...valid, workTypeId: undefined }).success).toBe(false);
   });
 });
 

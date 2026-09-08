@@ -9,24 +9,22 @@ import { optionalPhoneField } from '@/shared/lib/zod';
  * Календарь заводится не ради красоты — заявка отвечает только на вопрос
  * «кто обратился». Когда выехать, кому перезвонить в четверг и что обещали
  * клиенту, до сих пор жило в голове владельца и в переписке.
+ *
+ * 🔴 Перечня видов дел здесь больше нет (ADR-343). Вид работ — запись
+ * справочника, который правит владелец, и дело ссылается на неё
+ * идентификатором: набор видов работ — данные, а не константа (инвариант 8).
  */
-export const crmEventKindSchema = z.enum([
-  'call',
-  'measure',
-  'install',
-  'service',
-  'meeting',
-  'note',
-]);
 
-export type CrmEventKind = z.infer<typeof crmEventKindSchema>;
-
-export const CRM_EVENT_KINDS: readonly CrmEventKind[] = crmEventKindSchema.options;
-
-/** Значение из `select` — строка. Принять её за вид дела без проверки нельзя. */
-export function isCrmEventKind(value: string): value is CrmEventKind {
-  return CRM_EVENT_KINDS.some((kind) => kind === value);
-}
+/**
+ * Ссылка на вид работ. Существование записи проверяет база — внешним ключом,
+ * а не схемой: сверять справочник на границе значило бы читать его лишний раз
+ * и всё равно оставить окно между проверкой и записью.
+ */
+const workTypeIdSchema = z
+  .string({ required_error: 'Выберите вид работ' })
+  .trim()
+  .min(1, { message: 'Выберите вид работ' })
+  .max(40, { message: 'Не длиннее 40 символов' });
 
 export const crmEventStatusSchema = z.enum(['planned', 'done', 'cancelled']);
 
@@ -62,7 +60,7 @@ const optionalText = (max: number) =>
     .default(null);
 
 export const crmEventCreateSchema = z.object({
-  kind: crmEventKindSchema,
+  workTypeId: workTypeIdSchema,
   day: daySchema,
   time: timeSchema,
   clientName: z
@@ -267,7 +265,9 @@ const searchHitBase = {
 };
 
 export const crmSearchHitSchema = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('event'), eventKind: crmEventKindSchema, ...searchHitBase }),
+  /* Название вида работ, а не его ключ: словарь живёт в базе, и второй раз
+     переводить его на стороне разметки нечем (ADR-343). */
+  z.object({ kind: z.literal('event'), workTypeTitle: z.string(), ...searchHitBase }),
   z.object({ kind: z.literal('order'), number: z.number().int(), ...searchHitBase }),
   z.object({ kind: z.literal('lead'), topic: z.string(), ...searchHitBase }),
 ]);

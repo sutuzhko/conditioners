@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { CalendarCreate } from './CalendarCreate';
 import { CalendarStage } from './CalendarStage';
 import { EventChip } from './EventChip';
-import { doctorBlock, monthEvents, monthOrders, viewerId } from './fixtures';
+import { doctorBlock, monthEvents, monthOrders, viewerId, workTypes } from './fixtures';
 import { dayColumns, type ScheduleItem } from './schedule';
 
 const DAY = '2026-08-23';
@@ -31,6 +31,7 @@ const meta = {
   args: {
     day: DAY,
     viewerId,
+    workTypes,
     children: (
       <div style={{ display: 'grid', gap: '6px' }}>
         <CalendarCreate day={DAY} canBlock />
@@ -56,7 +57,6 @@ export const Покой: Story = {};
 export const ИзЗаявки: Story = {
   args: {
     preset: {
-      kind: 'call',
       clientName: 'Ирина Соколова',
       clientPhone: '+7 (900) 123-45-67',
       address: 'Тула, Первомайская, 12',

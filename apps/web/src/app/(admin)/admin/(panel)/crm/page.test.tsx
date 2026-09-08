@@ -24,6 +24,7 @@ const db = vi.hoisted(() => ({
   order: { findMany: vi.fn() },
   dayBlock: { findMany: vi.fn() },
   setting: { findUnique: vi.fn() },
+  workType: { findMany: vi.fn() },
 }));
 
 vi.mock('@/server/db', () => ({ db }));
@@ -42,9 +43,19 @@ const owner = {
 
 const installer = { ...owner, userId: 'u2', login: 'sokolov', role: 'installer' } as const;
 
+/** Вид работ приезжает связью: справочник и есть словарь видов (ADR-343). */
+const workTypeRow = {
+  id: 'wt_call',
+  code: 'call',
+  title: 'Звонок',
+  icon: 'phone',
+  tone: 'ACCENT',
+  dayLong: false,
+};
+
 const eventRow = {
   id: 'e1',
-  kind: 'CALL',
+  workType: workTypeRow,
   status: 'PLANNED',
   at: new Date('2026-08-24T07:00:00.000Z'),
   durationMin: 30,
@@ -89,6 +100,7 @@ beforeEach(() => {
   db.order.findMany.mockResolvedValue([]);
   db.dayBlock.findMany.mockResolvedValue([]);
   db.setting.findUnique.mockResolvedValue(null);
+  db.workType.findMany.mockResolvedValue([workTypeRow]);
 });
 
 describe('календарь работ и роль смотрящего', () => {
@@ -127,5 +139,17 @@ describe('календарь работ и роль смотрящего', () =>
     expect(db.lead.findMany).toHaveBeenCalled();
     expect(db.crmEvent.count).toHaveBeenCalled();
     expect(db.lead.findUnique).toHaveBeenCalledWith({ where: { id: 'l1' } });
+  });
+
+  /**
+   * 🔴 Инвариант 1: список видов работ приезжает разметкой, а не запросом с
+   * клиента. Спрашивает его страница — и спрашивает всегда, а не только у
+   * владельца: монтажнику форма дела не открывается, но пустой справочник в
+   * ней означал бы поле выбора без единого значения.
+   */
+  it('🔴 справочник видов работ читает страница, а не клиент', async () => {
+    await open();
+
+    expect(db.workType.findMany.mock.calls[0]?.[0]?.where).toEqual({ active: true });
   });
 });

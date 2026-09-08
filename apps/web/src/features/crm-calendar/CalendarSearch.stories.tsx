@@ -16,7 +16,7 @@ const hits: CrmSearchHit[] = [
   {
     kind: 'event',
     id: 'e1',
-    eventKind: 'measure',
+    workTypeTitle: 'Замер',
     clientName: 'Ирина Соколова',
     address: 'Тула, ул. Кирова, 12',
     at: '2026-08-20T09:00:00.000Z',

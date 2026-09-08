@@ -5,8 +5,9 @@ import { useState, type FormEvent } from 'react';
 import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
 import { loadTitle } from '@/entities/crm/content';
 import { clashesWith, spanOf } from '@/entities/crm/lib/load';
-import { crmEventCreateSchema, isCrmEventKind } from '@/entities/crm/model';
+import { crmEventCreateSchema } from '@/entities/crm/model';
 import { BusyNote, ClashNote } from '@/entities/crm/ui';
+import type { WorkTypeMark } from '@/entities/work-type/model';
 import { dayKeyOf, minutesOfDay } from '@/shared/lib/calendar';
 import {
   Button,
@@ -21,7 +22,7 @@ import {
 } from '@/shared/ui';
 import type { DateSegments } from '@/shared/ui';
 
-import { KIND_LOOK, ORDER_LOOK, crmContent as texts } from './content';
+import { ORDER_LOOK, crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
 import {
   DURATION_STEP_MIN,
@@ -31,11 +32,6 @@ import {
   type DayBlockCard,
 } from './model';
 import styles from './EventDialog.module.css';
-
-const KIND_OPTIONS = Object.entries(KIND_LOOK).map(([value, look]) => ({
-  value,
-  label: look.title,
-}));
 
 /**
  * Длительность выбором, а не свободным числом.
@@ -69,12 +65,20 @@ export interface EventDialogProps {
   readonly orders?: readonly CalendarOrderCard[] | undefined;
   /** Кто заводит дело: сравниваются наряды, назначенные ему. */
   readonly viewerId?: string | undefined;
+  /**
+   * Виды работ из справочника — их предлагает поле «Что за дело» (ADR-343).
+   *
+   * Приезжают пропом от страницы, а не запрашиваются здесь: справочник читает
+   * сервер вместе с сеткой, а окно — лист, который открывается по нажатию, и
+   * запрос из него означал бы пустое поле в первые полсекунды.
+   */
+  readonly workTypes: readonly WorkTypeMark[];
 }
 
 type Errors = Partial<Record<keyof CrmEventDraft, string>>;
 
 const DRAFT_FIELDS = [
-  'kind',
+  'workTypeId',
   'day',
   'time',
   'durationMin',
@@ -105,8 +109,13 @@ export function EventDialog({
   blocks,
   orders,
   viewerId,
+  workTypes,
 }: EventDialogProps) {
   const [form, setForm] = useState<CrmEventDraft>(draft);
+
+  /* Подписи полю выбора: порядок задаёт владелец сортировкой справочника, а
+     не этот компонент. */
+  const kindOptions = workTypes.map((type) => ({ value: type.id, label: type.title }));
 
   /* 🔴 Дата живёт двумя видами: сегментами — потому что их набирают, и строкой
      ISO — потому что её ждут схема и контракт. Пока набран один день, полной
@@ -207,13 +216,15 @@ export function EventDialog({
     >
       <form className={styles.form} onSubmit={submit} noValidate>
         <div className={styles.row}>
+          {/* 🔴 Список приезжает из справочника, а не из перечня в коде
+              (ADR-343): владелец заводит «Чистку дренажа» из настроек, и она
+              обязана появиться здесь без разработчика (инвариант 8). */}
           <Select
             label={texts.fieldKind}
-            options={KIND_OPTIONS}
-            value={form.kind}
-            onChange={(event) => {
-              if (isCrmEventKind(event.target.value)) set('kind', event.target.value);
-            }}
+            options={kindOptions}
+            value={form.workTypeId}
+            onChange={(event) => set('workTypeId', event.target.value)}
+            error={errors.workTypeId}
             wrapperClassName={styles.kind}
           />
           {/* 🔴 Три сегмента вместо `input[type=date]` (кит, `DateField`):
