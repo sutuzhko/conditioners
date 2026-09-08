@@ -1,5 +1,5 @@
 /**
- * Свой профиль — доступен обеим ролям.
+ * Свой профиль — доступен любому вошедшему (перечень `EVERYONE`).
  *
  * Логин, роль и оформление здесь не меняются: логин напечатан на бумажке,
  * которую человеку выдал владелец, роль — это доступ к деньгам компании, а
@@ -7,17 +7,18 @@
  * есть: человек видит, как он оформлен, но правит его владелец.
  */
 import { profileUpdateSchema } from '@/entities/staff/model';
-import { apiError, json, readJson, validationError, withAdmin } from '@/server/http';
+import { EVERYONE } from '@/entities/staff/access';
+import { apiError, json, readJson, validationError, withRoles } from '@/server/http';
 import { findById, update } from '@/server/repo/admin-users';
 
 export const dynamic = 'force-dynamic';
 
-export const GET = withAdmin(async (_request, _context, session) => {
+export const GET = withRoles(EVERYONE, async (_request, _context, session) => {
   const me = await findById(session.userId);
   return json(me);
 });
 
-export const PATCH = withAdmin(async (request, _context, session) => {
+export const PATCH = withRoles(EVERYONE, async (request, _context, session) => {
   const body = await readJson(request);
 
   /* 🔴 Схема профиля оформления не знает и отвергла бы его как лишний ключ,

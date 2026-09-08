@@ -15,14 +15,15 @@ import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { Readable } from 'node:stream';
 
-import { notFound, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { notFound, withRoles } from '@/server/http';
 import { findPhotoFile } from '@/server/repo/order-files';
 
 export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string; photoId: string }> };
 
-export const GET = withAdmin(async (_request, context: Context, session) => {
+export const GET = withRoles(FIELD, async (_request, context: Context, session) => {
   const { id, photoId } = await context.params;
 
   const photo = await findPhotoFile(id, photoId, {
