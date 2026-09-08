@@ -9,6 +9,7 @@ import { ZodError } from 'zod';
 import { OWNER } from '@/entities/staff/access';
 import { isAdminRole, type AdminRole } from '@/entities/staff/model';
 import { getAdminSession, type AdminSession } from '@/server/auth';
+import { accessAllows, apiPermissionRule, permissionsOf } from '@/server/permissions';
 import { clientIp } from '@/server/client-ip';
 import { hit } from '@/server/repo/rate-limit';
 
@@ -237,13 +238,39 @@ export function withRoles<Ctx>(
   handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
 ): GuardedRoute<Ctx> {
   const route = withSession<Ctx>(async (request, context: Ctx, session) => {
-    if (!roles.includes(session.role)) {
+    if (!routeAllows(request, roles, session)) {
       return apiError('forbidden', ROLE_REFUSAL);
     }
     return handler(request, context, session);
   });
 
   return Object.assign(route, { roles });
+}
+
+/**
+ * Второй рубеж поверх перечня ролей: разрешения администратора (issue #783).
+ *
+ * 🔴 Требуемое разрешение маршрут о себе не объявляет — его называет
+ * центральная карта `server/permissions.ts` по адресу запроса. Так сделано
+ * намеренно: слой поверх ролей обязан быть в одном месте, иначе тринадцать
+ * разделов и пять опасных действий пришлось бы сверять обходом сорока файлов,
+ * а забытый аргумент у нового маршрута читался бы как «разрешения не нужны».
+ *
+ * 🔴 Отказ — тот же текст, что у перечня ролей. Разница между «роль не та» и
+ * «переключатель снят» человеку ничего не даёт и рассказывает постороннему,
+ * что раздел существует и кому-то открыт.
+ */
+function routeAllows(
+  request: NextRequest,
+  roles: readonly AdminRole[],
+  session: AdminSession,
+): boolean {
+  return accessAllows({
+    role: session.role,
+    permissions: permissionsOf(session),
+    roles,
+    rule: apiPermissionRule(request.nextUrl.pathname, request.method),
+  });
 }
 
 /**

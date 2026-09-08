@@ -42,6 +42,7 @@ const card = {
   role: 'installer' as const,
   employment: 'self_employed' as const,
   inn: '710703123450',
+  permissions: [],
   active: true,
   createdAt: '2026-04-10T09:00:00.000Z',
   lastLoginAt: null,

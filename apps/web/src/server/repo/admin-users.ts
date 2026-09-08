@@ -4,13 +4,19 @@
  * Пароль наружу не отдаётся ни в каком виде — `StaffCard` его не содержит.
  * Из базы `passwordHash` читает только вход.
  */
-import type { AdminRole as DbRole, Employment as DbEmployment, Prisma } from '@prisma/client';
+import type {
+  AdminPermission as DbPermission,
+  AdminRole as DbRole,
+  Employment as DbEmployment,
+  Prisma,
+} from '@prisma/client';
 
 import type { AdminRole, InstallerNoteCard, StaffCard, StaffDetails } from '@/entities/staff/model';
+import type { AdminPermission } from '@/entities/staff/permissions';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { employmentFromDb, employmentToDb } from '@/server/repo/employment';
-import { roleFromDb, roleToDb } from '@/server/repo/roles';
+import { permissionsFromDb, permissionsToDb, roleFromDb, roleToDb } from '@/server/repo/roles';
 import type { Employment } from '@/shared/lib/employment';
 
 export type AdminUserRecord = {
@@ -27,6 +33,7 @@ type StaffRow = {
   name: string | null;
   phone: string | null;
   role: DbRole;
+  permissions: DbPermission[];
   employment: DbEmployment | null;
   inn: string | null;
   active: boolean;
@@ -40,6 +47,7 @@ const staffSelect = {
   name: true,
   phone: true,
   role: true,
+  permissions: true,
   employment: true,
   inn: true,
   active: true,
@@ -71,7 +79,7 @@ function toCard(row: StaffRow): StaffCard {
 
 /** Та же карточка с ИНН — только для экранов владельца. */
 function toDetails(row: StaffRow): StaffDetails {
-  return { ...toCard(row), inn: row.inn };
+  return { ...toCard(row), inn: row.inn, permissions: permissionsFromDb(row.permissions) };
 }
 
 export async function findByLogin(login: string): Promise<AdminUserRecord | null> {
@@ -254,6 +262,62 @@ export async function remove(id: string): Promise<void> {
   }
 
   await db.adminUser.delete({ where: { id } });
+}
+
+/**
+ * Роль и разрешения человека — то, что правит экран прав (ADR-344, issue #782,
+ * #784).
+ *
+ * 🔴 Сессии этой правкой не закрываются намеренно. Смысл разрешений ровно в
+ * том, что снятый переключатель действует немедленно и без повторного входа:
+ * набор читается из базы на каждый запрос (`repo/sessions`), а выброс из
+ * панели превратил бы «убрал раздел» в «выгнал человека».
+ *
+ * 🔴 Учётная запись владельца сюда не пускается вовсе. Понизить единственного
+ * владельца — значит запереть панель снаружи: раздавать права станет некому.
+ * А его собственный набор разрешений ничего не решает: страж их у владельца не
+ * спрашивает, и правка выглядела бы настройкой, которая ни на что не влияет.
+ */
+export async function setAccess(
+  id: string,
+  input: {
+    role?: AdminRole | undefined;
+    permissions?: readonly AdminPermission[] | undefined;
+  },
+): Promise<StaffDetails> {
+  const current = await db.adminUser.findUnique({ where: { id }, select: { role: true } });
+  if (current === null) throw new ApiException('not_found', 'Сотрудник не найден');
+
+  if (current.role === 'OWNER') {
+    throw new ApiException('forbidden', 'Права владельца не настраиваются: он их раздаёт');
+  }
+
+  /* Второй рубеж под схемой (`assignableRoleSchema`): запрет, живущий в одном
+     месте, обходится следующим маршрутом, который забыл его позвать. */
+  if (input.role === 'owner') {
+    throw new ApiException(
+      'forbidden',
+      'Владелец в системе один — вторую такую роль выдать нельзя',
+    );
+  }
+
+  const role = input.role ?? roleFromDb(current.role);
+
+  /* 🔴 Роль сменилась на неадминистраторскую — набор гасится. Разрешения
+     спрашивают у одной роли, и сохранённый набор у менеджера означал бы
+     настройку, которая не работает: в карточке она есть, в доступе её нет. */
+  const permissions = role === 'admin' ? (input.permissions ?? undefined) : [];
+
+  const row = await db.adminUser.update({
+    where: { id },
+    data: {
+      ...(input.role === undefined ? {} : { role: roleToDb(input.role) }),
+      ...(permissions === undefined ? {} : { permissions: { set: permissionsToDb(permissions) } }),
+    },
+    select: staffSelect,
+  });
+
+  return toDetails(row);
 }
 
 // ---------- Заметки владельца о монтажнике ----------

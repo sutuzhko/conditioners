@@ -6,6 +6,14 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import { ROLE_LISTS, ROLE_LIST_NAMES, type RoleListName } from '@/entities/staff/access';
+import {
+  ADMIN_PERMISSIONS,
+  DANGEROUS_PERMISSIONS,
+  PANEL_SECTION_PERMISSIONS,
+  type AdminPermission,
+} from '@/entities/staff/permissions';
+import { apiPermissionRule, type PermissionRule } from '@/server/permissions';
+import { ADMIN_SECTIONS } from '@/widgets/admin-shell';
 
 /**
  * Контракт ролей: каким перечнем закрыт каждый метод каждого маршрута панели.
@@ -115,6 +123,11 @@ const EXPECTED: Readonly<Record<string, RoleListName>> = {
   'staff/[id]/notes GET': 'OWNER',
   'staff/[id]/notes POST': 'OWNER',
   'staff/[id]/notes/[noteId] DELETE': 'OWNER',
+  /* 🔴 Роли и разрешения раздаёт только владелец, и никакой переключатель
+     этого не открывает (ADR-344, issue #784). Карточку сотрудника при этом
+     правит и администратор с «Управлением людьми» — потому раздача прав и
+     живёт отдельным адресом, а не полем в общем теле. */
+  'staff/[id]/access PATCH': 'OWNER',
 
   /* Уведомления: адресация — владельческая, повтор отказа тоже (он шлёт
      клиенту письмо от имени компании). */
@@ -322,3 +335,150 @@ describe('контракт ролей: /api/admin/**', () => {
     expect(stale).toEqual([]);
   });
 });
+
+/* ---------- Контракт разрешений: чего маршрут требует от администратора ----------
+
+   🔴 Вторая половина контракта доступа (ADR-344, issue #783). Перечень ролей
+   отвечает на вопрос «какая роль проходит», и для администратора он не
+   отвечает ни на что: ADR-344 даёт ему права владельца **под
+   переключателями**, то есть решает за него центральная карта
+   `server/permissions.ts`. Карта закрыта: адрес, которого в ней нет,
+   администратору не открывается — и эта проверка ловит такой адрес прогоном,
+   а не отказом у владельца. */
+
+/** Адрес-образец маршрута: `staff/[id]/notes` → `/api/admin/staff/x/notes`. */
+function sampleUrlOf(route: string): string {
+  const path = route
+    .split('/')
+    .map((segment) => (segment.startsWith('[') ? 'x' : segment))
+    .join('/');
+
+  return `/api/admin/${path}`;
+}
+
+function ruleOf(key: string): PermissionRule | null {
+  const [route = '', method = ''] = key.split(' ');
+  return apiPermissionRule(sampleUrlOf(route), method);
+}
+
+/** Как правило читается в таблице: «раздел + опасные действия» или слово. */
+function ruleTitleOf(rule: PermissionRule | null): string {
+  if (rule === null) return 'нет в карте разрешений';
+  if (rule.kind === 'always') return 'открыт всегда';
+  if (rule.kind === 'owner') return 'только владелец';
+
+  return rule.required.join(' + ');
+}
+
+/**
+ * Опасные действия и владельческие адреса — то, что читается глазами.
+ *
+ * Остальные полторы сотни методов проверяются не таблицей, а правилом
+ * «раздел по первому сегменту»: выписывать их поштучно значило бы завести
+ * второй список маршрутов, который разъедется с первым.
+ */
+const EXPECTED_SPECIAL: Readonly<Record<string, string>> = {
+  /* Удаление записи раздела. Вложенные файлы, строки чеклиста и списания
+     сюда не входят намеренно: переключатель, закрывающий дневную работу,
+     выдают всем, то есть не выдают никому. */
+  'articles/[id] DELETE': 'knowledge + data_delete',
+  'clients/[id] DELETE': 'clients + data_delete',
+  'crm/[id] DELETE': 'crm + data_delete',
+  'leads/[id] DELETE': 'leads + data_delete',
+  'models/[id] DELETE': 'catalog + data_delete',
+  'orders/[id] DELETE': 'orders + data_delete',
+  'reviews/[id] DELETE': 'reviews + data_delete',
+  'stock/items/[id] DELETE': 'stock + data_delete',
+  'stock/zones/[id] DELETE': 'stock + data_delete',
+  'staff/[id] DELETE': 'team + people + data_delete',
+
+  /* Деньги: суммы для клиента и закупочные цены. */
+  'prices PUT': 'prices + money',
+  'models/[id]/sale PATCH': 'catalog + money',
+  'stock/items POST': 'stock + money',
+  'stock/items/[id] PATCH': 'stock + money',
+
+  /* Настройки компании. */
+  'settings/[key] PUT': 'company + company_settings',
+
+  /* Управление людьми. */
+  'staff POST': 'team + people',
+  'staff/[id] PATCH': 'team + people',
+  'staff/[id]/notes POST': 'team + people',
+  'staff/[id]/notes/[noteId] DELETE': 'team + people',
+
+  /* Владельческое без переключателя. */
+  'staff/[id]/access PATCH': 'только владелец',
+  'revalidate POST': 'только владелец',
+
+  /* Открытое всегда: свой профиль. */
+  'profile GET': 'открыт всегда',
+  'profile PATCH': 'открыт всегда',
+  'profile/password POST': 'открыт всегда',
+  'profile/sessions DELETE': 'открыт всегда',
+};
+
+describe('контракт разрешений: /api/admin/**', () => {
+  it('🔴 у каждого метода панели есть строка в центральной карте разрешений', () => {
+    const uncovered = Object.keys(actual).filter((key) => ruleOf(key) === null);
+
+    expect(uncovered).toEqual([]);
+  });
+
+  it('🔴 опасные действия и владельческие адреса стоят там, где решено', () => {
+    const special = Object.fromEntries(
+      Object.keys(actual)
+        .map((key) => [key, ruleOf(key)] as const)
+        .filter(([, rule]) => rule === null || rule.kind !== 'permissions' || isDangerous(rule))
+        .map(([key, rule]) => [key, ruleTitleOf(rule)]),
+    );
+
+    expect(special).toEqual(EXPECTED_SPECIAL);
+  });
+
+  /* Разрешение, которого не требует ни один адрес, — переключатель, который
+     ничего не выключает: владелец его снимет и ничего не заметит. */
+  it('каждое разрешение раздела закрывает хотя бы одну ручку или страницу', () => {
+    const used = new Set<AdminPermission>();
+    for (const key of Object.keys(actual)) {
+      const rule = ruleOf(key);
+      if (rule !== null && rule.kind === 'permissions') {
+        for (const permission of rule.required) used.add(permission);
+      }
+    }
+
+    const unused = ADMIN_PERMISSIONS.filter((permission) => !used.has(permission));
+
+    /* «Обзор» и «Журнал» своих ручек не имеют: сводка собирается серверными
+       компонентами страницы, а чистки журнала в коде ещё нет (Журнал · Фаза 2).
+       Обе закрыты страницами — см. server/permissions.pages.test.ts. */
+    expect(unused).toEqual(['activity_purge']);
+  });
+
+  it('🔴 тринадцать разрешений разделов — это разделы колонки панели', () => {
+    /* 🔴 Сверка, а не импорт: `entities` не имеет права знать про `widgets`
+       (правило слоёв), поэтому список разделов выписан в словаре разрешений
+       значениями. Разъехаться им не даёт эта проверка. */
+    const nav = ADMIN_SECTIONS.filter(
+      (section) => section.href !== '/admin/settings' && section.href !== '/admin/profile',
+    ).map((section) => section.href.replace('/admin/', '').replace('/admin', 'overview'));
+
+    expect([...PANEL_SECTION_PERMISSIONS].sort()).toEqual([...nav].sort());
+  });
+
+  it('разделов тринадцать, опасных действий пять', () => {
+    expect({
+      разделов: PANEL_SECTION_PERMISSIONS.length,
+      опасных: DANGEROUS_PERMISSIONS.length,
+    }).toEqual({ разделов: 13, опасных: 5 });
+  });
+});
+
+function isDangerous(rule: PermissionRule): boolean {
+  return (
+    rule.kind === 'permissions' &&
+    rule.required.some((permission) =>
+      DANGEROUS_PERMISSIONS.some((dangerous) => dangerous === permission),
+    )
+  );
+}

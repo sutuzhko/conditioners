@@ -14,11 +14,14 @@
  * не переехал, а был отклонён. Матрица доступа CRM.md §6 проверяется на
  * сервере, и её ответ обязан читаться программой так же, как человеком.
  */
+import { headers } from 'next/headers';
 import { forbidden, redirect } from 'next/navigation';
 
 import { EVERYONE, OWNER } from '@/entities/staff/access';
 import type { AdminRole } from '@/entities/staff/model';
 import { getAdminSession, type AdminSession } from '@/server/auth';
+import { accessAllows, pagePermissionRule, permissionsOf } from '@/server/permissions';
+import { ADMIN_PATHNAME_HEADER } from '@/shared/config/admin-headers';
 
 /**
  * Страница, открытая перечисленным ролям. Остальным — 403 (ADR-344).
@@ -35,9 +38,39 @@ export async function requireRolePage(roles: readonly AdminRole[]): Promise<Admi
   const session = await getAdminSession();
   /* Не вошёл — это не отказ, а «сначала войдите»: 307 на форму входа. */
   if (session === null) redirect('/admin/login');
-  if (!roles.includes(session.role)) forbidden();
+  if (!(await pageAllows(roles, session))) forbidden();
 
   return session;
+}
+
+/**
+ * Перечень ролей, а для администратора — центральная карта разрешений
+ * (ADR-344, issue #783).
+ *
+ * 🔴 Требуемое разрешение страница о себе не объявляет: его называет
+ * `server/permissions.ts` по адресу запроса. Иначе строку проверки пришлось бы
+ * править в сорока файлах страниц, а забытый аргумент читался бы как
+ * «разрешения этому разделу не нужны».
+ *
+ * 🔴 Адрес приходит заголовком от middleware — своего пути серверный компонент
+ * не знает. Заголовка нет (страница вызвана мимо ворот) — администратор не
+ * проходит: страж закрыт по умолчанию, и «не смогли определить раздел» не
+ * может значить «открыт любой».
+ */
+async function pageAllows(roles: readonly AdminRole[], session: AdminSession): Promise<boolean> {
+  /* Трём остальным ролям заголовок не нужен вовсе: их доступ решает перечень,
+     и лишнее чтение заголовков ничего бы не добавило. */
+  if (session.role !== 'admin') return roles.includes(session.role);
+
+  const jar = await headers();
+  const pathname = jar.get(ADMIN_PATHNAME_HEADER) ?? '';
+
+  return accessAllows({
+    role: session.role,
+    permissions: permissionsOf(session),
+    roles,
+    rule: pagePermissionRule(pathname),
+  });
 }
 
 /**

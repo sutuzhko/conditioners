@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { adminPermissionsSchema, type AdminPermission } from './permissions';
 import { EMPLOYMENTS, type Employment } from '@/shared/lib/employment';
 import { isInnPerson } from '@/shared/lib/requisites';
 import { optionalPhoneField } from '@/shared/lib/zod';
@@ -245,7 +246,44 @@ export type StaffCard = {
 export type StaffDetails = StaffCard & {
   /** `null` — ИНН не заведён. У самозанятого это повод предупредить владельца. */
   readonly inn: string | null;
+  /**
+   * Что владелец открыл этому администратору (ADR-344).
+   *
+   * У остальных ролей набор пуст: доступ владельца, менеджера и монтажника
+   * задан ролью целиком, и переключателей у него нет.
+   */
+  readonly permissions: readonly AdminPermission[];
 };
+
+/**
+ * Роль, которую владелец может выдать из панели.
+ *
+ * 🔴 `owner` в этот перечень не входит, и это не забывчивость (ADR-344, issue
+ * #784). Владелец в системе один: он раздаёт права и отвечает за деньги, а
+ * вторая такая учётная запись означает второго человека с полным доступом,
+ * которого никто не назначал ответственным. Отказ идёт схемой, то есть до
+ * базы: запрет, живущий только в репозитории, обходится следующим же
+ * маршрутом, который забыл его позвать.
+ */
+export const assignableRoleSchema = adminRoleSchema.refine((role) => role !== 'owner', {
+  message: 'Владелец в системе один — вторую такую роль выдать нельзя',
+});
+
+/**
+ * Роль и разрешения человека — то, что правит экран прав в его карточке.
+ *
+ * Оба поля необязательны по отдельности: экран сохраняет переключатели, не
+ * трогая роль, а смена роли не обязана перечислять весь набор заново.
+ */
+export const staffAccessSchema = z
+  .object({
+    role: assignableRoleSchema.optional(),
+    permissions: adminPermissionsSchema.optional(),
+  })
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, 'Нечего сохранять');
+
+export type StaffAccess = z.infer<typeof staffAccessSchema>;
 
 /**
  * Самозанятый, у которого ИНН не заведён.

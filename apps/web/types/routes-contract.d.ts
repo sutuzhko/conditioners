@@ -150,6 +150,7 @@ declare namespace __next_route_internal_types__ {
     | `/api/admin/reviews/${SafeSlug<T>}/status`
     | `/api/admin/settings/${SafeSlug<T>}`
     | `/api/admin/staff/${SafeSlug<T>}`
+    | `/api/admin/staff/${SafeSlug<T>}/access`
     | `/api/admin/staff/${SafeSlug<T>}/notes`
     | `/api/admin/staff/${SafeSlug<T>}/notes/${SafeSlug<T>}`
     | `/api/admin/stock/items/${SafeSlug<T>}`
