@@ -29,7 +29,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-import { composeArgs, offsetOfTreeOrNull, standDatabaseUrl, standPorts } from './stand.mjs';
+import { composeArgs, hostDatabaseUrl, offsetOfTreeOrNull, treePorts } from './stand.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -42,6 +42,11 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
  */
 const offset = offsetOfTreeOrNull(root) ?? 0;
 const compose = composeArgs(root, offset, { withTestProfile: true }).slice(1);
+
+/* Порты берутся из `.env` дерева — из того же файла, что читает compose,
+   поднимая `db-test`. Считать их по формуле рядом значило бы завести второй
+   источник правды о том же числе. */
+const ports = treePorts(root);
 
 /**
  * 🔴 Переменные берутся из `apps/web/.env.local` — того же файла, из которого
@@ -66,7 +71,7 @@ if (!existsSync(localEnv)) {
 process.loadEnvFile(localEnv);
 
 /** Порт приложения стенда: базовый 3101 плюс смещение своего стенда. */
-const PORT = standPorts(offset).e2e;
+const PORT = ports.e2e;
 const BASE_URL = `http://localhost:${PORT}`;
 
 /**
@@ -75,7 +80,7 @@ const BASE_URL = `http://localhost:${PORT}`;
  * (ADR-173). Порт — тот, что опубликован в `docker-compose.dev.yml` для
  * смещения этого стенда.
  */
-const DATABASE_URL = standDatabaseUrl(offset, 'host-test');
+const DATABASE_URL = hostDatabaseUrl(ports.dbTest);
 
 /** Сколько ждём готовности: холодная сборка первой страницы идёт до минуты. */
 const READY_TIMEOUT_MS = 180_000;

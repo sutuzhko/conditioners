@@ -42,9 +42,11 @@ export class StandError extends Error {}
 export const MAIN_OFFSET = 0;
 
 /**
- * Потолок смещения. Девять — не от машины (ADR-045 ограничивает четырьмя
- * агентами), а от арифметики: при N=9 порт приложения равен 3090 и всё ещё не
- * дотягивается до 3101, с которого начинается семейство стенда сценариев.
+ * Потолок смещения. Девять — выбор, а не граница арифметики: со шагом 10
+ * ближайшая пара базовых портов с одинаковым остатком (443 и 5433) сошлась бы
+ * только на смещениях, отличающихся на 499. Девять взято под ADR-045, который
+ * ограничивает работу четырьмя агентами, и под читаемость таблицы в DEPLOY.
+ * Поднять потолок можно — непересечение держит перебор в тесте, а не эта цифра.
  */
 export const MAX_OFFSET = 9;
 
@@ -93,6 +95,16 @@ const PUBLISHED = Object.freeze({
 /** Границы созданного блока в `.env`. По ним он и переписывается. */
 const BLOCK_OPEN = '# >>> стенд рабочего дерева — создано `node scripts/stand.mjs env` >>>';
 const BLOCK_CLOSE = '# <<< стенд рабочего дерева <<<';
+
+/**
+ * Переменные, которые переезжают в `.env` нового дерева из основного.
+ *
+ * 🔴 Без них на VPN не собирается ни один контейнер: демон Docker при
+ * split-DNS не достучится до CDN Docker Hub, и владелец подставляет зеркала
+ * (см. `.env.example`). Новый `.env` пишется с нуля, и без переноса первый же
+ * `up` в дереве падает на скачивании образа.
+ */
+const IMAGE_VARS = Object.freeze(['NODE_IMAGE', 'POSTGRES_IMAGE', 'CADDY_IMAGE']);
 
 /** Учётные данные дев-базы. Те же, что в `.env.example` и `.env.local.example`. */
 const DB_USER = 'tk';
@@ -157,12 +169,16 @@ export function standSiteUrl(offset, mode = 'docker') {
  * при чём. `host` и `host-test` — с машины, через опубликованный порт.
  */
 export function standDatabaseUrl(offset, from = 'container') {
+  if (from === 'container') {
+    return `postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}?schema=public`;
+  }
   const ports = standPorts(offset);
-  const at =
-    from === 'container'
-      ? 'db:5432'
-      : `127.0.0.1:${from === 'host-test' ? ports.dbTest : ports.db}`;
-  return `postgresql://${DB_USER}:${DB_PASSWORD}@${at}/${DB_NAME}?schema=public`;
+  return hostDatabaseUrl(from === 'host-test' ? ports.dbTest : ports.db);
+}
+
+/** База стенда с машины, по уже известному номеру порта. */
+export function hostDatabaseUrl(port) {
+  return `postgresql://${DB_USER}:${DB_PASSWORD}@127.0.0.1:${port}/${DB_NAME}?schema=public`;
 }
 
 /* ────────────────────────── файлы окружения ────────────────────────── */
@@ -226,15 +242,51 @@ export function readEnvValue(text, key) {
   return value === undefined ? null : value;
 }
 
-/** Смещение, записанное в тексте `.env`. `null` — стенд не настроен. */
+/**
+ * Смещение, записанное в тексте `.env`. `null` — ключа нет, стенд не настроен.
+ *
+ * 🔴 Испорченное значение — отказ, а не то же самое, что отсутствие. Молчаливый
+ * `null` на `STAND_OFFSET=две` означал бы, что снос сочтёт «гасить нечего»,
+ * удалит каталог и оставит контейнеры и тома сиротами навсегда: имя проекта
+ * после удаления `.env` взять будет уже неоткуда.
+ */
 export function readStandOffset(text) {
   const raw = readEnvValue(text, 'STAND_OFFSET');
   if (raw === null) return null;
   try {
     return parseOffset(raw);
-  } catch {
-    return null;
+  } catch (error) {
+    throw new StandError(`испорчено STAND_OFFSET в \`.env\`: ${error.message}`);
   }
+}
+
+/**
+ * Порты стенда так, как их увидит docker compose: значение из `.env`, а при его
+ * отсутствии — вычисленное умолчание. Ровно то же делает `\${VAR:-умолчание}` в
+ * compose-файле, и потому правка строки в `.env` не расходится с делом.
+ */
+export function standPortsFrom(text, offset) {
+  return Object.fromEntries(
+    Object.entries(standPorts(offset)).map(([key, port]) => {
+      const raw = readEnvValue(text, PORT_VARS[key]);
+      return [key, raw !== null && /^\d+$/.test(raw) ? Number(raw) : port];
+    }),
+  );
+}
+
+/**
+ * Перенести в `.env` дерева те переменные, которые владелец задал в основном:
+ * заданное в дереве не перетирается, отсутствующее в источнике не выдумывается.
+ */
+export function carryEnvValues(text, source, keys = IMAGE_VARS) {
+  let next = text;
+  for (const key of keys) {
+    if (readEnvValue(next, key) !== null) continue;
+    const value = readEnvValue(source, key);
+    if (value === null || value === '') continue;
+    next = setEnvValue(next, key, value);
+  }
+  return next;
 }
 
 /**
@@ -344,24 +396,89 @@ export function offsetTaken(offset, claims, self) {
 
 /* ────────────────────────── окружение машины ────────────────────────── */
 
-/** Свободен ли порт на петле. Проверяется попыткой занять — иначе это гадание. */
-export function portFree(port) {
+/**
+ * Что означает отказ пробы: 'free' | 'busy' | 'unknown'.
+ *
+ * 🔴 Занятым считается только `EADDRINUSE`. Порты ниже 1024 обычному процессу
+ * недоступны вовсе — проба на них падает с `EACCES`, а Caddy стенда публикуется
+ * как раз на 80 и 443. Считать отказ прав занятостью значит **никогда** не
+ * поднять полный состав: у свежего стенда контейнеров нет, и `up --full` падал
+ * бы на любой машине и любом смещении, да ещё и с указанием не туда.
+ * Привилегированный порт всё равно займёт демон Docker, у которого права есть,
+ * а столкновение там вскроется отказом самого compose.
+ */
+export function portVerdict(error) {
+  if (error === null || error === undefined) return 'free';
+  return error.code === 'EADDRINUSE' ? 'busy' : 'unknown';
+}
+
+/** Проба порта на петле попыткой его занять — иначе это гадание. */
+export function probePort(port) {
   return new Promise((done) => {
     const probe = createServer();
-    probe.once('error', () => done(false));
-    probe.once('listening', () => probe.close(() => done(true)));
+    probe.once('error', (error) => done(portVerdict(error)));
+    probe.once('listening', () => probe.close(() => done(portVerdict(null))));
     probe.listen(port, '127.0.0.1');
   });
 }
 
-/** Занятые порты из тех, что стенд собирается опубликовать. */
-export async function busyPorts(offset, mode) {
+/**
+ * Занятые порты из тех, что стенд собирается опубликовать. Проба подставляется
+ * ради теста: без этого регресс на привилегированных портах не проверить.
+ */
+export async function busyPorts(offset, mode, probe = probePort) {
   const ports = standPorts(offset);
   const busy = [];
   for (const key of PUBLISHED[mode]) {
-    if (!(await portFree(ports[key]))) busy.push({ key, port: ports[key] });
+    if ((await probe(ports[key])) === 'busy') busy.push({ key, port: ports[key] });
   }
   return busy;
+}
+
+/**
+ * Смещения, за которыми у демона Docker уже числится проект.
+ *
+ * 🔴 Дерево, снесённое `rm -rf` мимо `worktree:rm`, уносит `.env`, но оставляет
+ * контейнеры и тома. По одним деревьям смещение выглядит свободным, новое
+ * дерево его занимает — и поднимается на чужом `pgdata`. Поэтому притязания
+ * деревьев складываются с тем, что помнит демон.
+ *
+ * `null` — спросить не удалось (демон не поднят, docker не установлен). Это не
+ * ошибка: без демона стендов нет вовсе, а проверка портов остаётся.
+ */
+export function parseComposeProjects(json) {
+  let listed;
+  try {
+    listed = JSON.parse(String(json ?? ''));
+  } catch {
+    return null;
+  }
+  if (!Array.isArray(listed)) return null;
+  const offsets = [];
+  for (const item of listed) {
+    const found = /^conditioner-dev(?:-(\d))?$/.exec(String(item?.Name ?? ''));
+    if (found !== null) offsets.push(found[1] === undefined ? MAIN_OFFSET : Number(found[1]));
+  }
+  return offsets;
+}
+
+/** Спросить демон о заведённых проектах стенда. Лениво и без падения. */
+export function dockerOffsets() {
+  const seen = spawnSync('docker', ['compose', 'ls', '--all', '--format', 'json'], {
+    encoding: 'utf-8',
+  });
+  return seen.status === 0 ? parseComposeProjects(seen.stdout) : null;
+}
+
+/** Притязания деревьев плюс то, что помнит демон Docker. */
+export function claimsWithDocker(claims, offsets) {
+  if (offsets === null) return claims;
+  const merged = new Map(claims);
+  for (const offset of offsets) {
+    if (merged.has(offset)) continue;
+    merged.set(offset, [`контейнеры проекта ${standProject(offset)} без дерева`]);
+  }
+  return merged;
 }
 
 /** Корень текущего рабочего дерева. */
@@ -386,10 +503,33 @@ export function trees(cwd = process.cwd()) {
   const root = mainRoot(cwd);
   return listed.map((tree) => {
     const main = resolve(tree.path) === resolve(root);
-    /* У основного дерева смещение 0 по определению: там стенд владельца, и
-       `.env` со смещением он не заводит. */
-    return { ...tree, main, offset: main ? MAIN_OFFSET : offsetOfTreeOrNull(tree.path) };
+    /* 🔴 Смещение читается и у основного дерева. Проставить ему ноль «по
+       определению» значило бы, что подменённое смещение владельца не покажет
+       ни `ls`, ни проверка занятости, — и два дерева получат одно имя проекта.
+       Ноль остаётся умолчанием, когда `.env` со смещением там нет. */
+    try {
+      const offset = offsetOfTreeOrNull(tree.path);
+      return { ...tree, main, offset: offset ?? (main ? MAIN_OFFSET : null), broken: false };
+    } catch {
+      /* Испорченный `.env` соседа не должен мешать работать со своим деревом:
+         здесь он показывается, а отказывает уже команда, которая его тронет. */
+      return { ...tree, main, offset: null, broken: true };
+    }
   });
+}
+
+/**
+ * Порты стенда дерева ровно так, как их прочитает docker compose: значения из
+ * `.env`, где они есть, и вычисленные умолчания, где их нет.
+ *
+ * 🔴 Через эту дверь читают порты все, кто ходит в стенд мимо compose. Иначе
+ * файл врёт: правка строки в `.env` двигала бы контейнеры, а скрипт продолжал
+ * бы считать порт по формуле и стучаться не туда.
+ */
+export function treePorts(root) {
+  const envPath = join(root, '.env');
+  const text = existsSync(envPath) ? readFileSync(envPath, 'utf-8') : '';
+  return standPortsFrom(text, readStandOffset(text) ?? MAIN_OFFSET);
 }
 
 /** Смещение дерева или `null`, если стенд в нём не настроен. */
@@ -479,13 +619,21 @@ function devPasswordHash(root) {
  * А с `.env.local`, скопированным из образца как есть, дерево смотрит в базу
  * владельца на 5432 — то есть проверки идут по его данным.
  */
-export function writeStandEnv(root, offset) {
+export function writeStandEnv(root, offset, { imagesFrom } = {}) {
   const ports = standPorts(offset);
 
   const envPath = join(root, '.env');
   const current = existsSync(envPath) ? readFileSync(envPath, 'utf-8') : '';
+  let next = mergeStandEnv(current, offset);
+  /* Зеркала образов переезжают из основного дерева: без них на VPN не
+     скачивается ни один образ, а новый `.env` пишется с нуля. */
+  if (imagesFrom !== undefined && existsSync(imagesFrom)) {
+    const before = next;
+    next = carryEnvValues(next, readFileSync(imagesFrom, 'utf-8'));
+    if (next !== before) say(`  зеркала образов перенесены из ${imagesFrom}`);
+  }
   say(`  ${envPath}`);
-  if (!dryRun) writeFileSync(envPath, mergeStandEnv(current, offset));
+  if (!dryRun) writeFileSync(envPath, next);
 
   /* `.env.dev` — окружение контейнеров. Заводится из образца, если его нет:
      без файла `docker compose up` падает на отсутствующем `env_file`. */
@@ -680,6 +828,9 @@ function dev(root, offset) {
 
 /** Строка таблицы `ls`. Вынесена, чтобы её проверял тест, а не глаз. */
 export function standRow(tree) {
+  if (tree.broken === true) {
+    return `  ✗    ${'STAND_OFFSET испорчен'.padEnd(22)} ${''.padEnd(18)} ${tree.path}`;
+  }
   if (tree.offset === null) {
     return `  —    ${'стенд не настроен'.padEnd(22)} ${''.padEnd(18)} ${tree.path}`;
   }
@@ -691,12 +842,57 @@ export function standRow(tree) {
   );
 }
 
+/**
+ * Писать ли окружение стенда: отказ с текстом или `null`.
+ *
+ * Чистая функция, потому что проверяется она подстановкой каталогов, а не
+ * запуском в основном дереве владельца: цена ошибки — переписанное окружение
+ * его стенда.
+ */
+export function envRefusal({ tree, main, offset, claims, force = false }) {
+  if (force) return null;
+  /* 🔴 Забытый `cd` на этом проекте — не гипотеза. Без отказа команда,
+     набранная в основном дереве, переписала бы владельцу `.env`, `SITE_URL` в
+     `.env.dev` и `DATABASE_URL` в `apps/web/.env.local` — файле вне git с его
+     личными настройками, — и привычный `exec web` ушёл бы в пустой проект. */
+  if (resolve(tree) === resolve(main)) {
+    return (
+      'это основное дерево репозитория, здесь стенд владельца.\n' +
+      '  Смещение задаётся рабочему дереву, а не ему: перейдите в дерево или\n' +
+      '  заведите новое — node scripts/worktree.mjs new <ветка>'
+    );
+  }
+  if (offset === MAIN_OFFSET) {
+    return (
+      'смещение 0 — стенд владельца: его база, порты и `.env.dev` настроены руками.\n' +
+      '  Рабочему дереву нужно своё смещение: node scripts/stand.mjs ls'
+    );
+  }
+  return offsetTaken(offset, claims, tree);
+}
+
+/**
+ * Притязания на смещения: деревья плюс проекты, которые помнит демон Docker.
+ * Один вызов на команду — `docker compose ls` стоит заметно дороже чтения
+ * `.env`, и дёргать его на каждое смещение незачем.
+ */
+export function allClaims(cwd) {
+  return claimsWithDocker(offsetClaims(trees(cwd)), dockerOffsets());
+}
+
 /** Что заведено и что из этого свободно. */
 function list(cwd) {
   const all = trees(cwd).sort((a, b) => (a.offset ?? 99) - (b.offset ?? 99));
   say('смещ. проект                 приложение  база   дерево');
   for (const tree of all) say(standRow(tree));
-  const free = freeOffsets(offsetClaims(all));
+
+  const claims = claimsWithDocker(offsetClaims(all), dockerOffsets());
+  for (const [offset, holders] of [...claims].sort((a, b) => a[0] - b[0])) {
+    const orphan = holders.find((holder) => holder.startsWith('контейнеры проекта'));
+    if (orphan !== undefined) say(standRow({ offset, path: `🔴 ${orphan}`, main: false }));
+  }
+
+  const free = freeOffsets(claims);
   say('');
   say(`свободные смещения: ${free.length === 0 ? 'нет' : free.join(', ')}`);
 }
@@ -715,14 +911,25 @@ const USAGE = `Стенд рабочего дерева (docs/DEPLOY.md §2.4).
   --full            весь состав (caddy, web, worker, storybook, db) вместо одной базы
   --skip-seed       не наполнять базу демо-данными
   --keep-volumes    погасить, но оставить тома
-  --force           обойти отказ (смещение 0, занятое смещение)
+  --force           обойти отказ (основное дерево, смещение 0, занятое смещение)
   --dry-run         напечатать план и ничего не делать`;
 
+/**
+ * Разбор ключей. Отказ `parseArgs` переводится в обычный отказ команды: на
+ * опечатку вроде `--forse` человеку нужна подсказка, а не стектрейс Node.
+ */
+export function readArgs(argv, options, usage) {
+  try {
+    return parseArgs({ args: argv, allowPositionals: true, options });
+  } catch (error) {
+    throw new StandError(`${error.message}\n\n${usage}`);
+  }
+}
+
 async function main(argv) {
-  const { values, positionals } = parseArgs({
-    args: argv,
-    allowPositionals: true,
-    options: {
+  const { values, positionals } = readArgs(
+    argv,
+    {
       offset: { type: 'string' },
       full: { type: 'boolean', default: false },
       'skip-seed': { type: 'boolean', default: false },
@@ -731,7 +938,8 @@ async function main(argv) {
       'dry-run': { type: 'boolean', default: false },
       help: { type: 'boolean', default: false },
     },
-  });
+    USAGE,
+  );
 
   dryRun = values['dry-run'];
   const command = positionals[0] ?? 'ls';
@@ -750,16 +958,17 @@ async function main(argv) {
   if (command === 'env') {
     if (values.offset === undefined) throw new StandError(`нужен --offset <N>\n\n${USAGE}`);
     const offset = parseOffset(values.offset);
-    if (offset === MAIN_OFFSET && !values.force) {
-      throw new StandError(
-        'смещение 0 — стенд владельца: его база, порты и `.env.dev` настроены руками.\n' +
-          '  Рабочему дереву нужно своё смещение: node scripts/stand.mjs ls',
-      );
-    }
-    const taken = offsetTaken(offset, offsetClaims(trees(root)), root);
-    if (taken !== null && !values.force) throw new StandError(taken);
+    const main = mainRoot(root);
+    const refusal = envRefusal({
+      tree: root,
+      main,
+      offset,
+      claims: allClaims(root),
+      force: values.force,
+    });
+    if (refusal !== null) throw new StandError(refusal);
     say(`▸ окружение стенда, смещение ${offset}`);
-    writeStandEnv(root, offset);
+    writeStandEnv(root, offset, { imagesFrom: join(main, '.env') });
     return;
   }
 

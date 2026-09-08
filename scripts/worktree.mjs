@@ -32,17 +32,19 @@ import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { parseArgs } from 'node:util';
 
 import {
   MAIN_OFFSET,
   StandError,
+  claimsWithDocker,
+  dockerOffsets,
   mainRoot,
   nextFreeOffset,
   offsetClaims,
   offsetOfTreeOrNull,
   offsetTaken,
   parseOffset,
+  readArgs,
   run,
   say,
   setDryRun,
@@ -111,6 +113,52 @@ export function findTree(all, target) {
   );
 }
 
+/**
+ * Сносить или отказать: состояние дерева и флаги → текст отказа или `null`.
+ *
+ * 🔴 Решение отделено от ввода-вывода не ради красоты. Это единственное место,
+ * после которого каталог, контейнеры и тома уходят безвозвратно, и проверять
+ * его запуском сноса — значит проверять его сносом. `unpushed: null` означает
+ * «проверить не удалось» и приводит к отказу наравне с найденными коммитами.
+ */
+export function removalRefusal({ tree, all, target, dirty, unpushed, force = false }) {
+  if (tree === null || tree === undefined) {
+    const known = all.map((one) => one.branch ?? one.path).join(', ');
+    return `дерева «${target}» нет.\n  Заведённые: ${known}`;
+  }
+  if (tree.main) return 'это основное дерево репозитория — сносить его нечем и незачем';
+  if (force) return null;
+
+  if (dirty !== '') {
+    const shown = dirty
+      .split('\n')
+      .slice(0, 10)
+      .map((line) => `    ${line}`)
+      .join('\n');
+    return (
+      `в ${tree.path} есть несохранённые правки:\n${shown}\n` +
+      '  Снос уничтожит их безвозвратно. Закоммитьте или обойдите отказ: --force'
+    );
+  }
+
+  if (tree.branch === null) return null;
+  if (unpushed === null) {
+    return (
+      `не удалось проверить, всё ли из ветки «${tree.branch}» есть на origin.\n` +
+      '  Отказываюсь: непроверенная ветка после сноса не восстанавливается.\n' +
+      '  Обойти — --force.'
+    );
+  }
+  if (unpushed > 0) {
+    return (
+      `в ветке «${tree.branch}» ${unpushed} коммит(ов), которых нет ни на одном origin.\n` +
+      '  Снос дерева их не тронет, но ветку после него удалять нельзя.\n' +
+      '  Запушьте ветку, или оставьте её: --keep-branch, или обойдите: --force'
+    );
+  }
+  return null;
+}
+
 /** Вывод git, когда нужен текст, а не код возврата. */
 function git(args, { cwd, allowFailure = false } = {}) {
   const done = spawnSync('git', args, { cwd, encoding: 'utf-8' });
@@ -118,6 +166,24 @@ function git(args, { cwd, allowFailure = false } = {}) {
     throw new StandError(`git ${args.join(' ')}:\n  ${(done.stderr ?? '').trim()}`);
   }
   return (done.stdout ?? '').trim();
+}
+
+/** Тот же вызов, но исход виден отдельно от вывода: `null` — не сработало. */
+function gitOrNull(args, { cwd } = {}) {
+  const done = spawnSync('git', args, { cwd, encoding: 'utf-8' });
+  return done.status === 0 ? (done.stdout ?? '').trim() : null;
+}
+
+/**
+ * Сколько коммитов ветки нет ни на одном origin. `null` — проверить не вышло.
+ *
+ * 🔴 Отказ git трактуется как «не знаю», а не как «всё запушено». Защитная
+ * проверка, которая при собственной поломке отвечает «можно», защищает ровно
+ * до первой поломки — а платой тут будут коммиты, которых нет больше нигде.
+ */
+export function unpushedCount(output) {
+  if (output === null) return null;
+  return /^\d+$/.test(output) ? Number(output) : null;
 }
 
 /* ────────────────────────── заведение ────────────────────────── */
@@ -145,7 +211,10 @@ function create(root, branch, options) {
     );
   }
 
-  const claims = offsetClaims(all);
+  /* Притязания складываются с тем, что помнит демон: дерево, снесённое `rm -rf`
+     мимо `worktree:rm`, уносит `.env`, но оставляет контейнеры и тома, и
+     смещение выглядело бы свободным. */
+  const claims = claimsWithDocker(offsetClaims(all), dockerOffsets());
   const offset =
     options.offset === undefined ? nextFreeOffset(claims) : parseOffset(options.offset);
   if (offset === MAIN_OFFSET) {
@@ -223,47 +292,39 @@ function create(root, branch, options) {
 function destroy(root, target, options) {
   const all = trees(root);
   const tree = findTree(all, target);
-  if (tree === null) {
-    throw new StandError(
-      `дерева «${target}» нет.\n  Заведённые: ${all.map((t) => t.branch ?? t.path).join(', ')}`,
-    );
-  }
-  if (tree.main) {
-    throw new StandError('это основное дерево репозитория — сносить его нечем и незачем');
-  }
+  const refusal = removalRefusal({
+    tree,
+    all,
+    target,
+    dirty: tree === null ? '' : git(['status', '--porcelain'], { cwd: tree.path }),
+    unpushed:
+      tree === null || tree.branch === null
+        ? 0
+        : unpushedCount(
+            gitOrNull(['rev-list', '--count', tree.branch, '--not', '--remotes'], {
+              cwd: tree.path,
+            }),
+          ),
+    force: options.force,
+  });
+  if (refusal !== null) throw new StandError(refusal);
 
-  const dirty = git(['status', '--porcelain'], { cwd: tree.path });
-  if (dirty !== '' && !options.force) {
-    throw new StandError(
-      `в ${tree.path} есть несохранённые правки:\n` +
-        dirty
-          .split('\n')
-          .slice(0, 10)
-          .map((line) => `    ${line}`)
-          .join('\n') +
-        '\n  Снос уничтожит их безвозвратно. Закоммитьте или обойдите отказ: --force',
-    );
-  }
-
-  if (tree.branch !== null) {
-    const unpushed = git(['rev-list', '--count', tree.branch, '--not', '--remotes'], {
-      cwd: tree.path,
-      allowFailure: true,
-    });
-    if (unpushed !== '' && unpushed !== '0' && !options.force) {
-      throw new StandError(
-        `в ветке «${tree.branch}» ${unpushed} коммит(ов), которых нет ни на одном origin.\n` +
-          '  Снос дерева их не тронет, но ветку после него удалять нельзя.\n' +
-          '  Запушьте ветку, или оставьте её: --keep-branch, или обойдите: --force',
-      );
-    }
-  }
-
+  /* 🔴 Смещение читается до сноса и передаётся дальше явно: после удаления
+     каталога `.env` уже нет, и имя проекта, которому достался бы `down -v`,
+     взять неоткуда. Испорченный `STAND_OFFSET` здесь бросает отказ — это
+     лучше, чем осиротевшие контейнеры и тома. */
   const offset = offsetOfTreeOrNull(tree.path);
   if (offset === null) {
     say('▸ стенд не настроен — гасить нечего');
   } else {
-    run('node', [join(tree.path, 'scripts/stand.mjs'), 'down', ...dryFlag()], { cwd: tree.path });
+    /* 🔴 Скрипт берётся из основного дерева, а не из сносимого. Имя проекта,
+       которому достаётся `down -v`, вычисляет код — и вычислять его должен код
+       `release`, а не недописанная правка чужой ветки. Смещение тоже явное. */
+    run(
+      'node',
+      [join(root, 'scripts/stand.mjs'), 'down', '--offset', String(offset), ...dryFlag()],
+      { cwd: tree.path },
+    );
   }
 
   say(`▸ каталог ${tree.path}`);
@@ -325,10 +386,9 @@ const USAGE = `Рабочее дерево на задачу (docs/DEPLOY.md §2
   --dry-run         напечатать план и ничего не делать`;
 
 function main(argv) {
-  const { values, positionals } = parseArgs({
-    args: argv,
-    allowPositionals: true,
-    options: {
+  const { values, positionals } = readArgs(
+    argv,
+    {
       base: { type: 'string', default: DEFAULT_BASE },
       offset: { type: 'string' },
       dir: { type: 'string' },
@@ -341,7 +401,8 @@ function main(argv) {
       'dry-run': { type: 'boolean', default: false },
       help: { type: 'boolean', default: false },
     },
-  });
+    USAGE,
+  );
 
   dry = values['dry-run'];
   setDryRun(dry);
