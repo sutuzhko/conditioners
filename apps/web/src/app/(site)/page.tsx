@@ -42,6 +42,8 @@ import { ReminderForm } from '@/features/reminder-form';
 import { buildPageMetadata } from '@/shared/seo';
 import { LEAD_ANCHOR, POLICY_HREF } from '@/shared/config/nav';
 
+import { messengerLinks } from '@/entities/settings/lib/messengers';
+
 import { loadSettings } from './_lib/settings';
 
 /**
@@ -234,12 +236,17 @@ export default async function HomePage() {
       {/* виджет собирает вопросы тем же `buildFaqItems` от тех же фактов —
           разметка выше и видимый текст здесь не могут разойтись */}
       <Faq installFrom={installFrom} installTerm={installTerm} warranty={warranty} />
+      {/* 🔴 Кнопки мессенджеров собираются из двух групп настроек разом
+          (issue #680): переключатель живёт в «Интеграциях», адрес — в
+          «Контактах», и кнопка появляется только когда есть оба. Решает это
+          сервер: блок контактов о флагах не знает. */}
       <Contacts
         contacts={contacts}
         address={settings.address}
         area={settings.area}
         geo={settings.geo}
         leadHref={LEAD_ANCHOR}
+        messengers={messengerLinks(contacts, settings.integrations)}
       />
     </>
   );

@@ -13,6 +13,7 @@ import {
   contactsTwoPhones,
   geoEmpty,
   geoFixture,
+  messengersFixture,
 } from './fixtures';
 
 function renderSection(props: Partial<Parameters<typeof Contacts>[0]> = {}) {
@@ -26,6 +27,38 @@ function renderSection(props: Partial<Parameters<typeof Contacts>[0]> = {}) {
     />,
   );
 }
+
+describe('Кнопки мессенджеров', () => {
+  it('🔴 не включены — на странице их нет: настройка выключена по умолчанию', () => {
+    renderSection();
+
+    expect(screen.queryByRole('link', { name: /Написать/ })).not.toBeInTheDocument();
+  });
+
+  it('включены — ведут в чат новой вкладкой', () => {
+    renderSection({ messengers: messengersFixture });
+
+    const telegram = screen.getByRole('link', {
+      name: t.messengerAction(t.messengerTitle.telegram),
+    });
+
+    expect(telegram).toHaveAttribute('href', 'https://t.me/example');
+    expect(telegram).toHaveAttribute('target', '_blank');
+    /* 🔴 `noopener`: чужая вкладка не должна получать доступ к нашей через
+       `window.opener`. */
+    expect(telegram).toHaveAttribute('rel', expect.stringContaining('noopener'));
+
+    expect(
+      screen.getByRole('link', { name: t.messengerAction(t.messengerTitle.whatsapp) }),
+    ).toBeInTheDocument();
+  });
+
+  it('включён один канал — рисуется одна кнопка', () => {
+    renderSection({ messengers: messengersFixture.slice(0, 1) });
+
+    expect(screen.getAllByRole('link', { name: /Написать/ })).toHaveLength(1);
+  });
+});
 
 describe('Блок контактов', () => {
   it('рисует адрес, телефон и часы из настроек', () => {

@@ -13,6 +13,7 @@ import {
   contactsTwoPhones,
   geoEmpty,
   geoFixture,
+  messengersFixture,
 } from './fixtures';
 
 /**
@@ -59,6 +60,24 @@ export const Empty: Story = {
     area: areaEmpty,
     geo: geoEmpty,
   },
+};
+
+/**
+ * Кнопки мессенджеров включены и заполнены (issue #680). Показывается ровно
+ * то, что прошло оба условия: флаг в «Интеграциях» и адрес в «Контактах» —
+ * разбирает их `entities/settings/lib/messengers`, сюда приходит готовый
+ * список. Не включено ничего — не рисуется ничего, и это все остальные
+ * истории блока.
+ */
+export const WithMessengers: Story = {
+  name: 'Включены кнопки мессенджеров',
+  args: { messengers: messengersFixture },
+};
+
+/** Включён один канал: второй кнопки нет, ряд не растягивается пустотой. */
+export const OneMessenger: Story = {
+  name: 'Включён один мессенджер',
+  args: { messengers: messengersFixture.slice(0, 1) },
 };
 
 export const Tablet: Story = { name: 'Планшет 768', globals: { viewport: { value: 'md' } } };

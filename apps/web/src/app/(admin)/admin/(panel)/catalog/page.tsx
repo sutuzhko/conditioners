@@ -74,7 +74,7 @@ export default async function AdminCatalogPage({
               экран. Заготовка занимает ту же строку — отбор под ней не
               двигается (ADR-239). */}
           <DataBlock
-            surface="bare"
+            surface="line"
             skeleton={<CatalogSummarySkeleton />}
             title={texts.loadFailed}
             note={blockErrorNote(CATALOG_PATH)}

@@ -18,6 +18,13 @@ export const contactsContent = {
   callLabel: 'Позвонить',
   lead: 'Оставить заявку',
 
+  /**
+   * Кнопки мессенджеров (issue #680, ADR-024). Здесь только названия каналов
+   * и глагол: адрес чата — факт о компании и приходит из настроек.
+   */
+  messengerTitle: { telegram: 'Telegram', whatsapp: 'WhatsApp' },
+  messengerAction: (channel: string): string => `Написать в ${channel}`,
+
   mapTitle: 'Как нас найти',
   mapLink: 'Открыть в Яндекс.Картах',
   /**
