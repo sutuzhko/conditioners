@@ -38,7 +38,14 @@ const session = {
 
 const event = {
   id: 'e1',
-  kind: 'measure' as const,
+  workType: {
+    id: 'wt_measure',
+    code: 'measure',
+    title: 'Замер',
+    icon: 'map-point' as const,
+    tone: 'info' as const,
+    dayLong: false,
+  },
   status: 'planned' as const,
   at: '2026-08-23T11:30:00.000Z',
   durationMin: 60,
@@ -51,7 +58,7 @@ const event = {
 };
 
 const body = {
-  kind: 'measure',
+  workTypeId: 'wt_measure',
   day: '2026-08-23',
   time: '14:30',
   clientName: 'Ирина',

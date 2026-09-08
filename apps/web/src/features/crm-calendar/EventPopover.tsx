@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { loadTitle } from '@/entities/crm/content';
+import type { WorkTypeTone } from '@/entities/work-type/model';
 import { Icon } from '@/shared/ui';
 
 import { crmContent as texts, dayTitle } from './content';
@@ -20,6 +21,21 @@ export interface EventPopoverProps {
   /** Идёт запрос по этой записи: кнопки заперты, пока он не ответит. */
   readonly pending?: boolean | undefined;
 }
+
+/**
+ * Краска вида работ → класс модуля. Прямой перевод, а не сборка имени
+ * строкой: так линтер видит, что все семь классов используются, а краска,
+ * которой в модуле нет, не даёт метку без оформления (ADR-343).
+ */
+const TONE_CLASS: Record<WorkTypeTone, string> = {
+  accent: styles.toneAccent ?? '',
+  info: styles.toneInfo ?? '',
+  ok: styles.toneOk ?? '',
+  warn: styles.toneWarn ?? '',
+  sale: styles.toneSale ?? '',
+  error: styles.toneError ?? '',
+  neutral: styles.toneNeutral ?? '',
+};
 
 /** Отступ карточки от записи и от края экрана. */
 const GAP = 8;
@@ -119,7 +135,7 @@ export function EventPopover({
       style={style}
     >
       <div className={styles.head}>
-        <span className={`${styles.kind} ${styles[item.tone]}`}>
+        <span className={`${styles.kind} ${TONE_CLASS[item.tone]}`}>
           <Icon name={item.icon} size={13} />
           {item.number === null ? item.kindTitle : texts.orderMark(item.number)}
         </span>

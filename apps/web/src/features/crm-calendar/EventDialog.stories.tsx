@@ -1,11 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { EventDialog } from './EventDialog';
-import { doctorBlock, monthOrders, viewerId, wholeDayBlock } from './fixtures';
+import {
+  doctorBlock,
+  monthOrders,
+  viewerId,
+  wholeDayBlock,
+  workTypeMeasure,
+  workTypes,
+} from './fixtures';
 import { DEFAULT_EVENT_MIN, type CrmEventDraft } from './model';
 
 const draft: CrmEventDraft = {
-  kind: 'call',
+  workTypeId: 'wt_call',
   day: '2026-08-24',
   time: '10:00',
   durationMin: DEFAULT_EVENT_MIN,
@@ -20,7 +27,7 @@ const meta = {
   title: 'Админка/Календарь/Окно дела',
   component: EventDialog,
   parameters: { layout: 'fullscreen' },
-  args: { open: true, onClose: () => {}, onSaved: () => {}, draft },
+  args: { open: true, onClose: () => {}, onSaved: () => {}, draft, workTypes },
 } satisfies Meta<typeof EventDialog>;
 
 export default meta;
@@ -35,7 +42,7 @@ export const Правка: Story = {
     id: 'e1',
     draft: {
       ...draft,
-      kind: 'measure',
+      workTypeId: workTypeMeasure.id,
       durationMin: 90,
       clientName: 'Ирина Соколова',
       clientPhone: '+7 (900) 123-45-67',

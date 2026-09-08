@@ -1,6 +1,7 @@
 import type { DayBlockLike } from '@/entities/crm/lib/busy';
-import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
+import type { CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { WorkTypeMark } from '@/entities/work-type/model';
 
 /**
  * Вид календаря. 🔴 Живёт в адресе (`?view=week`) и по-английски, как месяц и
@@ -99,7 +100,12 @@ export function parseWho(value: string | undefined): ReadonlySet<string> | null 
  */
 export type CrmEventCard = {
   readonly id: string;
-  readonly kind: CrmEventKind;
+  /**
+   * Вид работ целиком — подпись, значок и краска из справочника (ADR-343).
+   * Не ключ: переводить ключ в подпись было бы нечем, словарь видов работ
+   * живёт в базе, а не в разметке.
+   */
+  readonly workType: WorkTypeMark;
   readonly status: CrmEventStatus;
   readonly at: string;
   /** Сколько дело занимает: на часовой сетке оно отрезок, а не точка. */
@@ -147,7 +153,8 @@ export type CalendarOrderCard = {
 };
 
 export type CrmEventDraft = {
-  readonly kind: CrmEventKind;
+  /** Выбранный вид работ — ссылка на справочник, а не ключ перечня. */
+  readonly workTypeId: string;
   readonly day: string;
   readonly time: string;
   /**

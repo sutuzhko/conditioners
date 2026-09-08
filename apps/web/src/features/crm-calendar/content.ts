@@ -1,5 +1,6 @@
-import type { CrmEventKind, CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
+import type { CrmEventStatus, DayBlockRepeat } from '@/entities/crm/model';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { WorkTypeTone } from '@/entities/work-type/model';
 import { plural, pluralize } from '@/shared/lib/plural';
 import type { IconName, ConfirmRequest } from '@/shared/ui';
 
@@ -15,26 +16,18 @@ export const ORDERS_PATH = '/admin/orders';
 export const LEADS_PATH = '/admin/leads';
 
 /**
- * Тексты календаря работ.
+ * Как выглядит запись: подпись, значок и краска.
  *
- * Здесь же — соответствие «вид дела → иконка и цвет»: один список кормит и
- * форму, и записи в сетке, и карточку записи. Вид дела, которого нет здесь, не
- * появится нигде.
+ * 🔴 Перечня видов дела здесь больше нет (ADR-343): вид работ — запись
+ * справочника, и подпись, значок и краску дело привозит из базы вместе с
+ * собой. Осталось только соответствие для наряда — его тип переезжает в тот
+ * же справочник следующей фазой.
  */
 export type KindLook = {
   readonly title: string;
   readonly icon: IconName;
-  /** Ключ оформления: цвет метки в сетке. Значения — в CSS-модуле. */
-  readonly tone: 'call' | 'measure' | 'install' | 'service' | 'meeting' | 'note' | 'repair';
-};
-
-export const KIND_LOOK: Record<CrmEventKind, KindLook> = {
-  call: { title: 'Звонок', icon: 'phone', tone: 'call' },
-  measure: { title: 'Замер', icon: 'map-point', tone: 'measure' },
-  install: { title: 'Монтаж', icon: 'wrench', tone: 'install' },
-  service: { title: 'Обслуживание', icon: 'settings', tone: 'service' },
-  meeting: { title: 'Встреча', icon: 'chat', tone: 'meeting' },
-  note: { title: 'Заметка', icon: 'bill', tone: 'note' },
+  /** Краска палитры. Значения пар «фон + текст» — в CSS-модулях. */
+  readonly tone: WorkTypeTone;
 };
 
 /**
@@ -43,11 +36,16 @@ export const KIND_LOOK: Record<CrmEventKind, KindLook> = {
  * 🔴 Наряд и дело в сетке обязаны различаться не только цветом (ADR-093): у
  * наряда есть номер, сплошная полоса слева и слово «Наряд» в подписи для
  * скринридера — в монохромном режиме различие остаётся.
+ *
+ * Краски те же, что у одноимённых видов работ в справочнике: «монтаж» в
+ * наряде и «монтаж» в деле обязаны быть одного цвета — ради этого и заводился
+ * справочник. Пока перечень здесь, совпадение держится глазами; после
+ * переезда наряда (фаза 2) держать будет база.
  */
 export const ORDER_LOOK: Record<OrderType, KindLook> = {
-  install: { title: 'Монтаж', icon: 'wrench', tone: 'install' },
-  service: { title: 'ТО', icon: 'settings', tone: 'service' },
-  repair: { title: 'Ремонт', icon: 'pulse', tone: 'repair' },
+  install: { title: 'Монтаж', icon: 'wrench', tone: 'ok' },
+  service: { title: 'ТО', icon: 'settings', tone: 'warn' },
+  repair: { title: 'Ремонт', icon: 'pulse', tone: 'error' },
 };
 
 /** Статус наряда словами — в подписи записи календаря. */

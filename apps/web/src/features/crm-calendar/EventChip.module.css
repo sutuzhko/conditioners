@@ -376,39 +376,48 @@
   }
 }
 
-/* ---------- Краски вида работ ---------- */
+/* ---------- Краски видов работ (ADR-343) ----------
 
-.call {
+   Не «звонок» и «монтаж», а краски палитры: набор видов работ живёт в базе и
+   правится владельцем (инвариант 8), а здесь остаются пары «фон + текст», из
+   которых он выбирает. Каждая пара проверена в обеих темах — `palette.test.ts`
+   читает эти правила и меряет контраст.
+
+   🔴 Цвет не единственный признак (ADR-093, WCAG 1.4.1): рядом с краской у
+   записи всегда стоит значок вида работ, а полное название — в подписи для
+   скринридера. */
+
+.toneAccent {
   background: var(--accent-bg);
   color: var(--accent-text);
 }
 
-.measure {
+.toneInfo {
   background: var(--info-bg);
   color: var(--info-ink);
 }
 
-.install {
+.toneOk {
   background: var(--ok-bg);
   color: var(--ok-ink);
 }
 
-.service {
+.toneWarn {
   background: var(--warn-bg);
   color: var(--warn-ink);
 }
 
-.meeting {
+.toneSale {
   background: var(--sale-bg);
   color: var(--sale-ink);
 }
 
-.repair {
+.toneError {
   background: var(--error-bg);
   color: var(--error-ink);
 }
 
-.note {
+.toneNeutral {
   background: var(--line-soft);
   color: var(--ink2);
 }
