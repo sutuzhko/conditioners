@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1701
+390 → 390×1649
 768 → 768×1126
 1440 → 1440×1070
 
 [геометрия 390]
-div.ProfileForm__grid  358×1669 @16,16
+div.ProfileForm__grid  358×1617 @16,16
   div.ProfileForm__column  358×1094 @0,0
     section.Card__card  358×611 @0,0  r20  b1
       div.CardBelt__header  356×53 @1,1  b0 0 1 0
@@ -45,19 +45,28 @@ div.ProfileForm__grid  358×1669 @16,16
       div.CardBelt__body  356×284 @1,112
         div.Field__field#5  324×76 @16,16
           label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
-          input  324×49 @0,27  r11  b1
+          div.PasswordInput__shell  324×49 @0,27
+            input.PasswordInput__input  324×49 @0,0  r11  b1
+            button.PasswordInput__toggle  44×44 @276,3  r100
+              svg  16×16 @14,12
         div.Field__field#6  324×76 @16,104
           label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
-          input  324×49 @0,27  r11  b1
+          div.PasswordInput__shell  324×49 @0,27
+            input.PasswordInput__input#2  324×49 @0,0  r11  b1
+            button.PasswordInput__toggle#2  44×44 @276,3  r100
+              svg  16×16 @14,12
         div.Field__field#7  324×76 @16,192
           label.Field__label  324×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
-          input  324×49 @0,27  r11  b1
+          div.PasswordInput__shell  324×49 @0,27
+            input.PasswordInput__input#3  324×49 @0,0  r11  b1
+            button.PasswordInput__toggle#3  44×44 @276,3  r100
+              svg  16×16 @14,12
       div.CardBelt__footer  356×69 @1,397  b1 0 0 0
         div.ProfileForm__actions#2  155×44 @185,13
           button.Button__button  155×44 @0,0  r11  b1
             span.Button__content#2  117×17 @19,13
               span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-  div.ProfileForm__column#2  358×560 @0,1110
+  div.ProfileForm__column#2  358×508 @0,1110
     section.Card__card  358×157 @0,0  r20  b1
       div.CardBelt__header#2  356×79 @1,1  b0 0 1 0
         div.CardBelt__headText  324×54 @16,12
@@ -68,7 +77,7 @@ div.ProfileForm__grid  358×1669 @16,16
           button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
           button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
           button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
-    section.Card__card#2  358×387 @0,173  r20  b1
+    section.Card__card#2  358×335 @0,173  r20  b1
       div.CardBelt__header#2  356×45 @1,1  b0 0 1 0
         div.CardBelt__headText#2  36×20 @16,12
           h2.CardBelt__title#2  36×20 @0,0  Onest 700 15/20  ls0  lines=1  «Вход»
@@ -81,12 +90,8 @@ div.ProfileForm__grid  358×1669 @16,16
           button.Button__button  324×44 @0,0  r11  b1
             span.Button__content#3  192×17 @66,13
               span.Button__label  192×17 @0,0  Manrope 600 15/17  lines=1  «Выйти на всех устройствах»
-      div.CardBelt__footer#2  356×158 @1,228  b1 0 0 0
-        p.ProfileForm__hint  324×81 @16,13  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
-        button.Button__button  102×44 @16,102  r11  b1
-          span.Button__content#4  64×23 @19,10
-            span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
-              svg  20×20 @0,0
+      div.CardBelt__footer#2  356×106 @1,228  b1 0 0 0
+        p.ProfileForm__hint  324×81 @16,13  Manrope 400 13/20  lines=4  «Выход из панели — пункт «Выйти" в меню у»
 
 [геометрия 768]
 div.ProfileForm__grid  736×1094 @16,16
@@ -127,19 +132,28 @@ div.ProfileForm__grid  736×1094 @16,16
       div.CardBelt__body  358×284 @1,112
         div.Field__field#5  326×76 @16,16
           label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
-          input  326×49 @0,27  r11  b1
+          div.PasswordInput__shell  326×49 @0,27
+            input.PasswordInput__input  326×49 @0,0  r11  b1
+            button.PasswordInput__toggle  44×44 @278,3  r100
+              svg  16×16 @14,12
         div.Field__field#6  326×76 @16,104
           label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
-          input  326×49 @0,27  r11  b1
+          div.PasswordInput__shell  326×49 @0,27
+            input.PasswordInput__input#2  326×49 @0,0  r11  b1
+            button.PasswordInput__toggle#2  44×44 @278,3  r100
+              svg  16×16 @14,12
         div.Field__field#7  326×76 @16,192
           label.Field__label  326×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
-          input  326×49 @0,27  r11  b1
+          div.PasswordInput__shell  326×49 @0,27
+            input.PasswordInput__input#3  326×49 @0,0  r11  b1
+            button.PasswordInput__toggle#3  44×44 @278,3  r100
+              svg  16×16 @14,12
       div.CardBelt__footer  358×69 @1,397  b1 0 0 0
         div.ProfileForm__actions#2  155×44 @187,13
           button.Button__button  155×44 @0,0  r11  b1
             span.Button__content#2  117×17 @19,13
               span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-  div.ProfileForm__column#2  360×560 @376,0
+  div.ProfileForm__column#2  360×508 @376,0
     section.Card__card  360×157 @0,0  r20  b1
       div.CardBelt__header#2  358×79 @1,1  b0 0 1 0
         div.CardBelt__headText  326×54 @16,12
@@ -150,7 +164,7 @@ div.ProfileForm__grid  736×1094 @16,16
           button.ThemeChoice__option  94×44 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
           button.ThemeChoice__option#2  86×44 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
           button.ThemeChoice__option#3  113×44 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
-    section.Card__card#2  360×387 @0,173  r20  b1
+    section.Card__card#2  360×335 @0,173  r20  b1
       div.CardBelt__header#2  358×45 @1,1  b0 0 1 0
         div.CardBelt__headText#2  36×20 @16,12
           h2.CardBelt__title#2  36×20 @0,0  Onest 700 15/20  ls0  lines=1  «Вход»
@@ -163,12 +177,8 @@ div.ProfileForm__grid  736×1094 @16,16
           button.Button__button  326×44 @0,0  r11  b1
             span.Button__content#3  192×17 @67,13
               span.Button__label  192×17 @0,0  Manrope 600 15/17  lines=1  «Выйти на всех устройствах»
-      div.CardBelt__footer#2  358×158 @1,228  b1 0 0 0
-        p.ProfileForm__hint  326×81 @16,13  Manrope 400 13/20  lines=4  «Выход закрывает сессию на этом устройств»
-        button.Button__button  102×44 @16,102  r11  b1
-          span.Button__content#4  64×23 @19,10
-            span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
-              svg  20×20 @0,0
+      div.CardBelt__footer#2  358×106 @1,228  b1 0 0 0
+        p.ProfileForm__hint  326×81 @16,13  Manrope 400 13/20  lines=4  «Выход из панели — пункт «Выйти" в меню у»
 
 [геометрия 1440]
 div.ProfileForm__grid  940×1038 @16,16
@@ -209,19 +219,28 @@ div.ProfileForm__grid  940×1038 @16,16
       div.CardBelt__body  460×284 @1,96
         div.Field__field#5  428×76 @16,16
           label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Текущий пароль»
-          input  428×49 @0,27  r11  b1
+          div.PasswordInput__shell  428×49 @0,27
+            input.PasswordInput__input  428×49 @0,0  r11  b1
+            button.PasswordInput__toggle  36×36 @386,7  r100
+              svg  16×16 @10,8
         div.Field__field#6  428×76 @16,104
           label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Новый пароль»
-          input  428×49 @0,27  r11  b1
+          div.PasswordInput__shell  428×49 @0,27
+            input.PasswordInput__input#2  428×49 @0,0  r11  b1
+            button.PasswordInput__toggle#2  36×36 @386,7  r100
+              svg  16×16 @10,8
         div.Field__field#7  428×76 @16,192
           label.Field__label  428×20 @0,0  Manrope 600 13/20  lines=1  «Повторите новый»
-          input  428×49 @0,27  r11  b1
+          div.PasswordInput__shell  428×49 @0,27
+            input.PasswordInput__input#3  428×49 @0,0  r11  b1
+            button.PasswordInput__toggle#3  36×36 @386,7  r100
+              svg  16×16 @10,8
       div.CardBelt__footer  460×69 @1,380  b1 0 0 0
         div.ProfileForm__actions#2  155×44 @289,13
           button.Button__button  155×44 @0,0  r11  b1
             span.Button__content#2  117×17 @19,13
               span.Button__label  117×17 @0,0  Manrope 600 15/17  lines=1  «Сменить пароль»
-  div.ProfileForm__column#2  462×496 @478,0
+  div.ProfileForm__column#2  462×444 @478,0
     section.Card__card  462×134 @0,0  r20  b1
       div.CardBelt__header#2  460×63 @1,1  b0 0 1 0
         div.CardBelt__headText  332×38 @16,12
@@ -232,7 +251,7 @@ div.ProfileForm__grid  940×1038 @16,16
           button.ThemeChoice__option  94×37 @0,0  Manrope 600 15/normal  r100  b1  lines=1  «Светлая»
           button.ThemeChoice__option#2  86×37 @100,0  Manrope 600 15/normal  r100  b1  lines=1  «Тёмная»
           button.ThemeChoice__option#3  113×37 @192,0  Manrope 600 15/normal  r100  b1  lines=1  «Системная»
-    section.Card__card#2  462×347 @0,150  r20  b1
+    section.Card__card#2  462×295 @0,150  r20  b1
       div.CardBelt__header#2  460×45 @1,1  b0 0 1 0
         div.CardBelt__headText#2  36×20 @16,12
           h2.CardBelt__title#2  36×20 @0,0  Onest 700 15/20  ls0  lines=1  «Вход»
@@ -245,12 +264,8 @@ div.ProfileForm__grid  940×1038 @16,16
           button.Button__button  428×44 @0,0  r11  b1
             span.Button__content#3  192×17 @118,13
               span.Button__label  192×17 @0,0  Manrope 600 15/17  lines=1  «Выйти на всех устройствах»
-      div.CardBelt__footer#2  460×137 @1,208  b1 0 0 0
-        p.ProfileForm__hint  428×60 @16,13  Manrope 400 13/20  lines=3  «Выход закрывает сессию на этом устройств»
-        button.Button__button  102×44 @16,81  r11  b1
-          span.Button__content#4  64×23 @19,10
-            span.Button__label  64×23 @0,0  Manrope 600 15/17  lines=1  «Выйти»
-              svg  20×20 @0,0
+      div.CardBelt__footer#2  460×85 @1,208  b1 0 0 0
+        p.ProfileForm__hint  428×60 @16,13  Manrope 400 13/20  lines=3  «Выход из панели — пункт «Выйти" в меню у»
 
 [палитра light]
 div.ProfileForm__grid
@@ -291,13 +306,22 @@ div.ProfileForm__grid
       div.CardBelt__body
         div.Field__field#5
           label.Field__label  color #334155
-          input  bg #ffffff  border #7e8fa6
+          div.PasswordInput__shell
+            input.PasswordInput__input  bg #ffffff  border #7e8fa6
+            button.PasswordInput__toggle
+              svg
         div.Field__field#6
           label.Field__label  color #334155
-          input  bg #ffffff  border #7e8fa6
+          div.PasswordInput__shell
+            input.PasswordInput__input#2  bg #ffffff  border #7e8fa6
+            button.PasswordInput__toggle#2
+              svg
         div.Field__field#7
           label.Field__label  color #334155
-          input  bg #ffffff  border #7e8fa6
+          div.PasswordInput__shell
+            input.PasswordInput__input#3  bg #ffffff  border #7e8fa6
+            button.PasswordInput__toggle#3
+              svg
       div.CardBelt__footer  border #e2e8f0 #475569 #475569 #475569
         div.ProfileForm__actions#2
           button.Button__button  bg #ecfeff  border transparent
@@ -329,10 +353,6 @@ div.ProfileForm__grid
               span.Button__label  color #be123c
       div.CardBelt__footer#2  border #e2e8f0 #475569 #475569 #475569
         p.ProfileForm__hint  color #556173
-        button.Button__button  bg #ffffff  border #7e8fa6
-          span.Button__content#4
-            span.Button__label  color #0f172a
-              svg
 
 [палитра dark]
 div.ProfileForm__grid
@@ -373,13 +393,22 @@ div.ProfileForm__grid
       div.CardBelt__body
         div.Field__field#5
           label.Field__label  color #c9d5e2
-          input  bg #0b1424  border #566d95
+          div.PasswordInput__shell
+            input.PasswordInput__input  bg #0b1424  border #566d95
+            button.PasswordInput__toggle
+              svg
         div.Field__field#6
           label.Field__label  color #c9d5e2
-          input  bg #0b1424  border #566d95
+          div.PasswordInput__shell
+            input.PasswordInput__input#2  bg #0b1424  border #566d95
+            button.PasswordInput__toggle#2
+              svg
         div.Field__field#7
           label.Field__label  color #c9d5e2
-          input  bg #0b1424  border #566d95
+          div.PasswordInput__shell
+            input.PasswordInput__input#3  bg #0b1424  border #566d95
+            button.PasswordInput__toggle#3
+              svg
       div.CardBelt__footer  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
         div.ProfileForm__actions#2
           button.Button__button  bg #22d3ee1a  border transparent
@@ -411,7 +440,3 @@ div.ProfileForm__grid
               span.Button__label  color #fb7185
       div.CardBelt__footer#2  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
         p.ProfileForm__hint  color #8598ac
-        button.Button__button  bg #121d31  border #566d95
-          span.Button__content#4
-            span.Button__label  color #eaf1f8
-              svg

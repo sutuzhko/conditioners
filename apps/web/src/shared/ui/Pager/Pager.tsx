@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { pagerLabels } from './labels';
 import styles from './Pager.module.css';
 
 export interface PagerProps {
@@ -12,18 +13,24 @@ export interface PagerProps {
   /** Что сохраняется при переходе — поиск, выбранный фильтр. */
   readonly query?: Readonly<Record<string, string>> | undefined;
   readonly label?: string;
+  /** Видимое слово шага назад. Только вне полосы номеров: в панели шаг — шеврон. */
   readonly prevLabel?: string;
   readonly nextLabel?: string;
+  /** Имя шага для озвучки в полосе номеров: шеврон сам по себе не имя. */
+  readonly prevPageLabel?: string;
+  readonly nextPageLabel?: string;
   /** Подпись положения: «2 из 7». */
   readonly position?: ((page: number, pages: number) => string) | undefined;
   /**
    * Полоса номеров страниц между шагами (макет, issue #602).
    *
-   * 🔴 Проп, а не поведение по умолчанию, и это временно. Полосу требует макет
-   * во всех списках панели, но разделы приходят к нему разными вехами и
-   * разными руками: включённая разом, она сдвинула бы геометрию шести списков
-   * сразу, включая те, которые правит кто-то другой. Умолчание переключается
-   * одним движением, когда к макету придёт последний раздел.
+   * 🔴 Проп — это выбор контура, а не украшение. Полосу номеров показывают все
+   * восемь списков панели и не показывает ни один экран витрины: там разбивка
+   * остаётся тремя пилюлями со словами, потому что стоит под каталогом на
+   * длинной странице и читается текстом, а не сеткой номеров. Отсюда и
+   * геометрия: с полосой ряд собран по макету панели — одинаковые ячейки
+   * 32×32 с радиусом `--r-pager`; без полосы остаётся язык витрины (issue
+   * #748).
    */
   readonly numbers?: boolean | undefined;
   /** Имя ссылки на страницу для озвучки: «Страница 3». */
@@ -73,22 +80,28 @@ export function pageWindowNumbers(page: number, pages: number): readonly (number
  * можно сохранить и прислать, а сам компонент не стоит ни килобайта в бюджете
  * JS — списки панели рендерит сервер.
  *
- * По умолчанию — соседние страницы и подпись положения: восемь записей на
- * страницу дают десятки страниц уже на второй сотне клиентов, и полная лента
- * номеров была бы рядом, по которому никто не целится.
+ * 🔴 Разбивка в панели одна на все списки (issue #748). До этой правки их было
+ * три: кит, подвал склада со своими ступенями шага и целиком свой пагинатор
+ * заказов с третьим радиусом и своим окном номеров. Владелец увидел результат
+ * на сводке и назвал его прямо: «на каждой странице своя». Своих реализаций
+ * больше нет — есть этот компонент и ступень шага `PageSize` рядом с ним.
  *
- * 🔴 `numbers` включает полосу из макета — но не всю ленту, а края, соседей
- * текущей страницы и многоточия на разрывах (`pageWindowNumbers`). Так прыжок
- * в начало и в конец стоит одного нажатия, а ряд остаётся коротким при любом
- * числе страниц.
+ * 🔴 Все ячейки ряда — одна коробка (issue #748). Раньше в одном ряду стояли
+ * три разных вида: шаг — обведённая пилюля со словом, номер — пилюля без
+ * рамки, текущая страница — залитая пилюля с другим внутренним полем (14px
+ * против 8px у номера). Форма сообщает «это элемент другого назначения», и
+ * текущая страница читалась кнопкой, а не номером. Теперь она отличается
+ * заливкой и весом — тем, чем и должна.
+ *
+ * 🔴 Шаги в полосе номеров — шевроны, как в макете (`.pg`, `_base.css`), а
+ * имя им даёт `aria-label`. Родного `title` на них нет намеренно: подсказка
+ * браузера появляется через секунду, не приходит по фокусу и не гасится по
+ * Escape (та же причина, что у действий строки таблицы, ADR-159).
  *
  * 🔴 Переход не двигает прокрутку (issue #735). Умолчание Next — бросить
  * документ в начало, потому что обычно смена адреса означает другую страницу;
  * у разбивки она означает другое содержимое того же блока, и прыжок наверх
- * уносил из-под глаз тот самый список, ради которого нажали «Дальше». Ряд
- * разбивки стоит внизу блока, то есть человек смотрел на приветствие. Тот же
- * `scroll={false}` уже стоял на ссылках очереди обращений (ADR-258) — здесь
- * он перестаёт быть исключением одного раздела.
+ * уносил из-под глаз тот самый список, ради которого нажали «Дальше».
  *
  * Вместе с прокруткой Next гасит и перевод фокуса в начало документа
  * (`focusAndScrollRef.apply` в `layout-router`), поэтому фокус остаётся на
@@ -99,13 +112,15 @@ export function Pager({
   pages,
   basePath,
   query,
-  label = 'Страницы списка',
-  prevLabel = 'Назад',
-  nextLabel = 'Дальше',
-  position = (current, total) => `${current} из ${total}`,
+  label = pagerLabels.nav,
+  prevLabel = pagerLabels.prev,
+  nextLabel = pagerLabels.next,
+  prevPageLabel = pagerLabels.prevPage,
+  nextPageLabel = pagerLabels.nextPage,
+  position = pagerLabels.position,
   numbers = false,
-  pageLabel = (target) => `Страница ${target}`,
-  announce = (current, total) => `Показана страница ${current} из ${total}`,
+  pageLabel = pagerLabels.page,
+  announce = pagerLabels.announce,
 }: PagerProps) {
   if (pages <= 1) return null;
 
@@ -117,37 +132,36 @@ export function Pager({
   });
 
   /* 🔴 Полоса номеров ужимается на телефоне, а не переносится (issue #653).
-     Пять номеров, два многоточия и два шага со словами требуют 362px в
-     колонке 256 на ширине 320: ряд вставал в три строки и упирался в
-     соседний блок подвала. Ниже 600px остаётся то, чем на телефоне и
-     листают, — два шага и подпись положения; слова шагов уходят с глаз, но
-     остаются в озвучке, номера уступают место подписи. Отступление от
-     макета записано в PIXEL_SPEC. */
+     Пять номеров, два многоточия и два шага требуют больше места, чем есть в
+     колонке 256 на ширине 320: ряд вставал в три строки и упирался в соседний
+     блок подвала. Ниже 600px остаются два шага и подпись положения — то, чем
+     на телефоне и листают. Отступление от макета записано в PIXEL_SPEC. */
   const pagerClass = numbers ? `${styles.pager} ${styles.compact}` : styles.pager;
-
-  /* 🔴 Обёртка вокруг слова — только в режиме полосы номеров. Она нужна, чтобы
-     ниже 600px убрать слово с глаз, оставив его в озвучке, но сама по себе
-     меняет ширину шага на 3px: пробел между стрелкой и словом отрисовывается
-     иначе. В списках витрины полосы номеров нет, и трогать их геометрию эта
-     задача не должна — там шаг остаётся ровно тем, чем был. */
-  const stepText = (text: string) =>
-    numbers ? <span className={styles.stepText}>{text}</span> : text;
 
   return (
     <nav className={pagerClass} aria-label={label}>
       {page > 1 ? (
-        <Link className={styles.step} href={href(page - 1)} rel="prev" scroll={false}>
-          ← {stepText(prevLabel)}
+        <Link
+          className={styles.step}
+          href={href(page - 1)}
+          rel="prev"
+          scroll={false}
+          aria-label={numbers ? prevPageLabel : undefined}
+        >
+          {numbers ? <span aria-hidden="true">‹</span> : `← ${prevLabel}`}
         </Link>
       ) : (
-        <span className={styles.stepOff}>← {stepText(prevLabel)}</span>
+        /* Край списка: шаг остаётся на месте, чтобы номера не прыгали вбок.
+           Целью он больше не является, и в полосе номеров озвучке не нужен
+           вовсе — шеврон без ссылки ей нечего сказать. */
+        <span className={styles.stepOff} aria-hidden={numbers || undefined}>
+          {numbers ? '‹' : `← ${prevLabel}`}
+        </span>
       )}
 
       {numbers ? (
         <>
-          <span className={`${styles.position} ${styles.positionCompact}`}>
-            {position(page, pages)}
-          </span>
+          <span className={styles.count}>{position(page, pages)}</span>
 
           <ol className={styles.numbers}>
             {pageWindowNumbers(page, pages).map((item, index) =>
@@ -160,7 +174,10 @@ export function Pager({
               ) : (
                 <li key={item}>
                   {item === page ? (
-                    <span className={styles.position} aria-current="page">
+                    /* Текущая страница — не ссылка: переход на самого себя
+                       ничего не делает, а озвучка объявила бы его обычной
+                       целью. */
+                    <span className={styles.current} aria-current="page">
                       {item}
                     </span>
                   ) : (
@@ -183,11 +200,19 @@ export function Pager({
       )}
 
       {page < pages ? (
-        <Link className={styles.step} href={href(page + 1)} rel="next" scroll={false}>
-          {stepText(nextLabel)} →
+        <Link
+          className={styles.step}
+          href={href(page + 1)}
+          rel="next"
+          scroll={false}
+          aria-label={numbers ? nextPageLabel : undefined}
+        >
+          {numbers ? <span aria-hidden="true">›</span> : `${nextLabel} →`}
         </Link>
       ) : (
-        <span className={styles.stepOff}>{stepText(nextLabel)} →</span>
+        <span className={styles.stepOff} aria-hidden={numbers || undefined}>
+          {numbers ? '›' : `${nextLabel} →`}
+        </span>
       )}
 
       {/* 🔴 Смена страницы объявляется, потому что видимого события больше нет

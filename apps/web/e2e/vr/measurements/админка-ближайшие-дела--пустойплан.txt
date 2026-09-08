@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  326×423 @32,32  r14  b1
-  div.SummaryFilters__bar  284×132 @21,21
+section.Card__card  326×394 @32,32  r14  b1
+  div.SummaryFilters__bar  284×104 @21,21
     div.SummaryFilters__pills  284×44 @0,0
       details.SummaryFilters__filter  77×44 @0,0
         summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -39,16 +39,15 @@ section.Card__card  326×423 @32,32  r14  b1
       div.Field__field  284×52 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
         input  284×52 @0,0  r999  b1
-    p.SummaryFilters__total  284×20 @0,112  Manrope 400 13/20  lines=1  «0 дел в списке»
-  div.EmptyState__box  284×230 @21,167
+  div.EmptyState__box  284×230 @21,139
     span.EmptyState__badge  48×48 @118,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  212×21 @36,88  Onest 700 17/21  ls0  lines=1  «Ничего не запланировано»
     p.EmptyState__text  252×90 @16,113  Manrope 400 15/22  lines=4  «Ни одного наряда и ни одного дела на бли»
 
 [геометрия 768]
-section.Card__card  704×401 @32,32  r14  b1
-  div.SummaryFilters__bar  662×132 @21,21
+section.Card__card  704×373 @32,32  r14  b1
+  div.SummaryFilters__bar  662×104 @21,21
     div.SummaryFilters__pills  662×44 @0,0
       details.SummaryFilters__filter  77×44 @0,0
         summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -79,17 +78,16 @@ section.Card__card  704×401 @32,32  r14  b1
       div.Field__field  662×52 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
         input  662×52 @0,0  r999  b1
-    p.SummaryFilters__total  662×20 @0,112  Manrope 400 13/20  lines=1  «0 дел в списке»
-  div.EmptyState__box  662×209 @21,167
+  div.EmptyState__box  662×209 @21,139
     span.EmptyState__badge  48×48 @307,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  222×22 @220,88  Onest 700 18/22  ls0  lines=1  «Ничего не запланировано»
     p.EmptyState__text  371×67 @145,114  Manrope 400 15/22  lines=3  «Ни одного наряда и ни одного дела на бли»
 
 [геометрия 1440]
-section.Card__card  1376×346 @32,32  r14  b1
-  div.SummaryFilters__bar  1334×76 @21,21
-    div.SummaryFilters__pills  1120×34 @0,0
+section.Card__card  1376×318 @32,32  r14  b1
+  div.SummaryFilters__bar  1334×48 @21,21
+    div.SummaryFilters__pills  1042×34 @0,0
       details.SummaryFilters__filter  77×34 @0,0
         summary.SummaryFilters__pill  77×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
         div.SummaryFilters__sheet  220×221 @0,40  r14  b1
@@ -115,12 +113,11 @@ section.Card__card  1376×346 @32,32  r14  b1
               span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
             a.SummaryFilters__item#3  83×34 @90,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
               span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
-    form.SummaryFilters__form  202×48 @1132,0
-      div.Field__field  202×48 @0,0
+    form.SummaryFilters__form  280×48 @1054,0
+      div.Field__field  280×48 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
-        input  202×48 @0,0  r999  b1
-    p.SummaryFilters__total  1334×20 @0,56  Manrope 400 13/20  lines=1  «0 дел в списке»
-  div.EmptyState__box  1334×210 @21,111
+        input  280×48 @0,0  r999  b1
+  div.EmptyState__box  1334×210 @21,83
     span.EmptyState__badge  48×48 @643,28  r100
       svg  20×20 @14,14
     h2.EmptyState__title  235×23 @550,88  Onest 700 19/23  ls0  lines=1  «Ничего не запланировано»
@@ -159,7 +156,6 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px
       div.Field__field
         label.Field__label  color #556173
         input  bg #f8fafc  border #7e8fa6
-    p.SummaryFilters__total  color #5b6a7d
   div.EmptyState__box
     span.EmptyState__badge  bg #ecfeff
       svg
@@ -199,7 +195,6 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px
       div.Field__field
         label.Field__label  color #8598ac
         input  bg #0e1729  border #566d95
-    p.SummaryFilters__total  color #7e92a7
   div.EmptyState__box
     span.EmptyState__badge  bg #22d3ee1a
       svg

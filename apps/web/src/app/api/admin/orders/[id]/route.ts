@@ -8,14 +8,15 @@
  */
 import { orderInstallerUpdateSchema, orderUpdateSchema } from '@/entities/order/model';
 import { isOwner } from '@/server/auth';
+import { FIELD } from '@/entities/staff/access';
 import {
   json,
   noContent,
   notFound,
   readJson,
   validationError,
-  withAdmin,
   withOwner,
+  withRoles,
 } from '@/server/http';
 import { notifyOrderRemoved, notifyOrderUpdated } from '@/server/notifications/orders';
 import { findById, remove, setStatusByInstaller, update } from '@/server/repo/orders';
@@ -28,7 +29,7 @@ type Context = { params: Promise<{ id: string }> };
  * Чужой наряд монтажнику — `404`, а не `403`: репозиторий не находит его
  * вовсе, потому что существование чужого наряда монтажника не касается.
  */
-export const GET = withAdmin(async (_request, context: Context, session) => {
+export const GET = withRoles(FIELD, async (_request, context: Context, session) => {
   const { id } = await context.params;
 
   const order = await findById(id, { role: session.role, userId: session.userId });
@@ -37,7 +38,7 @@ export const GET = withAdmin(async (_request, context: Context, session) => {
   return json(order);
 });
 
-export const PATCH = withAdmin(async (request, context: Context, session) => {
+export const PATCH = withRoles(FIELD, async (request, context: Context, session) => {
   const { id } = await context.params;
   const body = await readJson(request);
 

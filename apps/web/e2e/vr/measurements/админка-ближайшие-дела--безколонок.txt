@@ -2,13 +2,13 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1282
+390 → 390×1254
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  326×1218 @32,32  r14  b1
-  div.SummaryFilters__bar  284×132 @21,21
+section.Card__card  326×1190 @32,32  r14  b1
+  div.SummaryFilters__bar  284×104 @21,21
     div.SummaryFilters__pills  284×44 @0,0
       details.SummaryFilters__filter  77×44 @0,0
         summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -39,8 +39,7 @@ section.Card__card  326×1218 @32,32  r14  b1
       div.Field__field  284×52 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
         input  284×52 @0,0  r999  b1
-    p.SummaryFilters__total  284×20 @0,112  Manrope 400 13/20  lines=1  «4 дела в списке»
-  div.Table__viewport  284×1034 @21,163
+  div.Table__viewport  284×1034 @21,135
     table.Table__table  284×1034 @0,0
       tr[role=row]  1×56 @0,0
         th.SummaryTable__whenCol  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -171,8 +170,8 @@ section.Card__card  326×1218 @32,32  r14  b1
                     svg#3  18×18 @13,13
 
 [геометрия 768]
-section.Card__card  704×580 @32,32  r14  b1
-  div.SummaryFilters__bar  662×132 @21,21
+section.Card__card  704×552 @32,32  r14  b1
+  div.SummaryFilters__bar  662×104 @21,21
     div.SummaryFilters__pills  662×44 @0,0
       details.SummaryFilters__filter  77×44 @0,0
         summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -203,8 +202,7 @@ section.Card__card  704×580 @32,32  r14  b1
       div.Field__field  662×52 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
         input  662×52 @0,0  r999  b1
-    p.SummaryFilters__total  662×20 @0,112  Manrope 400 13/20  lines=1  «4 дела в списке»
-  div.Table__viewport  662×396 @21,163
+  div.Table__viewport  662×396 @21,135
     table.Table__table  720×396 @0,0
       tr[role=row]  720×56 @0,0
         th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -323,9 +321,9 @@ section.Card__card  704×580 @32,32  r14  b1
                     svg#3  18×18 @13,13
 
 [геометрия 1440]
-section.Card__card  1376×487 @32,32  r14  b1
-  div.SummaryFilters__bar  1334×76 @21,21
-    div.SummaryFilters__pills  1120×34 @0,0
+section.Card__card  1376×458 @32,32  r14  b1
+  div.SummaryFilters__bar  1334×48 @21,21
+    div.SummaryFilters__pills  1042×34 @0,0
       details.SummaryFilters__filter  77×34 @0,0
         summary.SummaryFilters__pill  77×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
         div.SummaryFilters__sheet  220×221 @0,40  r14  b1
@@ -351,12 +349,11 @@ section.Card__card  1376×487 @32,32  r14  b1
               span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
             a.SummaryFilters__item#3  83×34 @90,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
               span.SummaryFilters__mark  12×0 @13,17
-    form.SummaryFilters__form  202×48 @1132,0
-      div.Field__field  202×48 @0,0
+    form.SummaryFilters__form  280×48 @1054,0
+      div.Field__field  280×48 @0,0
         label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
-        input  202×48 @0,0  r999  b1
-    p.SummaryFilters__total  1334×20 @0,56  Manrope 400 13/20  lines=1  «4 дела в списке»
-  div.Table__viewport  1334×358 @21,107
+        input  280×48 @0,0  r999  b1
+  div.Table__viewport  1334×358 @21,79
     table.Table__table  1334×358 @0,0
       tr[role=row]  1334×56 @0,0
         th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -507,7 +504,6 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px
       div.Field__field
         label.Field__label  color #556173
         input  bg #f8fafc  border #7e8fa6
-    p.SummaryFilters__total  color #5b6a7d
   div.Table__viewport
     table.Table__table
       tr[role=row]
@@ -689,7 +685,6 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px
       div.Field__field
         label.Field__label  color #8598ac
         input  bg #0e1729  border #566d95
-    p.SummaryFilters__total  color #7e92a7
   div.Table__viewport
     table.Table__table
       tr[role=row]

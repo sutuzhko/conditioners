@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { StockItemForm, STOCK_PATH, stockManagerContent as texts } from '@/features/stock-manager';
+import { requireOwnerPage } from '@/server/guards';
 import { Card } from '@/shared/ui';
 
 import { itemFormData } from '../../data';
@@ -22,6 +23,14 @@ export const dynamic = 'force-dynamic';
  * Заголовок и рамку даёт страница — форма приносит только поля, как и в окне.
  */
 export default async function AdminStockItemNewPage() {
+  /* 🔴 Страж стоит и здесь, хотя загрузчик данных зовёт его тоже: проверка
+     обязана быть видна в самой странице (ADR-095, issue #773). Загрузчик —
+     соседний модуль, и его переиспользуют: страница, собранная из другого
+     набора вызовов, молча остаётся без роли. Сессия читается один раз за
+     запрос — `getAdminSession` обёрнута в `cache`, — так что второй вызов
+     ничего не стоит. */
+  await requireOwnerPage();
+
   const { products } = await itemFormData();
 
   return (

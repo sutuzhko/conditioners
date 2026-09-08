@@ -18,7 +18,10 @@ section.Card__card  358×411 @16,244  r20  b1
     div.Field__field#2  316×76 @0,92
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Пароль»
         span.Field__required#2  9×18 @47,1  Manrope 600 13/20  lines=1  «*»
-      input  316×49 @0,27  r11  b1
+      div.PasswordInput__shell  316×49 @0,27
+        input.PasswordInput__input  316×49 @0,0  r11  b1
+        button.PasswordInput__toggle  44×44 @268,3  r100
+          svg  16×16 @14,12
     button.Button__button  316×52 @0,184  r12  b1
       span.Button__content  100×19 @108,16
         span.Button__label  100×19 @0,0  Manrope 600 16/19  lines=1  «Проверяем…»
@@ -36,7 +39,10 @@ section.Card__card  420×403 @174,248  r20  b1
     div.Field__field#2  378×76 @0,92
       label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Пароль»
         span.Field__required#2  9×18 @47,1  Manrope 600 13/20  lines=1  «*»
-      input  378×49 @0,27  r11  b1
+      div.PasswordInput__shell  378×49 @0,27
+        input.PasswordInput__input  378×49 @0,0  r11  b1
+        button.PasswordInput__toggle  44×44 @330,3  r100
+          svg  16×16 @14,12
     button.Button__button  378×52 @0,184  r12  b1
       span.Button__content  100×19 @139,16
         span.Button__label  100×19 @0,0  Manrope 600 16/19  lines=1  «Проверяем…»
@@ -54,7 +60,10 @@ section.Card__card  420×420 @510,240  r20  b1
     div.Field__field#2  378×76 @0,92
       label.Field__label  378×20 @0,0  Manrope 600 13/20  lines=1  «Пароль»
         span.Field__required#2  9×18 @47,1  Manrope 600 13/20  lines=1  «*»
-      input  378×49 @0,27  r11  b1
+      div.PasswordInput__shell  378×49 @0,27
+        input.PasswordInput__input  378×49 @0,0  r11  b1
+        button.PasswordInput__toggle  36×36 @336,7  r100
+          svg  16×16 @10,8
     button.Button__button  378×52 @0,184  r12  b1
       span.Button__content  100×19 @139,16
         span.Button__label  100×19 @0,0  Manrope 600 16/19  lines=1  «Проверяем…»
@@ -72,7 +81,10 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #08425473 0px 36px 80px -
     div.Field__field#2
       label.Field__label  color #334155
         span.Field__required#2  color #0e7490
-      input  bg #f8fafc  border #7e8fa6
+      div.PasswordInput__shell
+        input.PasswordInput__input  bg #f8fafc  border #7e8fa6
+        button.PasswordInput__toggle
+          svg
     button.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label  color #ffffff
@@ -90,7 +102,10 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #08425473 0px 36px 80px -
     div.Field__field#2
       label.Field__label  color #c9d5e2
         span.Field__required#2  color #22d3ee
-      input  bg #0e1729  border #566d95
+      div.PasswordInput__shell
+        input.PasswordInput__input  bg #0e1729  border #566d95
+        button.PasswordInput__toggle
+          svg
     button.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label  color #ffffff

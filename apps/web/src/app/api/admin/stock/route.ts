@@ -1,13 +1,15 @@
 /**
  * Остатки по зонам — docs/API.md §14.
  *
- * Раздел открыт обеим ролям: монтажник закрывает наряд тем, что у него с
- * собой, и без остатка своей машины сделать этого не может. Что именно он
- * увидит, решает репозиторий — там же, где стоит отбор зон (ADR-134).
+ * Раздел открыт владельцу и монтажнику (перечень `FIELD`): монтажник
+ * закрывает наряд тем, что у него с собой, и без остатка своей машины сделать
+ * этого не может. Что именно он увидит, решает репозиторий — там же, где стоит
+ * отбор зон (ADR-134).
  *
  * Ревалидации здесь нет: склад на публичных страницах не показывается.
  */
-import { json, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { json, withRoles } from '@/server/http';
 import { overview } from '@/server/repo/stock';
 import { pageNumber } from '@/shared/lib/paging';
 
@@ -29,7 +31,7 @@ function pageSize(value: string | null): number | undefined {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
 }
 
-export const GET = withAdmin(async (request, _context, session) => {
+export const GET = withRoles(FIELD, async (request, _context, session) => {
   const params = request.nextUrl.searchParams;
 
   return json(

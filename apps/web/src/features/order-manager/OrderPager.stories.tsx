@@ -7,6 +7,15 @@ const meta = {
   title: 'Админка/Заказы/Разбивка списка',
   component: OrderPager,
   args: { page: longPage, filters: listFilters({ tab: 'all' }) },
+  /* 🔴 Та же причина, что у подвала склада: геометрия разбивки приходит
+     панельными переменными, и без обёртки история мерится витриной. */
+  decorators: [
+    (Story) => (
+      <div data-ui="panel" style={{ background: 'var(--card)' }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof OrderPager>;
 
 export default meta;

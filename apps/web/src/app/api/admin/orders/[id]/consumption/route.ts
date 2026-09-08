@@ -9,7 +9,8 @@
  * (ADR-114); чужая машина — `403`. Обе проверки в репозитории, вместе с
  * доступом к данным.
  */
-import { json, readJson, validationError, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { json, readJson, validationError, withRoles } from '@/server/http';
 import { orderConsumeSchema } from '@/entities/stock/model';
 import { consume, consumptionOf } from '@/server/repo/stock';
 
@@ -17,13 +18,13 @@ export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string }> };
 
-export const GET = withAdmin(async (_request, context: Context, session) => {
+export const GET = withRoles(FIELD, async (_request, context: Context, session) => {
   const { id } = await context.params;
 
   return json(await consumptionOf(id, { role: session.role, userId: session.userId }));
 });
 
-export const POST = withAdmin(async (request, context: Context, session) => {
+export const POST = withRoles(FIELD, async (request, context: Context, session) => {
   const { id } = await context.params;
 
   const parsed = orderConsumeSchema.safeParse(await readJson(request));

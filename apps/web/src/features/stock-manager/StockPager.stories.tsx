@@ -17,6 +17,16 @@ const meta = {
     basePath: STOCK_PATH,
     query: {},
   },
+  /* 🔴 Подвал живёт только в панели, и мерить его надо её геометрией: без
+     обёртки `--h-sm` и `--r-pager` не приходят вовсе, и история показывает
+     ряд, которого владелец не видит (issue #748). */
+  decorators: [
+    (Story) => (
+      <div data-ui="panel" style={{ background: 'var(--card)' }}>
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof StockPager>;
 
 export default meta;

@@ -10,17 +10,27 @@
  * `measurements-updated`, а разработчик забирает их одной командой и коммитит
  * сам — своим именем, обычным push'ем, с обычным прогоном.
  *
- * 🔴 Артефакт применяется целиком — и это правильно ровно до тех пор, пока он
- * снят на том коммите, который сейчас в рабочем дереве (issue #643). Артефакт
- * не «набор правок ветки», а полный слепок измерений на своём коммите: файлы
- * без пары он удаляет, остальные переписывает. Стоит после снятия артефакта
- * влить `main` — и слепок начинает молча возвращать чужие измерения в
- * дослияночный вид. За одну смену это сработало трижды, худший случай — 21
- * откаченный файл, ни один из которых не про раздел ветки. Опасны при этом не
- * удаления (их видно в `git status`), а подмены: они выглядят обычной правкой.
+ * 🔴 Артефакт снимается на своём коммите, и подставлять его числа в другое
+ * дерево нельзя (issue #643). Стоит после снятия артефакта влить `main` — и
+ * измерения, которые прогон успел снять, вернутся в дослияночный вид. За одну
+ * смену это сработало трижды, худший случай — 21 откаченный файл, ни один из
+ * которых не про раздел ветки. Опасны при этом не удаления (их видно в
+ * `git status`), а подмены: они выглядят обычной правкой. Поэтому команда
+ * сверяет коммит прогона с `HEAD` и при расхождении отказывается работать.
  *
- * Поэтому команда сверяет коммит прогона с `HEAD` и при расхождении
- * отказывается работать, называя оба коммита и то, что делать дальше.
+ * 🔴 Артефакт больше не полный слепок — и применять его как слепок нельзя
+ * (issue #865). С ADR-350 раннер обходит только истории, до которых
+ * дотягивается правка: отсутствие файла в артефакте означает «не мерили»
+ * куда чаще, чем «истории больше нет». Прежняя синхронизация каталога
+ * удаляла всё, чего в артефакте нет, и на первом же прогоне после ADR-350
+ * снесла 343 файла — ни один из них не про раздел ветки.
+ *
+ * Поэтому удаление требует **положительного свидетельства**, а не отсутствия
+ * файла. Свидетельство даёт паспорт замера `manifest.json`, который сборщик
+ * кладёт в тот же артефакт: он называет измеренное, пропущенное по графу,
+ * отказавшее и говорит, полон ли обход. Удаляется только та история, которую
+ * полный обход не встретил вовсе, — то есть действительно ушедшая из витрины.
+ * Артефакт без паспорта или с неполным обходом не удаляет ничего.
  *
  * Запуск (из корня или из apps/web):
  *   pnpm --filter web vr:measure:pull            — последний прогон текущей ветки
@@ -41,20 +51,35 @@ import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
+import { MANIFEST_FILE, MANIFEST_VERSION } from './measurements-assemble.mjs';
+
 const ARTIFACT = 'measurements-updated';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const MEASUREMENTS_DIR = join(ROOT, 'apps', 'web', 'e2e', 'vr', 'measurements');
 
+/** Имена файлов историй каталога: паспорт и прочее служебное не в счёт. */
+const storyFiles = (dir) => readdirSync(dir).filter((name) => name.endsWith('.txt'));
+
 /**
- * Синхронизация каталогов: `dest` становится копией `src` — обновлённые и
- * новые файлы записываются, файлы без пары удаляются (история переименована
- * или удалена). Возвращает, что изменилось: это и печатается пользователю.
+ * Синхронизация каталога измерений набором правок артефакта: файлы артефакта
+ * записываются, лишние — удаляются, но только те, которые прогон назвал
+ * ушедшими (`known`).
+ *
+ * 🔴 `known === null` означает «прогон не сказал, что видел» — и тогда не
+ * удаляется ничего. Молчание толковать в пользу удаления нельзя: файл
+ * измерения удаляется молча, а восстанавливается только руками и только если
+ * кто-то заметил (issue #865).
+ *
+ * Возвращает, что изменилось, и отдельно `kept` — файлы, которых в артефакте
+ * не было и которые оставлены нетронутыми. Их число печатается: пропуск с
+ * числом и молчаливый пропуск различаются ровно тем, можно ли заметить, что
+ * фильтр стал слишком широким.
  */
-export function syncDir(src, dest) {
+export function syncDir(src, dest, known = null) {
   mkdirSync(dest, { recursive: true });
-  const srcFiles = new Set(readdirSync(src).filter((name) => name.endsWith('.txt')));
-  const destFiles = new Set(readdirSync(dest).filter((name) => name.endsWith('.txt')));
-  const result = { added: [], updated: [], removed: [], unchanged: 0 };
+  const srcFiles = new Set(storyFiles(src));
+  const destFiles = new Set(storyFiles(dest));
+  const result = { added: [], updated: [], removed: [], kept: [], unchanged: 0 };
 
   for (const name of [...srcFiles].sort()) {
     const text = readFileSync(join(src, name), 'utf8');
@@ -70,26 +95,97 @@ export function syncDir(src, dest) {
     }
   }
   for (const name of [...destFiles].sort()) {
-    if (!srcFiles.has(name)) {
+    if (srcFiles.has(name)) continue;
+    if (known !== null && !known.has(name)) {
       rmSync(join(dest, name));
       result.removed.push(name);
+    } else {
+      result.kept.push(name);
     }
   }
   return result;
 }
 
+/** Паспорт замера из скачанного артефакта; `null` — паспорта нет или он нечитаем. */
+export function readManifest(dir) {
+  const path = join(dir, MANIFEST_FILE);
+  if (!existsSync(path)) return null;
+  try {
+    return JSON.parse(readFileSync(path, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+const stories = (value) => (Array.isArray(value) ? value.map((item) => String(item)) : []);
+
+/**
+ * Какие истории прогон видел — то есть какие файлы каталога он вправе
+ * оставить. Возвращает множество имён файлов либо `null`, если прогон таких
+ * оснований не даёт; во втором случае `why` объясняет, почему удалений не
+ * будет.
+ *
+ * 🔴 Список `measured` сверяется с тем, что реально лежит в артефакте.
+ * Обрезанная закачка выглядит ровно как замер, в котором историй не было, —
+ * и молча превратилась бы в удаления.
+ */
+export function vouchedStories(manifest, artifactNames) {
+  if (manifest === null) {
+    return {
+      known: null,
+      why: 'в артефакте нет паспорта замера — прогон старше issue #865 и не сообщает, что мерял',
+    };
+  }
+  if (manifest.version !== MANIFEST_VERSION) {
+    return {
+      known: null,
+      why: `паспорт замера версии ${String(manifest.version)}, эта команда знает версию ${MANIFEST_VERSION}`,
+    };
+  }
+
+  const measured = stories(manifest.measured).map((story) => `${story}.txt`);
+  const present = new Set(artifactNames);
+  const lost = measured.filter((name) => !present.has(name));
+  if (lost.length !== 0 || measured.length !== present.size) {
+    return {
+      known: null,
+      why: `паспорт называет ${measured.length} измеренных историй, а в артефакте ${present.size} файлов — закачка неполная`,
+    };
+  }
+
+  const coverage = manifest.coverage;
+  if (coverage === undefined || coverage === null || coverage.complete !== true) {
+    const why =
+      coverage === undefined || coverage === null ? 'паспорт не описывает обход' : coverage.why;
+    return { known: null, why: `обход прогона неполон: ${String(why)}` };
+  }
+
+  /* Отказавшие истории защищены наравне с пропущенными: их не измерили, но
+     раннер их видел, и файл в репозитории остаётся верным. */
+  const known = new Set(measured);
+  for (const story of stories(manifest.skipped)) known.add(`${story}.txt`);
+  for (const item of Array.isArray(manifest.failed) ? manifest.failed : []) {
+    known.add(`${String(item?.story ?? '')}.txt`);
+  }
+  return { known, why: '' };
+}
+
 /**
  * Годится ли артефакт прогона для текущего рабочего дерева.
  *
- * Проверок две, и обе отвечают на один вопрос: описывает ли слепок именно то
+ * Проверок две, и обе отвечают на один вопрос: описывает ли замер именно то
  * дерево, в которое его собираются положить.
  *
- * 1. **Коммит.** Прогон снят на `run.headSha`; если он не равен `HEAD`, слепок
+ * 1. **Коммит.** Прогон снят на `run.headSha`; если он не равен `HEAD`, замер
  *    описывает другое дерево. Частный случай, ради которого правило и заведено:
  *    коммит прогона — предок `HEAD`, то есть после снятия артефакта в ветку
  *    что-то приехало (чаще всего слияние с `main`).
- * 2. **Ветка.** Номер прогона легко взять от соседней ветки — тогда слепок
- *    описывает чужую работу целиком.
+ * 2. **Ветка.** Номер прогона легко взять от соседней ветки — тогда числа
+ *    приезжают от чужой работы.
+ *
+ * 🔴 Проверка не отменяется тем, что артефакт стал частичным (issue #865):
+ * измеренные истории он всё равно переписывает, и подмена их значений числами
+ * с другого коммита — ровно тот дефект, ради которого правило заведено.
  *
  * Возвращает `{ ok }` и, при отказе, готовый текст объяснения: команда только
  * печатает его, решение принимается здесь.
@@ -104,8 +200,8 @@ export function checkRun({ run, headSha, branch, ancestor }) {
       ok: false,
       reason: [
         `прогон снят на ветке «${run.headBranch}», а рабочее дерево на «${branch}».`,
-        'Артефакт — полный слепок измерений своей ветки: применить его сюда значит',
-        'заменить измерения этой ветки чужими. Возьмите номер прогона своей ветки.',
+        'Артефакт несёт измерения своей ветки: применить его сюда значит заменить',
+        'измерения этой ветки чужими. Возьмите номер прогона своей ветки.',
       ].join('\n  '),
     };
   }
@@ -115,10 +211,10 @@ export function checkRun({ run, headSha, branch, ancestor }) {
   const merged = ancestor
     ? [
         'Коммит прогона — предок HEAD: после снятия артефакта в ветку что-то приехало',
-        '(обычно слияние с main). Слепок не знает про эти изменения и вернёт их назад —',
+        '(обычно слияние с main). Замер не знает про эти изменения и вернёт их назад —',
         'молча, подменой содержимого, которую в диффе не отличить от обычной правки.',
       ]
-    : ['Коммит прогона не связан с HEAD прямой линией — слепок описывает другое дерево.'];
+    : ['Коммит прогона не связан с HEAD прямой линией — замер описывает другое дерево.'];
 
   return {
     ok: false,
@@ -262,9 +358,26 @@ function main() {
     if (!existsSync(tmp) || readdirSync(tmp).length === 0) {
       throw new Error(`артефакт ${ARTIFACT} пуст — сводная работа измерений не отработала?`);
     }
-    const result = syncDir(tmp, MEASUREMENTS_DIR);
+
+    const manifest = readManifest(tmp);
+    const artifactNames = storyFiles(tmp);
+    const { known, why } = vouchedStories(manifest, artifactNames);
+
+    if (manifest !== null) {
+      console.log(
+        `паспорт замера: измерено ${artifactNames.length}, пропущено по графу ${stories(manifest.skipped).length}, отказов ${(Array.isArray(manifest.failed) ? manifest.failed : []).length}`,
+      );
+    }
+    if (known === null) {
+      console.warn(`⚠ удаления отключены: ${why}`);
+    }
+    if (artifactNames.length === 0) {
+      console.log('в артефакте нет ни одного измерения — правка не дотянулась ни до одной истории');
+    }
+
+    const result = syncDir(tmp, MEASUREMENTS_DIR, known);
     console.log(
-      `обновлено ${result.updated.length}, добавлено ${result.added.length}, удалено ${result.removed.length}, без изменений ${result.unchanged}`,
+      `обновлено ${result.updated.length}, добавлено ${result.added.length}, удалено ${result.removed.length}, без изменений ${result.unchanged}, не мерялось ${result.kept.length}`,
     );
     for (const name of result.updated) console.log(`  ~ ${name}`);
     for (const name of result.added) console.log(`  + ${name}`);
@@ -273,6 +386,12 @@ function main() {
     console.log(
       '🔴 Прочитайте дифф: вопрос не «что удаляется», а «какие файлы вне зоны задачи вообще попали».',
     );
+    if (known === null && result.kept.length > 0) {
+      console.log(
+        `🔴 ${result.kept.length} файлов оставлены нетронутыми. Если история и правда ушла из витрины —` +
+          ' удалите её файл руками: `git rm apps/web/e2e/vr/measurements/<id>.txt`.',
+      );
+    }
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }

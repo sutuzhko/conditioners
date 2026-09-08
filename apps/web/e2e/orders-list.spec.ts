@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { orderManagerContent as texts } from '@/features/order-manager/content';
+import { pagerLabels } from '@/shared/ui/Pager/labels';
 
 import { withAdmin } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
@@ -151,16 +152,27 @@ test.describe('заказы: групповое действие и страни
 
     /* Один переход по номеру: список обязан смениться, а адрес — назваться
        страницей, потому что его присылают ссылкой. */
-    const second = page.getByRole('link', { name: texts.pageGo(2) });
+    /* Имя ссылки на страницу — из кита: подписи разбивки у раздела своих
+       больше нет, а строка, переписанная сюда руками, разошлась бы молча
+       (issue #748). */
+    const second = page.getByRole('link', { name: pagerLabels.page(2) });
 
     if ((await second.count()) > 0) {
       await second.click();
       await page.waitForURL(/page=2/);
-      await expect(page.getByText(texts.pageCurrent(2))).toBeAttached();
+      /* Текущая страница помечена разметкой, а не только заливкой (#748).
+
+         🔴 Ищем внутри самой разбивки, а не по всей странице: `aria-current`
+         носят и раздел в левом меню, и вкладка стопки, и три пункта фильтра —
+         пометка «вы находитесь здесь» в панели общая, и без имени ряда
+         утверждение видит семь элементов вместо одного. */
+      const pager = page.getByRole('navigation', { name: pagerLabels.nav });
+      await expect(pager.locator('[aria-current="page"]')).toHaveText('2');
     }
 
-    /* Шаг листания — тоже адрес: он присылается ссылкой вместе со страницей. */
-    await page.getByRole('link', { name: texts.perPageSet(16) }).click();
+    /* Шаг листания — тоже адрес: значение пункта и есть ссылка, по которой
+       уходит выбор (issue #748). */
+    await page.getByRole('combobox', { name: texts.perPage }).selectOption({ label: '16' });
     await page.waitForURL(/size=16/);
 
     /* Смена шага возвращает на первую страницу: седьмая по восемь строк и
