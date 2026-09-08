@@ -51,7 +51,12 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
     <div className={styles.pager}>
       <span className={styles.count}>{texts.rangeOf(page.items.length, page.total)}</span>
 
-      {/* 🔴 Обёртка нужна ради телефона: ниже 600px разбивка уходит на свою
+      {/* 🔴 Подписей разбивки раздел не задаёт: все четыре, что он держал у
+          себя, дословно совпадали с умолчаниями кита (issue #748). Копия,
+          совпадающая сегодня, — это расхождение, отложенное до первой правки
+          кита, и ровно от таких копий эта задача и избавляется.
+
+          🔴 Обёртка нужна ради телефона: ниже 600px разбивка уходит на свою
           строку, а счёт и ступень остаются на своих. Выше 600px она
           `display: contents` и геометрию подвала не меняет вовсе. */}
       <div className={styles.nav}>
@@ -60,10 +65,6 @@ export function OrderPager({ page, filters }: OrderPagerProps) {
           pages={page.pages}
           basePath={ORDERS_PATH}
           query={ordersQuery(filters)}
-          label={texts.pagesLabel}
-          prevPageLabel={texts.pagePrev}
-          nextPageLabel={texts.pageNext}
-          pageLabel={texts.pageGo}
           numbers
         />
       </div>

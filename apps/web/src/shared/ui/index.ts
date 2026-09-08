@@ -139,6 +139,7 @@ export type {
 
 export { Pager } from './Pager/Pager';
 export type { PagerProps } from './Pager/Pager';
+export { pagerLabels } from './Pager/labels';
 export { PageSize } from './Pager/PageSize';
 export type { PageSizeOption, PageSizeProps } from './Pager/PageSize';
 

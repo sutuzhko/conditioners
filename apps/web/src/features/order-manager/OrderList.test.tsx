@@ -8,6 +8,8 @@ import { describe, expect, it, vi } from 'vitest';
 const refresh = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh }) }));
 
+import { pagerLabels } from '@/shared/ui/Pager/labels';
+
 import { OrderList } from './OrderList';
 import { orderManagerContent as texts } from './content';
 import { declinedPage, emptyPage, historyPage, listFilters, longPage, page } from './fixtures';
@@ -68,7 +70,7 @@ describe('Список нарядов', () => {
     /* Текущая страница — не ссылка: переход на самого себя ничего не делает,
        и в разметке она помечена, а не только залита (issue #748). */
     expect(screen.getByText(String(longPage.page))).toHaveAttribute('aria-current', 'page');
-    expect(screen.getByRole('link', { name: texts.pageGo(1) }).getAttribute('href')).toContain(
+    expect(screen.getByRole('link', { name: pagerLabels.page(1) }).getAttribute('href')).toContain(
       '/admin/orders',
     );
     expect(screen.getByRole('combobox', { name: texts.perPage })).toBeInTheDocument();

@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 import { orderManagerContent as texts } from '@/features/order-manager/content';
+import { pagerLabels } from '@/shared/ui/Pager/labels';
 
 import { withAdmin } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
@@ -151,7 +152,10 @@ test.describe('заказы: групповое действие и страни
 
     /* Один переход по номеру: список обязан смениться, а адрес — назваться
        страницей, потому что его присылают ссылкой. */
-    const second = page.getByRole('link', { name: texts.pageGo(2) });
+    /* Имя ссылки на страницу — из кита: подписи разбивки у раздела своих
+       больше нет, а строка, переписанная сюда руками, разошлась бы молча
+       (issue #748). */
+    const second = page.getByRole('link', { name: pagerLabels.page(2) });
 
     if ((await second.count()) > 0) {
       await second.click();

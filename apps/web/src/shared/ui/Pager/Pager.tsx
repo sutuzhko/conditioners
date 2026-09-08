@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { pagerLabels } from './labels';
 import styles from './Pager.module.css';
 
 export interface PagerProps {
@@ -111,15 +112,15 @@ export function Pager({
   pages,
   basePath,
   query,
-  label = 'Страницы списка',
-  prevLabel = 'Назад',
-  nextLabel = 'Дальше',
-  prevPageLabel = 'Предыдущая страница',
-  nextPageLabel = 'Следующая страница',
-  position = (current, total) => `${current} из ${total}`,
+  label = pagerLabels.nav,
+  prevLabel = pagerLabels.prev,
+  nextLabel = pagerLabels.next,
+  prevPageLabel = pagerLabels.prevPage,
+  nextPageLabel = pagerLabels.nextPage,
+  position = pagerLabels.position,
   numbers = false,
-  pageLabel = (target) => `Страница ${target}`,
-  announce = (current, total) => `Показана страница ${current} из ${total}`,
+  pageLabel = pagerLabels.page,
+  announce = pagerLabels.announce,
 }: PagerProps) {
   if (pages <= 1) return null;
 

@@ -311,10 +311,6 @@ export const orderManagerContent = {
   installerAny: 'Любой',
   installerNoneFilter: 'Не назначен',
   perPage: 'Строк на странице',
-  pagesLabel: 'Страницы списка',
-  pageGo: (page: number): string => `Страница ${page}`,
-  pagePrev: 'Предыдущая страница',
-  pageNext: 'Следующая страница',
   rangeOf: (shown: number, total: number): string => `${shown} из ${total}`,
 
   /* Выбор строк и групповое действие (issue #596, #739, макет «Заказы»).
