@@ -1,5 +1,5 @@
 # админка-журнал-событий--сразбивкой · ширины 390 768 1440 · темы light dark
-шрифты: Manrope 400, Manrope 600, Onest 700
+шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
 390 → 390×903
@@ -67,11 +67,11 @@ section.Card__card  358×871 @16,16
           td.ActivityList__entity::before  50×20 @0,0
   div.ActivityList__foot  358×52 @0,819
     nav.Pager__pager  358×52 @0,0
-      a.Pager__step  44×44 @94,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
-      span.Pager__position  66×44 @146,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 5»
-      a.Pager__step#2  44×44 @220,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+      a.Pager__step  44×44 @107,4  r100  b1
+        span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+      span.Pager__count  40×22 @159,15  Manrope 600 15/22  lines=1  «2 из 5»
+      a.Pager__step#2  44×44 @207,4  r100  b1
+        span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
       p[role=status]  1×1 @179,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 5»
 
 [геометрия 768]
@@ -115,16 +115,16 @@ section.Card__card  736×385 @16,16  r20  b1
         td.ActivityList__entity  103×51 @631,0  Manrope 400 15/22  lines=1  «Отзыв»
   div.ActivityList__foot  734×70 @1,314
     nav.Pager__pager  698×52 @18,0
-      a.Pager__step  88×44 @143,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
-      ol.Pager__numbers  200×44 @243,4
+      a.Pager__step  44×44 @190,4  r100  b1
+        span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+      ol.Pager__numbers  205×44 @246,4
         a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-        span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-        a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-        li.Pager__gap  13×22 @139,11  Manrope 400 15/22  lines=1  «…»
-        a.Pager__number#3  44×44 @156,0  Manrope 600 15/17  r100  b1  lines=1  «5»
-      a.Pager__step#2  100×44 @455,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+        span.Pager__current  44×44 @48,0  Manrope 700 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @96,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+        li.Pager__gap  13×22 @144,11  Manrope 400 15/22  lines=1  «…»
+        a.Pager__number#3  44×44 @161,0  Manrope 600 15/17  r100  b1  lines=1  «5»
+      a.Pager__step#2  44×44 @464,4  r100  b1
+        span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
       p[role=status]  1×1 @349,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 5»
 
 [геометрия 1440]
@@ -168,16 +168,16 @@ section.Card__card  1408×385 @16,16  r20  b1
         td.ActivityList__entity  197×51 @1209,0  Manrope 400 15/22  lines=1  «Отзыв»
   div.ActivityList__foot  1406×70 @1,314
     nav.Pager__pager  1370×52 @18,0
-      a.Pager__step  88×44 @479,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
-      ol.Pager__numbers  200×44 @579,4
+      a.Pager__step  44×44 @526,4  r100  b1
+        span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+      ol.Pager__numbers  205×44 @582,4
         a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-        span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-        a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-        li.Pager__gap  13×22 @139,11  Manrope 400 15/22  lines=1  «…»
-        a.Pager__number#3  44×44 @156,0  Manrope 600 15/17  r100  b1  lines=1  «5»
-      a.Pager__step#2  100×44 @791,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+        span.Pager__current  44×44 @48,0  Manrope 700 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @96,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+        li.Pager__gap  13×22 @144,11  Manrope 400 15/22  lines=1  «…»
+        a.Pager__number#3  44×44 @161,0  Manrope 600 15/17  r100  b1  lines=1  «5»
+      a.Pager__step#2  44×44 @800,4  r100  b1
+        span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
       p[role=status]  1×1 @685,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 5»
 
 [палитра light]
@@ -221,16 +221,16 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         td.ActivityList__entity  color #556173
   div.ActivityList__foot
     nav.Pager__pager
-      a.Pager__step  color #0e7490  border #7e8fa6
-        span.Pager__stepText  color #0e7490
+      a.Pager__step  border transparent
+        span  color #0e7490
       ol.Pager__numbers
         a.Pager__number  color #0e7490  border transparent
-        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
         a.Pager__number#2  color #0e7490  border transparent
         li.Pager__gap  color #5b6a7d
         a.Pager__number#3  color #0e7490  border transparent
-      a.Pager__step#2  color #0e7490  border #7e8fa6
-        span.Pager__stepText  color #0e7490
+      a.Pager__step#2  border transparent
+        span  color #0e7490
       p[role=status]  color #475569
 [палитра light @390]
 section.Card__card
@@ -275,7 +275,7 @@ section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 >
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__who > td.ActivityList__who::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell] > td[role=cell]::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__entity > td.ActivityList__entity::before
-section.Card__card > div.ActivityList__foot > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+section.Card__card > div.ActivityList__foot > nav.Pager__pager > span.Pager__count  color #556173
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -318,16 +318,16 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         td.ActivityList__entity  color #8598ac
   div.ActivityList__foot
     nav.Pager__pager
-      a.Pager__step  color #22d3ee  border #566d95
-        span.Pager__stepText  color #22d3ee
+      a.Pager__step  border transparent
+        span  color #22d3ee
       ol.Pager__numbers
         a.Pager__number  color #22d3ee  border transparent
-        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
         a.Pager__number#2  color #22d3ee  border transparent
         li.Pager__gap  color #7e92a7
         a.Pager__number#3  color #22d3ee  border transparent
-      a.Pager__step#2  color #22d3ee  border #566d95
-        span.Pager__stepText  color #22d3ee
+      a.Pager__step#2  border transparent
+        span  color #22d3ee
       p[role=status]  color #a8b6c6
 [палитра dark @390]
 section.Card__card
@@ -372,4 +372,4 @@ section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 >
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__who > td.ActivityList__who::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell] > td[role=cell]::before
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__entity > td.ActivityList__entity::before
-section.Card__card > div.ActivityList__foot > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+section.Card__card > div.ActivityList__foot > nav.Pager__pager > span.Pager__count  color #8598ac

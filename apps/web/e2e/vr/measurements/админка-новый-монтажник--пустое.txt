@@ -21,16 +21,19 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
             div.Field__field  348×76 @0,0
               label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
               input  348×49 @0,27  r11  b1
-            div.Field__field#2  348×103 @0,88
+            div.Field__field#2  348×76 @0,88
+              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+              input  348×49 @0,27  r11  b1
+            div.Field__field#3  348×103 @0,176
               label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
               input  348×49 @0,27  r11  b1
               p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Латиницей: его придётся диктовать по тел»
-            div.Field__field#3  348×76 @0,203
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
-              input  348×49 @0,27  r11  b1
             div.Field__field#4  348×76 @0,291
               label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
-              input  348×49 @0,27  r11  b1
+              div.PasswordInput__shell  348×49 @0,27
+                input.PasswordInput__input  348×49 @0,0  r11  b1
+                button.PasswordInput__toggle  44×44 @300,3  r100
+                  svg  16×16 @14,12
             div.Field__field#5  348×122 @0,379
               label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
               input  348×49 @0,27  r11  b1
@@ -52,88 +55,94 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
 
 [геометрия 768]
 div.Modal__overlay  768×900 @0,0  fixed  portal
-  div.Modal__window  720×578 @24,161  r22  b1
+  div.Modal__window  720×647 @24,127  r22  b1
     div.Modal__head  718×90 @1,1  b0 0 1 0
       h2.Modal__title  414×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новый монтажник»
       p.Modal__description  414×20 @20,49  Manrope 400 13/20  lines=1  «Пароль временный: человек меняет его сам»
       button.IconButton__iconButton  40×40 @658,20  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  718×486 @1,91
-      section.FormSection__section  678×446 @20,20
-        form.StaffForm__form  678×446 @0,0
-          div.StaffForm__grid  678×390 @0,0
-            div.Field__field  218×122 @0,0
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
-              input  218×49 @0,27  r11  b1
-            div.Field__field#2  218×122 @230,0
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
-              input  218×49 @0,27  r11  b1
-              p.Field__hint  218×39 @0,83  Manrope 400 13/19  lines=2  «Латиницей: его придётся диктовать по тел»
-            div.Field__field#3  218×122 @460,0
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
-              input  218×49 @0,27  r11  b1
-            div.Field__field#4  218×122 @0,134
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
-              input  218×49 @0,27  r11  b1
-            div.Field__field#5  218×122 @230,134
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
-              input  218×49 @0,27  r11  b1
-              p.Field__hint  218×39 @0,83  Manrope 400 13/19  lines=2  «Двенадцать цифр. Без него статус самозан»
-            div.Field__field#6  678×122 @0,268
-              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
-              span.Select__wrapper  678×49 @0,27
-                select.Select__select  678×49 @0,0  r11  b1
-                  option  0×0 @-45,-567  Manrope 400 15/21  lines=0  «Не заведено»
-                  option#2  0×0 @-45,-567  Manrope 400 15/21  lines=0  «Самозанятый»
-                  option#3  0×0 @-45,-567  Manrope 400 15/21  lines=0  «Договор ГПХ»
-                  option#4  0×0 @-45,-567  Manrope 400 15/21  lines=0  «Трудовой договор»
-                svg.Select__chevron  14×14 @650,18
-              p.Field__hint  678×39 @0,83  Manrope 400 13/19  lines=2  «Пока оформление не заведено, наряд не ум»
-          div.StaffForm__actions  678×44 @0,402
+    div.Modal__body  718×554 @1,91
+      section.FormSection__section  678×514 @20,20
+        form.StaffForm__form  678×514 @0,0
+          div.StaffForm__grid  678×458 @0,0
+            div.Field__field  320×76 @0,0
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
+              input  320×49 @0,27  r11  b1
+            div.Field__field#2  320×76 @336,0
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+              input  320×49 @0,27  r11  b1
+            div.Field__field#3  320×103 @0,88
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+              input  320×49 @0,27  r11  b1
+              p.Field__hint  320×19 @0,83  Manrope 400 13/19  lines=1  «Латиницей: его придётся диктовать по тел»
+            div.Field__field#4  320×103 @336,88
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
+              div.PasswordInput__shell  320×49 @0,27
+                input.PasswordInput__input  320×49 @0,0  r11  b1
+                button.PasswordInput__toggle  44×44 @272,3  r100
+                  svg  16×16 @14,12
+            div.Field__field#5  320×122 @0,203
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+              input  320×49 @0,27  r11  b1
+              p.Field__hint  320×39 @0,83  Manrope 400 13/19  lines=2  «Двенадцать цифр. Без него статус самозан»
+            div.Field__field#6  656×122 @0,337
+              label.Field__label  656×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+              span.Select__wrapper  656×49 @0,27
+                select.Select__select  656×49 @0,0  r11  b1
+                  option  0×0 @-45,-602  Manrope 400 15/21  lines=0  «Не заведено»
+                  option#2  0×0 @-45,-602  Manrope 400 15/21  lines=0  «Самозанятый»
+                  option#3  0×0 @-45,-602  Manrope 400 15/21  lines=0  «Договор ГПХ»
+                  option#4  0×0 @-45,-602  Manrope 400 15/21  lines=0  «Трудовой договор»
+                svg.Select__chevron  14×14 @628,18
+              p.Field__hint  656×39 @0,83  Manrope 400 13/19  lines=2  «Пока оформление не заведено, наряд не ум»
+          div.StaffForm__actions  678×44 @0,470
             button.Button__button  107×44 @0,0  r11  b1
               span.Button__content  69×17 @19,13
                 span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
 
 [геометрия 1440]
 div.Modal__overlay  1440×900 @0,0  fixed  portal
-  div.Modal__window  820×578 @310,161  r22  b1
+  div.Modal__window  820×647 @310,127  r22  b1
     div.Modal__head  818×90 @1,1  b0 0 1 0
       h2.Modal__title  414×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новый монтажник»
       p.Modal__description  414×20 @20,49  Manrope 400 13/20  lines=1  «Пароль временный: человек меняет его сам»
       button.IconButton__iconButton  40×40 @758,20  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  818×486 @1,91
-      section.FormSection__section  778×446 @20,20
-        form.StaffForm__form  778×446 @0,0
-          div.StaffForm__grid  778×390 @0,0
-            div.Field__field  186×122 @0,0
-              label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
-              input  186×49 @0,27  r11  b1
-            div.Field__field#2  186×122 @198,0
-              label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
-              input  186×49 @0,27  r11  b1
-              p.Field__hint  186×39 @0,83  Manrope 400 13/19  lines=2  «Латиницей: его придётся диктовать по тел»
-            div.Field__field#3  186×122 @395,0
-              label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
-              input  186×49 @0,27  r11  b1
-            div.Field__field#4  186×122 @593,0
-              label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
-              input  186×49 @0,27  r11  b1
-            div.Field__field#5  186×141 @0,134
-              label.Field__label  186×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
-              input  186×49 @0,27  r11  b1
-              p.Field__hint  186×58 @0,83  Manrope 400 13/19  lines=3  «Двенадцать цифр. Без него статус самозан»
-            div.Field__field#6  778×103 @0,287
-              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
-              span.Select__wrapper  778×49 @0,27
-                select.Select__select  778×49 @0,0  r11  b1
-                  option  0×0 @-331,-587  Manrope 400 15/21  lines=0  «Не заведено»
-                  option#2  0×0 @-331,-587  Manrope 400 15/21  lines=0  «Самозанятый»
-                  option#3  0×0 @-331,-587  Manrope 400 15/21  lines=0  «Договор ГПХ»
-                  option#4  0×0 @-331,-587  Manrope 400 15/21  lines=0  «Трудовой договор»
-                svg.Select__chevron  14×14 @750,18
-              p.Field__hint  778×19 @0,83  Manrope 400 13/19  lines=1  «Пока оформление не заведено, наряд не ум»
-          div.StaffForm__actions  778×44 @0,402
+    div.Modal__body  818×554 @1,91
+      section.FormSection__section  778×514 @20,20
+        form.StaffForm__form  778×514 @0,0
+          div.StaffForm__grid  778×458 @0,0
+            div.Field__field  320×76 @0,0
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Имя и фамилия»
+              input  320×49 @0,27  r11  b1
+            div.Field__field#2  320×76 @336,0
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Телефон»
+              input  320×49 @0,27  r11  b1
+            div.Field__field#3  320×103 @0,88
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Логин»
+              input  320×49 @0,27  r11  b1
+              p.Field__hint  320×19 @0,83  Manrope 400 13/19  lines=1  «Латиницей: его придётся диктовать по тел»
+            div.Field__field#4  320×103 @336,88
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Временный пароль»
+              div.PasswordInput__shell  320×49 @0,27
+                input.PasswordInput__input  320×49 @0,0  r11  b1
+                button.PasswordInput__toggle  36×36 @278,7  r100
+                  svg  16×16 @10,8
+            div.Field__field#5  320×122 @0,203
+              label.Field__label  320×20 @0,0  Manrope 600 13/20  lines=1  «ИНН»
+              input  320×49 @0,27  r11  b1
+              p.Field__hint  320×39 @0,83  Manrope 400 13/19  lines=2  «Двенадцать цифр. Без него статус самозан»
+            div.Field__field#6  656×122 @0,337
+              label.Field__label  656×20 @0,0  Manrope 600 13/20  lines=1  «Оформление»
+              span.Select__wrapper  656×49 @0,27
+                select.Select__select  656×49 @0,0  r11  b1
+                  option  0×0 @-331,-602  Manrope 400 15/21  lines=0  «Не заведено»
+                  option#2  0×0 @-331,-602  Manrope 400 15/21  lines=0  «Самозанятый»
+                  option#3  0×0 @-331,-602  Manrope 400 15/21  lines=0  «Договор ГПХ»
+                  option#4  0×0 @-331,-602  Manrope 400 15/21  lines=0  «Трудовой договор»
+                svg.Select__chevron  14×14 @628,18
+              p.Field__hint  656×39 @0,83  Manrope 400 13/19  lines=2  «Пока оформление не заведено, наряд не ум»
+          div.StaffForm__actions  778×44 @0,470
             button.Button__button  107×44 @0,0  r11  b1
               span.Button__content  69×17 @19,13
                 span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Добавить»
@@ -156,13 +165,16 @@ div.Modal__overlay  bg #0f172a73
             div.Field__field#2
               label.Field__label  color #334155
               input  bg #ffffff  border #7e8fa6
-              p.Field__hint  color #556173
             div.Field__field#3
               label.Field__label  color #334155
               input  bg #ffffff  border #7e8fa6
+              p.Field__hint  color #556173
             div.Field__field#4
               label.Field__label  color #334155
-              input  bg #ffffff  border #7e8fa6
+              div.PasswordInput__shell
+                input.PasswordInput__input  bg #ffffff  border #7e8fa6
+                button.PasswordInput__toggle
+                  svg
             div.Field__field#5
               label.Field__label  color #334155
               input  bg #ffffff  border #7e8fa6
@@ -200,13 +212,16 @@ div.Modal__overlay  bg #020610ad
             div.Field__field#2
               label.Field__label  color #c9d5e2
               input  bg #0b1424  border #566d95
-              p.Field__hint  color #8598ac
             div.Field__field#3
               label.Field__label  color #c9d5e2
               input  bg #0b1424  border #566d95
+              p.Field__hint  color #8598ac
             div.Field__field#4
               label.Field__label  color #c9d5e2
-              input  bg #0b1424  border #566d95
+              div.PasswordInput__shell
+                input.PasswordInput__input  bg #0b1424  border #566d95
+                button.PasswordInput__toggle
+                  svg
             div.Field__field#5
               label.Field__label  color #c9d5e2
               input  bg #0b1424  border #566d95

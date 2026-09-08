@@ -2,12 +2,12 @@
 шрифты: Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1272
-768 → 768×1352
-1440 → 1440×1118
+390 → 390×1244
+768 → 768×1323
+1440 → 1440×1090
 
 [геометрия 390]
-div.AdminSummary__summary  358×1240 @16,16
+div.AdminSummary__summary  358×1212 @16,16
   header.AdminSummary__header  358×109 @0,0
     div.AdminSummary__headText  253×55 @0,0
       h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
@@ -37,14 +37,14 @@ div.AdminSummary__summary  358×1240 @16,16
           span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «0»
         dd.StatTile__note#2  149×32 @13,70  Manrope 400 12/16  lines=2  «назначены и на объекте →»
   div.AdminSummary__charts  358×0 @0,330
-  section.Card__card  358×604 @0,348  r20  b1
+  section.Card__card  358×576 @0,348  r20  b1
     div.AdminSummary__cardHead  316×24 @21,21
       h2.AdminSummary__cardTitle  141×21 @0,2  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  28×24 @149,0  r100  b1
         span  8×16 @10,4  Manrope 600 12/16  lines=1  «0»
         span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «0 дел в списке»
     p.AdminSummary__text  316×45 @21,55  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
-    div.SummaryFilters__bar  316×156 @21,110
+    div.SummaryFilters__bar  316×128 @21,110
       div.SummaryFilters__pills  316×44 @0,0
         details.SummaryFilters__filter  77×44 @0,0
           summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -75,14 +75,13 @@ div.AdminSummary__summary  358×1240 @16,16
         div.Field__field  316×76 @0,0
           label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
           input  316×49 @0,27  r11  b1
-      p.SummaryFilters__total  316×20 @0,136  Manrope 400 13/20  lines=1  «0 дел в списке»
-    div.EmptyState__box  316×230 @21,280
+    div.EmptyState__box  316×230 @21,252
       span.EmptyState__badge  48×48 @134,28  r100
         svg  20×20 @14,14
       h2.EmptyState__title  212×21 @52,88  Onest 700 17/21  ls0  lines=1  «Ничего не запланировано»
       p.EmptyState__text  284×90 @16,113  Manrope 400 15/22  lines=4  «Ни одного наряда и ни одного дела на бли»
-    a.AdminSummary__link  316×44 @21,539  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  358×270 @0,970  r20  b1
+    a.AdminSummary__link  316×44 @21,511  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×270 @0,942  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×67 @21,50  Manrope 400 15/22  lines=3  «Пока не заполнено — на сайте вместо этих»
     ul.AdminSummary__groups  316×62 @21,129
@@ -93,7 +92,7 @@ div.AdminSummary__summary  358×1240 @16,16
     a.AdminSummary__link  224×44 @21,205  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
 
 [геометрия 768]
-div.AdminSummary__summary  736×1320 @16,16
+div.AdminSummary__summary  736×1291 @16,16
   header.AdminSummary__header  736×62 @0,0
     div.AdminSummary__headText  312×62 @0,0
       h1.AdminSummary__title  312×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Доброе утро, Сергей»
@@ -140,14 +139,14 @@ div.AdminSummary__summary  736×1320 @16,16
         h2.AdminSummary__cardTitle  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Заказы по неделям»
         p.AdminSummary__chartNote  694×19 @0,24  Manrope 400 12/19  lines=1  «выполненные наряды, 12 недель»
       p.AdminSummary__text  694×22 @21,71  Manrope 400 15/22  lines=1  «За двенадцать недель не закрыто ни одног»
-  section.Card__card  736×560 @0,527  r20  b1
+  section.Card__card  736×532 @0,527  r20  b1
     div.AdminSummary__cardHead  694×24 @21,21
       h2.AdminSummary__cardTitle  148×22 @0,1  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  28×24 @156,0  r100  b1
         span  8×16 @10,4  Manrope 600 12/16  lines=1  «0»
         span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «0 дел в списке»
     p.AdminSummary__text#2  694×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
-    div.SummaryFilters__bar  694×156 @21,88
+    div.SummaryFilters__bar  694×128 @21,88
       div.SummaryFilters__pills  694×44 @0,0
         details.SummaryFilters__filter  77×44 @0,0
           summary.SummaryFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -178,14 +177,13 @@ div.AdminSummary__summary  736×1320 @16,16
         div.Field__field  694×76 @0,0
           label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
           input  694×49 @0,27  r11  b1
-      p.SummaryFilters__total  694×20 @0,136  Manrope 400 13/20  lines=1  «0 дел в списке»
-    div.EmptyState__box  694×209 @21,258
+    div.EmptyState__box  694×209 @21,230
       span.EmptyState__badge  48×48 @323,28  r100
         svg  20×20 @14,14
       h2.EmptyState__title  222×22 @236,88  Onest 700 18/22  ls0  lines=1  «Ничего не запланировано»
       p.EmptyState__text  371×67 @161,114  Manrope 400 15/22  lines=3  «Ни одного наряда и ни одного дела на бли»
-    a.AdminSummary__link  694×44 @21,495  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  736×215 @0,1105  r20  b1
+    a.AdminSummary__link  694×44 @21,467  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×215 @0,1077  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  694×45 @21,51  Manrope 400 15/22  lines=2  «Пока не заполнено — на сайте вместо этих»
     ul.AdminSummary__groups  694×28 @21,108
@@ -196,7 +194,7 @@ div.AdminSummary__summary  736×1320 @16,16
     a.AdminSummary__link  224×44 @21,150  Manrope 600 15/22  lines=1  «Заполнить данные компании →»
 
 [геометрия 1440]
-div.AdminSummary__summary  1408×1086 @16,16
+div.AdminSummary__summary  1408×1058 @16,16
   header.AdminSummary__header  1408×70 @0,0
     div.AdminSummary__headText  381×70 @0,0
       h1.AdminSummary__title  381×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Доброе утро, Сергей»
@@ -248,15 +246,15 @@ div.AdminSummary__summary  1408×1086 @16,16
         h2.AdminSummary__cardTitle#2  654×23 @0,0  Onest 700 19/23  ls0  lines=1  «Выручка и выплаты»
         p.AdminSummary__chartNote#2  654×19 @0,25  Manrope 400 12/19  lines=1  «обе величины в одной шкале, 8 месяцев»
       p.AdminSummary__text  654×22 @21,72  Manrope 400 15/22  lines=1  «За восемь месяцев не закрыто ни одного н»
-  section.Card__card  1408×489 @0,405  r20  b1
+  section.Card__card  1408×461 @0,405  r20  b1
     div.AdminSummary__cardHead  1366×24 @21,21
       h2.AdminSummary__cardTitle  156×23 @0,1  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  28×24 @164,0  r100  b1
         span  8×16 @10,4  Manrope 600 12/16  lines=1  «0»
         span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «0 дел в списке»
     p.AdminSummary__text#2  1366×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
-    div.SummaryFilters__bar  1366×104 @21,88
-      div.SummaryFilters__pills  1140×34 @0,0
+    div.SummaryFilters__bar  1366×76 @21,88
+      div.SummaryFilters__pills  1074×34 @0,0
         details.SummaryFilters__filter  77×34 @0,0
           summary.SummaryFilters__pill  77×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
           div.SummaryFilters__sheet  0×0 @-37,-509  r14  b1
@@ -282,18 +280,17 @@ div.AdminSummary__summary  1408×1086 @16,16
                 span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
               a.SummaryFilters__item#3  83×34 @90,40  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
                 span.SummaryFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
-      form.SummaryFilters__form  214×76 @1152,0
-        div.Field__field  214×76 @0,0
-          label.Field__label  214×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
-          input  214×49 @0,27  r11  b1
-      p.SummaryFilters__total  1366×20 @0,84  Manrope 400 13/20  lines=1  «0 дел в списке»
-    div.EmptyState__box  1366×210 @21,206
+      form.SummaryFilters__form  280×76 @1086,0
+        div.Field__field  280×76 @0,0
+          label.Field__label  280×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
+          input  280×49 @0,27  r11  b1
+    div.EmptyState__box  1366×210 @21,178
       span.EmptyState__badge  48×48 @659,28  r100
         svg  20×20 @14,14
       h2.EmptyState__title  235×23 @566,88  Onest 700 19/23  ls0  lines=1  «Ничего не запланировано»
       p.EmptyState__text  371×67 @497,115  Manrope 400 15/22  lines=3  «Ни одного наряда и ни одного дела на бли»
-    a.AdminSummary__link  1366×24 @21,444  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  1408×173 @0,912  r20  b1
+    a.AdminSummary__link  1366×24 @21,416  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  1408×173 @0,884  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text#2  1366×22 @21,52  Manrope 400 15/22  lines=1  «Пока не заполнено — на сайте вместо этих»
     ul.AdminSummary__groups  1366×28 @21,86
@@ -394,7 +391,6 @@ div.AdminSummary__summary
         div.Field__field
           label.Field__label  color #334155
           input  bg #ffffff  border #7e8fa6
-      p.SummaryFilters__total  color #5b6a7d
     div.EmptyState__box
       span.EmptyState__badge  bg #ecfeff
         svg
@@ -507,7 +503,6 @@ div.AdminSummary__summary
         div.Field__field
           label.Field__label  color #c9d5e2
           input  bg #0b1424  border #566d95
-      p.SummaryFilters__total  color #7e92a7
     div.EmptyState__box
       span.EmptyState__badge  bg #22d3ee1a
         svg
