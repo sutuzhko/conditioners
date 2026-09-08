@@ -21,15 +21,27 @@
  *
  * 🔴 Порт приложения — 3101, а не 3000: дев-сервер на 3000 смотрит в базу с
  * данными владельца и во время прогона обычно поднят. Совпади порты — часть
- * сценариев пошла бы в него, и вся затея потеряла бы смысл.
+ * сценариев пошла бы в него, и вся затея потеряла бы смысл. Оба числа
+ * базовые: у стенда рабочего дерева к ним прибавляется его смещение.
  */
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
+import { composeArgs, offsetOfTreeOrNull, standDatabaseUrl, standPorts } from './stand.mjs';
+
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const compose = ['-f', 'docker-compose.dev.yml', '--profile', 'test'];
+
+/**
+ * 🔴 Смещение стенда этого дерева, а не постоянные 3101 и 5433 (issue #154).
+ * Рабочих деревьев на машине несколько, у каждого свой стенд; с зашитыми
+ * числами прогон из любого дерева ходил бы в базу сценариев основного стенда
+ * и стирал бы её на каждом `deleteMany`. Дерева без стенда это не касается:
+ * там смещение 0, то есть ровно прежние порты.
+ */
+const offset = offsetOfTreeOrNull(root) ?? 0;
+const compose = composeArgs(root, offset, { withTestProfile: true }).slice(1);
 
 /**
  * 🔴 Переменные берутся из `apps/web/.env.local` — того же файла, из которого
@@ -53,16 +65,17 @@ if (!existsSync(localEnv)) {
 
 process.loadEnvFile(localEnv);
 
-/** Порт приложения стенда. Дев-сервер занимает 3000, витрина — 6006. */
-const PORT = 3101;
+/** Порт приложения стенда: базовый 3101 плюс смещение своего стенда. */
+const PORT = standPorts(offset).e2e;
 const BASE_URL = `http://localhost:${PORT}`;
 
 /**
  * Адрес базы стенда. Хост `127.0.0.1`, а не `db-test`: имя сервиса compose
  * разрешается только внутри сети контейнеров, а приложение здесь на хосте
- * (ADR-173). Порт 5433 — тот, что опубликован в `docker-compose.dev.yml`.
+ * (ADR-173). Порт — тот, что опубликован в `docker-compose.dev.yml` для
+ * смещения этого стенда.
  */
-const DATABASE_URL = 'postgresql://tk:devpass@127.0.0.1:5433/tulaklimat?schema=public';
+const DATABASE_URL = standDatabaseUrl(offset, 'host-test');
 
 /** Сколько ждём готовности: холодная сборка первой страницы идёт до минуты. */
 const READY_TIMEOUT_MS = 180_000;
