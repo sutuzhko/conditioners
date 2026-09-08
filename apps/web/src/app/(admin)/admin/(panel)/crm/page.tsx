@@ -44,6 +44,7 @@ import { countOverdue, listOrdersRange, listRange } from '@/server/repo/crm';
 import { listRange as listBlocks } from '@/server/repo/day-blocks';
 import { findById, listCreatedBetween } from '@/server/repo/leads';
 import { workWindow } from '@/server/repo/settings';
+import { listActive as listWorkTypes } from '@/server/repo/work-types';
 
 import styles from './page.module.css';
 
@@ -139,23 +140,27 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
      Разграничение стоит в самих выборках — сюда роль приезжает `viewer`, и
      обойти её, забыв условие на странице, нельзя. Заготовка из заявки закрыта
      здесь: за `?lead=` идёт чтение по номеру, роли не знающее. */
-  const [events, leads, orders, blocks, overdue, fromLead, installers, window] = await Promise.all([
-    listRange(viewer, range.from, range.to),
-    listCreatedBetween(viewer, range.from, range.to),
-    listOrdersRange(viewer, range.from, range.to),
-    listBlocks(viewer, range.from, range.to),
-    countOverdue(viewer, dayRange(today).from),
-    leadParam === undefined || !owner ? Promise.resolve(null) : findById(leadParam),
-    /* 🔴 Список команды нужен всегда, а не только включённому слою: карточка
+  const [events, leads, orders, blocks, overdue, fromLead, installers, window, workTypes] =
+    await Promise.all([
+      listRange(viewer, range.from, range.to),
+      listCreatedBetween(viewer, range.from, range.to),
+      listOrdersRange(viewer, range.from, range.to),
+      listBlocks(viewer, range.from, range.to),
+      countOverdue(viewer, dayRange(today).from),
+      leadParam === undefined || !owner ? Promise.resolve(null) : findById(leadParam),
+      /* 🔴 Список команды нужен всегда, а не только включённому слою: карточка
        «Показывать» и подзаголовок раздела называют состав постоянно (макет
        `design/admin/Calendar.body.html`), и без списка галочку нечем зажечь.
        Монтажнику команда закрыта (ADR-095) — ему запрос и не идёт. */
-    owner ? listInstallers(true) : Promise.resolve([]),
-    /* 🔴 Рабочее окно — настройка `schedule` (ADR-138). Оно решает, куда сетка
+      owner ? listInstallers(true) : Promise.resolve([]),
+      /* 🔴 Рабочее окно — настройка `schedule` (ADR-138). Оно решает, куда сетка
        прокручена и какие часы помечены нерабочими, но не то, что можно
        завести: запись за границей окна создаётся обычным образом. */
-    workWindow(),
-  ]);
+      workWindow(),
+      /* 🔴 Справочник видов работ читает сервер (ADR-343): форма дела получает
+         список готовым, и на клиенте нет ни запроса, ни перечня видов. */
+      listWorkTypes(),
+    ]);
 
   const calendarLeads: CalendarLead[] = leads.map((lead) => ({
     id: lead.id,
@@ -171,7 +176,6 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
     fromLead === null
       ? undefined
       : {
-          kind: 'call',
           clientName: fromLead.name,
           clientPhone: formatPhone(fromLead.phone),
           address: fromLead.address ?? '',
@@ -218,6 +222,7 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
         blocks={blocks}
         orders={orders}
         preset={preset}
+        workTypes={workTypes}
       >
         <div className={styles.calendar}>
           <CalendarNav

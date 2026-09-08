@@ -477,3 +477,15 @@ export const iconRegistry = {
 } as const satisfies Record<string, IconDef>;
 
 export type IconName = keyof typeof iconRegistry;
+
+/**
+ * Есть ли такой значок в наборе.
+ *
+ * 🔴 Проверка по самому набору, а не по копии его списка. Имя значка приходит
+ * снаружи — из справочника видов работ, который правит владелец (ADR-343), — и
+ * `Icon` на незнакомом имени разваливается уже внутри разметки. Второй список
+ * имён рядом с набором разошёлся бы с ним на первой же правке.
+ */
+export function isIconName(value: string): value is IconName {
+  return Object.hasOwn(iconRegistry, value);
+}

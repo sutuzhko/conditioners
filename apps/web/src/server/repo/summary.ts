@@ -13,13 +13,11 @@
  * подменяется стрелкой вверх.
  */
 import type {
-  CrmEventKind as DbEventKind,
   OrderStatus as DbOrderStatus,
   OrderType as DbOrderType,
   Prisma,
 } from '@prisma/client';
 
-import type { CrmEventKind } from '@/entities/crm/model';
 import type { OrderStatus, OrderType } from '@/entities/order/model';
 import {
   dayKeyOf,
@@ -296,10 +294,16 @@ export type UpcomingSort = 'time' | 'sum';
 /**
  * Строка «Ближайших дел» в том виде, в каком её отдаёт база.
  *
- * 🔴 Ключи, а не подписи: `install`, а не «Монтаж». Словари видов работ живут в
- * своих разделах (`features/order-manager`, `features/crm-calendar`), и
+ * 🔴 У наряда — ключ, а не подпись: `install`, а не «Монтаж». Словарь типов
+ * наряда пока живёт в своём разделе (`features/order-manager`), и
  * репозиторий, знающий русские названия, стал бы вторым таким словарём — он
  * разошёлся бы с первым на первой же правке.
+ *
+ * 🔴 У дела наоборот — подпись, а не ключ, и это не противоречие (ADR-343).
+ * Вид работ у дела живёт в базе, и словаря, с которым можно разойтись,
+ * больше нет: справочник и есть единственный источник названия. Следующая
+ * фаза переводит на него и наряд, и оговорка выше уйдёт вместе с
+ * `OrderType`.
  */
 export type UpcomingRow = {
   readonly id: string;
@@ -311,7 +315,12 @@ export type UpcomingRow = {
   readonly number: number | null;
   /** Тип наряда либо вид дела — ровно один из двух, по природе строки. */
   readonly orderType: OrderType | null;
-  readonly eventKind: CrmEventKind | null;
+  /**
+   * Название вида работ у дела — из справочника, а не ключ (ADR-343). Ниже
+   * оговорка про ключи касается наряда: его тип всё ещё перечисление схемы и
+   * переезжает в справочник следующей фазой.
+   */
+  readonly eventWorkType: string | null;
   readonly status: OrderStatus | null;
   readonly clientName: string;
   readonly clientPhone: string | null;
@@ -355,15 +364,6 @@ const ORDER_STATUS_FROM_DB: Record<DbOrderStatus, OrderStatus> = {
   IN_PROGRESS: 'in_progress',
   DONE: 'done',
   CANCELLED: 'cancelled',
-};
-
-const EVENT_KIND_FROM_DB: Record<DbEventKind, CrmEventKind> = {
-  CALL: 'call',
-  MEASURE: 'measure',
-  INSTALL: 'install',
-  SERVICE: 'service',
-  MEETING: 'meeting',
-  NOTE: 'note',
 };
 
 /** Условие по нарядам. `null` — эта стопка отфильтрована целиком. */
@@ -469,7 +469,7 @@ export async function upcomingWork(params: UpcomingQuery): Promise<Page<Upcoming
           take,
           select: {
             id: true,
-            kind: true,
+            workType: { select: { title: true } },
             at: true,
             durationMin: true,
             clientName: true,
@@ -487,7 +487,7 @@ export async function upcomingWork(params: UpcomingQuery): Promise<Page<Upcoming
       durationMin: row.durationMin,
       number: row.number,
       orderType: ORDER_TYPE_FROM_DB[row.type],
-      eventKind: null,
+      eventWorkType: null,
       status: ORDER_STATUS_FROM_DB[row.status],
       clientName: row.client.name,
       clientPhone: row.client.phone,
@@ -502,7 +502,7 @@ export async function upcomingWork(params: UpcomingQuery): Promise<Page<Upcoming
       durationMin: row.durationMin,
       number: null,
       orderType: null,
-      eventKind: EVENT_KIND_FROM_DB[row.kind],
+      eventWorkType: row.workType.title,
       status: null,
       clientName: row.clientName,
       clientPhone: row.clientPhone,

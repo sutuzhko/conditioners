@@ -29,7 +29,7 @@ function row(at: string, price: number | null): UpcomingRow {
     durationMin: 60,
     number: null,
     orderType: null,
-    eventKind: null,
+    eventWorkType: null,
     status: null,
     clientName: 'Клиент',
     clientPhone: null,

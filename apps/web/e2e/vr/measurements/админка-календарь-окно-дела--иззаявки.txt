@@ -24,8 +24,9 @@ div.Modal__overlay  390×900 @0,0  fixed  portal
                 option#2  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Замер»
                 option#3  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Монтаж»
                 option#4  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Обслуживание»
-                option#5  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Встреча»
-                option#6  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Заметка»
+                option#5  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Ремонт»
+                option#6  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Встреча»
+                option#7  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Заметка»
               svg.Select__chevron  14×14 @320,18
           div.Field__field#2  348×79 @0,88
             label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
@@ -99,8 +100,9 @@ div.Modal__overlay  768×900 @0,0  fixed  portal
                 option#2  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Замер»
                 option#3  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Монтаж»
                 option#4  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Обслуживание»
-                option#5  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Встреча»
-                option#6  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Заметка»
+                option#5  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Ремонт»
+                option#6  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Встреча»
+                option#7  0×0 @-125,-239  Manrope 400 15/21  lines=0  «Заметка»
               svg.Select__chevron  14×14 @158,18
           div.Field__field#2  199×79 @198,0
             label.Field__label  199×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
@@ -174,8 +176,9 @@ div.Modal__overlay  1440×900 @0,0  fixed  portal
                 option#2  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Замер»
                 option#3  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Монтаж»
                 option#4  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Обслуживание»
-                option#5  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Встреча»
-                option#6  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Заметка»
+                option#5  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Ремонт»
+                option#6  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Встреча»
+                option#7  0×0 @-461,-239  Manrope 400 15/21  lines=0  «Заметка»
               svg.Select__chevron  14×14 @176,18
           div.Field__field#2  170×79 @216,0
             label.Field__label  170×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
@@ -251,6 +254,7 @@ div.Modal__overlay  bg #0f172a73
                 option#4  color #0f172a
                 option#5  color #0f172a
                 option#6  color #0f172a
+                option#7  color #0f172a
               svg.Select__chevron
           div.Field__field#2
             label.Field__label  color #334155
@@ -326,6 +330,7 @@ div.Modal__overlay  bg #020610ad
                 option#4  color #eaf1f8
                 option#5  color #eaf1f8
                 option#6  color #eaf1f8
+                option#7  color #eaf1f8
               svg.Select__chevron
           div.Field__field#2
             label.Field__label  color #c9d5e2

@@ -7,7 +7,7 @@ import { CalendarStage } from './CalendarStage';
 import { CalendarCreate } from './CalendarCreate';
 import { EventChip } from './EventChip';
 import { crmContent as texts } from './content';
-import { plannedCall, vacationBlock, viewerId } from './fixtures';
+import { plannedCall, vacationBlock, viewerId, workTypes } from './fixtures';
 import { dayColumns, weekColumns } from './schedule';
 
 const refresh = vi.fn();
@@ -57,7 +57,12 @@ function eventItem() {
 
 function stage(children: React.ReactNode, confirmRemove?: () => Promise<boolean>) {
   return render(
-    <CalendarStage day={DAY} viewerId={viewerId} confirmRemove={confirmRemove}>
+    <CalendarStage
+      day={DAY}
+      viewerId={viewerId}
+      confirmRemove={confirmRemove}
+      workTypes={workTypes}
+    >
       {children}
     </CalendarStage>,
   );

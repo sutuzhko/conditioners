@@ -37,6 +37,7 @@ import {
   loadTitle,
 } from '@/entities/crm/content';
 import { staffShortTitle, staffTitle } from '@/entities/staff/model';
+import type { WorkTypeTone } from '@/entities/work-type/model';
 import {
   type DayKey,
   dayKeyOf,
@@ -49,7 +50,6 @@ import {
 import type { IconName } from '@/shared/ui';
 
 import {
-  KIND_LOOK,
   LEADS_PATH,
   ORDERS_PATH,
   ORDER_LOOK,
@@ -84,8 +84,12 @@ export const HOURS_IN_DAY = 24;
  */
 export const DEFAULT_WORK_WINDOW: WorkWindow = { fromMin: 9 * 60, toMin: 19 * 60 };
 
-export type ScheduleTone =
-  'call' | 'measure' | 'install' | 'service' | 'meeting' | 'note' | 'repair';
+/**
+ * Краска записи в сетке. Та же палитра, из которой владелец выбирает цвет
+ * вида работ (ADR-343): у дела она приезжает из справочника, у наряда пока
+ * стоит в `ORDER_LOOK` — до переезда наряда на тот же справочник.
+ */
+export type ScheduleTone = WorkTypeTone;
 
 /**
  * Человек в наложении занятости: цвет закреплён за ним, инициалы стоят рядом
@@ -205,7 +209,16 @@ export type ScheduleItem = {
  * Признак `allDay` считается один раз в колонке (`isAllDay`), а не в каждом
  * сборщике: правило одно на все четыре сущности, и разъехаться ему нельзя.
  */
-type ItemDraft = Omit<ScheduleItem, 'allDay'>;
+type ItemDraft = Omit<ScheduleItem, 'allDay'> & {
+  /**
+   * Вид работ занимает день целиком — признак из справочника (ADR-343).
+   *
+   * В `ScheduleItem` не уезжает: там уже есть `allDay`, посчитанный с учётом
+   * и этого признака, и остальных трёх правил. Два похожих флага на записи
+   * читались бы как разные вопросы к одному и тому же.
+   */
+  readonly dayLong: boolean;
+};
 
 /**
  * Свёрнутая кучка: сколько записей не поместилось и на каком отрезке.
@@ -381,6 +394,7 @@ function itemOfOrder(
     entity: 'order',
     day,
     span: null,
+    dayLong: false,
     icon: look.icon,
     tone: look.tone,
     kindTitle: look.title,
@@ -424,7 +438,7 @@ function itemOfEvent(event: CrmEventCard): ItemDraft {
   const day = dayKeyOf(at);
   const time = timeOf(at);
   const span = spanOf(minutesOfDay(at), event.durationMin);
-  const look = KIND_LOOK[event.kind];
+  const look = event.workType;
   const range = timeRange(span.fromMin, span.toMin);
 
   return {
@@ -432,6 +446,7 @@ function itemOfEvent(event: CrmEventCard): ItemDraft {
     entity: 'event',
     day,
     span: null,
+    dayLong: look.dayLong,
     icon: look.icon,
     tone: look.tone,
     kindTitle: look.title,
@@ -456,7 +471,7 @@ function itemOfEvent(event: CrmEventCard): ItemDraft {
       kind: 'event',
       id: event.id,
       draft: {
-        kind: event.kind,
+        workTypeId: event.workType.id,
         day,
         time,
         durationMin: event.durationMin,
@@ -497,8 +512,9 @@ function itemOfLead(lead: CalendarLead): ItemDraft {
     entity: 'lead',
     span: null,
     day: dayKeyOf(at),
+    dayLong: false,
     icon: 'chat',
-    tone: 'note',
+    tone: 'neutral',
     kindTitle: texts.leadsTitle,
     number: null,
     title: lead.name,
@@ -562,8 +578,9 @@ function itemsOfBlocks(
       /* 🔴 Кусок отлучки помнит запись целиком: по `recordId` вид сшивает
          четырнадцать кусков обратно в одну полосу (ADR-165). */
       span: manyDays ? { recordId: `block-${block.id}`, fromDay, toDay } : null,
+      dayLong: false,
       icon: whole ? 'danger' : 'clock',
-      tone: 'note',
+      tone: 'neutral',
       kindTitle: crmBusyContent.busy,
       number: null,
       title: who,
@@ -616,12 +633,14 @@ function itemsOfBlocks(
  * а не на часе; закрытый целиком день — это сутки, а не промежуток. Всё
  * остальное имеет начало и конец и рисуется по ним.
  */
-function isAllDay(item: ItemDraft): boolean {
+function isAllDay(item: Omit<ScheduleItem, 'allDay'>, dayLong: boolean): boolean {
   if (item.entity === 'lead') return true;
   if (item.toMin <= item.fromMin) return true;
 
-  // заметка «не забыть» висит на дне, а не на часе; отлучка с окном — на часе
-  return item.entity === 'event' && item.tone === 'note';
+  /* Заметка «не забыть» висит на дне, а не на часе — и это признак вида работ
+     из справочника, а не краска записи (ADR-343). Отлучка с окном остаётся на
+     часе: `dayLong` есть только у дела. */
+  return dayLong;
 }
 
 // ---------- Колонки ----------
@@ -821,9 +840,9 @@ function columnOf(input: ColumnInput): ScheduleColumn {
 
   /* Признак «весь день» ставится здесь и один раз: дальше по нему решают и
      полоса над сеткой, и клетка месяца, и сама запись — показывать ли час. */
-  const items: readonly ScheduleItem[] = drafts.map((item) => ({
+  const items: readonly ScheduleItem[] = drafts.map(({ dayLong, ...item }) => ({
     ...item,
-    allDay: isAllDay(item),
+    allDay: isAllDay(item, dayLong),
   }));
 
   const allDay = items

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState, useTransition, type ReactNode } from 'react';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
+import type { WorkTypeMark } from '@/entities/work-type/model';
 import { type DayKey, weekdayOf } from '@/shared/lib/calendar';
 import { useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
@@ -46,12 +47,33 @@ export interface CalendarStageProps {
   readonly preset?: Partial<CrmEventDraft> | undefined;
   /** Шов для тестов: по умолчанию — общий диалог подтверждения (ADR-113). */
   readonly confirmRemove?: Confirm | undefined;
+  /**
+   * Виды работ из справочника (ADR-343): их предлагает форма дела, и первый в
+   * списке становится видом нового дела.
+   *
+   * 🔴 Приезжают с сервера вместе с сеткой, а не запрашиваются отсюда:
+   * справочник читает страница, и второй запрос из клиента означал бы пустое
+   * поле в первые полсекунды после нажатия «Запись».
+   */
+  readonly workTypes: readonly WorkTypeMark[];
   readonly children: ReactNode;
 }
 
-function emptyDraft(day: DayKey, preset?: Partial<CrmEventDraft>): CrmEventDraft {
+/**
+ * Черновик нового дела.
+ *
+ * 🔴 Вид работ по умолчанию — первый в справочнике, а не «звонок»: перечня
+ * видов в коде не осталось (ADR-343), и порядок в списке задаёт владелец. Он
+ * же отвечает на вопрос «что заводят чаще всего» — тем, что ставит этот вид
+ * наверх.
+ */
+function emptyDraft(
+  day: DayKey,
+  workTypeId: string,
+  preset?: Partial<CrmEventDraft>,
+): CrmEventDraft {
   return {
-    kind: 'call',
+    workTypeId,
     day,
     time: DEFAULT_TIME,
     durationMin: DEFAULT_EVENT_MIN,
@@ -99,6 +121,7 @@ export function CalendarStage({
   orders = [],
   preset,
   confirmRemove,
+  workTypes,
   children,
 }: CalendarStageProps) {
   const router = useRouter();
@@ -107,8 +130,15 @@ export function CalendarStage({
   const { confirm, dialog } = useConfirm();
   const ask = confirmRemove ?? confirm;
 
+  /* Справочник пуст — заводить дело нечем: поле выбора было бы пустым, а
+     сохранение упёрлось бы во внешний ключ. Кнопка при этом остаётся: пустой
+     справочник чинится в настройках, а не здесь. */
+  const defaultWorkTypeId = workTypes[0]?.id ?? '';
+
   const [event, setEvent] = useState<Editing | null>(
-    preset === undefined ? null : { draft: emptyDraft(day, preset), id: undefined },
+    preset === undefined
+      ? null
+      : { draft: emptyDraft(day, defaultWorkTypeId, preset), id: undefined },
   );
   const [block, setBlock] = useState<EditingBlock | null>(null);
   const [pending, setPending] = useState<string | null>(null);
@@ -145,7 +175,7 @@ export function CalendarStage({
       create: (at, fromMin, toMin) => {
         setFailure(null);
         setEvent({
-          draft: emptyDraft(at, {
+          draft: emptyDraft(at, defaultWorkTypeId, {
             ...(fromMin === undefined ? {} : { time: timeOfMinutes(fromMin) }),
             ...(fromMin === undefined || toMin === undefined
               ? {}
@@ -217,7 +247,7 @@ export function CalendarStage({
 
       pending,
     };
-  }, [ask, pending, router]);
+  }, [ask, defaultWorkTypeId, pending, router]);
 
   /* Предупреждение в форме дела — о занятости самого́ смотрящего: дело
      заводят себе, и чужой выходной ему ничего не запрещает. */
@@ -253,6 +283,7 @@ export function CalendarStage({
           blocks={myBlocks}
           orders={orders}
           viewerId={viewerId}
+          workTypes={workTypes}
         />
       )}
 
