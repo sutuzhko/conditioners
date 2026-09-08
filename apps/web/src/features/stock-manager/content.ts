@@ -165,8 +165,6 @@ export const stockManagerContent = {
   /* ---------- Разбивка на страницы (issue #608) ---------- */
 
   perPage: 'Строк на странице',
-  perPageSet: (size: number): string =>
-    `Показывать по ${size} ${plural(size, 'строке', 'строки', 'строк')}`,
   shown: (shown: number, total: number): string =>
     `Показано ${shown} из ${total} ${plural(total, 'позиции', 'позиций', 'позиций')}`,
   /** Тот же счёт, но у журнала считаются движения, а не позиции (issue #725). */

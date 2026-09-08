@@ -1,0 +1,67 @@
+# ui-kit-pager--сномерамипервая · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Manrope 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+nav.Pager__pager  326×52 @32,32
+  span.Pager__stepOff  44×44 @93,4  Manrope 600 13/16  r8  b1  lines=1  «‹»
+  span.Pager__count  36×20 @145,16  Manrope 600 13/20  lines=1  «1 из 9»
+  a.Pager__step  44×44 @189,4  r8  b1
+    span  8×16 @18,14  Manrope 600 13/16  lines=1  «›»
+  p[role=status]  1×1 @163,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 1 из 9»
+
+[геометрия 768]
+nav.Pager__pager  704×52 @32,32
+  span.Pager__stepOff  44×44 @218,4  Manrope 600 13/16  r8  b1  lines=1  «‹»
+  ol.Pager__numbers  156×44 @274,4
+    span.Pager__current  44×44 @0,0  Manrope 700 13/16  r8  b1  lines=1  «1»
+    a.Pager__number  44×44 @48,0  Manrope 600 13/16  r8  b1  lines=1  «2»
+    li.Pager__gap  12×20 @96,12  Manrope 400 13/20  lines=1  «…»
+    a.Pager__number#2  44×44 @112,0  Manrope 600 13/16  r8  b1  lines=1  «9»
+  a.Pager__step  44×44 @442,4  r8  b1
+    span  8×16 @18,14  Manrope 600 13/16  lines=1  «›»
+  p[role=status]  1×1 @352,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 1 из 9»
+
+[геометрия 1440]
+nav.Pager__pager  1376×40 @32,32
+  span.Pager__stepOff  32×32 @584,4  Manrope 600 13/16  r8  b1  lines=1  «‹»
+  ol.Pager__numbers  120×32 @628,4
+    span.Pager__current  32×32 @0,0  Manrope 700 13/16  r8  b1  lines=1  «1»
+    a.Pager__number  32×32 @36,0  Manrope 600 13/16  r8  b1  lines=1  «2»
+    li.Pager__gap  12×20 @72,6  Manrope 400 13/20  lines=1  «…»
+    a.Pager__number#2  32×32 @88,0  Manrope 600 13/16  r8  b1  lines=1  «9»
+  a.Pager__step  32×32 @760,4  r8  b1
+    span  8×16 @12,8  Manrope 600 13/16  lines=1  «›»
+  p[role=status]  1×1 @688,20  Manrope 400 15/23  lines=1  clipped  «Показана страница 1 из 9»
+
+[палитра light]
+nav.Pager__pager
+  span.Pager__stepOff  color #5b6a7d  border transparent
+  ol.Pager__numbers
+    span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
+    a.Pager__number  color #0e7490  border transparent
+    li.Pager__gap  color #5b6a7d
+    a.Pager__number#2  color #0e7490  border transparent
+  a.Pager__step  border transparent
+    span  color #0e7490
+  p[role=status]  color #0f172a
+[палитра light @390]
+nav.Pager__pager > span.Pager__count  color #556173
+
+[палитра dark]
+nav.Pager__pager
+  span.Pager__stepOff  color #7e92a7  border transparent
+  ol.Pager__numbers
+    span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
+    a.Pager__number  color #22d3ee  border transparent
+    li.Pager__gap  color #7e92a7
+    a.Pager__number#2  color #22d3ee  border transparent
+  a.Pager__step  border transparent
+    span  color #22d3ee
+  p[role=status]  color #eaf1f8
+[палитра dark @390]
+nav.Pager__pager > span.Pager__count  color #8598ac

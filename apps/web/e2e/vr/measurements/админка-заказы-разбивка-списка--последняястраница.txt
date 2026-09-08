@@ -1,5 +1,5 @@
 # админка-заказы-разбивка-списка--последняястраница · ширины 390 768 1440 · темы light dark
-шрифты: Manrope 400, Manrope 600
+шрифты: Manrope 400, Manrope 600, Manrope 700
 
 [документ]
 390 → 390×900
@@ -7,111 +7,116 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderPager__pager  358×153 @16,16  b1 0 0 0
-  span.OrderPager__count  43×20 @16,13  Manrope 400 13/20  lines=1  «2 из 19»
-  nav.OrderPager__pages  236×44 @16,43
-    a.OrderPager__step  44×44 @0,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «‹»
-    a.OrderPager__number  44×44 @48,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «1»
-    a.OrderPager__number#2  44×44 @96,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «2»
-    span.OrderPager__current  44×44 @144,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «3»
-      span#2  1×1 @22,22  Manrope 600 13/20  lines=1  clipped  «Страница 3, текущая»
-    span.OrderPager__stepOff  44×44 @192,0  Manrope 600 13/20  r11  b1  lines=1  «›»
-  span.OrderPager__size  265×44 @16,97
-    span.OrderPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
-    span.OrderPager__sizeOn  44×44 @125,0  Manrope 600 13/20  r11  b1  lines=1  «8»
-    a.OrderPager__sizeItem  44×44 @173,0  r11  b1
-      span  16×20 @14,12  Manrope 600 13/20  lines=1  «16»
-    a.OrderPager__sizeItem#2  44×44 @221,0  r11  b1
-      span  16×20 @14,12  Manrope 600 13/20  lines=1  «32»
+div.OrderPager__pager  358×129 @16,16  b1 0 0 0
+  div.OrderPager__nav  326×52 @16,13
+    nav.Pager__pager  140×52 @93,0
+      a.Pager__step  44×44 @0,4  r8  b1
+        span  8×16 @18,14  Manrope 600 13/16  lines=1  «‹»
+      span.Pager__count  36×20 @52,16  Manrope 600 13/20  lines=1  «3 из 3»
+      span.Pager__stepOff  44×44 @96,4  Manrope 600 13/16  r8  b1  lines=1  «›»
+      p[role=status]  1×1 @69,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 3 из 3»
+  span.PageSize__root  326×44 @16,73
+    span.PageSize__title  1×1 @163,22  Manrope 400 13/20  lines=1  clipped  «Строк на странице»
+    div.Field__field  74×44 @126,0
+      span.Select__wrapper  74×44 @0,0
+        select.Select__select  74×44 @0,0  r8  b1
+          option  0×0 @-158,-89  Manrope 400 14/20  lines=0  «8»
+          option#2  0×0 @-158,-89  Manrope 400 14/20  lines=0  «16»
+          option#3  0×0 @-158,-89  Manrope 400 14/20  lines=0  «32»
+        svg.Select__chevron  14×14 @46,15
 
 [геометрия 768]
-div.OrderPager__pager  736×69 @16,16  b1 0 0 0
-  span.OrderPager__count  43×20 @16,25  Manrope 400 13/20  lines=1  «2 из 19»
-  nav.OrderPager__pages  236×44 @139,13
-    a.OrderPager__step  44×44 @0,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «‹»
-    a.OrderPager__number  44×44 @48,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «1»
-    a.OrderPager__number#2  44×44 @96,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «2»
-    span.OrderPager__current  44×44 @144,0  r11  b1
-      span  8×20 @18,12  Manrope 600 13/20  lines=1  «3»
-      span#2  1×1 @22,22  Manrope 600 13/20  lines=1  clipped  «Страница 3, текущая»
-    span.OrderPager__stepOff  44×44 @192,0  Manrope 600 13/20  r11  b1  lines=1  «›»
-  span.OrderPager__size  265×44 @455,13
-    span.OrderPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
-    span.OrderPager__sizeOn  44×44 @125,0  Manrope 600 13/20  r11  b1  lines=1  «8»
-    a.OrderPager__sizeItem  44×44 @173,0  r11  b1
-      span  16×20 @14,12  Manrope 600 13/20  lines=1  «16»
-    a.OrderPager__sizeItem#2  44×44 @221,0  r11  b1
-      span  16×20 @14,12  Manrope 600 13/20  lines=1  «32»
+div.OrderPager__pager  736×77 @16,16  b1 0 0 0
+  span.OrderPager__count  43×20 @16,29  Manrope 400 13/20  lines=1  «2 из 19»
+  div.OrderPager__nav  0×0 @-16,-16
+    nav.Pager__pager  252×52 @180,29
+      a.Pager__step  44×44 @0,4  r8  b1
+        span  8×16 @18,14  Manrope 600 13/16  lines=1  «‹»
+      ol.Pager__numbers  140×44 @56,4
+        a.Pager__number  44×44 @0,0  Manrope 600 13/16  r8  b1  lines=1  «1»
+        a.Pager__number#2  44×44 @48,0  Manrope 600 13/16  r8  b1  lines=1  «2»
+        span.Pager__current  44×44 @96,0  Manrope 700 13/16  r8  b1  lines=1  «3»
+      span.Pager__stepOff  44×44 @208,4  Manrope 600 13/16  r8  b1  lines=1  «›»
+      p[role=status]  1×1 @126,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 3 из 3»
+  span.PageSize__root  199×44 @521,17
+    span.PageSize__title  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+    div.Field__field  74×44 @125,0
+      span.Select__wrapper  74×44 @0,0
+        select.Select__select  74×44 @0,0  r8  b1
+          option  0×0 @-662,-33  Manrope 400 14/20  lines=0  «8»
+          option#2  0×0 @-662,-33  Manrope 400 14/20  lines=0  «16»
+          option#3  0×0 @-662,-33  Manrope 400 14/20  lines=0  «32»
+        svg.Select__chevron  14×14 @46,15
 
 [геометрия 1440]
-div.OrderPager__pager  1408×57 @16,16  b1 0 0 0
-  span.OrderPager__count  43×20 @16,19  Manrope 400 13/20  lines=1  «2 из 19»
-  nav.OrderPager__pages  176×32 @523,13
-    a.OrderPager__step  32×32 @0,0  r11  b1
-      span  8×20 @12,6  Manrope 600 13/20  lines=1  «‹»
-    a.OrderPager__number  32×32 @36,0  r11  b1
-      span  8×20 @12,6  Manrope 600 13/20  lines=1  «1»
-    a.OrderPager__number#2  32×32 @72,0  r11  b1
-      span  8×20 @12,6  Manrope 600 13/20  lines=1  «2»
-    span.OrderPager__current  32×32 @108,0  r11  b1
-      span  8×20 @12,6  Manrope 600 13/20  lines=1  «3»
-      span#2  1×1 @16,16  Manrope 600 13/20  lines=1  clipped  «Страница 3, текущая»
-    span.OrderPager__stepOff  32×32 @144,0  Manrope 600 13/20  r11  b1  lines=1  «›»
-  span.OrderPager__size  229×32 @1163,13
-    span.OrderPager__sizeTitle  117×20 @0,6  Manrope 400 13/20  lines=1  «Строк на странице»
-    span.OrderPager__sizeOn  32×32 @125,0  Manrope 600 13/20  r11  b1  lines=1  «8»
-    a.OrderPager__sizeItem  32×32 @161,0  r11  b1
-      span  16×20 @8,6  Manrope 600 13/20  lines=1  «16»
-    a.OrderPager__sizeItem#2  32×32 @197,0  r11  b1
-      span  16×20 @8,6  Manrope 600 13/20  lines=1  «32»
+div.OrderPager__pager  1408×65 @16,16  b1 0 0 0
+  span.OrderPager__count  43×20 @16,23  Manrope 400 13/20  lines=1  «2 из 19»
+  div.OrderPager__nav  0×0 @-16,-16
+    nav.Pager__pager  192×40 @546,29
+      a.Pager__step  32×32 @0,4  r8  b1
+        span  8×16 @12,8  Manrope 600 13/16  lines=1  «‹»
+      ol.Pager__numbers  104×32 @44,4
+        a.Pager__number  32×32 @0,0  Manrope 600 13/16  r8  b1  lines=1  «1»
+        a.Pager__number#2  32×32 @36,0  Manrope 600 13/16  r8  b1  lines=1  «2»
+        span.Pager__current  32×32 @72,0  Manrope 700 13/16  r8  b1  lines=1  «3»
+      span.Pager__stepOff  32×32 @160,4  Manrope 600 13/16  r8  b1  lines=1  «›»
+      p[role=status]  1×1 @96,20  Manrope 400 15/23  lines=1  clipped  «Показана страница 3 из 3»
+  span.PageSize__root  199×32 @1193,17
+    span.PageSize__title  117×20 @0,6  Manrope 400 13/20  lines=1  «Строк на странице»
+    div.Field__field  74×32 @125,0
+      span.Select__wrapper  74×32 @0,0
+        select.Select__select  74×32 @0,0  r8  b1
+          option  0×0 @-1334,-33  Manrope 400 14/20  lines=0  «8»
+          option#2  0×0 @-1334,-33  Manrope 400 14/20  lines=0  «16»
+          option#3  0×0 @-1334,-33  Manrope 400 14/20  lines=0  «32»
+        svg.Select__chevron  14×14 @46,9
 
 [палитра light]
 div.OrderPager__pager  border #e2e8f0 #0f172a #0f172a #0f172a
   span.OrderPager__count  color #5b6a7d
-  nav.OrderPager__pages
-    a.OrderPager__step  border transparent
-      span  color #475569
-    a.OrderPager__number  border transparent
-      span  color #475569
-    a.OrderPager__number#2  border transparent
-      span  color #475569
-    span.OrderPager__current  bg #0e7490  border #0e7490
-      span  color #ffffff
-      span#2  color #ffffff
-    span.OrderPager__stepOff  color #5b6a7d  border transparent
-  span.OrderPager__size
-    span.OrderPager__sizeTitle  color #5b6a7d
-    span.OrderPager__sizeOn  color #0e7490  bg #ecfeff  border #0891b2
-    a.OrderPager__sizeItem  border #7e8fa6
-      span  color #475569
-    a.OrderPager__sizeItem#2  border #7e8fa6
-      span  color #475569
+  div.OrderPager__nav
+    nav.Pager__pager
+      a.Pager__step  border transparent
+        span  color #0e7490
+      ol.Pager__numbers
+        a.Pager__number  color #0e7490  border transparent
+        a.Pager__number#2  color #0e7490  border transparent
+        span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
+      span.Pager__stepOff  color #5b6a7d  border transparent
+      p[role=status]  color #0f172a
+  span.PageSize__root
+    span.PageSize__title  color #5b6a7d
+    div.Field__field
+      span.Select__wrapper
+        select.Select__select  border #7e8fa6
+          option  color #0f172a
+          option#2  color #0f172a
+          option#3  color #0f172a
+        svg.Select__chevron
+[палитра light @390]
+div.OrderPager__pager > div.OrderPager__nav > nav.Pager__pager > span.Pager__count  color #556173
 
 [палитра dark]
 div.OrderPager__pager  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
   span.OrderPager__count  color #7e92a7
-  nav.OrderPager__pages
-    a.OrderPager__step  border transparent
-      span  color #a8b6c6
-    a.OrderPager__number  border transparent
-      span  color #a8b6c6
-    a.OrderPager__number#2  border transparent
-      span  color #a8b6c6
-    span.OrderPager__current  bg #0e7490  border #0e7490
-      span  color #ffffff
-      span#2  color #ffffff
-    span.OrderPager__stepOff  color #7e92a7  border transparent
-  span.OrderPager__size
-    span.OrderPager__sizeTitle  color #7e92a7
-    span.OrderPager__sizeOn  color #22d3ee  bg #22d3ee1a  border #22d3ee
-    a.OrderPager__sizeItem  border #566d95
-      span  color #a8b6c6
-    a.OrderPager__sizeItem#2  border #566d95
-      span  color #a8b6c6
+  div.OrderPager__nav
+    nav.Pager__pager
+      a.Pager__step  border transparent
+        span  color #22d3ee
+      ol.Pager__numbers
+        a.Pager__number  color #22d3ee  border transparent
+        a.Pager__number#2  color #22d3ee  border transparent
+        span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
+      span.Pager__stepOff  color #7e92a7  border transparent
+      p[role=status]  color #eaf1f8
+  span.PageSize__root
+    span.PageSize__title  color #7e92a7
+    div.Field__field
+      span.Select__wrapper
+        select.Select__select  border #566d95
+          option  color #eaf1f8
+          option#2  color #eaf1f8
+          option#3  color #eaf1f8
+        svg.Select__chevron
+[палитра dark @390]
+div.OrderPager__pager > div.OrderPager__nav > nav.Pager__pager > span.Pager__count  color #8598ac
