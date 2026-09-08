@@ -83,7 +83,15 @@ export function LeadCardView({
   const [note, setNote] = useState(lead.managerComment ?? '');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
-  const [saved, setSaved] = useState(false);
+  /**
+   * Что стало с заявкой после последнего действия (issue #33).
+   *
+   * 🔴 Хранится текст итога, а не флаг «сохранено»: сообщение обязано назвать
+   * результат — «Заявка отклонена», а не «Статус изменён». Флагом такое не
+   * скажешь, а человеку, который экрана не видит, селектор о себе не
+   * рассказывает.
+   */
+  const [outcome, setOutcome] = useState('');
   const [clientId, setClientId] = useState<string | null>(lead.clientId);
   /* Итог действия «В клиенты» держится отдельно от `clientId`: после
      обновления списка тот придёт уже заполненным с сервера, а сказать, завели
@@ -107,17 +115,24 @@ export function LeadCardView({
   /** Карточка занята любым из действий: два разом ломают порядок статусов. */
   const locked = busy || starting || removing;
 
-  /** Исход возвращается наружу: без него оптимистичную отметку нечем откатить. */
-  const run = async (patch: Parameters<LeadUpdate>[1]): Promise<boolean> => {
+  /**
+   * Исход возвращается наружу: без него оптимистичную отметку нечем откатить.
+   *
+   * 🔴 Итог называет тот, кто знает, что делал: `done` приходит от вызова.
+   * Отказ гасит прежний итог — иначе после неудачной второй правки в области
+   * сообщений оставалось бы «Заявка принята в работу» от первой, то есть
+   * подтверждение того, чего не произошло.
+   */
+  const run = async (patch: Parameters<LeadUpdate>[1], done: string): Promise<boolean> => {
     setBusy(true);
     setMessage('');
-    setSaved(false);
+    setOutcome('');
 
     const result = await update(lead.id, patch);
 
     setBusy(false);
     if (result.ok) {
-      setSaved(true);
+      setOutcome(done);
       onChanged?.();
       return true;
     }
@@ -141,7 +156,7 @@ export function LeadCardView({
     const previous = status;
     setStatus(next);
 
-    const ok = await run({ status: next });
+    const ok = await run({ status: next }, texts.statusDone(next));
     if (!ok) setStatus(previous);
   };
 
@@ -155,11 +170,14 @@ export function LeadCardView({
     const previous = status;
     setStatus('rejected');
 
-    const ok = await run({
-      status: 'rejected',
-      cancelReason: reason,
-      cancelNote: cancelNote.trim() === '' ? null : cancelNote.trim(),
-    });
+    const ok = await run(
+      {
+        status: 'rejected',
+        cancelReason: reason,
+        cancelNote: cancelNote.trim() === '' ? null : cancelNote.trim(),
+      },
+      texts.statusDone('rejected'),
+    );
 
     if (ok) {
       setCancelling(false);
@@ -211,7 +229,7 @@ export function LeadCardView({
   const addToClients = async (): Promise<void> => {
     setBusy(true);
     setMessage('');
-    setSaved(false);
+    setOutcome('');
 
     const result = await toClient(lead.id);
 
@@ -236,7 +254,7 @@ export function LeadCardView({
   const startOrder = async (): Promise<void> => {
     setStarting(true);
     setMessage('');
-    setSaved(false);
+    setOutcome('');
 
     const result = await toOrder(lead.id);
 
@@ -426,23 +444,37 @@ export function LeadCardView({
             size="sm"
             loading={busy}
             disabled={locked}
-            onClick={() => void run({ managerComment: note.trim() === '' ? null : note.trim() })}
+            onClick={() =>
+              void run({ managerComment: note.trim() === '' ? null : note.trim() }, texts.noteSaved)
+            }
           >
             {busy ? texts.saving : texts.saveNote}
           </Button>
         ) : null}
 
-        {saved && !noteChanged ? (
-          <p className={styles.savedNote} role="status">
-            {texts.saved}
-          </p>
-        ) : null}
+        {/* Видимое подтверждение — та же строка, что произносит живая область
+            ниже, но без роли: иначе читалка прочитала бы итог дважды. */}
+        {outcome === '' ? null : <p className={styles.savedNote}>{outcome}</p>}
 
         {message === '' ? null : (
           <p className={styles.error} role="alert">
             {message}
           </p>
         )}
+
+        {/* 🔴 Итог произносится живой областью, а видимая строка рядом его
+            только показывает (issue #33). Область живёт в разметке всегда, а
+            не появляется вместе с текстом: вставленную вместе с содержимым
+            читалки не объявляют — тот же приём и та же причина, что у
+            разбивки (issue #735) и `CopyField`.
+
+            Смена статуса — единственное видимое событие карточки, и оно
+            беззвучно: список стоит на месте, значение меняет сам селектор.
+            Молчание здесь означало бы, что человек не знает, приняла ли
+            система его выбор. */}
+        <p className="srOnly" role="status" aria-live="polite" aria-atomic="true">
+          {outcome}
+        </p>
       </div>
 
       {/* 🔴 Опасная зона отделена от остальных действий чертой и подписью, а

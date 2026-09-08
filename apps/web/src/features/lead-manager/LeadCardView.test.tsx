@@ -184,6 +184,85 @@ describe('Карточка заявки', () => {
     });
   });
 
+  /**
+   * 🔴 Смена статуса — беззвучное событие: список стоит на месте, значение
+   * меняет сам селектор, и человек, который экрана не видит, о результате не
+   * узнаёт ничем. Область объявления живёт в разметке всегда — вставленную
+   * вместе с текстом читалки не объявляют (issue #33, тот же приём, что у
+   * разбивки в issue #735).
+   */
+  it('🔴 принятый статус объявляется результатом, а не «статус изменён»', async () => {
+    const user = userEvent.setup();
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    await user.selectOptions(screen.getByLabelText(texts.status), texts.statusTitle('in_progress'));
+
+    await waitFor(() => {
+      expect(screen.getByRole('status')).toHaveTextContent(texts.statusDone('in_progress'));
+    });
+  });
+
+  it('🔴 отказ сервера не оставляет подтверждения того, чего не произошло', async () => {
+    const user = userEvent.setup();
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={failingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    await user.selectOptions(screen.getByLabelText(texts.status), texts.statusTitle('in_progress'));
+
+    expect(await screen.findByRole('alert')).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent('');
+    expect(screen.queryByText(texts.statusDone('in_progress'))).not.toBeInTheDocument();
+  });
+
+  it('область объявления стоит в разметке до первого действия', () => {
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
+  it('сохранённая заметка объявляется своим словом, а не «сохранено»', async () => {
+    const user = userEvent.setup();
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    await user.type(screen.getByLabelText(texts.managerComment), 'Перезвонить в среду');
+    await user.click(screen.getByRole('button', { name: texts.saveNote }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('status')).toHaveTextContent(texts.noteSaved);
+    });
+  });
+
   it('заметка сохраняется отдельной кнопкой, а не на каждую букву', async () => {
     const user = userEvent.setup();
     const update = vi.fn(async () => ({ ok: true }));

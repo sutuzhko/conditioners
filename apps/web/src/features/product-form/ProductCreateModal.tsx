@@ -1,10 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
-import { RouteModal, useRouteClose } from '@/shared/ui';
+import { RouteModal, useRouteClose, useUnsavedInput } from '@/shared/ui';
 
 import { productFormContent as texts } from './content';
 import { createProduct } from './lib';
@@ -47,7 +46,7 @@ export function ProductCreateModal({
    * откатывает управляемый список к прежнему значению. Здесь это гасило выбор
    * в «типовых характеристиках из группы»: набор добавлялся со второго раза.
    */
-  const [dirty, setDirty] = useState(false);
+  const unsaved = useUnsavedInput();
 
   return (
     <RouteModal
@@ -55,9 +54,9 @@ export function ProductCreateModal({
       description={texts.createHint}
       size="lg"
       fallbackHref={CATALOG_PATH}
-      dirty={dirty}
+      dirty={unsaved.dirty}
     >
-      <div onChange={() => setDirty(true)}>
+      <div {...unsaved.scope}>
         {/* Разделы формы уходят на третий уровень: второй занят названием
             окна, и заголовки без пропусков — инвариант 4. */}
         <ProductForm
@@ -68,7 +67,7 @@ export function ProductCreateModal({
           specDictionary={specDictionary}
           save={save}
           onDone={(id) => {
-            setDirty(false);
+            unsaved.markSaved();
 
             /* 🔴 Сохранили — уходим в карточку модели, а не в список. Заведение
                модели это первый шаг из двух: фотографии, скидка и
