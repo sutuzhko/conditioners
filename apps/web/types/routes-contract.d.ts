@@ -68,6 +68,8 @@ declare namespace __next_route_internal_types__ {
     | `/admin/stock/zones/new`
     | `/admin/team`
     | `/admin/team/new`
+    | `/api/admin/activity`
+    | `/api/admin/activity/cleanup`
     | `/api/admin/articles`
     | `/api/admin/blocks`
     | `/api/admin/clients`
@@ -116,6 +118,7 @@ declare namespace __next_route_internal_types__ {
     | `/admin/orders/${SafeSlug<T>}/handover`
     | `/admin/stock/items/${SafeSlug<T>}`
     | `/admin/team/${SafeSlug<T>}`
+    | `/api/admin/activity/${SafeSlug<T>}`
     | `/api/admin/articles/${SafeSlug<T>}`
     | `/api/admin/articles/${SafeSlug<T>}/cover`
     | `/api/admin/blocks/${SafeSlug<T>}`
