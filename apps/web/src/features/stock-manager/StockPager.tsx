@@ -26,14 +26,24 @@ export interface StockPagerProps {
   readonly query: Readonly<Record<string, string>>;
 }
 
-/** Адрес списка с заданным шагом. Страница снимается: шаг меняет её смысл. */
-function sizeHref(
-  basePath: string,
-  query: Readonly<Record<string, string>>,
-  step: StockPageSize,
-): string {
-  const params = new URLSearchParams(pageSizeQuery(query, step)).toString();
-  return params === '' ? basePath : `${basePath}?${params}`;
+/**
+ * Адрес списка с заданным шагом. Страница снимается: шаг меняет её смысл.
+ *
+ * 🔴 Адрес относительный — только запрос, без пути. Причин две, и обе твёрдые.
+ *
+ * Первая: шаг листания никогда не уводит с текущей страницы, он меняет её
+ * запрос, и относительный адрес говорит ровно это.
+ *
+ * Вторая: подвал стоит и на карточке позиции, а её маршрут динамический
+ * (`/admin/stock/items/[id]`). При `typedRoutes` динамический маршрут
+ * выражается только там, где тип выводится из самого выражения, и через
+ * обычный проп он не проходит: замер показал, что `?${string}` принимается
+ * всегда, а `/admin/stock/items/${string}` — никогда. Пустой запрос при этом
+ * схлопывается сам: `new URL('?', …).search` равен пустой строке, и Next
+ * собирает адрес из пути без хвостового вопроса — проверено.
+ */
+function sizeHref(query: Readonly<Record<string, string>>, step: StockPageSize): `?${string}` {
+  return `?${new URLSearchParams(pageSizeQuery(query, step)).toString()}`;
 }
 
 /**
@@ -94,10 +104,10 @@ export function StockPager({ page, pages, count, scope, size, basePath, query }:
         <PageSize
           className={styles.size}
           title={texts.perPage}
-          value={sizeHref(basePath, query, size)}
+          value={sizeHref(query, size)}
           options={STOCK_PAGE_SIZES.map((step) => ({
             label: String(step),
-            href: sizeHref(basePath, query, step),
+            href: sizeHref(query, step),
           }))}
         />
       ) : null}

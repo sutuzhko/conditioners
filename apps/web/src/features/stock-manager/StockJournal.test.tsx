@@ -89,10 +89,7 @@ describe('Журнал движений', () => {
     render(<StockJournal journal={longJournal} basePath={basePath} />);
 
     const steps = screen.getByRole('combobox', { name: texts.perPage });
-    expect(within(steps).getByRole('option', { name: '8' })).toHaveAttribute(
-      'value',
-      `${basePath}?size=8`,
-    );
+    expect(within(steps).getByRole('option', { name: '8' })).toHaveAttribute('value', '?size=8');
   });
 
   it('смена шага уносит с собой отбор и вкладку раздела, но не номер страницы', () => {
@@ -111,7 +108,7 @@ describe('Журнал движений', () => {
     const steps = screen.getByRole('combobox', { name: texts.perPage });
     expect(within(steps).getByRole('option', { name: '50' })).toHaveAttribute(
       'value',
-      `${STOCK_PATH}?tab=log&kind=income&size=50`,
+      '?tab=log&kind=income&size=50',
     );
   });
 
@@ -119,7 +116,9 @@ describe('Журнал движений', () => {
     render(<StockJournal journal={longJournal} basePath={basePath} size={8} />);
 
     const steps = screen.getByRole('combobox', { name: texts.perPage });
-    expect(within(steps).getByRole('option', { name: '20' })).toHaveAttribute('value', basePath);
+    /* Пустой запрос — один вопросительный знак: браузер схлопывает его в
+       чистый путь, и `size` из адреса уходит (issue #725). */
+    expect(within(steps).getByRole('option', { name: '20' })).toHaveAttribute('value', '?');
   });
 
   it('🔴 журнал всего склада называет позицию: «что двигали» — первый вопрос к нему', () => {

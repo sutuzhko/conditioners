@@ -16,10 +16,16 @@ export interface OrderPagerProps {
   readonly filters: OrderFilterState;
 }
 
-/** Адрес списка с заданным шагом. Номера страницы в нём нет: шаг сбрасывает её. */
-function sizeHref(filters: OrderFilterState, size: OrderPageSize): string {
-  const params = new URLSearchParams(ordersQuery({ ...filters, size })).toString();
-  return params === '' ? ORDERS_PATH : `${ORDERS_PATH}?${params}`;
+/**
+ * Адрес списка с заданным шагом. Номера страницы в нём нет: шаг сбрасывает её.
+ *
+ * 🔴 Только запрос, без пути — так же, как в подвале склада: шаг листания
+ * меняет запрос текущей страницы, а не уводит с неё, и относительный адрес
+ * этим и является. При `typedRoutes` он к тому же единственный, который
+ * система типов принимает без оглядки на конкретный маршрут.
+ */
+function sizeHref(filters: OrderFilterState, size: OrderPageSize): `?${string}` {
+  return `?${new URLSearchParams(ordersQuery({ ...filters, size })).toString()}`;
 }
 
 /**

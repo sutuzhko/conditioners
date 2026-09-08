@@ -3,16 +3,27 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import { PageSize } from './PageSize';
 
-const options = [8, 20, 50].map((step) => ({
-  value: String(step),
-  label: String(step),
-  href: step === 20 ? '/admin/stock' : `/admin/stock?size=${step}`,
-}));
+/**
+ * Ступени ровно те же, что собирает подвал склада: адрес относительный —
+ * только запрос. Шаг листания не уводит со страницы, он меняет её запрос, и
+ * при `typedRoutes` только такой адрес система типов принимает для любого
+ * маршрута, включая динамическую карточку позиции (issue #748).
+ *
+ * Умолчание раздела — один `?`: пустой запрос схлопывается браузером, и
+ * `size` из адреса уходит, а не остаётся прежним (issue #725).
+ */
+const DEFAULT_STEP = '?';
+
+const options = [
+  { label: '8', href: '?size=8' },
+  { label: '20', href: DEFAULT_STEP },
+  { label: '50', href: '?size=50' },
+] as const;
 
 const meta = {
   title: 'UI Kit/PageSize',
   component: PageSize,
-  args: { title: 'Строк на странице', value: '20', options },
+  args: { title: 'Строк на странице', value: DEFAULT_STEP, options },
   /* 🔴 Ступень шага стоит только в подвале списка панели, и геометрия у неё
      панельная: без обёртки история показала бы поле формы высотой 48. */
   decorators: [
@@ -30,10 +41,10 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = { name: 'Базовое состояние' };
 
 /** Мелкий шаг: значение в поле — то, что стоит в адресе. */
-export const Small: Story = { name: 'Мелкий шаг', args: { value: '8' } };
+export const Small: Story = { name: 'Мелкий шаг', args: { value: '?size=8' } };
 
 /** Крупный шаг: двузначное и трёхзначное значение не меняют ширину поля. */
-export const Large: Story = { name: 'Крупный шаг', args: { value: '50' } };
+export const Large: Story = { name: 'Крупный шаг', args: { value: '?size=50' } };
 
 /** Фокус с клавиатуры: кольцо обязано быть видно на одной цели, а не на трёх. */
 export const Focus: Story = {

@@ -245,8 +245,6 @@ describe('Остатки по зонам', () => {
        ступени остался в разметке: значение пункта — это и есть адрес. */
     const steps = screen.getByRole('combobox', { name: texts.perPage });
     expect(steps).toBeVisible();
-    expect(within(steps).getByRole('option', { name: '8' }).getAttribute('value')).toBe(
-      '/admin/stock?size=8',
-    );
+    expect(within(steps).getByRole('option', { name: '8' }).getAttribute('value')).toBe('?size=8');
   });
 });

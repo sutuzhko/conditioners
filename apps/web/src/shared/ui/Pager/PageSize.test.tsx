@@ -10,14 +10,17 @@ const push = vi.fn<(href: string) => void>();
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push }) }));
 
+/* 🔴 Адреса относительные: шаг листания меняет запрос текущей страницы, а не
+   уводит с неё, и подвал стоит в том числе на карточке позиции — маршруте
+   динамическом, который типом маршрута иначе не выражается. */
 const options = [
-  { label: '8', href: '/admin/stock?size=8' },
-  { label: '20', href: '/admin/stock' },
-  { label: '50', href: '/admin/stock?size=50' },
-];
+  { label: '8', href: '?size=8' },
+  { label: '20', href: '?' },
+  { label: '50', href: '?size=50' },
+] as const;
 
 /** Адрес действующего шага — он же значение поля: значение пункта и есть ссылка. */
-const CURRENT = '/admin/stock';
+const CURRENT = '?';
 
 describe('PageSize', () => {
   it('🔴 шаг листания — одна цель, а не ряд ступеней', () => {
@@ -45,11 +48,7 @@ describe('PageSize', () => {
 
     const steps = screen.getAllByRole('option');
     expect(steps.map((node) => node.textContent)).toEqual(['8', '20', '50']);
-    expect(steps.map((node) => node.getAttribute('value'))).toEqual([
-      '/admin/stock?size=8',
-      '/admin/stock',
-      '/admin/stock?size=50',
-    ]);
+    expect(steps.map((node) => node.getAttribute('value'))).toEqual(['?size=8', '?', '?size=50']);
   });
 
   it('🔴 выбор ступени уводит по её адресу — шаг живёт в адресе, а не в состоянии', async () => {
@@ -57,19 +56,23 @@ describe('PageSize', () => {
     push.mockClear();
     render(<PageSize title="Строк на странице" value={CURRENT} options={options} />);
 
-    await user.selectOptions(screen.getByRole('combobox'), '/admin/stock?size=8');
+    await user.selectOptions(screen.getByRole('combobox'), '?size=8');
 
     expect(push).toHaveBeenCalledTimes(1);
-    expect(push.mock.calls[0]?.[0]).toBe('/admin/stock?size=8');
+    expect(push.mock.calls[0]?.[0]).toBe('?size=8');
   });
 
+  /* 🔴 Возврат к умолчанию раздела снимает `size` из адреса, а не оставляет
+     прежний (issue #725). Пустой запрос схлопывается браузером: `new URL('?',
+     …).search` — пустая строка, и Next собирает адрес из одного пути. */
   it('умолчание раздела уводит на чистый адрес: `size` в ссылке лишний', async () => {
     const user = userEvent.setup();
     push.mockClear();
-    render(<PageSize title="Строк на странице" value="/admin/stock?size=8" options={options} />);
+    render(<PageSize title="Строк на странице" value="?size=8" options={options} />);
 
-    await user.selectOptions(screen.getByRole('combobox'), '/admin/stock');
+    await user.selectOptions(screen.getByRole('combobox'), '?');
 
-    expect(push.mock.calls[0]?.[0]).toBe('/admin/stock');
+    expect(push.mock.calls[0]?.[0]).toBe('?');
+    expect(new URL('?', 'http://stand/admin/stock?size=8').search).toBe('');
   });
 });

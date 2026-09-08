@@ -1,5 +1,6 @@
 'use client';
 
+import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 
 import { Select } from '../Select/Select';
@@ -8,15 +9,24 @@ import styles from './PageSize.module.css';
 export interface PageSizeOption {
   /** Что видно в списке: «8», «20», «50». */
   readonly label: string;
-  /** Адрес списка с этим шагом. Считает вызывающий: правила отбора у него. */
-  readonly href: string;
+  /**
+   * Адрес списка с этим шагом. Считает вызывающий: правила отбора у него.
+   *
+   * 🔴 Тип `Route`, а не `string`, и это не украшение. При `typedRoutes`
+   * (`next.config.ts`) `router.push` принимает только выражение, которое
+   * система типов признала маршрутом; сырая строка роняет **боевую сборку**, а
+   * не `tsc` — типы маршрутов генерируются в `.next`, которого в рабочем
+   * дереве нет (ADR-147). Проверено: `push(строка)` не компилируется,
+   * `push(значение типа Route)` компилируется.
+   */
+  readonly href: Route;
 }
 
 export interface PageSizeProps {
   /** Видимая подпись слева от поля: «Строк на странице». */
   readonly title: string;
   /** Адрес действующего шага — он же один из `options[].href`. */
-  readonly value: string;
+  readonly value: Route;
   readonly options: readonly PageSizeOption[];
   readonly className?: string | undefined;
 }
@@ -49,6 +59,13 @@ export interface PageSizeProps {
  * вместе с ними проверяемость «куда ведёт шаг» значило бы разменять один
  * дефект на другой. Действующий шаг вызывающий считает той же функцией, что и
  * пункты, — разойтись им нечем.
+ *
+ * 🔴 Переход берёт адрес из списка, а не из события. `event.target.value` —
+ * сырая строка, и `router.push` её не принимает: при `typedRoutes` адрес
+ * обязан быть выражением, признанным маршрутом. Поиск пункта по значению
+ * возвращает то же значение уже типизированным — приведения не нужно, запрет
+ * проекта на `as` соблюдён, — и заодно уходит целый класс ошибок: пункт,
+ * которого в списке нет, переходом не станет.
  */
 export function PageSize({ title, value, options, className }: PageSizeProps) {
   const router = useRouter();
@@ -68,7 +85,10 @@ export function PageSize({ title, value, options, className }: PageSizeProps) {
         aria-label={title}
         value={value}
         options={options.map(({ href, label }) => ({ value: href, label }))}
-        onChange={(event) => router.push(event.target.value)}
+        onChange={(event) => {
+          const chosen = options.find((option) => option.href === event.target.value);
+          if (chosen !== undefined) router.push(chosen.href);
+        }}
       />
     </span>
   );
