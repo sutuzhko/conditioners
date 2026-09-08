@@ -144,6 +144,18 @@ export function StaffAccountForm({
             autoComplete="off"
             onChange={(event) => set({ name: event.target.value })}
           />
+
+          {/* 🔴 Порядок полей — порядок обхода табом, и пары в нём собраны по
+              смыслу (issue #747): имя с телефоном — кто это, логин с паролем —
+              чем входит. До этого пять полей стояли одним рядом, и соседство
+              ничего не значило. */}
+          <PhoneInput
+            label={texts.phone}
+            value={draft.phone}
+            disabled={sending}
+            error={errorFor('phone')}
+            onChange={(phone) => set({ phone })}
+          />
           <Input
             label={texts.login}
             hint={texts.loginHint}
@@ -152,13 +164,6 @@ export function StaffAccountForm({
             error={errorFor('login')}
             autoComplete="off"
             onChange={(event) => set({ login: event.target.value })}
-          />
-          <PhoneInput
-            label={texts.phone}
-            value={draft.phone}
-            disabled={sending}
-            error={errorFor('phone')}
-            onChange={(phone) => set({ phone })}
           />
           <PasswordInput
             label={texts.passwordNew}
