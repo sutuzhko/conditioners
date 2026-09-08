@@ -112,10 +112,23 @@ export function formatPhone(phone: string, areaCodeLength?: number): string {
   return `+7${NBSP}(${code})${NBSP}${tail}`;
 }
 
+/**
+ * Номер без разметки: `+79101234567`. Его кладут в буфер и подставляют в
+ * адрес `tel:` — то есть отдают машине, а не глазу.
+ *
+ * 🔴 Отличается от `formatPhone` неразрывными пробелами и скобками, которых
+ * здесь нет намеренно: скопированный «+7 (910) 155-24-68» набирается не
+ * всяким телефоном, а вставленный в поиск не находит того же человека.
+ * Нераспознанный номер возвращается дословно — телефон приходит из админки.
+ */
+export function phonePlain(phone: string): string {
+  const digits = phoneKey(phone);
+  return digits.length > 0 ? `+${digits}` : phone.trim();
+}
+
 /** Значение для `href="tel:"`: только плюс и цифры. */
 export function phoneHref(phone: string): string {
-  const digits = phoneKey(phone);
-  return digits.length > 0 ? `tel:+${digits}` : `tel:${phone.trim()}`;
+  return `tel:${phonePlain(phone)}`;
 }
 
 function toDate(value: Date | string | number): Date {

@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { userEvent, within } from 'storybook/test';
 
 import { StaffList } from './StaffList';
+import { staffManagerContent as texts } from './content';
+import { staffTitle } from './model';
 import {
   acceptingApi,
   activeInstaller,
@@ -15,11 +18,15 @@ import {
 } from './fixtures';
 
 /**
- * Команда таблицей (issue #602, макет `Team.png`): загрузка недели, деньги,
- * доступ переключателем прямо в строке.
+ * Команда таблицей (issue #602, макет `Team.body.html`): загрузка недели,
+ * деньги, доступ переключателем прямо в строке.
  *
- * Ниже 600px строки разворачиваются карточками — восемь колонок на телефоне
- * не читаются вовсе.
+ * 🔴 Колонка телефона уступила место оформлению (issue #745): номер копируют
+ * из меню строки, а ярлыки «Самозанятый» и «Без ИНН» перестали висеть третьим
+ * ярусом под именем и растить строку вдвое (issue #746).
+ *
+ * Ниже 600px строки разворачиваются карточками — девять колонок на телефоне
+ * не читаются вовсе, и номер там снова виден.
  */
 const meta = {
   title: 'Админка/Команда',
@@ -76,4 +83,23 @@ export const БезИмени: Story = {
 
 export const ОтказСервера: Story = {
   args: { api: failingApi },
+};
+
+/**
+ * 🔴 Меню строки — тот же набор и тот же порядок, что у клиентов (issue #744,
+ * #745): открыть · позвонить · скопировать · удалить. Два списка людей в одной
+ * панели не должны требовать двух разных привычек.
+ *
+ * Удаление у первой строки закрыто: за человеком закреплены наряды, и причина
+ * написана прямо в подписи пункта — подсказка на отключённом элементе не
+ * открывается ни фокусом, ни половиной указателей.
+ */
+export const МенюДействий: Story = {
+  play: async ({ canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole('button', {
+        name: texts.rowActions(staffTitle(activeInstaller)),
+      }),
+    );
+  },
 };

@@ -67,8 +67,6 @@ export const adminCatalogContent = {
   oldPrice: (value: number): string => `Прежняя цена ${formatMoney(value)}`,
   discount: (percent: number): string => `−${percent}%`,
   saleUntil: (iso: string): string => `до ${formatDateShort(iso)}`,
-  /** Подпись строки для скринридера: одна ссылка «Править» на десять строк бесполезна. */
-  editLabel: (name: string): string => `Править: ${name}`,
   /** Имя группы действий строки: без него читалка объявляет её безымянной. */
   rowActions: (name: string): string => `Действия над моделью: ${name}`,
   /* 🔴 Подпись строки-ссылки: нажимается вся строка, и список ссылок,

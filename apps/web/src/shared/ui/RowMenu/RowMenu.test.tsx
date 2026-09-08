@@ -321,6 +321,149 @@ describe('Подсказка — положение', () => {
     expect(screen.getByRole('tooltip').style.top).toBe('392px');
   });
 
+  /* ---------- Пункты-ссылки и второй уровень (issue #744, ADR-351) ---------- */
+
+  /** Строка списка людей: открыть — маршрут, позвонить — `tel:`, копировать —
+      второй уровень. Тот же набор у клиентов и у монтажников (issue #745). */
+  function people() {
+    const copyPhone = vi.fn();
+    const remove = vi.fn();
+
+    render(
+      <RowMenu
+        label="Действия над клиентом «Соколова»"
+        items={[
+          { id: 'open', label: 'Открыть карточку', href: { pathname: '/admin/clients/1' } },
+          { id: 'call', label: 'Позвонить', anchor: 'tel:+79101552468' },
+          {
+            id: 'copy',
+            label: 'Скопировать',
+            items: [
+              { id: 'copy-phone', label: 'Телефон', onSelect: copyPhone },
+              { id: 'copy-name', label: 'Имя', onSelect: () => {} },
+            ],
+          },
+          { id: 'remove', label: 'Удалить клиента', onSelect: remove, danger: true },
+        ]}
+      />,
+    );
+
+    return {
+      copyPhone,
+      remove,
+      trigger: screen.getByRole('button', { name: 'Действия над клиентом «Соколова»' }),
+    };
+  }
+
+  /* 🔴 Ссылка обязана быть ссылкой в разметке: переход в обработчике браузер
+     не видит — ни средней кнопкой, ни контекстным меню его не повторить, а
+     `tel:` на рабочем столе просто уводил со страницы в никуда (issue #744). */
+  it('🔴 «Открыть» и «Позвонить» — настоящие ссылки, а не обработчики', async () => {
+    const user = userEvent.setup();
+    const { trigger } = people();
+
+    await user.click(trigger);
+
+    expect(screen.getByRole('menuitem', { name: 'Открыть карточку' })).toHaveAttribute(
+      'href',
+      '/admin/clients/1',
+    );
+    expect(screen.getByRole('menuitem', { name: 'Позвонить' })).toHaveAttribute(
+      'href',
+      'tel:+79101552468',
+    );
+  });
+
+  /* 🔴 Ссылка внутри меню не становится своей остановкой табуляции: модель
+     меню — одна остановка на всё, подсвеченный пункт объявляется через
+     `aria-activedescendant`. */
+  it('🔴 пункт-ссылка не добавляет остановки табуляции', async () => {
+    const user = userEvent.setup();
+    const { trigger } = people();
+
+    await user.click(trigger);
+
+    expect(screen.getByRole('menuitem', { name: 'Открыть карточку' })).toHaveAttribute(
+      'tabindex',
+      '-1',
+    );
+  });
+
+  it('«Скопировать» открывает второй уровень с полями строки', async () => {
+    const user = userEvent.setup();
+    const { trigger } = people();
+
+    await user.click(trigger);
+    await user.click(screen.getByRole('menuitem', { name: 'Скопировать' }));
+
+    expect(screen.getByRole('menuitem', { name: 'Телефон' })).toBeInTheDocument();
+    expect(screen.getByRole('menuitem', { name: 'Имя' })).toBeInTheDocument();
+    /* Первый уровень заменён, а не дополнен: иначе на 390 меню не помещалось
+       бы в окно. */
+    expect(screen.queryByRole('menuitem', { name: 'Удалить клиента' })).not.toBeInTheDocument();
+  });
+
+  it('выбор поля второго уровня копирует и закрывает меню', async () => {
+    const user = userEvent.setup();
+    const { trigger, copyPhone } = people();
+
+    await user.click(trigger);
+    await user.click(screen.getByRole('menuitem', { name: 'Скопировать' }));
+    await user.click(screen.getByRole('menuitem', { name: 'Телефон' }));
+
+    expect(copyPhone).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  /* 🔴 Возврат — такой же пункт списка, а не крестик сбоку: до пункта, куда
+     не доезжают стрелки, клавиатура не добирается вовсе, а `role="menuitem"`
+     на нём обещал бы обратное. */
+  it('🔴 со второго уровня возвращает пункт «Назад», и стрелки до него доезжают', async () => {
+    const user = userEvent.setup();
+    const { trigger } = people();
+
+    await user.click(trigger);
+    await user.click(screen.getByRole('menuitem', { name: 'Скопировать' }));
+
+    const menu = screen.getByRole('menu');
+    expect(menu).toHaveAttribute('aria-activedescendant', expect.stringContaining('__back'));
+
+    await user.click(screen.getByRole('menuitem', { name: 'Назад' }));
+
+    expect(screen.getByRole('menuitem', { name: 'Удалить клиента' })).toBeInTheDocument();
+  });
+
+  it('стрелка вправо входит во второй уровень, влево возвращает', async () => {
+    const user = userEvent.setup();
+    const { trigger } = people();
+
+    await user.click(trigger);
+    await user.keyboard('{ArrowDown}{ArrowDown}{ArrowRight}');
+
+    expect(screen.getByRole('menuitem', { name: 'Телефон' })).toBeInTheDocument();
+
+    await user.keyboard('{ArrowLeft}');
+
+    expect(screen.getByRole('menuitem', { name: 'Удалить клиента' })).toBeInTheDocument();
+  });
+
+  /* 🔴 Esc на втором уровне возвращает, а не закрывает: закрытие всего меню
+     отняло бы у человека и выбор поля, и место, откуда он в него зашёл. */
+  it('🔴 Esc со второго уровня возвращает на первый, и только второй Esc закрывает', async () => {
+    const user = userEvent.setup();
+    const { trigger } = people();
+
+    await user.click(trigger);
+    await user.click(screen.getByRole('menuitem', { name: 'Скопировать' }));
+
+    await user.keyboard('{Escape}');
+    expect(screen.getByRole('menuitem', { name: 'Удалить клиента' })).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
   /* 🔴 Подсказка у верхней строки таблицы переворачивается вниз, и это
      единственное, чем стороны различаются: размеры пузырька одинаковы, а
      координаты корня портала измерения не пишут (ADR-327, issue #689). */

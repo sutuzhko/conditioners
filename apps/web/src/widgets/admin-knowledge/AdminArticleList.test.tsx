@@ -26,7 +26,7 @@ describe('Список статей в админке', () => {
     render(<AdminArticleList articles={articleRowsFixture} />);
 
     expect(
-      screen.getByRole('link', { name: texts.editLabel('Как часто чистить кондиционер') }),
+      screen.getByRole('link', { name: texts.rowLabel('Как часто чистить кондиционер') }),
     ).toHaveAttribute('href', '/admin/knowledge/2');
   });
 
@@ -63,8 +63,11 @@ describe('Список статей в админке', () => {
 
   /* 🔴 Набор действий строки повторяет набор карточки (issue #575): до этого
      список давал только «Править», и о том, что статью можно убрать, узнавал
-     лишь тот, кто открыл карточку и долистал форму до низа. */
-  it('строка даёт открыть, править и убрать, не открывая карточку', () => {
+     лишь тот, кто открыл карточку и долистал форму до низа.
+
+     🔴 «Править» из ряда убрано (issue #866): круг вёл по тому же адресу, что
+     и вся строка. В ряду остаются действия со своей целью. */
+  it('строка даёт посмотреть на сайте и убрать, не открывая карточку', () => {
     render(<AdminArticleList articles={articleRowsFixture} />);
 
     const title = published?.title ?? '';
@@ -74,13 +77,24 @@ describe('Список статей в админке', () => {
       'href',
       `/knowledge/${published?.slug ?? ''}`,
     );
-    expect(within(actions).getByRole('link', { name: texts.editLabel(title) })).toHaveAttribute(
-      'href',
-      `/admin/knowledge/${published?.id ?? ''}`,
-    );
     expect(
       within(actions).getByRole('button', { name: articleFormContent.removeLabel(title) }),
     ).toBeInTheDocument();
+  });
+
+  /* 🔴 Дубля адреса строки в ряду действий нет (issue #866): читалка иначе
+     проходит по строке дважды и оба раза приходит в одно место, а на телефоне
+     дубль занимает тап-зону, которая ничего не добавляет (ADR-347). */
+  it('🔴 в ряду действий нет второй ссылки на адрес самой строки', () => {
+    render(<AdminArticleList articles={articleRowsFixture} />);
+
+    const title = published?.title ?? '';
+    const actions = screen.getByRole('group', { name: texts.rowActions(title) });
+    const rowHref = `/admin/knowledge/${published?.id ?? ''}`;
+
+    for (const link of within(actions).queryAllByRole('link')) {
+      expect(link).not.toHaveAttribute('href', rowHref);
+    }
   });
 
   /* 🔴 У черновика адреса на сайте нет: ссылка вела бы в 404. Действие не
