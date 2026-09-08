@@ -27,12 +27,15 @@ export default async function AdminOrderNewModal({
      ничего не стоит. */
   await requireOwnerPage();
 
-  const { clients, installers, blocks, work, lead } = await orderFormData(await searchParams);
+  const { clients, installers, workTypes, blocks, work, lead } = await orderFormData(
+    await searchParams,
+  );
 
   return (
     <OrderCreateModal
       clients={clients}
       installers={installers}
+      workTypes={workTypes}
       blocks={blocks}
       work={work}
       {...(lead === null

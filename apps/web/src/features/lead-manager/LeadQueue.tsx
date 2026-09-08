@@ -1,4 +1,5 @@
 import { LEAD_STATUS_VARIANT } from '@/entities/lead/model';
+import { WorkTypeBadge } from '@/entities/work-type/ui';
 import {
   Badge,
   ButtonLink,
@@ -162,14 +163,31 @@ export function LeadQueue({
                 </td>
 
                 <td role="cell" className={styles.topic} data-label={texts.colTopic}>
-                  {/* 🔴 `wrap`: тема приходит из формы, её длину задаёт
-                      человек (ADR-126). Плашка без переноса не ужимается ниже
-                      своей строки — «Установка мультисплит-системы на два
-                      внутренних блока» выносила ячейку за край на 30px и
-                      тянула за собой всю таблицу. */}
-                  <Badge variant="neutral" size="sm" wrap>
-                    {lead.topic}
-                  </Badge>
+                  {/* 🔴 Ярлык красит справочник, а не раздел (ADR-343): у
+                      «монтажа» в очереди тот же цвет, что у монтажа в
+                      календаре и в наряде. Рядом с краской всегда стоит слово
+                      — название вида работ (WCAG 1.4.1, issue #840).
+
+                      🔴 Заявка без вида работ открывается как прежде — одной
+                      темой в серой плашке (issue #841). Такими пришли все, кто
+                      написал до справочника, и разбирать их темы задним числом
+                      нельзя: угаданный по словам вид честнее не становится.
+
+                      `wrap` у темы: её длину задаёт человек в форме (ADR-126).
+                      Плашка без переноса не ужимается ниже своей строки —
+                      «Установка мультисплит-системы на два внутренних блока»
+                      выносила ячейку за край на 30px и тянула за собой всю
+                      таблицу. */}
+                  {lead.workType === null ? (
+                    <Badge variant="neutral" size="sm" wrap>
+                      {lead.topic}
+                    </Badge>
+                  ) : (
+                    <>
+                      <WorkTypeBadge workType={lead.workType} />
+                      <span className={styles.topicText}>{lead.topic}</span>
+                    </>
+                  )}
                 </td>
 
                 <td role="cell" className={styles.when} data-label={texts.colWhen}>

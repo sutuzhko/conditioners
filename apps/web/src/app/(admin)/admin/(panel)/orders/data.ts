@@ -7,7 +7,7 @@
  */
 import { notFound } from 'next/navigation';
 
-import { guessOrderType, leadManagerContent as leadTexts } from '@/features/lead-manager';
+import { leadManagerContent as leadTexts } from '@/features/lead-manager';
 import {
   emptyOrderDraft,
   type OrderBlock,
@@ -17,9 +17,11 @@ import {
   type OrderWorkSpan,
 } from '@/features/order-manager';
 import { requireOwnerPage } from '@/server/guards';
+import { workTypeOptions, type WorkTypeMark, type WorkTypeOption } from '@/shared/lib/work-type';
 import { listInstallers } from '@/server/repo/admin-users';
 import { listAll } from '@/server/repo/clients';
 import { findById as findLead } from '@/server/repo/leads';
+import { listActive as listWorkTypes } from '@/server/repo/work-types';
 import { todayKey } from '@/shared/lib/calendar';
 
 import { loadBlocks, loadWork } from './blocks';
@@ -28,11 +30,23 @@ import { loadBlocks, loadWork } from './blocks';
 export type OrderLeadSource = {
   readonly draft: OrderDraft;
   readonly from: string;
+  /**
+   * Вид работ обращения — тот, что подставлен в черновик. Едет отдельно от
+   * черновика, потому что нужен списку выбора: отключённый вид иначе не попал
+   * бы в него и поле открылось бы пустым (ADR-343).
+   */
+  readonly workType: WorkTypeMark | null;
 };
 
 export type OrderFormData = {
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
+  /**
+   * Виды работ из справочника: перечня в коде не осталось (ADR-343).
+   * Отключённые попадают сюда только тогда, когда стоят у обращения, из
+   * которого заводят наряд, и помечены `active: false`.
+   */
+  readonly workTypes: readonly WorkTypeOption[];
   readonly blocks: readonly OrderBlock[];
   readonly work: readonly OrderWorkSpan[];
   readonly lead: OrderLeadSource | null;
@@ -56,7 +70,23 @@ export type OrderNewParams = { readonly lead?: string | undefined };
 export async function orderFormData(params: OrderNewParams): Promise<OrderFormData> {
   const [lead, lists] = await Promise.all([orderLeadSource(params), orderFormLists()]);
 
-  return { ...lists, lead };
+  return { ...lists, workTypes: withLeadWorkType(lists.workTypes, lead), lead };
+}
+
+/**
+ * Список выбора для формы заведения: действующие виды работ плюс вид работ
+ * обращения, если владелец успел его отключить.
+ *
+ * 🔴 Иначе наряд по такому обращению открывался бы с пустым обязательным
+ * полем, хотя вид работ у обращения есть (ADR-343).
+ */
+export function withLeadWorkType(
+  workTypes: readonly WorkTypeMark[],
+  lead: OrderLeadSource | null,
+): readonly WorkTypeOption[] {
+  const used = lead?.workType ?? null;
+
+  return workTypeOptions(workTypes, used === null ? [] : [used]);
 }
 
 /**
@@ -79,25 +109,35 @@ export async function orderLeadSource(params: OrderNewParams): Promise<OrderLead
   return {
     draft: {
       ...emptyOrderDraft(),
-      type: guessOrderType(lead.topic),
+      /* 🔴 Вид работ берётся у обращения, а не угадывается по словам темы
+         (ADR-343). До справочника здесь стоял `guessOrderType(lead.topic)` —
+         разбор темы по корням слов; вместе со справочником он снят: у заявки
+         вид работ теперь свой, а у старой заявки его нет, и подставлять
+         угаданный честнее не становится. Не выбран — форма покажет первый вид
+         справочника, и владелец поправит одним щелчком, пока наряд черновик. */
+      workTypeId: lead.workType?.id ?? '',
       clientId: lead.clientId ?? '',
       address: lead.address ?? '',
       comment: lead.comment ?? '',
       leadId: lead.id,
     },
     from: leadTexts.orderFrom(lead.name, lead.topic),
+    workType: lead.workType,
   };
 }
 
 /** Списки и занятость для формы: к существованию обращения отношения не имеют. */
-export async function orderFormLists(): Promise<Omit<OrderFormData, 'lead'>> {
+export async function orderFormLists(): Promise<
+  Omit<OrderFormData, 'lead' | 'workTypes'> & { readonly workTypes: readonly WorkTypeMark[] }
+> {
   const session = await requireOwnerPage();
 
   /* Только работающие: назначать наряд человеку, у которого закрыт доступ,
      значит отправить его в пустоту — он не увидит наряд в панели. */
-  const [clients, installers, blocks, work] = await Promise.all([
+  const [clients, installers, workTypes, blocks, work] = await Promise.all([
     listAll(),
     listInstallers(true),
+    listWorkTypes(),
     /* Занятость вокруг сегодняшнего дня: наряд заводят, пока клиент на линии,
        и чаще всего на ближайшие дни. */
     loadBlocks(session, todayKey()),
@@ -116,6 +156,7 @@ export async function orderFormLists(): Promise<Omit<OrderFormData, 'lead'>> {
       login: staff.login,
       employment: staff.employment,
     })),
+    workTypes,
     blocks,
     work,
   };

@@ -22,9 +22,53 @@ import {
   modelLead,
   newLead,
   workedLead,
+  workTypeInstall,
 } from './fixtures';
 
 describe('Карточка заявки', () => {
+  /**
+   * 🔴 Вид работ приходит из справочника и стоит подписью рядом с краской
+   * (ADR-343, issue #839, #840): один цвет о работе не сообщает ничего ни при
+   * нарушениях цветовосприятия, ни на распечатке.
+   */
+  it('🔴 вид работ виден словом, а не только цветом', () => {
+    render(
+      <LeadCardView
+        lead={newLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    expect(screen.getByText(texts.workType)).toBeInTheDocument();
+    expect(screen.getByText(workTypeInstall.title)).toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Проверка задачи #841. Такими пришли все обращения до справочника, и
+   * разбирать их темы задним числом нельзя (ADR-343). Карточка обязана
+   * открыться и показать свободную тему, а не упасть на пустом виде работ.
+   */
+  it('🔴 заявка без вида работ открывается и показывает тему', () => {
+    render(
+      <LeadCardView
+        lead={bareLead}
+        update={acceptingUpdate}
+        toClient={acceptingToClient}
+        toOrder={acceptingToOrder}
+        remove={acceptingRemove}
+      />,
+    );
+
+    expect(screen.getByText(bareLead.name)).toBeInTheDocument();
+    expect(screen.getByText(bareLead.topic)).toBeInTheDocument();
+    /* Строки вида работ нет вовсе: пустая строка «Вид работ: —» сообщала бы о
+       поле, которого у обращения не было и быть не могло. */
+    expect(screen.queryByText(texts.workType)).not.toBeInTheDocument();
+  });
+
   it('🔴 данные клиента не редактируются — их полей ввода нет', () => {
     render(
       <LeadCardView

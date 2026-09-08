@@ -279,7 +279,7 @@ export const fieldRefusingApi: StaffApi = {
 export const paidOrder: StaffOrder = {
   id: 'o1',
   number: 1059,
-  type: 'install',
+  workType: 'Монтаж',
   status: 'done',
   at: '2026-08-14T07:00:00.000Z',
   address: 'Тула, ул. Токарева, 88, кв. 204',
@@ -292,7 +292,7 @@ export const paidOrder: StaffOrder = {
 export const heldOrder: StaffOrder = {
   id: 'o2',
   number: 1064,
-  type: 'service',
+  workType: 'Обслуживание',
   status: 'done',
   at: '2026-08-22T09:30:00.000Z',
   address: 'Тула, Красноармейский проспект, 12',
@@ -305,7 +305,7 @@ export const heldOrder: StaffOrder = {
 export const runningOrder: StaffOrder = {
   id: 'o3',
   number: 1071,
-  type: 'repair',
+  workType: 'Ремонт',
   status: 'in_progress',
   at: '2026-09-04T06:00:00.000Z',
   address: 'Тула, ул. Демонстрации, 1',

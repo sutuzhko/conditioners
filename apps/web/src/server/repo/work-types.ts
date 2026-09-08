@@ -7,9 +7,11 @@
  */
 import type { WorkTypeTone as DbTone } from '@prisma/client';
 
-import type { WorkTypeMark, WorkTypeTone } from '@/entities/work-type/model';
+import type { WorkTypeMark, WorkTypeTone } from '@/shared/lib/work-type';
+import { plural } from '@/shared/lib/plural';
 import { isIconName, type IconName } from '@/shared/ui/Icon';
 import { db } from '@/server/db';
+import { ApiException } from '@/server/http';
 
 /**
  * 🔴 `Record` держит полноту на этапе сборки: краска, добавленная в схему и
@@ -139,4 +141,39 @@ export async function listActive(): Promise<readonly WorkTypeMark[]> {
   });
 
   return rows.map(toMark);
+}
+
+/**
+ * 🔴 Занятый вид работ не удаляется — он отключается (ADR-343, issue #836).
+ *
+ * Удаление стёрло бы вид у выполненных выездов и нарядов: наряд за прошлый
+ * июль перестал бы отвечать на вопрос «что там делали», а разбор выручки по
+ * видам в сводке месяца потерял бы строку. Отключённый вид не предлагается
+ * нигде, но у прежних записей остаётся — это и есть то, чего владелец хочет,
+ * когда говорит «убери».
+ *
+ * Запрет держит и база (`onDelete: Restrict` у дела, наряда и обращения) — но
+ * её отказ приезжает кодом ограничения, а не словами. Здесь он превращается в
+ * ответ, из которого понятно, что делать: сколько записей мешает и что вместо
+ * удаления есть отключение.
+ */
+export async function remove(id: string): Promise<void> {
+  const row = await db.workType.findUnique({
+    where: { id },
+    select: { title: true, _count: { select: { events: true, orders: true, leads: true } } },
+  });
+
+  if (row === null) throw new ApiException('not_found', 'Вид работ не найден');
+
+  const used = row._count.events + row._count.orders + row._count.leads;
+  if (used > 0) {
+    throw new ApiException(
+      'conflict',
+      `Вид работ «${row.title}» стоит у ${used} ${plural(used, 'записи', 'записей', 'записей')}: ` +
+        'удалить его нельзя, иначе они останутся без вида работ. Отключите его — ' +
+        'он перестанет предлагаться, но у прежних записей сохранится.',
+    );
+  }
+
+  await db.workType.delete({ where: { id } });
 }

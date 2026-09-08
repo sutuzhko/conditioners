@@ -163,7 +163,9 @@ export async function rebuildChecklist(
     where: { id: orderId },
     select: {
       id: true,
-      type: true,
+      /* Инструмент выезда живёт в справочнике видов работ (ADR-343): первые
+         строки чеклиста приезжают оттуда, а не из таблицы в коде. */
+      workType: { select: { tools: true } },
       heightWorks: true,
       payment: true,
       price: true,

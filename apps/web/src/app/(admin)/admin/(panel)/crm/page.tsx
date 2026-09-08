@@ -27,6 +27,7 @@ import {
   type ScheduleSource,
 } from '@/features/crm-calendar';
 import { formatPhone } from '@/shared/lib/format';
+import { workTypeOptions } from '@/shared/lib/work-type';
 import {
   dayRange,
   gridRange,
@@ -167,6 +168,19 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
       listWorkTypes(),
     ]);
 
+  /* 🔴 Список выбора — действующие виды работ плюс те, что стоят у записей
+     этой сетки (ADR-343). Без второй половины дело с отключённым видом
+     открывалось бы на правку с пустым обязательным полем: владелец видел бы
+     «вид работ не заполнен» там, где он заполнен, и перезаписал бы его первым
+     попавшимся. Отключённые помечены и не выбираются для новых записей.
+
+     Считается на месте, а не вторым запросом: запись привозит свой вид работ
+     целиком. */
+  const workTypeChoices = workTypeOptions(workTypes, [
+    ...events.map((event) => event.workType),
+    ...orders.map((order) => order.workType),
+  ]);
+
   const calendarLeads: CalendarLead[] = leads.map((lead) => ({
     id: lead.id,
     name: lead.name,
@@ -227,7 +241,7 @@ export default async function AdminCrmPage({ searchParams }: { searchParams: Pro
         blocks={blocks}
         orders={orders}
         preset={preset}
-        workTypes={workTypes}
+        workTypes={workTypeChoices}
       >
         <div className={styles.calendar}>
           <CalendarNav

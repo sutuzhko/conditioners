@@ -1,6 +1,6 @@
 /** Подписи раздела клиентов. */
-import { ORDER_STATUS_TITLE, ORDER_TYPE_TITLE } from '@/entities/order/model';
-import type { OrderStatus, OrderType } from '@/entities/order/model';
+import { ORDER_STATUS_TITLE } from '@/entities/order/model';
+import type { OrderStatus } from '@/entities/order/model';
 import type { ConfirmRequest } from '@/shared/ui';
 import { formatDateShort, formatMoney } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
@@ -118,7 +118,6 @@ export const clientManagerContent = {
   ordersShown: (shown: number, total: number): string =>
     `Показаны последние ${shown} из ${total}: остальные — в разделе заказов`,
   orderNumber: (number: number): string => `№ ${number}`,
-  orderType: (type: OrderType): string => ORDER_TYPE_TITLE[type],
   orderStatus: (status: OrderStatus): string => ORDER_STATUS_TITLE[status],
   /** Сумма заказа. Прочерк — цену ещё не проставили, а не «работа бесплатная». */
   orderPrice: (value: number | null): string => (value === null ? '—' : formatMoney(value)),

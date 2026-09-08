@@ -167,6 +167,7 @@ async function LeadsBlock({
     number: item.number,
     name: item.name,
     phone: item.phone,
+    workType: item.workType,
     topic: item.topic,
     address: item.address,
     status: item.status,

@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { PERSON_TONES, type PersonTone } from '@/entities/crm/lib/palette';
-import { WORK_TYPE_TONES, type WorkTypeTone } from '@/entities/work-type/model';
+import { WORK_TYPE_TONES, type WorkTypeTone } from '@/shared/lib/work-type';
 import { blend, contrastRatio, formatRatio, parseColor, type Color } from '@/shared/lib/color';
 
 /**
@@ -123,6 +123,16 @@ const MODULES: readonly { readonly name: string; readonly css: string }[] = [
   {
     name: 'EventPopover.module.css',
     css: readFileSync(join(__dirname, 'EventPopover.module.css'), 'utf8'),
+  },
+  /* Ярлык вида работ в очереди обращений (ADR-343, issue #839). Краски у него
+     те же, и проверять их отдельным тестом значило бы завести вторую копию
+     этой машинерии — а разъехались бы они молча. */
+  {
+    name: 'WorkTypeBadge.module.css',
+    css: readFileSync(
+      join(__dirname, '..', '..', 'entities', 'work-type', 'ui', 'WorkTypeBadge.module.css'),
+      'utf8',
+    ),
   },
 ];
 

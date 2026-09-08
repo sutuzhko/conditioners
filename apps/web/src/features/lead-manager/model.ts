@@ -1,5 +1,6 @@
 import type { LeadContext } from '@/entities/lead/model';
 import type { CancelReason } from '@/shared/lib/cancel-reason';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 
 /** Заявка в админке — контракт docs/API.md §8. */
 export type LeadStatus = 'new' | 'in_progress' | 'done' | 'rejected';
@@ -21,6 +22,14 @@ export type LeadCard = {
   readonly name: string;
   readonly phone: string;
   readonly topic: string;
+  /**
+   * Вид работ из справочника — или `null` (ADR-343).
+   *
+   * 🔴 `null` — рабочее состояние, а не сбой: поле появилось вместе со
+   * справочником, и у всех обращений, пришедших до него, вида нет. Карточка
+   * такое обращение открывает как прежде — свободной темой.
+   */
+  readonly workType: WorkTypeMark | null;
   /**
    * Модель, которую человек видел в поле формы и подтвердил (ADR-129). Не то же
    * самое, что `context.model`: там снимок карточки, с которой он пришёл, — и
@@ -96,6 +105,8 @@ export type LeadQueueItem = {
   readonly name: string;
   readonly phone: string;
   readonly topic: string;
+  /** Вид работ из справочника; `null` — обращение старше справочника. */
+  readonly workType: WorkTypeMark | null;
   /** Адрес приписан к имени: по нему видно, свой район или выезд за город. */
   readonly address: string | null;
   readonly status: LeadStatus;

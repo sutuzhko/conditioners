@@ -14,13 +14,16 @@ import {
   pendingApi,
   staffDraft,
   staffInstaller,
+  retiredWorkType,
   unassignedDraft,
+  workTypes,
+  workTypesWithRetired,
 } from './fixtures';
 
 const meta = {
   title: 'Админка/Заказы/Форма наряда',
   component: OrderForm,
-  args: { api: acceptingApi, clients, installers, confirm: async () => true },
+  args: { api: acceptingApi, clients, installers, workTypes, confirm: async () => true },
 } satisfies Meta<typeof OrderForm>;
 
 export default meta;
@@ -111,5 +114,18 @@ export const МонтажникЗанятЧасы: Story = {
   args: {
     blocks,
     initial: { ...draft, installerId: staffInstaller.id, time: '14:30' },
+  },
+};
+
+/**
+ * 🔴 Вид работ отключили, а у наряда он остался (ADR-343). Пункт виден
+ * выбранным и подписан — иначе поле выглядело бы незаполненным, и владелец,
+ * поправив адрес, перезаписал бы вид работ первым попавшимся.
+ */
+export const ОтключённыйВидРабот: Story = {
+  args: {
+    orderId: order.id,
+    workTypes: workTypesWithRetired,
+    initial: { ...draft, workTypeId: retiredWorkType.id },
   },
 };

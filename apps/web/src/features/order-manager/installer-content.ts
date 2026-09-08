@@ -13,7 +13,7 @@ import { WORK_TIME_ZONE, momentOf, shiftDay, todayKey, type DayKey } from '@/sha
 import { formatMoney } from '@/shared/lib/format';
 import { plural } from '@/shared/lib/plural';
 
-import { EQUIP_TITLE, ORDER_TYPE_TITLE, orderManagerContent as texts } from './content';
+import { EQUIP_TITLE, orderManagerContent as texts } from './content';
 import type { InstallerWhen } from './installer-model';
 
 /** Чьё оборудование — одним словом на плашке наряда. */
@@ -235,10 +235,10 @@ export function orderUnitMarks(unit: OrderUnitCard): readonly OrderMark[] {
  * временем, одинаково на всех трёх экранах (issue #633: в макете он был то
  * заголовком, то подписью в углу).
  */
-export function installerWorkTitle(order: Pick<OrderCard, 'type' | 'units'>): string {
+export function installerWorkTitle(order: Pick<OrderCard, 'workType' | 'units'>): string {
   const first = order.units[0];
-  if (first === undefined) return ORDER_TYPE_TITLE[order.type];
+  if (first === undefined) return order.workType.title;
 
   const what = first.model ?? EQUIP_TITLE[first.equip];
-  return `${ORDER_TYPE_TITLE[order.type]} · ${what}`;
+  return `${order.workType.title} · ${what}`;
 }

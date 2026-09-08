@@ -7,7 +7,7 @@ import { requireOwnerPage } from '@/server/guards';
 import { Card } from '@/shared/ui';
 import { DataBlock, FieldsSkeleton, blockErrorNote } from '@/widgets/admin-shell';
 
-import { orderFormLists, orderLeadSource, type OrderLeadSource } from '../data';
+import { orderFormLists, orderLeadSource, withLeadWorkType, type OrderLeadSource } from '../data';
 import { OrderEditor } from '../OrderEditor';
 import styles from '../page.module.css';
 
@@ -80,7 +80,10 @@ export default async function AdminOrderNewPage({ searchParams }: PageProps) {
 
 /** Форма заведения — то, что приезжает отдельным куском потока. */
 async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null }) {
-  const { clients, installers, blocks, work } = await orderFormLists();
+  const { clients, installers, workTypes, blocks, work } = await orderFormLists();
+  /* Вид работ обращения подмешивается в список: владелец мог его отключить, а
+     у обращения он остался, и поле обязано открыться заполненным (ADR-343). */
+  const workTypeChoices = withLeadWorkType(workTypes, lead);
 
   if (lead === null) {
     return (
@@ -88,6 +91,7 @@ async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null })
         <OrderEditor
           clients={clients}
           installers={installers}
+          workTypes={workTypeChoices}
           blocks={blocks}
           work={work}
           surface="bare"
@@ -100,6 +104,7 @@ async function NewOrderForm({ lead }: { readonly lead: OrderLeadSource | null })
     <OrderEditor
       clients={clients}
       installers={installers}
+      workTypes={workTypeChoices}
       blocks={blocks}
       work={work}
       initial={lead.draft}

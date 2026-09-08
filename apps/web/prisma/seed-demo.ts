@@ -1451,7 +1451,8 @@ type DemoUnit = {
 };
 
 type DemoOrder = {
-  readonly type: 'INSTALL' | 'SERVICE' | 'REPAIR';
+  /** Код вида работ в справочнике: перечисления `OrderType` больше нет (ADR-343). */
+  readonly workTypeCode: 'install' | 'service' | 'repair';
   readonly status: 'NEW' | 'ASSIGNED' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED';
   readonly clientKey: string;
   readonly installerLogin?: string;
@@ -1484,7 +1485,7 @@ type DemoOrder = {
  */
 const orders: readonly DemoOrder[] = [
   {
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'NEW',
     clientKey: 'zhukov',
     dayDelta: 3,
@@ -1510,7 +1511,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'ASSIGNED',
     clientKey: 'fedotova',
     installerLogin: 'mironov',
@@ -1536,7 +1537,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'ASSIGNED',
     clientKey: 'novikov',
     installerLogin: 'zaharov',
@@ -1568,7 +1569,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'SERVICE',
+    workTypeCode: 'service',
     status: 'IN_PROGRESS',
     clientKey: 'romashka',
     installerLogin: 'panov',
@@ -1590,7 +1591,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'DONE',
     clientKey: 'demin',
     installerLogin: 'zaharov',
@@ -1620,7 +1621,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'REPAIR',
+    workTypeCode: 'repair',
     status: 'DONE',
     clientKey: 'belyaeva',
     installerLogin: 'mironov',
@@ -1636,7 +1637,7 @@ const orders: readonly DemoOrder[] = [
     units: [{ equip: 'CONDITIONER', model: 'Zanussi ZACS-09', source: 'CLIENT' }],
   },
   {
-    type: 'SERVICE',
+    workTypeCode: 'service',
     status: 'DONE',
     clientKey: 'sergeev',
     installerLogin: 'panov',
@@ -1655,7 +1656,7 @@ const orders: readonly DemoOrder[] = [
     units: [{ equip: 'CONDITIONER', model: 'Ballu BSWI-09HN8', source: 'OURS' }],
   },
   {
-    type: 'SERVICE',
+    workTypeCode: 'service',
     status: 'DONE',
     clientKey: 'salon',
     installerLogin: 'zaharov',
@@ -1673,7 +1674,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'DONE',
     clientKey: 'orlova',
     installerLogin: 'gusev',
@@ -1709,7 +1710,7 @@ const orders: readonly DemoOrder[] = [
     /* Первый монтаж, о котором говорят и комментарий менеджера в заявке, и
        отзыв: без него у клиентки был единственный наряд `CANCELLED`, а
        менеджер в заявке писал «поставили, клиент доволен». */
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'DONE',
     clientKey: 'kuznecova',
     installerLogin: 'panov',
@@ -1734,7 +1735,7 @@ const orders: readonly DemoOrder[] = [
     ],
   },
   {
-    type: 'INSTALL',
+    workTypeCode: 'install',
     status: 'CANCELLED',
     clientKey: 'kuznecova',
     dayDelta: -3,
@@ -3197,6 +3198,16 @@ async function main(): Promise<void> {
   }
 
   console.error('Наряды…');
+  /* Виды работ заводит миграция и базовый сид: демонстрационный их не
+     перезаписывает, а находит по коду. Пустой справочник здесь — не «нечего
+     показать», а несделанная миграция, и молчать об этом нельзя. */
+  const workTypeIds = new Map(
+    (await prisma.workType.findMany({ select: { id: true, code: true } })).map((type) => [
+      type.code,
+      type.id,
+    ]),
+  );
+
   /* Списание материалов ссылается на наряд по его месту в списке. */
   const orderIds: string[] = [];
 
@@ -3204,10 +3215,17 @@ async function main(): Promise<void> {
     const clientId = clientIds.get(order.clientKey);
     if (clientId === undefined) throw new Error(`Нет клиента ${order.clientKey} для наряда`);
 
+    const workTypeId = workTypeIds.get(order.workTypeCode);
+    if (workTypeId === undefined) {
+      throw new Error(
+        `В справочнике нет вида работ «${order.workTypeCode}»: накатите миграции и базовый сид`,
+      );
+    }
+
     const createdOrder = await prisma.order.create({
       data: {
         number: index + 1,
-        type: order.type,
+        workTypeId,
         status: order.status,
         clientId,
         installerId:
@@ -3425,16 +3443,6 @@ async function main(): Promise<void> {
   }
 
   console.error('Календарь…');
-  /* Виды работ заводит миграция и базовый сид: демонстрационный их не
-     перезаписывает, а находит по коду. Пустой справочник здесь — не «нечего
-     показать», а несделанная миграция, и молчать об этом нельзя. */
-  const workTypeIds = new Map(
-    (await prisma.workType.findMany({ select: { id: true, code: true } })).map((type) => [
-      type.code,
-      type.id,
-    ]),
-  );
-
   for (const event of events) {
     const workTypeId = workTypeIds.get(event.workTypeCode);
     if (workTypeId === undefined) {

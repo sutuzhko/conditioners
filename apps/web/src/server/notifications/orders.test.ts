@@ -14,7 +14,14 @@ const { briefChanges, installerBrief, notifyOrderCreated, notifyOrderRemoved, no
 const ORDER: OrderCard = {
   id: 'o-1',
   number: 1059,
-  type: 'install',
+  workType: {
+    id: 'wt_install',
+    code: 'install',
+    title: 'Монтаж',
+    icon: 'wrench',
+    tone: 'ok',
+    dayLong: false,
+  },
   status: 'assigned',
   client: { id: 'c-1', name: 'Ирина Соколова', phone: '+7 (910) 155-24-68' },
   installer: { id: 'u2', name: 'Дмитрий Соколов', login: 'sokolov', employment: 'self_employed' },
@@ -104,12 +111,19 @@ describe('Что считается изменением вводных', () => 
         ...ORDER,
         at: '2026-08-29T08:00:00.000Z',
         address: 'Тула, Ленина, 1',
-        type: 'repair',
+        workType: {
+          id: 'wt_repair',
+          code: 'repair',
+          title: 'Ремонт',
+          icon: 'pulse',
+          tone: 'error',
+          dayLong: false,
+        },
         units: [],
       }),
     );
 
-    expect(moved).toEqual(['type', 'at', 'address', 'units']);
+    expect(moved).toEqual(['workType', 'at', 'address', 'units']);
   });
 
   it('🔴 правка заметки владельца вводными не является: монтажник её не видит', () => {

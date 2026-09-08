@@ -70,6 +70,8 @@ const eventRow = {
 const leadRow = {
   id: 'l1',
   name: 'Ирина Соколова',
+  /* Заявка старше справочника: вида работ у неё нет (ADR-343, issue #841). */
+  workType: null,
   phone: '+7 (910) 155-24-68',
   topic: 'INSTALL',
   model: null,
@@ -138,7 +140,11 @@ describe('календарь работ и роль смотрящего', () =>
     expect(db.crmEvent.findMany).toHaveBeenCalled();
     expect(db.lead.findMany).toHaveBeenCalled();
     expect(db.crmEvent.count).toHaveBeenCalled();
-    expect(db.lead.findUnique).toHaveBeenCalledWith({ where: { id: 'l1' } });
+    /* Вид работ приезжает вместе с заявкой: краску ярлыка задаёт справочник,
+       а не раздел (ADR-343). */
+    expect(db.lead.findUnique).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 'l1' } }),
+    );
   });
 
   /**

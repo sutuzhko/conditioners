@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 
 import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
 import { BusyNote } from '@/entities/crm/ui';
+import type { WorkTypeOption } from '@/shared/lib/work-type';
 import { CANCEL_REASON_OPTIONS, isCancelReason } from '@/shared/lib/cancel-reason';
 import { formatPhone } from '@/shared/lib/format';
 import {
@@ -27,14 +28,12 @@ import { OrderUnits } from './OrderUnits';
 import {
   DEDUCTION_NOTE,
   ORDER_STATUS_TITLE,
-  ORDER_TYPE_TITLE,
   PAYMENT_TITLE,
   orderManagerContent as texts,
 } from './content';
 import { orderApi } from './lib';
 import {
   ORDER_STATUSES,
-  ORDER_TYPES,
   PAYMENT_MODES,
   deductionModeOf,
   emptyOrderDraft,
@@ -42,7 +41,6 @@ import {
   orderCancelIssue,
   isOrderField,
   isOrderStatus,
-  isOrderType,
   isPaymentMode,
   orderCreateSchema,
   orderPayload,
@@ -69,6 +67,19 @@ export interface OrderFormProps {
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
   /**
+   * Виды работ из справочника — тот же список, что у дела календаря и у формы
+   * заявки на сайте (ADR-343).
+   *
+   * 🔴 Пропсом, а не константой: набор видов работ задаёт владелец из
+   * настроек, и перечня в коде не осталось (инвариант 8).
+   *
+   * 🔴 Отключённый вид работ приходит сюда только тогда, когда он стоит у
+   * правимого наряда, и помечен `active: false`: поле обязано показывать то,
+   * что в наряде записано, а не пустоту, — но выбрать отключённый вид для
+   * новой работы нельзя.
+   */
+  readonly workTypes: readonly WorkTypeOption[];
+  /**
    * Занятость всех, кого можно назначить: свои дни человек заводит себе сам
    * (ADR-115). Форма отбирает из них записи выбранного монтажника.
    */
@@ -93,7 +104,6 @@ export interface OrderFormProps {
 
 type Errors = Partial<Record<OrderField, string>>;
 
-const TYPE_OPTIONS = ORDER_TYPES.map((value) => ({ value, label: ORDER_TYPE_TITLE[value] }));
 const STATUS_OPTIONS = ORDER_STATUSES.map((value) => ({ value, label: ORDER_STATUS_TITLE[value] }));
 const PAYMENT_OPTIONS = PAYMENT_MODES.map((value) => ({ value, label: PAYMENT_TITLE[value] }));
 /* Готовый список общего справочника: раздел заказов не собирает свой —
@@ -116,6 +126,7 @@ export function OrderForm({
   initial,
   clients,
   installers,
+  workTypes,
   blocks,
   work,
   title,
@@ -127,7 +138,15 @@ export function OrderForm({
   surface = 'card',
 }: OrderFormProps) {
   const { confirm: ask, dialog } = useConfirm();
-  const [draft, setDraft] = useState<OrderDraft>(() => initial ?? emptyOrderDraft());
+  /* Первый действующий вид справочника — умолчание нового наряда: порядок в
+     списке задаёт владелец, и наверху у него стоит то, что заводят чаще.
+     Отключённые пропускаются: они попадают в список только ради уже
+     записанного вида и новой работе не предлагаются. Пустой справочник
+     оставляет поле незаполненным, и схема на нём остановит отправку. */
+  const firstWorkTypeId = workTypes.find((workType) => workType.active)?.id ?? '';
+  const [draft, setDraft] = useState<OrderDraft>(
+    () => initial ?? emptyOrderDraft(undefined, firstWorkTypeId),
+  );
 
   /* 🔴 Дата живёт в форме двумя видами: сегментами — потому что их набирают, и
      строкой ISO — потому что её ждут схема и контракт. Выводить сегменты из
@@ -208,7 +227,7 @@ export function OrderForm({
     if (result.ok) {
       /* Заведение очищает форму, правка — оставляет: наряд, который только
          что сохранили, продолжают смотреть. */
-      if (!editing) setDraft(emptyOrderDraft());
+      if (!editing) setDraft(emptyOrderDraft(undefined, firstWorkTypeId));
       setStatus('success');
       onSaved?.(result.id ?? null);
       return;
@@ -296,14 +315,19 @@ export function OrderForm({
           <legend className={styles.legend}>{texts.mainTitle}</legend>
 
           <div className={styles.grid}>
+            {/* 🔴 Виды работ приходят из справочника: перечня в коде нет, и
+                новый вид владелец заводит сам, без разработчика (ADR-343). */}
             <Select
-              label={texts.type}
-              options={TYPE_OPTIONS}
-              value={draft.type}
-              error={errors.type}
-              onChange={(event) => {
-                if (isOrderType(event.target.value)) set('type', event.target.value);
-              }}
+              label={texts.workType}
+              options={workTypes.map((workType) => ({
+                value: workType.id,
+                label: workType.active ? workType.title : texts.workTypeOff(workType.title),
+                disabled: !workType.active,
+              }))}
+              placeholder={texts.workTypePlaceholder}
+              value={draft.workTypeId}
+              error={errors.workTypeId}
+              onChange={(event) => set('workTypeId', event.target.value)}
             />
 
             {/* Статус есть только у заведённого наряда: у нового его назначает

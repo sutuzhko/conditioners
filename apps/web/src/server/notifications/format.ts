@@ -4,7 +4,7 @@ import {
   leadContextPickText,
 } from '@/entities/lead/lib/context';
 import type { LeadContext } from '@/entities/lead/model';
-import type { OrderEquip, OrderType, PaymentMode, UnitSource } from '@/entities/order/model';
+import type { OrderEquip, PaymentMode, UnitSource } from '@/entities/order/model';
 import type { StockUnit } from '@/entities/stock/model';
 import { env } from '@/shared/config/env';
 import { resolveProtectedPath, resolveUploadPath } from '@/server/uploads/store';
@@ -45,13 +45,10 @@ const ADMIN_STOCK_PATH = '/admin/stock';
  * Свои, а не из `features/order-manager`: слой `server` не имеет права
  * импортировать интерфейсные слои, а тащить подписи в `shared` ради двух
  * сообщений — лишний общий словарь. Расхождение видно тестом.
+ *
+ * Вида работ здесь нет: его название приезжает в снимке уведомления готовым —
+ * справочник и есть единственное место, где оно живёт (ADR-343).
  */
-const ORDER_TYPE_TITLES: Readonly<Record<OrderType, string>> = {
-  install: 'Монтаж',
-  service: 'Обслуживание',
-  repair: 'Ремонт',
-};
-
 const EQUIP_TITLES: Readonly<Record<OrderEquip, string>> = {
   conditioner: 'Кондиционер',
   fridge: 'Холодильник',
@@ -73,7 +70,7 @@ const PAYMENT_TITLES: Readonly<Record<PaymentMode, string>> = {
 
 /** Подписи изменившихся вводных — их читает монтажник первой строкой. */
 const FIELD_TITLES: Readonly<Record<OrderBriefField, string>> = {
-  type: 'вид работ',
+  workType: 'вид работ',
   at: 'дата и время',
   durationMin: 'длительность',
   address: 'адрес',
@@ -205,7 +202,7 @@ function orderBody(brief: OrderBrief): readonly string[] {
   const entry = entryLine(brief);
 
   return [
-    `🧭 ${ORDER_TYPE_TITLES[brief.type]}`,
+    `🧭 ${brief.workType}`,
     `📅 ${formatDateTime(brief.at)} · ${formatDuration(brief.durationMin)}`,
     `📍 ${brief.address}`,
     ...(entry === null ? [] : [entry]),
@@ -273,7 +270,7 @@ export function notificationText(payload: NotificationPayload): string {
     return [
       CANCEL_HEADS[payload.reason](payload.number),
       '',
-      `🧭 ${ORDER_TYPE_TITLES[payload.type]}`,
+      `🧭 ${payload.workType}`,
       `📅 ${formatDateTime(payload.at)}`,
       `📍 ${payload.address}`,
       '',

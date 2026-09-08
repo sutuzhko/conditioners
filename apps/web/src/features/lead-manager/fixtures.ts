@@ -1,5 +1,6 @@
 /** Данные для историй и тестов раздела заявок. */
 import type { LeadContext } from '@/entities/lead/model';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 
 import type {
   LeadCard,
@@ -9,6 +10,31 @@ import type {
   LeadToOrder,
   LeadUpdate,
 } from './model';
+
+/**
+ * Виды работ в том виде, в каком их отдаёт справочник (ADR-343).
+ *
+ * 🔴 Это фикстура, а не перечень видов работ: настоящий список приезжает из
+ * базы, и подменить его здесь можно любым — на том и держится проверка «цвет
+ * из справочника».
+ */
+export const workTypeInstall: WorkTypeMark = {
+  id: 'wt_install',
+  code: 'install',
+  title: 'Монтаж',
+  icon: 'wrench',
+  tone: 'ok',
+  dayLong: false,
+};
+
+export const workTypeRepair: WorkTypeMark = {
+  id: 'wt_repair',
+  code: 'repair',
+  title: 'Ремонт',
+  icon: 'pulse',
+  tone: 'error',
+  dayLong: false,
+};
 
 /**
  * Контекст заявки: человек посчитал смету, подобрал модель по площади и
@@ -50,6 +76,7 @@ export const newLead: LeadCard = {
   number: 41,
   name: 'Ирина',
   phone: '+79001234567',
+  workType: workTypeInstall,
   topic: 'Установка кондиционера',
   model: null,
   place: 'Квартира',
@@ -93,11 +120,18 @@ export const modelLead: LeadCard = {
   },
 };
 
-/** Минимальная заявка: только обязательные поля. */
+/**
+ * Минимальная заявка: только обязательные поля.
+ *
+ * 🔴 Вида работ у неё нет — так пришли все обращения до справочника (ADR-343,
+ * issue #841). Карточка и очередь обязаны открывать такую заявку и показывать
+ * одну свободную тему.
+ */
 export const bareLead: LeadCard = {
   ...newLead,
   id: 'l2',
   number: 39,
+  workType: null,
   topic: 'Консультация',
   model: null,
   place: null,
@@ -183,6 +217,7 @@ export const leadQueueFixture: readonly LeadQueueItem[] = [
     number: newLead.number,
     name: newLead.name,
     phone: newLead.phone,
+    workType: newLead.workType,
     topic: newLead.topic,
     address: 'Щёкино, Пионерская 4 · гостиная 32 м²',
     status: newLead.status,
@@ -193,6 +228,7 @@ export const leadQueueFixture: readonly LeadQueueItem[] = [
     number: workedLead.number,
     name: 'Федотова Лидия Ивановна',
     phone: workedLead.phone,
+    workType: workTypeInstall,
     topic: 'Установка кондиционера',
     address: 'Тула, Кирова 18 · нужен замер',
     status: 'in_progress',
@@ -203,6 +239,9 @@ export const leadQueueFixture: readonly LeadQueueItem[] = [
     number: bareLead.number,
     name: 'Игорь',
     phone: bareLead.phone,
+    /* 🔴 Заявка старше справочника: вида работ нет, и строка от этого не
+       ломается — она показывает одну тему (issue #841). */
+    workType: null,
     topic: 'Консультация',
     /* Адреса нет — так приходит обращение, где оставили один телефон. */
     address: null,
@@ -214,6 +253,7 @@ export const leadQueueFixture: readonly LeadQueueItem[] = [
     number: clientLead.number,
     name: 'Беляева Ольга',
     phone: clientLead.phone,
+    workType: workTypeRepair,
     topic: 'Ремонт',
     address: 'Тула, Оборонная 12, кв. 34',
     status: 'done',

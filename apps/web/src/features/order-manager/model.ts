@@ -12,7 +12,6 @@ import type {
   OrderPhotoCard,
   OrderStatus,
   OrderTab,
-  OrderType,
   PaymentMode,
   PhotoStage,
   UnitSource,
@@ -55,7 +54,6 @@ export type {
   OrderPhotoCard,
   OrderStatus,
   OrderTab,
-  OrderType,
   OrderUnitCard,
   OrderUnitInput,
   PaymentMode,
@@ -70,7 +68,6 @@ export {
   ORDER_PERIODS,
   ORDER_STATUSES,
   ORDER_TABS,
-  ORDER_TYPES,
   PAYMENT_MODES,
   PHOTO_STAGES,
   UNIT_SOURCES,
@@ -80,7 +77,6 @@ export {
   isOrderPeriod,
   isOrderStatus,
   isOrderTab,
-  isOrderType,
   orderCancelIssue,
   orderCreateSchema,
 } from '@/entities/order/model';
@@ -149,7 +145,8 @@ export type OrderDraft = {
    * версии у него ещё нет.
    */
   readonly updatedAt: string;
-  readonly type: OrderType;
+  /** Вид работ — идентификатор записи справочника (ADR-343). */
+  readonly workTypeId: string;
   /**
    * Статус правится только у заведённого наряда: у нового его назначает
    * сервер, а не форма (docs/API.md §13).
@@ -184,9 +181,13 @@ export type OrderDraft = {
  * Пустой наряд. День по умолчанию — сегодняшний по Москве: наряд заводят,
  * пока клиент на линии, и чаще всего на ближайшие дни.
  */
-export function emptyOrderDraft(day: DayKey = todayKey()): OrderDraft {
+export function emptyOrderDraft(day: DayKey = todayKey(), workTypeId = ''): OrderDraft {
   return {
-    type: 'install',
+    /* Умолчания у вида работ в коде нет и быть не может: набор видов — данные
+       владельца (инвариант 8). Первый вид справочника подставляет тот, у кого
+       список на руках, — форма или страница; пустая строка честно означает
+       «не выбран», и схема на ней остановит отправку. */
+    workTypeId,
     status: 'new',
     clientId: '',
     installerId: '',
@@ -232,7 +233,7 @@ export function orderDraftOf(order: OrderCard, timeZone?: string): OrderDraft {
   const at = new Date(order.at);
 
   return {
-    type: order.type,
+    workTypeId: order.workType.id,
     status: order.status,
     clientId: order.client.id,
     installerId: order.installer?.id ?? '',
@@ -288,7 +289,7 @@ function intOrNull(value: string): number | null {
  */
 export function orderPayload(draft: OrderDraft): Record<string, unknown> {
   return {
-    type: draft.type,
+    workTypeId: draft.workTypeId,
     clientId: draft.clientId,
     installerId: draft.installerId,
     day: draft.day,
@@ -325,7 +326,7 @@ export function orderPayload(draft: OrderDraft): Record<string, unknown> {
 }
 
 const DRAFT_FIELDS = [
-  'type',
+  'workTypeId',
   'status',
   'clientId',
   'installerId',
@@ -375,7 +376,7 @@ export function deductionModeOf(installer: OrderInstallerRef | null | undefined)
 /**
  * Значение из `select` — строка. Приведение типа на проекте запрещено, а
  * молча принять чужую строку значит отправить на сервер мусор. Домен даёт
- * такие проверки статусу и типу работ; позиции и оплате их не хватало.
+ * такую проверку статусу; позиции и оплате её не хватало.
  */
 export function isOrderEquip(value: string): value is OrderEquip {
   return ORDER_EQUIPS.some((equip) => equip === value);

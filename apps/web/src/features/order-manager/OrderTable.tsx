@@ -14,12 +14,7 @@ import {
   TableActions,
 } from '@/shared/ui';
 
-import {
-  ORDER_STATUS_TITLE,
-  ORDER_STATUS_VARIANT,
-  ORDER_TYPE_TITLE,
-  orderManagerContent as texts,
-} from './content';
+import { ORDER_STATUS_TITLE, ORDER_STATUS_VARIANT, orderManagerContent as texts } from './content';
 import type { OrderColumn, OrderRowAction } from './columns';
 import { BULK_FIELD, BULK_FORM_ID, ORDERS_PATH, installerName, type OrderCard } from './model';
 import { OrderRemoveButton, OrderRestoreButton } from './OrderRowTools';
@@ -373,7 +368,7 @@ function Cell({
       );
 
     case 'type':
-      return cell(undefined, <Badge size="sm">{ORDER_TYPE_TITLE[order.type]}</Badge>);
+      return cell(undefined, <Badge size="sm">{order.workType.title}</Badge>);
 
     case 'client':
       return cell(

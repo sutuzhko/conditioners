@@ -37,7 +37,7 @@ const PHOTO_FILE = '3f1c2b4a-9d5e-4a7b-8c6d-0e1f2a3b4c5d.jpg';
 function order(patch: Record<string, unknown> = {}): Record<string, unknown> {
   return {
     clientId: 'c1',
-    type: 'INSTALL',
+    workType: { installsUnits: true },
     at: INSTALLED_AT,
     units: [{ model: 'Сплит-система 09', equip: 'CONDITIONER', source: 'OURS' }],
     /* 🔴 В колонке снимка наряда лежит имя файла, а не адрес (ADR-171): именно
@@ -164,8 +164,11 @@ describe('техника из выполненного монтажа', () => {
     expect(created()[0]).toMatchObject({ model: 'Тепловая завеса' });
   });
 
+  /* 🔴 Ставит ли работа технику, решает справочник, а не код (ADR-343): до
+     переезда здесь стояло `type: 'SERVICE'`, и новый вид работ владельца молча
+     не заводил бы технику в карточке клиента. */
   it('ТО и ремонт техники не заводят: они приезжают к тому, что уже стоит', async () => {
-    dbMock.order.findUnique.mockResolvedValue(order({ type: 'SERVICE' }));
+    dbMock.order.findUnique.mockResolvedValue(order({ workType: { installsUnits: false } }));
 
     const result = await fromCompletedOrder('o1');
 

@@ -7,7 +7,7 @@ import { loadTitle } from '@/entities/crm/content';
 import { clashesWith, spanOf } from '@/entities/crm/lib/load';
 import { crmEventCreateSchema } from '@/entities/crm/model';
 import { BusyNote, ClashNote } from '@/entities/crm/ui';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { WorkTypeOption } from '@/shared/lib/work-type';
 import { dayKeyOf, minutesOfDay } from '@/shared/lib/calendar';
 import {
   Button,
@@ -22,7 +22,7 @@ import {
 } from '@/shared/ui';
 import type { DateSegments } from '@/shared/ui';
 
-import { ORDER_LOOK, crmContent as texts } from './content';
+import { crmContent as texts } from './content';
 import { createEvent, updateEvent } from './lib';
 import {
   DURATION_STEP_MIN,
@@ -72,7 +72,7 @@ export interface EventDialogProps {
    * сервер вместе с сеткой, а окно — лист, который открывается по нажатию, и
    * запрос из него означал бы пустое поле в первые полсекунды.
    */
-  readonly workTypes: readonly WorkTypeMark[];
+  readonly workTypes: readonly WorkTypeOption[];
 }
 
 type Errors = Partial<Record<keyof CrmEventDraft, string>>;
@@ -114,8 +114,13 @@ export function EventDialog({
   const [form, setForm] = useState<CrmEventDraft>(draft);
 
   /* Подписи полю выбора: порядок задаёт владелец сортировкой справочника, а
-     не этот компонент. */
-  const kindOptions = workTypes.map((type) => ({ value: type.id, label: type.title }));
+     не этот компонент. Отключённый вид работ виден, но не выбирается — он в
+     списке только ради записи, у которой он уже стоит (ADR-343). */
+  const kindOptions = workTypes.map((type) => ({
+    value: type.id,
+    label: type.active ? type.title : texts.kindOff(type.title),
+    disabled: !type.active,
+  }));
 
   /* 🔴 Дата живёт двумя видами: сегментами — потому что их набирают, и строкой
      ISO — потому что её ждут схема и контракт. Пока набран один день, полной
@@ -166,7 +171,7 @@ export function EventDialog({
 
   const clashTitles = clashes.map((clash) => {
     const order = sameDay.find((entry) => entry.id === clash.id);
-    const look = order === undefined ? null : ORDER_LOOK[order.type];
+    const look = order === undefined ? null : order.workType;
 
     return [
       texts.orderMark(order?.number ?? 0),

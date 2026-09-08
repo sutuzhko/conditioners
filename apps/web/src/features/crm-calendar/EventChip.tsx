@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
 import type { PersonTone } from '@/entities/crm/lib/palette';
-import type { WorkTypeTone } from '@/entities/work-type/model';
+import type { WorkTypeTone } from '@/shared/lib/work-type';
 import { crmClashContent } from '@/entities/crm/content';
 import type { DayKey } from '@/shared/lib/calendar';
 import { Icon } from '@/shared/ui';

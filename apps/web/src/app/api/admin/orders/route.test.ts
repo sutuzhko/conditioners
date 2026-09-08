@@ -34,6 +34,7 @@ const fake = vi.hoisted(() => ({
     },
     client: { findUnique: vi.fn() },
     adminUser: { findUnique: vi.fn() },
+    workType: { findUnique: vi.fn() },
     setting: { findUnique: vi.fn(), upsert: vi.fn() },
     orderUnit: { deleteMany: vi.fn(), createMany: vi.fn() },
     orderHistory: { createMany: vi.fn() },
@@ -92,7 +93,15 @@ const unitRow = {
 const orderRow = {
   id: 'o1',
   number: 1059,
-  type: 'INSTALL',
+  workType: {
+    id: 'wt_install',
+    code: 'install',
+    title: 'Монтаж',
+    icon: 'wrench',
+    tone: 'OK',
+    dayLong: false,
+    tools: ['Стремянка'],
+  },
   status: 'ASSIGNED',
   client: { id: 'c1', name: 'Ирина Соколова', phone: '+7 (910) 155-24-68' },
   installer: { id: 'u2', name: 'Дмитрий Соколов', login: 'sokolov', employment: 'SELF_EMPLOYED' },
@@ -130,7 +139,7 @@ const orderRow = {
 };
 
 const createBody = {
-  type: 'install',
+  workTypeId: 'wt_install',
   clientId: 'c1',
   installerId: 'u2',
   day: '2026-08-28',
@@ -189,6 +198,7 @@ beforeEach(() => {
   fake.db.order.findFirst.mockResolvedValue(orderRow);
   fake.db.order.findUnique.mockResolvedValue({
     installerId: 'u2',
+    workTypeId: 'wt_install',
     status: 'ASSIGNED',
     deductionSum: 0,
     deductionReason: null,
@@ -198,6 +208,9 @@ beforeEach(() => {
   fake.db.order.update.mockResolvedValue(orderRow);
   fake.db.order.deleteMany.mockResolvedValue({ count: 1 });
   fake.db.client.findUnique.mockResolvedValue({ id: 'c1' });
+  /* `active` двойник обязан отдавать по той же причине, что и у монтажника:
+     отключённый вид работ новой работы не получает (ADR-343). */
+  fake.db.workType.findUnique.mockResolvedValue({ id: 'wt_install', active: true });
   /* `active` двойник обязан отдавать: строка `AdminUser` его всегда имеет, а
      `assertRefs` по нему отличает действующего монтажника от отключённого —
      назначить работу на отключённого значит назначить её в никуда. */
@@ -366,7 +379,7 @@ describe('карточка наряда', () => {
 
     expect(body).toMatchObject({
       number: 1059,
-      type: 'install',
+      workType: { code: 'install', title: 'Монтаж' },
       status: 'assigned',
       price: 38500,
       deductionSum: 500,
@@ -453,6 +466,44 @@ describe('создание наряда', () => {
     expect(fake.db.order.create).not.toHaveBeenCalled();
   });
 
+  /**
+   * 🔴 Вид работ — четвёртая ссылка наряда, и правило у неё то же, что у
+   * клиента, монтажника и обращения: несуществующий — ошибка ввода, а не сбой.
+   * Без проверки Prisma отдаёт `P2003`, а `handleRouteError` превращает его в
+   * 500 «не получилось обработать запрос»: человек видит отказ сервера вместо
+   * подсказки, какое поле исправить.
+   */
+  it('🔴 несуществующий вид работ — ошибка поля, а не 500 от базы', async () => {
+    fake.db.workType.findUnique.mockResolvedValue(null);
+
+    const response = await POST(
+      request('/api/admin/orders', { method: 'POST', body: createBody }),
+      undefined,
+    );
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toMatchObject({ error: { field: 'workTypeId' } });
+    expect(fake.db.order.create).not.toHaveBeenCalled();
+  });
+
+  /**
+   * 🔴 Отключение — это то, что владелец делает вместо удаления, и означает
+   * оно «больше так не заводим» (ADR-343). Форма отключённые не предлагает, но
+   * маршрут открыт и мимо формы.
+   */
+  it('🔴 отключённый вид работ новой работы не получает', async () => {
+    fake.db.workType.findUnique.mockResolvedValue({ id: 'wt_install', active: false });
+
+    const response = await POST(
+      request('/api/admin/orders', { method: 'POST', body: createBody }),
+      undefined,
+    );
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toMatchObject({ error: { field: 'workTypeId' } });
+    expect(fake.db.order.create).not.toHaveBeenCalled();
+  });
+
   it('🔴 удержание без основания не сохраняется', async () => {
     const response = await POST(
       request('/api/admin/orders', {
@@ -493,6 +544,47 @@ describe('правка наряда', () => {
         data: expect.objectContaining({ at: new Date('2026-09-01T08:00:00.000Z') }),
       }),
     );
+  });
+
+  /**
+   * 🔴 Отключённый вид работ остаётся у прежних нарядов (ADR-343) — правило то
+   * же, что у уволенного монтажника: правка адреса такого наряда не должна
+   * упираться в отключение вида работ.
+   */
+  it('🔴 наряд со своим отключённым видом работ правится дальше', async () => {
+    fake.db.workType.findUnique.mockResolvedValue({ id: 'wt_install', active: false });
+
+    const response = await PATCH(
+      request('/api/admin/orders/o1', {
+        method: 'PATCH',
+        body: { workTypeId: 'wt_install', address: 'Тула, Ленина, 1' },
+      }),
+      context,
+    );
+
+    /* Двойник базы не знает `findUniqueOrThrow`, которым карточка перечитывается
+       после записи, — поэтому смотрим на саму запись, как соседний тест про
+       позиции: важно, что правка дошла до базы, а не остановилась на 400. */
+    expect(fake.db.order.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ workTypeId: 'wt_install' }),
+      }),
+    );
+    expect(response.status).not.toBe(400);
+  });
+
+  /** А вот переставить наряд на **чужой** отключённый вид работ нельзя. */
+  it('🔴 правка на другой отключённый вид работ отклоняется', async () => {
+    fake.db.workType.findUnique.mockResolvedValue({ id: 'wt_drain', active: false });
+
+    const response = await PATCH(
+      request('/api/admin/orders/o1', { method: 'PATCH', body: { workTypeId: 'wt_drain' } }),
+      context,
+    );
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toMatchObject({ error: { field: 'workTypeId' } });
+    expect(fake.db.order.update).not.toHaveBeenCalled();
   });
 
   it('🔴 удержание без основания не проходит и правкой', async () => {

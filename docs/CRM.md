@@ -288,12 +288,24 @@ model ClientUnit {           // техника, стоящая у клиента
   id, clientId, model, installedAt, orderId?, photo?, warrantyUntil?
 }
 
-enum OrderType   { INSTALL  SERVICE  REPAIR }
+// 🔴 Перечисления видов работ нет: с ADR-343 это справочник `WorkType`,
+// которым владелец управляет из настроек, — один на дело календаря, наряд и
+// обращение. Инструмент выезда и признак «ставит клиенту технику» лежат там же.
 enum OrderStatus { NEW  ASSIGNED  IN_PROGRESS  DONE  CANCELLED }
 enum PaymentMode { COMPANY  CASH_TO_INSTALLER }
 
+model WorkType {
+  id, code (@unique), title, tone, icon, sort
+  onSite           // предлагать в форме заявки на сайте
+  dayLong          // дело этого вида занимает день целиком
+  installsUnits    // работа ставит клиенту технику и начинает гарантию
+  tools            // инструмент выезда: первые строки чеклиста
+  active           // отключённый не предлагается, но у прежних записей остаётся
+  events, orders, leads
+}
+
 model Order {
-  id, number (сквозной), type, status
+  id, number (сквозной), workTypeId, status
   clientId, installerId?
   at (UTC, показывается в московском), durationH
   address, intercom, phone2, floor, heightWorks

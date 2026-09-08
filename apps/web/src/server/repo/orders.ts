@@ -16,7 +16,6 @@ import type {
   OrderDocKind as DbDocKind,
   OrderEquip as DbEquip,
   OrderStatus as DbStatus,
-  OrderType as DbType,
   PaymentMode as DbPayment,
   PhotoStage as DbStage,
   UnitSource as DbSource,
@@ -52,7 +51,6 @@ import {
   type OrderResultInput,
   type OrderStatus,
   type OrderTab,
-  type OrderType,
   type OrderUnitCard,
   type OrderUnitInput,
   type OrderUpdate,
@@ -79,21 +77,10 @@ import { ApiException } from '@/server/http';
 import { cancelReasonFromDb, cancelReasonToDb } from '@/server/repo/cancel-reason';
 import { employmentFromDb } from '@/server/repo/employment';
 import { workWindow } from '@/server/repo/settings';
+import { MARK_FIELDS, toMark, type WorkTypeMarkRow } from '@/server/repo/work-types';
 import { protectedImageExists } from '@/server/uploads/store';
 
 // ---------- Словари: база ↔ контракт ----------
-
-const TYPE_TO_DB: Record<OrderType, DbType> = {
-  install: 'INSTALL',
-  service: 'SERVICE',
-  repair: 'REPAIR',
-};
-
-const TYPE_FROM_DB: Record<DbType, OrderType> = {
-  INSTALL: 'install',
-  SERVICE: 'service',
-  REPAIR: 'repair',
-};
 
 const STATUS_TO_DB: Record<OrderStatus, DbStatus> = {
   new: 'NEW',
@@ -188,7 +175,14 @@ const unitSelect = {
 const orderSelect = {
   id: true,
   number: true,
-  type: true,
+  /* Вид работ приезжает вместе с нарядом: подпись, значок и краска нужны и
+     списку, и карточке, и метке в календаре — второй запрос за ними означал
+     бы запрос на каждую строку списка (ADR-343).
+
+     `tools` сверх метки — ими начинается чеклист выезда, и пересборка идёт
+     той же транзакцией, что запись наряда: за инструментом она обращается к
+     уже прочитанной записи, а не ходит в базу второй раз. */
+  workType: { select: { ...MARK_FIELDS, tools: true } },
   status: true,
   client: { select: { id: true, name: true, phone: true } },
   installer: { select: { id: true, name: true, login: true, employment: true } },
@@ -264,7 +258,7 @@ type OrderUnitRow = {
 type OrderRow = {
   id: string;
   number: number;
-  type: DbType;
+  workType: WorkTypeMarkRow & { tools: string[] };
   status: DbStatus;
   client: { id: string; name: string; phone: string };
   installer: {
@@ -360,7 +354,7 @@ function toCard(row: OrderRow, role: AdminRole, margin?: OrderMargin | undefined
   const shared = {
     id: row.id,
     number: row.number,
-    type: TYPE_FROM_DB[row.type],
+    workType: toMark(row.workType),
     status: STATUS_FROM_DB[row.status],
     client: row.client,
     installer:
@@ -1020,10 +1014,12 @@ type OrderRefs = {
   readonly clientId?: string | undefined;
   readonly installerId?: string | null | undefined;
   readonly leadId?: string | null | undefined;
+  readonly workTypeId?: string | undefined;
 };
 
 /**
- * Несуществующий клиент, монтажник или обращение — ошибка ввода, а не сбой.
+ * Несуществующий клиент, монтажник, обращение или вид работ — ошибка ввода, а
+ * не сбой.
  *
  * Без проверки Prisma отвечает нарушением внешнего ключа (`P2003`), а
  * `handleRouteError` превращает его в 500 «не получилось обработать запрос»:
@@ -1032,11 +1028,42 @@ type OrderRefs = {
  * `keepInstaller` — исполнитель, уже стоящий в наряде. Он не перепроверяется
  * на активность: человек уволился, но со своих прошлых нарядов не исчез, и
  * правка адреса такого наряда не должна упираться в его увольнение.
+ *
+ * `keepWorkType` — вид работ, уже стоящий в наряде, и правило у него ровно то
+ * же: владелец отключил вид работ, но прежние наряды его сохраняют (ADR-343),
+ * и правка адреса такого наряда не должна упираться в отключение.
  */
 async function assertRefs(
   refs: OrderRefs,
   keepInstaller: string | null = null,
+  keepWorkType: string | null = null,
 ): Promise<string | null> {
+  if (refs.workTypeId !== undefined) {
+    const workType = await db.workType.findUnique({
+      where: { id: refs.workTypeId },
+      select: { id: true, active: true },
+    });
+    if (workType === null) {
+      throw new ApiException(
+        'validation_error',
+        'Такого вида работ нет в справочнике',
+        'workTypeId',
+      );
+    }
+
+    /* 🔴 Отключённый вид работ новой работы не получает: отключение — это то,
+       что владелец делает вместо удаления, и означает оно «больше так не
+       заводим». Форма предлагает только действующие, но маршрут открыт и мимо
+       формы. */
+    if (!workType.active && refs.workTypeId !== keepWorkType) {
+      throw new ApiException(
+        'validation_error',
+        'Этот вид работ отключён: выберите другой',
+        'workTypeId',
+      );
+    }
+  }
+
   if (refs.clientId !== undefined) {
     const client = await db.client.findUnique({
       where: { id: refs.clientId },
@@ -1126,7 +1153,8 @@ async function writeHistory(
  */
 export type ChecklistOrderRow = {
   readonly id: string;
-  readonly type: DbType;
+  /** Инструмент выезда — из справочника видов работ, а не из кода (ADR-343). */
+  readonly workType: { readonly tools: readonly string[] };
   readonly heightWorks: boolean;
   readonly payment: DbPayment;
   readonly price: number;
@@ -1143,7 +1171,7 @@ export type ChecklistOrderRow = {
 /** Словари базы разворачиваются в домен: считает список чистая функция. */
 function checklistSourceOf(row: ChecklistOrderRow): ChecklistSource {
   return {
-    type: TYPE_FROM_DB[row.type],
+    tools: row.workType.tools,
     heightWorks: row.heightWorks,
     payment: PAYMENT_FROM_DB[row.payment],
     price: row.price,
@@ -1200,7 +1228,7 @@ export async function applyChecklist(
 }
 
 /**
- * Правка задела чеклист: тип работ, высотные работы, оплата, сумма или
+ * Правка задела чеклист: вид работ, высотные работы, оплата, сумма или
  * позиции. Всё остальное на список сборов не влияет, и трогать его незачем.
  *
  * Пересборка идёт сама, а не кнопкой: наряд, в который добавили вторую
@@ -1210,7 +1238,7 @@ export async function applyChecklist(
  */
 function touchesChecklist(input: OrderUpdate): boolean {
   return (
-    input.type !== undefined ||
+    input.workTypeId !== undefined ||
     input.heightWorks !== undefined ||
     input.payment !== undefined ||
     input.price !== undefined ||
@@ -1267,7 +1295,7 @@ async function createRow(
     const row = await tx.order.create({
       data: {
         number,
-        type: TYPE_TO_DB[input.type],
+        workTypeId: input.workTypeId,
         /* «Новый» по схеме означает «исполнитель не назначен»: наряд, который
            сразу завели на человека, — уже назначенный, и висеть во вкладке
            «Новые» ему незачем. */
@@ -1406,6 +1434,7 @@ function nextStatus(
 type CurrentOrder = {
   readonly status: DbStatus;
   readonly installerId: string | null;
+  readonly workTypeId: string;
   readonly deductionSum: number;
   readonly deductionReason: string | null;
   readonly cancelReason: DbCancelReason | null;
@@ -1533,6 +1562,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
     select: {
       status: true,
       installerId: true,
+      workTypeId: true,
       deductionSum: true,
       deductionReason: true,
       cancelReason: true,
@@ -1540,7 +1570,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
   });
   if (current === null) throw new ApiException('not_found', 'Наряд не найден');
 
-  const installerName = await assertRefs(input, current.installerId);
+  const installerName = await assertRefs(input, current.installerId, current.workTypeId);
   assertDeduction(current, input);
 
   const status = nextStatus(current, input);
@@ -1576,7 +1606,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
     const expected = input.updatedAt === undefined ? undefined : new Date(input.updatedAt);
 
     const data = {
-      ...(input.type === undefined ? {} : { type: TYPE_TO_DB[input.type] }),
+      ...(input.workTypeId === undefined ? {} : { workTypeId: input.workTypeId }),
       ...(status === undefined ? {} : { status }),
       ...(input.clientId === undefined ? {} : { clientId: input.clientId }),
       ...(input.installerId === undefined ? {} : { installerId: input.installerId }),

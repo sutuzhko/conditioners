@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { loadTitle } from '@/entities/crm/content';
-import type { WorkTypeTone } from '@/entities/work-type/model';
+import type { WorkTypeTone } from '@/shared/lib/work-type';
 import { Icon } from '@/shared/ui';
 
 import { crmContent as texts, dayTitle } from './content';

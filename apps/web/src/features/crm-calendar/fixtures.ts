@@ -1,6 +1,6 @@
 /** Данные для историй и тестов календаря работ. */
 import type { StaffCard } from '@/entities/staff/model';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { WorkTypeMark, WorkTypeOption } from '@/shared/lib/work-type';
 
 import type { CalendarLead, CalendarOrderCard, CrmEventCard, DayBlockCard } from './model';
 
@@ -78,15 +78,29 @@ export const workTypeNote: WorkTypeMark = {
 };
 
 /** Порядок — тот, в каком справочник отдаёт сервер: по `sort` владельца. */
-export const workTypes: readonly WorkTypeMark[] = [
-  workTypeCall,
-  workTypeMeasure,
-  workTypeInstall,
-  workTypeService,
-  workTypeRepair,
-  workTypeMeeting,
-  workTypeNote,
+export const workTypes: readonly WorkTypeOption[] = [
+  { ...workTypeCall, active: true },
+  { ...workTypeMeasure, active: true },
+  { ...workTypeInstall, active: true },
+  { ...workTypeService, active: true },
+  { ...workTypeRepair, active: true },
+  { ...workTypeMeeting, active: true },
+  { ...workTypeNote, active: true },
 ];
+
+/**
+ * Вид работ, который владелец отключил, а у дела он остался (ADR-343).
+ * В списке он виден выбранным и подписан, но новой записи не предлагается.
+ */
+export const retiredWorkType: WorkTypeOption = {
+  id: 'wt_drain',
+  code: 'drain',
+  title: 'Чистка дренажа',
+  icon: 'settings',
+  tone: 'info',
+  dayLong: false,
+  active: false,
+};
 
 /** 23 августа 2026, 10:00 по московскому времени. */
 export const plannedCall: CrmEventCard = {
@@ -309,7 +323,7 @@ export const installers: readonly StaffCard[] = [dmitry, sergey];
 export const morningInstall: CalendarOrderCard = {
   id: 'o1',
   number: 1059,
-  type: 'install',
+  workType: workTypeInstall,
   status: 'assigned',
   at: '2026-08-23T07:00:00.000Z',
   durationMin: 180,
@@ -323,7 +337,7 @@ export const morningInstall: CalendarOrderCard = {
 export const clashingRepair: CalendarOrderCard = {
   id: 'o2',
   number: 1060,
-  type: 'repair',
+  workType: workTypeRepair,
   status: 'assigned',
   at: '2026-08-23T09:00:00.000Z',
   durationMin: 120,
@@ -337,7 +351,7 @@ export const clashingRepair: CalendarOrderCard = {
 export const parallelService: CalendarOrderCard = {
   id: 'o3',
   number: 1061,
-  type: 'service',
+  workType: workTypeService,
   status: 'in_progress',
   at: '2026-08-23T08:00:00.000Z',
   durationMin: 90,
@@ -351,7 +365,7 @@ export const parallelService: CalendarOrderCard = {
 export const looseOrder: CalendarOrderCard = {
   id: 'o4',
   number: 1062,
-  type: 'install',
+  workType: workTypeInstall,
   status: 'new',
   at: '2026-08-25T12:00:00.000Z',
   durationMin: 120,

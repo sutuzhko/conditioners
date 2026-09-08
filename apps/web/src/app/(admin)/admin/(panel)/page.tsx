@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { monthTitle } from '@/features/crm-calendar';
-import { ORDER_TYPE_TITLE, installerName, type OrderCard } from '@/features/order-manager';
+import { installerName, type OrderCard } from '@/features/order-manager';
 import { ORDER_STATUS_TITLE, ORDER_STATUS_VARIANT } from '@/entities/order/model';
 import { requireOwnerPage } from '@/server/guards';
 import { countActiveInstallers } from '@/server/repo/admin-users';
@@ -151,7 +151,7 @@ async function SummaryBlock({
             payout: money.payout,
             cash: money.cash,
             shares: money.shares.map((share) => ({
-              title: ORDER_TYPE_TITLE[share.type],
+              title: share.title,
               sum: share.sum,
               percent: share.percent,
             })),
@@ -320,13 +320,15 @@ function dayLabelOf(day: string, today: string, tomorrow: string, at: Date): str
   return dayShort(at);
 }
 
-/** Что за работа: тип наряда либо вид дела. Ровно одно из двух по построению. */
+/**
+ * Что за работа. Название вида работ приходит из справочника готовым
+ * (ADR-343): словаря, в котором его можно было бы найти по ключу, больше нет
+ * — ни у дела, ни у наряда. И у наряда, и у дела вид работ обязателен, поэтому
+ * запасного имени по природе строки здесь нет: ветка, которой не бывает,
+ * читается как живая и врёт о том, что бывает.
+ */
 function kindOf(row: UpcomingRow): string {
-  if (row.orderType !== null) return ORDER_TYPE_TITLE[row.orderType];
-  /* Название вида работ у дела приходит из справочника готовым (ADR-343):
-     словаря, в котором его можно было бы найти по ключу, больше нет. */
-  if (row.eventWorkType !== null) return row.eventWorkType;
-  return texts.natureTitle(row.nature);
+  return row.workType;
 }
 
 /**
@@ -358,7 +360,7 @@ function attentionOf(orders: readonly OrderCard[], now: Date): readonly Attentio
 
       return {
         id: order.id,
-        title: `${ORDER_TYPE_TITLE[order.type]} · ${order.client.name}`,
+        title: `${order.workType.title} · ${order.client.name}`,
         note:
           order.installer === null
             ? order.address

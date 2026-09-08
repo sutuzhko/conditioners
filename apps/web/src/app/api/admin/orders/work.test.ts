@@ -92,7 +92,15 @@ const access = { id: 'o1', installerId: 'u2', status: 'ASSIGNED' };
 const detailsRow = {
   id: 'o1',
   number: 1059,
-  type: 'INSTALL',
+  workType: {
+    id: 'wt_install',
+    code: 'install',
+    title: 'Монтаж',
+    icon: 'wrench',
+    tone: 'OK',
+    dayLong: false,
+    tools: ['Стремянка'],
+  },
   status: 'ASSIGNED',
   client: { id: 'c1', name: 'Ирина Соколова', phone: '+7 (910) 155-24-68' },
   installer: { id: 'u2', name: 'Дмитрий Соколов', login: 'sokolov', employment: 'SELF_EMPLOYED' },
@@ -161,7 +169,7 @@ beforeEach(() => {
   fake.db.order.findFirst.mockResolvedValue(access);
   fake.db.order.findUnique.mockResolvedValue({
     id: 'o1',
-    type: 'INSTALL',
+    workType: { tools: ['Стремянка'] },
     heightWorks: false,
     payment: 'COMPANY',
     price: 38500,
@@ -414,7 +422,7 @@ describe('чеклист выезда', () => {
   it('🔴 пересборка сохраняет отметку и дописанное, а исчезнувшее убирает', async () => {
     fake.db.order.findUnique.mockResolvedValue({
       id: 'o1',
-      type: 'INSTALL',
+      workType: { tools: ['Стремянка'] },
       heightWorks: false,
       payment: 'COMPANY',
       price: 0,

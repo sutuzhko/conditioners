@@ -19,7 +19,7 @@ import {
  */
 
 const CREATE = {
-  type: 'install',
+  workTypeId: 'wt_install',
   clientId: 'c1',
   day: '2026-08-28',
   time: '11:00',

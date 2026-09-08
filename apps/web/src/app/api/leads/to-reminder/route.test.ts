@@ -48,6 +48,8 @@ beforeEach(() => {
   dbMock.lead.create.mockImplementation(async ({ data }) => ({
     id: 'lead-9',
     status: 'NEW',
+    /* Напоминание о ТО заводится без вида работ — как и заявка с сайта. */
+    workType: null,
     managerComment: null,
     clientId: null,
     createdAt: new Date('2026-08-28T09:00:00Z'),

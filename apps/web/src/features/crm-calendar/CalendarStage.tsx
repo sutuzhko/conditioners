@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState, useTransition, type ReactNode } from 'react';
 
 import { timeOfMinutes } from '@/entities/crm/lib/busy';
-import type { WorkTypeMark } from '@/entities/work-type/model';
+import type { WorkTypeOption } from '@/shared/lib/work-type';
 import { type DayKey, weekdayOf } from '@/shared/lib/calendar';
 import { useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
@@ -55,7 +55,7 @@ export interface CalendarStageProps {
    * справочник читает страница, и второй запрос из клиента означал бы пустое
    * поле в первые полсекунды после нажатия «Запись».
    */
-  readonly workTypes: readonly WorkTypeMark[];
+  readonly workTypes: readonly WorkTypeOption[];
   readonly children: ReactNode;
 }
 
@@ -133,7 +133,9 @@ export function CalendarStage({
   /* Справочник пуст — заводить дело нечем: поле выбора было бы пустым, а
      сохранение упёрлось бы во внешний ключ. Кнопка при этом остаётся: пустой
      справочник чинится в настройках, а не здесь. */
-  const defaultWorkTypeId = workTypes[0]?.id ?? '';
+  /* Умолчание новой записи — первый действующий вид: отключённые попадают в
+     список только ради записей, у которых они уже стоят (ADR-343). */
+  const defaultWorkTypeId = workTypes.find((workType) => workType.active)?.id ?? '';
 
   const [event, setEvent] = useState<Editing | null>(
     preset === undefined

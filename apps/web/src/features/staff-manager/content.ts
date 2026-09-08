@@ -1,7 +1,7 @@
 /** Подписи раздела команды. */
 
-import { ORDER_STATUS_TITLE, ORDER_TYPE_TITLE } from '@/entities/order/model';
-import type { OrderStatus, OrderType } from '@/entities/order/model';
+import { ORDER_STATUS_TITLE } from '@/entities/order/model';
+import type { OrderStatus } from '@/entities/order/model';
 import type { ConfirmRequest } from '@/shared/ui';
 import { EMPLOYMENTS, employmentTitle, type Employment } from '@/shared/lib/employment';
 import { formatDateShort, formatDateTime, formatMoney, formatNumber } from '@/shared/lib/format';
@@ -280,7 +280,6 @@ export const staffManagerContent = {
   ordersShown: (shown: number, total: number): string =>
     `Показаны последние ${shown} из ${total}: остальные — в разделе заказов`,
   orderNumber: (number: number): string => `№ ${number}`,
-  orderType: (type: OrderType): string => ORDER_TYPE_TITLE[type],
   orderStatus: (status: OrderStatus): string => ORDER_STATUS_TITLE[status],
 
   /* ---------- Выплаты и удержания ---------- */

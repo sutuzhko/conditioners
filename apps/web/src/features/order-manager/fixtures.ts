@@ -1,4 +1,6 @@
 /** Данные для историй и тестов раздела заказов. */
+import type { WorkTypeMark, WorkTypeOption } from '@/shared/lib/work-type';
+
 import { DEFAULT_ORDER_FILTERS, consumptionHints, orderDraftOf } from './model';
 import type {
   ConsumptionHint,
@@ -26,6 +28,63 @@ import type {
   StockMovementCard,
   StockZoneCard,
 } from './model';
+
+/**
+ * Виды работ в том виде, в каком их отдаёт справочник (ADR-343).
+ *
+ * 🔴 Это фикстура, а не перечень видов работ: настоящий список приезжает из
+ * базы, и подменить его здесь можно любым. Значения — те же, что заводит сид:
+ * истории и снимки обязаны показывать краски, которые владелец увидит у себя.
+ */
+export const workTypeInstall: WorkTypeMark = {
+  id: 'wt_install',
+  code: 'install',
+  title: 'Монтаж',
+  icon: 'wrench',
+  tone: 'ok',
+  dayLong: false,
+};
+
+export const workTypeService: WorkTypeMark = {
+  id: 'wt_service',
+  code: 'service',
+  title: 'Обслуживание',
+  icon: 'settings',
+  tone: 'warn',
+  dayLong: false,
+};
+
+export const workTypeRepair: WorkTypeMark = {
+  id: 'wt_repair',
+  code: 'repair',
+  title: 'Ремонт',
+  icon: 'pulse',
+  tone: 'error',
+  dayLong: false,
+};
+
+/** Порядок — тот, в каком справочник отдаёт сервер: по `sort` владельца. */
+export const workTypes: readonly WorkTypeOption[] = [
+  { ...workTypeInstall, active: true },
+  { ...workTypeService, active: true },
+  { ...workTypeRepair, active: true },
+];
+
+/**
+ * Вид работ, который владелец отключил, а у наряда он остался (ADR-343).
+ * Список выбора обязан показать его выбранным и не дать выбрать заново.
+ */
+export const retiredWorkType: WorkTypeOption = {
+  id: 'wt_drain',
+  code: 'drain',
+  title: 'Чистка дренажа',
+  icon: 'settings',
+  tone: 'info',
+  dayLong: false,
+  active: false,
+};
+
+export const workTypesWithRetired: readonly WorkTypeOption[] = [...workTypes, retiredWorkType];
 
 export const clientRef: OrderClientRef = {
   id: 'c1',
@@ -111,7 +170,7 @@ export const order: OrderCard = {
   ...noResult,
   id: 'o1',
   number: 1059,
-  type: 'install',
+  workType: workTypeInstall,
   status: 'assigned',
   client: clientRef,
   installer: selfEmployedInstaller,
@@ -142,7 +201,7 @@ export const freshOrder: OrderCard = {
   id: 'o2',
   number: 1060,
   status: 'new',
-  type: 'service',
+  workType: workTypeService,
   client: secondClientRef,
   installer: null,
   at: '2026-08-29T06:30:00.000Z',
@@ -165,7 +224,7 @@ export const cancelledOrder: OrderCard = {
   id: 'o3',
   number: 1041,
   status: 'cancelled',
-  type: 'repair',
+  workType: workTypeRepair,
   installer: staffInstaller,
   price: 0,
   installerFee: 0,
@@ -240,7 +299,7 @@ const installerBase = {
   ...noResult,
   id: 'o1',
   number: 1059,
-  type: 'install',
+  workType: workTypeInstall,
   status: 'assigned',
   client: clientRef,
   installer: selfEmployedInstaller,

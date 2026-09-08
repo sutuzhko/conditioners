@@ -76,6 +76,9 @@ function reminderForm(extra: Partial<ToReminderFormInput> = {}): ToReminderFormI
 const row = {
   id: 'l1',
   name: 'Пётр',
+  /* Заявка приходит без вида работ: поле появилось вместе со справочником, и
+     форма сайта заполнит его следующей фазой (ADR-343). */
+  workType: null,
   phone: '+79101234567',
   topic: 'Консультация',
   place: null,

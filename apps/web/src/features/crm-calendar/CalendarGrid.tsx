@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import type { PersonTone } from '@/entities/crm/lib/palette';
-import type { WorkTypeTone } from '@/entities/work-type/model';
+import type { WorkTypeTone } from '@/shared/lib/work-type';
 
 import { CRM_PATH, WEEKDAYS, crmContent as texts } from './content';
 import { EventChip } from './EventChip';

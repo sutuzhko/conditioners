@@ -1,12 +1,7 @@
 import { z } from 'zod';
 
 import { leadContextSchema } from '@/entities/lead/model';
-import {
-  orderEquipSchema,
-  orderTypeSchema,
-  paymentModeSchema,
-  unitSourceSchema,
-} from '@/entities/order/model';
+import { orderEquipSchema, paymentModeSchema, unitSourceSchema } from '@/entities/order/model';
 import { stockUnitSchema } from '@/entities/stock/model';
 
 /**
@@ -88,7 +83,13 @@ const orderUnitBriefSchema = z.object({
 const orderBriefFields = {
   orderId: z.string(),
   number: z.number().int(),
-  type: orderTypeSchema,
+  /**
+   * Вид работ подписью, а не ключом (ADR-343): справочник правит владелец, а
+   * снимок уведомления обязан пережить его правку. Сообщение — это то, что
+   * человеку отправили; переименуй владелец «Монтаж» в «Установку» завтра,
+   * вчерашнее сообщение переписываться не должно.
+   */
+  workType: z.string(),
   /** Момент в UTC; в московское время переводит показ. */
   at: z.string(),
   durationMin: z.number().int(),
@@ -111,7 +112,7 @@ const orderBriefFields = {
  * подпись для человека собирает `format.ts`, снимок хранит факт.
  */
 export const orderBriefFieldSchema = z.enum([
-  'type',
+  'workType',
   'at',
   'durationMin',
   'address',
@@ -172,7 +173,7 @@ const stockLowPayloadSchema = z.object({
   minQty: z.number(),
 });
 
-export const notificationPayloadSchema = z.discriminatedUnion('kind', [
+const payloadUnion = z.discriminatedUnion('kind', [
   leadPayloadSchema,
   toReminderPayloadSchema,
   reviewPayloadSchema,
@@ -181,6 +182,71 @@ export const notificationPayloadSchema = z.discriminatedUnion('kind', [
   orderCancelledPayloadSchema,
   stockLowPayloadSchema,
 ]);
+
+/**
+ * Названия видов работ прежнего перечисления `OrderType` (ADR-343).
+ *
+ * 🔴 Это не перечень видов работ, а перевод снимка, формата которого больше
+ * нет: три значения, которые когда-либо лежали в снятом перечислении схемы, и
+ * четвёртому взяться неоткуда. Набор видов работ живёт в справочнике, и
+ * добавлять сюда что-либо не нужно и нельзя.
+ */
+const LEGACY_ORDER_TYPE_TITLES = {
+  install: 'Монтаж',
+  service: 'Обслуживание',
+  repair: 'Ремонт',
+} as const;
+
+/**
+ * Снимок наряда старого формата: с ключом `type` и без `workType`.
+ *
+ * `passthrough` — потому что разбирается не весь снимок, а признак его
+ * возраста: остальные поля досмотрит союз ниже.
+ */
+const legacyOrderSnapshotSchema = z
+  .object({
+    kind: z.enum(['order-assigned', 'order-changed', 'order-cancelled']),
+    type: z.enum(['install', 'service', 'repair']),
+    /* Ключ старой формы и ключ новой в одном снимке не встречаются: `undefined`
+       здесь и означает «снимок старый». */
+    workType: z.undefined(),
+  })
+  .passthrough();
+
+/**
+ * 🔴 Уведомление, поставленное в очередь до выкладки, обязано доехать.
+ *
+ * Снимок самодостаточен и лежит в базе как есть, а выкладка меняет схему
+ * разбора: 8 сентября вид работ наряда сменился с ключа `type` на подпись
+ * `workType` (ADR-343). Запись, поставленная минутой раньше, разбор бы не
+ * прошла **никогда** — воркер повторил бы её до `MAX_ATTEMPTS` и положил в
+ * `FAILED`, и повтор из журнала доставки не помог бы тоже. За такой записью
+ * стоит наряд, о котором монтажник не узнает: это инвариант 2 по духу —
+ * работа не теряется из-за нашей выкладки.
+ *
+ * Поэтому старая форма принимается и переводится в новую здесь, на входе
+ * разбора: ключ вида работ становится подписью, а `changes` — списком полей
+ * сегодняшнего снимка. Показ такую запись переживал и раньше
+ * (`repo/notifications.ts` разбирает через `safeParse`), отправка — нет.
+ */
+function upgradeOrderSnapshot(value: unknown): unknown {
+  const legacy = legacyOrderSnapshotSchema.safeParse(value);
+  if (!legacy.success) return value;
+
+  const { type, ...rest } = legacy.data;
+  const upgraded: Record<string, unknown> = { ...rest, workType: LEGACY_ORDER_TYPE_TITLES[type] };
+
+  /* Список изменившихся полей знал тот же ключ: «изменился тип работ» в
+     сообщении о правке наряда обязано остаться на месте. */
+  const changes = rest['changes'];
+  if (Array.isArray(changes)) {
+    upgraded['changes'] = changes.map((field: unknown) => (field === 'type' ? 'workType' : field));
+  }
+
+  return upgraded;
+}
+
+export const notificationPayloadSchema = z.preprocess(upgradeOrderSnapshot, payloadUnion);
 
 export type LeadPayload = z.infer<typeof leadPayloadSchema>;
 export type ToReminderPayload = z.infer<typeof toReminderPayloadSchema>;

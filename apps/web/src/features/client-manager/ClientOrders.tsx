@@ -81,7 +81,7 @@ function OrderRow({ order }: { readonly order: ClientOrder }) {
         <time className={styles.when} dateTime={order.at}>
           {texts.date(order.at)}
         </time>
-        <span className={styles.kind}>{texts.orderType(order.type)}</span>
+        <span className={styles.kind}>{order.workType}</span>
         <span className={styles.address}>{order.address}</span>
         <span className={styles.who}>{texts.orderInstaller(order.installerName)}</span>
       </span>

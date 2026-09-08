@@ -34,7 +34,7 @@ const ASSIGNED: NotificationPayload = {
   kind: 'order-assigned',
   orderId: 'o-1',
   number: 1059,
-  type: 'install',
+  workType: 'Монтаж',
   at: '2026-08-28T08:00:00.000Z',
   durationMin: 180,
   address: 'Тула, Первомайская, 12',

@@ -5,6 +5,7 @@ import type { BadgeVariant } from '@/shared/ui';
 import { parseDayKey } from '@/shared/lib/calendar';
 import { CANCEL_REASONS, type CancelReason } from '@/shared/lib/cancel-reason';
 import type { Employment } from '@/shared/lib/employment';
+import type { WorkTypeMark } from '@/shared/lib/work-type';
 import { optionalPhoneField } from '@/shared/lib/zod';
 
 import type { OrderMargin } from './lib/margin';
@@ -19,9 +20,20 @@ import type { OrderMargin } from './lib/margin';
  * Контракт маршрутов — docs/API.md §13, разбор прототипа — docs/CRM.md §3.3.
  */
 
-export const orderTypeSchema = z.enum(['install', 'service', 'repair']);
-export type OrderType = z.infer<typeof orderTypeSchema>;
-export const ORDER_TYPES: readonly OrderType[] = orderTypeSchema.options;
+/**
+ * Вид работ — ссылка на справочник, а не перечисление (ADR-343).
+ *
+ * 🔴 Перечня видов работ здесь больше нет. До 8 сентября тут стоял
+ * `z.enum(['install', 'service', 'repair'])`, и он же лежал в схеме базы
+ * перечислением `OrderType`: завести «Чистку дренажа» владелец не мог — ему
+ * нужен был разработчик и миграция. Теперь набор видов работ — данные, а
+ * наряд везёт идентификатор записи справочника.
+ */
+export const workTypeIdSchema = z
+  .string({ required_error: 'Выберите вид работ' })
+  .trim()
+  .min(1, { message: 'Выберите вид работ' })
+  .max(40, { message: 'Такого вида работ не бывает' });
 
 export const orderStatusSchema = z.enum(['new', 'assigned', 'in_progress', 'done', 'cancelled']);
 export type OrderStatus = z.infer<typeof orderStatusSchema>;
@@ -63,17 +75,6 @@ export const ORDER_STATUS_TITLE: Record<OrderStatus, string> = {
 };
 
 /**
- * Вид работ. `service` называется «Обслуживанием», а не «ТО»: тем же словом
- * подписан вид услуги на сайте, а два названия одной работы в соседних
- * разделах панели владелец читает как сбой.
- */
-export const ORDER_TYPE_TITLE: Record<OrderType, string> = {
-  install: 'Монтаж',
-  service: 'Обслуживание',
-  repair: 'Ремонт',
-};
-
-/**
  * Почему отказались — общий справочник (ADR-310, ADR-311).
  *
  * 🔴 Своего списка здесь больше нет. До 7 сентября он тут стоял, и это была
@@ -110,10 +111,6 @@ export const UNIT_SOURCES: readonly UnitSource[] = unitSourceSchema.options;
 /** Значение из `select` — строка. Принять её за статус без проверки нельзя. */
 export function isOrderStatus(value: string): value is OrderStatus {
   return ORDER_STATUSES.some((status) => status === value);
-}
-
-export function isOrderType(value: string): value is OrderType {
-  return ORDER_TYPES.some((type) => type === value);
 }
 
 /**
@@ -256,7 +253,7 @@ export const orderUnitInputSchema = z.object({
 export type OrderUnitInput = z.infer<typeof orderUnitInputSchema>;
 
 const baseOrderFields = {
-  type: orderTypeSchema,
+  workTypeId: workTypeIdSchema,
   clientId: z.string({ required_error: 'Выберите клиента' }).trim().min(1, {
     message: 'Выберите клиента',
   }),
@@ -342,7 +339,7 @@ export const orderUpdateSchema = z
      * карточку никто не менял, иначе отвечает 409.
      */
     updatedAt: z.string().datetime().optional(),
-    type: orderTypeSchema.optional(),
+    workTypeId: workTypeIdSchema.optional(),
     status: orderStatusSchema.optional(),
     clientId: baseOrderFields.clientId.optional(),
     installerId: baseOrderFields.installerId.optional(),
@@ -458,7 +455,13 @@ export type OrderUnitCard = OrderUnitInput & { readonly id: string; readonly sor
 export type OrderCard = {
   readonly id: string;
   readonly number: number;
-  readonly type: OrderType;
+  /**
+   * Вид работ целиком, а не его ключ: подпись, значок и краска приезжают из
+   * справочника вместе с нарядом (ADR-343). Так же устроено дело календаря —
+   * иначе разметке понадобился бы второй словарь видов работ, тот самый,
+   * который справочник и снимает с кода.
+   */
+  readonly workType: WorkTypeMark;
   readonly status: OrderStatus;
   readonly client: OrderClientRef;
   readonly installer: OrderInstallerRef | null;

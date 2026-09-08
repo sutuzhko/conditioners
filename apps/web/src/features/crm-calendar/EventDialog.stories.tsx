@@ -5,6 +5,7 @@ import {
   doctorBlock,
   monthOrders,
   viewerId,
+  retiredWorkType,
   wholeDayBlock,
   workTypeMeasure,
   workTypes,
@@ -89,5 +90,18 @@ export const ПересечениеСВыездом: Story = {
     draft: { ...draft, day: '2026-08-23', time: '11:00', durationMin: 60 },
     orders: monthOrders,
     viewerId: 'u2',
+  },
+};
+
+/**
+ * 🔴 Вид работ отключили, а у дела он остался (ADR-343). Пункт виден
+ * выбранным и подписан — иначе поле выглядело бы незаполненным, — но выбрать
+ * его для новой записи нельзя.
+ */
+export const ОтключённыйВидРабот: Story = {
+  args: {
+    id: 'e1',
+    draft: { ...draft, workTypeId: retiredWorkType.id },
+    workTypes: [...workTypes, retiredWorkType],
   },
 };

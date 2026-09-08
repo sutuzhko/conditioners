@@ -36,7 +36,14 @@ function askedWith(): FindManyArgs {
 const row = {
   id: 'o1',
   number: 1059,
-  type: 'INSTALL',
+  workType: {
+    id: 'wt_install',
+    code: 'install',
+    title: 'Монтаж',
+    icon: 'wrench',
+    tone: 'OK',
+    dayLong: false,
+  },
   status: 'ASSIGNED',
   at: new Date('2026-08-23T07:00:00.000Z'),
   durationMin: 180,
@@ -118,12 +125,14 @@ describe('наряды в календаре', () => {
     }
   });
 
-  it('переводит наряд в контракт: типы и статусы строчными', async () => {
+  it('переводит наряд в контракт: вид работ из справочника, статусы строчными', async () => {
     const [order] = await listOrdersRange({ role: 'owner', userId: 'u1' }, from, to);
 
     expect(order).toMatchObject({
       number: 1059,
-      type: 'install',
+      /* 🔴 Вид работ приезжает записью справочника, а не ключом перечисления
+         (ADR-343): краску метки задаёт база, и подменить её нечем. */
+      workType: { code: 'install', title: 'Монтаж', tone: 'ok' },
       status: 'assigned',
       at: '2026-08-23T07:00:00.000Z',
       clientName: 'Ирина Соколова',
@@ -274,7 +283,14 @@ describe('поиск по календарю', () => {
       {
         id: 'o1',
         number: 1059,
-        type: 'INSTALL',
+        workType: {
+          id: 'wt_install',
+          code: 'install',
+          title: 'Монтаж',
+          icon: 'wrench',
+          tone: 'OK',
+          dayLong: false,
+        },
         status: 'NEW',
         at: new Date('2026-09-01T07:00:00Z'),
         durationMin: 120,

@@ -29,12 +29,44 @@ const LEAD_PAYLOAD: NotificationPayload = {
   sourceUrl: null,
 };
 
-function queued(overrides: Partial<{ id: string; channel: string; attempts: number }> = {}) {
+/**
+ * Снимок наряда в том виде, в каком его писала версия до ADR-343: вид работ
+ * ключом `type`, а не подписью `workType`.
+ */
+const LEGACY_ORDER_PAYLOAD = {
+  kind: 'order-assigned',
+  orderId: 'o-1',
+  number: 1059,
+  type: 'install',
+  at: '2026-08-28T08:00:00.000Z',
+  durationMin: 180,
+  address: 'Тула, Первомайская, 12, кв. 4',
+  intercom: null,
+  phone2: null,
+  floor: null,
+  heightWorks: false,
+  clientName: 'Ирина Соколова',
+  clientPhone: '+7 (910) 155-24-68',
+  payment: 'company',
+  installerFee: 9000,
+  comment: null,
+  units: [],
+};
+
+function queued(
+  overrides: Partial<{
+    id: string;
+    channel: string;
+    attempts: number;
+    kind: string;
+    payload: unknown;
+  }> = {},
+) {
   return {
     id: overrides.id ?? 'n1',
     channel: overrides.channel ?? 'email',
-    kind: 'lead',
-    payload: LEAD_PAYLOAD,
+    kind: overrides.kind ?? 'lead',
+    payload: overrides.payload ?? LEAD_PAYLOAD,
     status: 'PENDING',
     attempts: overrides.attempts ?? 0,
     lastError: null,
@@ -83,6 +115,34 @@ describe('разбор очереди', () => {
     expect(result).toEqual({ sent: 1, retried: 0, failed: 0 });
     expect(dbMock.notification.update.mock.calls[0]?.[0]).toMatchObject({
       where: { id: 'n1' },
+      data: { status: 'SENT', lastError: null },
+    });
+  });
+
+  /**
+   * 🔴 Уведомление, поставленное в очередь до выкладки, обязано доехать
+   * (ADR-343, инвариант 2 по духу).
+   *
+   * Разбор здесь строгий — `notificationPayloadSchema.parse`, — и снимок
+   * старого формата не прошёл бы его **никогда**: воркер повторил бы запись до
+   * `MAX_ATTEMPTS` и положил в `FAILED`, а повтор из журнала доставки не помог
+   * бы тоже. За такой записью стоит наряд, о котором монтажник не узнает.
+   */
+  it('🔴 снимок наряда, поставленный до выкладки, доезжает, а не уходит в FAILED', async () => {
+    dbMock.notification.findMany.mockResolvedValue([
+      queued({ kind: 'order-assigned', payload: LEGACY_ORDER_PAYLOAD }),
+    ]);
+    const send = vi.fn().mockResolvedValue(undefined);
+
+    const result = await processDueNotifications({ channels: registry(send), now: NOW });
+
+    expect(result).toEqual({ sent: 1, retried: 0, failed: 0 });
+    /* В канал уезжает снимок сегодняшнего формата: вид работ подписью. */
+    expect(send).toHaveBeenCalledWith(
+      expect.objectContaining({ kind: 'order-assigned', workType: 'Монтаж' }),
+      undefined,
+    );
+    expect(dbMock.notification.update.mock.calls[0]?.[0]).toMatchObject({
       data: { status: 'SENT', lastError: null },
     });
   });
