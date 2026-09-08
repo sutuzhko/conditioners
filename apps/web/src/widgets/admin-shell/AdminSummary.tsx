@@ -361,7 +361,7 @@ function OverviewSegment({
         </div>
         <p className={styles.text}>{texts.upcomingNote}</p>
 
-        <SummaryFilters filters={upcoming.filters} total={upcoming.total} />
+        <SummaryFilters filters={upcoming.filters} />
 
         <SummaryTable
           items={upcoming.items}

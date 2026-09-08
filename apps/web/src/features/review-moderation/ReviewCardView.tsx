@@ -59,61 +59,76 @@ export function ReviewCardView({
 
   return (
     <Card as="article" className={styles.card}>
-      <header className={styles.header}>
-        <Avatar
-          name={review.name}
-          size="lg"
-          {...(review.avatar === null ? {} : { src: review.avatar })}
-        />
-
-        <div className={styles.who}>
+      <div className={styles.main}>
+        <div className={styles.lead}>
+          {/* 🔴 Первой строкой — оценка, статус и время прихода (issue #752,
+              артборд «Отзывы»). До этого строку открывали аватар 48px и имя
+              кеглем заголовка: карточку читали сверху вниз как «кто», хотя
+              модератор решает по «что и когда». */}
           <div className={styles.line}>
-            <h2 className={styles.name}>{review.name}</h2>
-            <Rating value={review.rating} caption={texts.rating(review.rating)} />
+            {/* 🔴 Подписи рядом со звёздами нет (issue #752, макет): она
+                повторяла словами то же, что показывают звёзды, и вдобавок
+                удваивалась в имени для читалки — `Rating` вставляет подпись в
+                `aria-label` следом за той же формулировкой («Оценка 5 из 5.
+                Оценка 5 из 5»). Без неё имя остаётся полным. */}
+            <Rating value={review.rating} size="sm" />
             <Badge variant={REVIEW_STATUS_VARIANT[review.status]} size="sm">
               {texts.statusTitle(review.status)}
             </Badge>
+            <time className={styles.when} dateTime={review.createdAt}>
+              {texts.when(review.createdAt)}
+            </time>
           </div>
 
-          <time className={styles.when} dateTime={review.createdAt}>
-            {texts.when(review.createdAt)}
-          </time>
-        </div>
+          {/* Чужие слова: цитата, а не поле ввода — правки к ней не
+              предполагается, и «показать ещё» здесь тоже нет. */}
+          <blockquote className={styles.text}>{review.text}</blockquote>
 
-        {/* 🔴 От 1200px действия стоят справа в шапке; ниже уходят вниз в ряд
-            по половине ширины — две кнопки в строке дают цель 44px без
-            переноса (issue #356). Разметка одна, место меняет сетка. */}
-        <div className={styles.actions}>
-          {actions.map((action) => (
-            <Button
-              key={action}
-              type="button"
-              size="sm"
-              variant={REVIEW_ACTION_LOOK[action].variant}
-              className={action === 'remove' ? styles.remove : undefined}
-              disabled={busy}
-              onClick={() => perform(action)}
-            >
-              {REVIEW_ACTION_LOOK[action].label}
-            </Button>
-          ))}
-        </div>
-      </header>
-
-      <div className={styles.body}>
-        {/* Чужие слова: цитата, а не поле ввода — правки к ней не
-            предполагается, и «показать ещё» здесь тоже нет. */}
-        <blockquote className={styles.text}>{review.text}</blockquote>
-
-        {review.photo === null ? null : (
-          <div className={styles.photo}>
-            <ReviewPhoto
-              src={review.photo}
+          {/* Автор стоит подписью под цитатой, как в макете: имя — заголовок
+              карточки для читалки, но не главное на экране. Ни телефона, ни
+              номера заказа рядом нет — их у отзыва не существует в схеме
+              (PIXEL_SPEC, П-5). */}
+          <div className={styles.author}>
+            <Avatar
               name={review.name}
-              missing={review.photoMissing === true}
+              size="sm"
+              {...(review.avatar === null ? {} : { src: review.avatar })}
             />
+            <h2 className={styles.name}>{review.name}</h2>
           </div>
-        )}
+        </div>
+
+        {/* 🔴 От 1200px снимок и решения стоят колонкой справа от цитаты
+            (макет), ниже — под ней: справа от абзаца кнопкам не хватает
+            ширины, и «Опубликовать» сжимается до «Опубли…». Разметка одна,
+            место меняет сетка. */}
+        <div className={styles.side}>
+          {review.photo === null ? null : (
+            <div className={styles.photo}>
+              <ReviewPhoto
+                src={review.photo}
+                name={review.name}
+                missing={review.photoMissing === true}
+              />
+            </div>
+          )}
+
+          <div className={styles.actions}>
+            {actions.map((action) => (
+              <Button
+                key={action}
+                type="button"
+                size="sm"
+                variant={REVIEW_ACTION_LOOK[action].variant}
+                className={action === 'remove' ? styles.remove : undefined}
+                disabled={busy}
+                onClick={() => perform(action)}
+              >
+                {REVIEW_ACTION_LOOK[action].label}
+              </Button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* 🔴 Причина показывается там же, где отзыв, а не в отдельном журнале:

@@ -30,7 +30,7 @@ const meta = {
     (Story, context) => (
       <div data-ui="panel" style={{ background: 'var(--bg-soft)', padding: 16 }}>
         <Card as="section" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <SummaryFilters filters={context.args.filters} total={context.args.items.length} />
+          <SummaryFilters filters={context.args.filters} />
           <Story />
         </Card>
       </div>

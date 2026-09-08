@@ -28,7 +28,7 @@ describe('Отзыв в модерации', () => {
   it('🔴 оценку тоже не изменить — она часть отзыва', () => {
     render(<ReviewCardView review={lowRatedReview} api={acceptingApi} tab="pending" />);
 
-    expect(screen.getByText(texts.rating(2))).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: texts.rating(2) })).toBeInTheDocument();
     expect(screen.queryByRole('radio')).not.toBeInTheDocument();
   });
 

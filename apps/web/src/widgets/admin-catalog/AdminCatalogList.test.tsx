@@ -71,6 +71,25 @@ describe('Список каталога в админке', () => {
   });
 
   /**
+   * 🔴 «На главной» переключается на месте, как и видимость (issue #751). До
+   * этого колонка была плашкой с прочерком — только показом, — и снять модель
+   * с витрины можно было лишь из карточки. Две соседние колонки одной природы
+   * вели себя по-разному.
+   */
+  it('🔴 «На главной» — переключатель, поднятый над перекрытием строки', () => {
+    render(<AdminCatalogList products={catalogRowsFixture} />);
+
+    const name = plain?.name ?? '';
+    const row = screen.getByRole('row', { name: new RegExp(name) });
+
+    const toggle = within(row).getByRole('switch', {
+      name: productFormContent.featuredLabel(name),
+    });
+    expect(toggle).toBeChecked();
+    expect(toggle.closest(`.${tableAboveClassName()}`)).not.toBeNull();
+  });
+
+  /**
    * 🔴 Главная цифра строки — действующая цена, а не базовая (инвариант 14,
    * ADR-011): именно её видит посетитель. Прежняя цена перечёркнута рядом, и
    * процент вычислен доменом, а не введён руками.

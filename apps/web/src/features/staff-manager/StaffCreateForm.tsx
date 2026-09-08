@@ -97,6 +97,16 @@ export function StaffCreateForm({
             autoComplete="off"
             onChange={(event) => set({ name: event.target.value })}
           />
+
+          {/* Пары полей те же, что в правке аккаунта (issue #747): имя с
+              телефоном, логин с паролем. */}
+          <PhoneInput
+            label={texts.phone}
+            value={draft.phone}
+            disabled={sending}
+            error={errorFor('phone')}
+            onChange={(phone) => set({ phone })}
+          />
           <Input
             label={texts.login}
             hint={texts.loginHint}
@@ -105,13 +115,6 @@ export function StaffCreateForm({
             error={errorFor('login')}
             autoComplete="off"
             onChange={(event) => set({ login: event.target.value })}
-          />
-          <PhoneInput
-            label={texts.phone}
-            value={draft.phone}
-            disabled={sending}
-            error={errorFor('phone')}
-            onChange={(phone) => set({ phone })}
           />
           <Input
             label={texts.password}

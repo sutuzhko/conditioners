@@ -15,7 +15,6 @@ import {
   useConfirm,
 } from '@/shared/ui';
 
-import { ProfileExit } from './ProfileExit';
 import { ThemeChoice } from './ThemeChoice';
 import { profileFormContent as texts } from './content';
 import { profileApi } from './lib';
@@ -348,9 +347,16 @@ export function ProfileForm({ me, api = profileApi }: ProfileFormProps) {
             </div>
           </CardBody>
 
-          <CardFooter align="between">
+          {/* 🔴 Второй кнопки выхода в карточке нет (issue #753). Выход из
+              панели один — пункт «Выйти» в меню учётной записи, тот самый,
+              который владелец настраивал 4 сентября; здесь стояла своя,
+              собранная из кита кнопка, и два выхода в одной панели выглядели
+              по-разному. Артборд «Учётная запись» второй кнопки не рисует
+              тоже: в карточке живёт только «Выйти на всех устройствах».
+              Объяснение про восстановление пароля осталось — его больше
+              сказать негде. */}
+          <CardFooter align="start">
             <p className={styles.hint}>{texts.exitHint}</p>
-            <ProfileExit />
           </CardFooter>
         </Card>
       </div>

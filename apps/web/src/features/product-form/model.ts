@@ -64,10 +64,22 @@ export type ProductSave = (values: ProductFormValues) => Promise<ProductSaveResu
 
 export type ProductDelete = () => Promise<{ readonly ok: boolean; readonly message?: string }>;
 
-/** Смена видимости одной моделью: список каталога правит только этот флаг. */
-export type SetVisible = (
+/**
+ * Признак модели, который список каталога переключает прямо в строке.
+ *
+ * 🔴 Два признака, один переключатель (issue #751). «Видимость» и «На главной»
+ * — соседние колонки одной природы: обе меняются одним щелчком, обе
+ * сохраняются сразу, обе объясняют состояние подсказкой. Разными их делает
+ * только подпись, и второй компонент разошёлся бы с первым на первой же
+ * правке.
+ */
+export type ProductFlag = 'visible' | 'featured';
+
+/** Смена одного признака: список каталога правит только их. */
+export type SetProductFlag = (
   id: string,
-  visible: boolean,
+  flag: ProductFlag,
+  on: boolean,
 ) => Promise<{ readonly ok: boolean; readonly message?: string }>;
 
 export const emptyProductValues: ProductFormValues = {

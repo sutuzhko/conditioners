@@ -6,15 +6,17 @@ import { useState } from 'react';
 import { Switch, Tooltip } from '@/shared/ui';
 
 import { productFormContent as texts } from './content';
-import { setProductVisible } from './lib';
-import type { SetVisible } from './model';
-import styles from './VisibilitySwitch.module.css';
+import { setProductFlag } from './lib';
+import type { ProductFlag, SetProductFlag } from './model';
+import styles from './ProductFlagSwitch.module.css';
 
-export interface VisibilitySwitchProps {
+export interface ProductFlagSwitchProps {
   readonly id: string;
   /** Название модели: подпись переключателя в списке из десяти строк общая. */
   readonly name: string;
-  readonly visible: boolean;
+  /** Какой признак переключается: видимость в каталоге или витрина главной. */
+  readonly flag: ProductFlag;
+  readonly on: boolean;
   /**
    * Класс на корень. Нужен списку каталога: строка там нажимается целиком, и
    * переключатель обязан подняться над её перекрытием — иначе нажатие по
@@ -23,31 +25,56 @@ export interface VisibilitySwitchProps {
    */
   readonly className?: string | undefined;
   /** Шов для историй и тестов; по умолчанию — `PATCH /api/admin/models/{id}`. */
-  readonly save?: SetVisible | undefined;
+  readonly save?: SetProductFlag | undefined;
 }
 
 /**
- * Видимость модели прямо из списка каталога.
+ * Подписи признака: имя ввода для читалки и состояние для подсказки.
+ *
+ * Живут словарём, а не тремя тернарниками по месту: у следующего признака
+ * набор тот же, и добавляется он строкой.
+ */
+const FLAG_TEXTS: Readonly<
+  Record<
+    ProductFlag,
+    {
+      readonly on: string;
+      readonly off: string;
+      readonly label: (name: string) => string;
+    }
+  >
+> = {
+  visible: { on: texts.inCatalog, off: texts.hidden, label: texts.visibleLabel },
+  featured: { on: texts.onHome, off: texts.notOnHome, label: texts.featuredLabel },
+};
+
+/**
+ * Признак модели прямо из списка каталога: видимость и витрина главной.
  *
  * 🔴 Снять модель с продажи — действие на один щелчок, а не повод открывать
  * карточку: в жару кончается склад, и владелец прячет то, чего нет, с
  * телефона. Поэтому переключатель, а не флажок формы: значение действует
- * немедленно (см. `Switch` в ките).
+ * немедленно (см. `Switch` в ките). То же и с витриной (issue #751): до этого
+ * «На главной» была плашкой, и снять модель с главной можно было только из
+ * карточки — при том, что соседняя колонка той же природы переключалась на
+ * месте.
  *
  * Отказ сервера возвращает переключатель в прежнее положение и говорит об
  * этом словами: молча оставленное новое положение врало бы про состояние
  * сайта.
  */
-export function VisibilitySwitch({
+export function ProductFlagSwitch({
   id,
   name,
-  visible,
+  flag,
+  on: initial,
   className,
-  save = setProductVisible,
-}: VisibilitySwitchProps) {
+  save = setProductFlag,
+}: ProductFlagSwitchProps) {
   const router = useRouter();
+  const words = FLAG_TEXTS[flag];
 
-  const [on, setOn] = useState(visible);
+  const [on, setOn] = useState(initial);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -58,7 +85,7 @@ export function VisibilitySwitch({
     setBusy(true);
     setMessage('');
 
-    const result = await save(id, next);
+    const result = await save(id, flag, next);
 
     setBusy(false);
     if (result.ok) {
@@ -80,15 +107,16 @@ export function VisibilitySwitch({
           в колонке она повторялась двадцать раз подряд и занимала место
           рядом с самим переключателем, который то же самое и показывает.
           Смысл при этом не потерян: состояние озвучивается ролью `switch`,
-          а имя строки стоит в `aria-label` — просьба владельца от 5 сентября. */}
-      <Tooltip text={on ? texts.inCatalog : texts.hidden}>
+          а имя строки стоит в `aria-label` — просьба владельца от 5 сентября.
+          Подсказка кита открывается наведением и фокусом (WCAG 1.4.13). */}
+      <Tooltip text={on ? words.on : words.off}>
         <Switch
           size="sm"
           checked={on}
           disabled={busy}
-          label={on ? texts.inCatalog : texts.hidden}
+          label={on ? words.on : words.off}
           labelHidden
-          aria-label={texts.visibleLabel(name)}
+          aria-label={words.label(name)}
           onChange={(event) => {
             void toggle(event.target.checked);
           }}

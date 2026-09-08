@@ -22,8 +22,6 @@ import styles from './SummaryFilters.module.css';
 export interface SummaryFiltersProps {
   /** Всё состояние списка разом: пилюли строят ссылки, меняя по одному полю. */
   readonly filters: UpcomingFilters;
-  /** Сколько строк нашлось — подпись под рядом. */
-  readonly total: number;
 }
 
 /** Подпись колонки в пилюле «Колонки». Одна на весь блок. */
@@ -49,8 +47,13 @@ const COLUMN_TITLE: Readonly<Record<UpcomingColumn, string>> = {
  * иначе непонятно, почему дел три вместо двадцати четырёх, — а это первый
  * вопрос владельца к списку, в котором чего-то не хватает. Сортировка и состав
  * колонок плашками не становятся: они список не укорачивают.
+ *
+ * 🔴 Счёта строк в ряду нет (issue #757). Он стоял здесь второй раз: то же
+ * число уже висит плашкой у заголовка «Ближайшие дела» — там же, где его
+ * рисует артборд «Обзор». Полная формулировка («три дела в списке») осталась
+ * при плашке скрытой подписью, так что читалка не потеряла ничего.
  */
-export function SummaryFilters({ filters, total }: SummaryFiltersProps) {
+export function SummaryFilters({ filters }: SummaryFiltersProps) {
   const { show, sort, query, hidden } = filters;
 
   const applied = [
@@ -197,8 +200,6 @@ export function SummaryFilters({ filters, total }: SummaryFiltersProps) {
           wrapperClassName={styles.field}
         />
       </form>
-
-      <p className={styles.total}>{texts.upcomingCountLabel(total)}</p>
     </div>
   );
 }
