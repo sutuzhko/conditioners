@@ -19,6 +19,18 @@ describe('MediaGone', () => {
     expect(screen.getByRole('note').childElementCount).toBe(1);
   });
 
+  it('🔴 заголовка не рисует: этим он и не EmptyState (issue #877)', () => {
+    /* `EmptyState` и `ErrorState` ставят `<h2>` намеренно — обход по
+       заголовкам обязан останавливаться на пустом разделе. Эта плашка стоит
+       внутри карточки и повторяется по числу снимков: в галерее наряда шесть
+       заголовков подряд сломали бы структуру (инвариант 4) и превратили бы
+       обход озвучкой в перечисление одинаковых «Фото недоступно». */
+    render(<MediaGone title="Фото недоступно" note="Файл не найден" />);
+
+    expect(screen.queryByRole('heading')).toBeNull();
+    expect(screen.getByRole('note')).toBeInTheDocument();
+  });
+
   it('🔴 класс раздела стоит первым: по нему плашку зовут измерения', () => {
     render(<MediaGone title="Файла нет" className="thumb" />);
 

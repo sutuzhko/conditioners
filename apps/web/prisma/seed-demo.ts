@@ -2839,14 +2839,15 @@ async function sweepOrphans(): Promise<void> {
     take(row.photo);
     take(row.avatar);
   }
-  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
   /* Снимки клиента с ADR-171 лежат в своей папке и значатся именем файла, но на
      базе, не прошедшей `move-protected-media`, у них ещё старый адрес и файл в
      общем каталоге. `take` берёт только значения с публичным префиксом, поэтому
-     эти два прохода на переехавшей базе ничего не добавляют, а на
-     непереехавшей — спасают снимок от уборки как сироты. */
+     эти три прохода на переехавшей базе ничего не добавляют, а на
+     непереехавшей — спасают снимок от уборки как сироты. Техника клиента
+     попала в тот же ряд с issue #868. */
   for (const row of await prisma.lead.findMany({ select: { photo: true } })) take(row.photo);
   for (const row of await prisma.orderPhoto.findMany({ select: { url: true } })) take(row.url);
+  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
 
   const names = await readdir(UPLOADS_DIR).catch(() => [] as string[]);
   // трогаем только файлы с именем, которое выдаёт сервер: чужое в этом
@@ -2872,6 +2873,14 @@ async function sweepOrphans(): Promise<void> {
   const protectedNames = [
     ...(await prisma.orderPhoto.findMany({ select: { url: true } })).map((row) => row.url),
     ...(await prisma.lead.findMany({ where: { photo: { not: null } }, select: { photo: true } }))
+      .map((row) => row.photo)
+      .filter((name): name is string => name !== null),
+    ...(
+      await prisma.clientUnit.findMany({
+        where: { photo: { not: null } },
+        select: { photo: true },
+      })
+    )
       .map((row) => row.photo)
       .filter((name): name is string => name !== null),
   ];
@@ -2931,7 +2940,9 @@ async function verifyMedia(): Promise<void> {
     take(row.photo);
     take(row.avatar);
   }
-  for (const row of await prisma.clientUnit.findMany({ select: { photo: true } })) take(row.photo);
+  /* Снимка техники клиента здесь нет — с issue #868 он лежит в закрытом
+     подкаталоге и значится именем файла, ровно как снимок наряда и фото
+     заявки, которых эта сверка тоже не касается: она про публичный каталог. */
 
   const missing: string[] = [];
   for (const name of referenced) {
@@ -3266,9 +3277,15 @@ async function main(): Promise<void> {
         installedAt: daysAgo(unit.installedDaysAgo),
         warrantyUntil:
           unit.warrantyDays === null ? null : daysAgo(unit.installedDaysAgo - unit.warrantyDays),
+        /* 🔴 Закрытым снимком, а не публичным (issue #868): техника клиента
+           вырастает из снимка «после» выполненного наряда, и хранится он там
+           же и так же — именем файла в закрытом подкаталоге (ADR-171). Пока
+           сид клал сюда публичный `/api/media/…`, дефект жил только у
+           владельца: на стенде адрес был рабочим, и посмотреть было не на
+           чем. */
         photo:
           unit.photo === true
-            ? await makeImage({
+            ? await makeProtectedImage({
                 title: 'техника клиента',
                 subtitle: unit.model,
                 from: '#0369a1',

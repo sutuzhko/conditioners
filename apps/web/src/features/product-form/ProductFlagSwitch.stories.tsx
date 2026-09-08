@@ -13,16 +13,6 @@ const refusing: SetProductFlag = async () => ({ ok: false, message: texts.server
 const meta = {
   title: 'Админка/Переключатель модели',
   component: ProductFlagSwitch,
-  /* 🔴 История идёт внутри контейнера панели. Без `data-ui="panel"` высоты
-     контролов и радиусы не объявлены вовсе (ADR-187): дорожка мерилась бы
-     геометрией витрины, а живёт она в списке каталога — то есть в панели. */
-  decorators: [
-    (Story) => (
-      <div data-ui="panel">
-        <Story />
-      </div>
-    ),
-  ],
   args: {
     id: '1',
     name: 'Сплит-система 09, инверторная',

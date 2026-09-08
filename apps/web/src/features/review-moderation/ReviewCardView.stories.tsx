@@ -18,18 +18,6 @@ import {
 const meta = {
   title: 'Админка/Отзыв в модерации',
   component: ReviewCardView,
-  /* 🔴 Истории идут внутри контейнера панели (issue #867). Без `data-ui="panel"`
-     не объявлены ни высоты кнопок, ни радиус карточки (ADR-187): решение
-     мерилось бы кнопкой 40px там, где на странице стоит 32, а ниже 900px — той
-     же 40 вместо тап-зоны 44. Композицию карточки принимают глазами, и глядеть
-     на неё надо в той геометрии, в которой она живёт. */
-  decorators: [
-    (Story) => (
-      <div data-ui="panel">
-        <Story />
-      </div>
-    ),
-  ],
   args: { review: pendingReview, api: acceptingApi, tab: 'pending' },
 } satisfies Meta<typeof ReviewCardView>;
 

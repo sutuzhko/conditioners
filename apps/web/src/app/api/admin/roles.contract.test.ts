@@ -86,6 +86,8 @@ const EXPECTED: Readonly<Record<string, RoleListName>> = {
   'clients/[id]/units POST': 'OWNER',
   'clients/[id]/units/[unitId] PATCH': 'OWNER',
   'clients/[id]/units/[unitId] DELETE': 'OWNER',
+  // снимок техники клиента лежит в закрытом хранилище и отдаётся своим маршрутом (issue #868)
+  'clients/[id]/units/[unitId]/photo GET': 'OWNER',
   /* 🔴 Обращения — работа клиентского цикла (ADR-344). Раздел «Заявки» открыт
      владельцу, администратору и менеджеру ещё с фазы 1 (issue #770), а ручки
      оставались владельческими: менеджер видел очередь и получал отказ на
