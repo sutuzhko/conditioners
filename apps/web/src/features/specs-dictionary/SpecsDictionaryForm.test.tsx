@@ -41,8 +41,54 @@ describe('Справочник характеристик', () => {
     const [first] = screen.getAllByRole('button', { name: texts.fieldRemove(1) });
     if (first === undefined) throw new Error('Кнопка удаления не найдена');
     await user.click(first);
+    await user.click(await screen.findByRole('button', { name: texts.fieldRemoveConfirm }));
 
     expect(screen.queryByDisplayValue('Мощность охлаждения')).not.toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Заполненное исчезает безвозвратно: форма прежних значений не хранит, и
+   * «Отменить» у неё нет (issue #35).
+   */
+  it('🔴 отказ от подтверждения оставляет характеристику на месте', async () => {
+    const user = userEvent.setup();
+    render(<SpecsDictionaryForm value={filledDictionary} save={acceptingSave} />);
+
+    const [first] = screen.getAllByRole('button', { name: texts.fieldRemove(1) });
+    if (first === undefined) throw new Error('Кнопка удаления не найдена');
+    await user.click(first);
+    await user.click(await screen.findByRole('button', { name: texts.fieldRemoveCancel }));
+
+    expect(screen.getByDisplayValue('Мощность охлаждения')).toBeInTheDocument();
+  });
+
+  it('🔴 удаление группы называет, сколько характеристик исчезнет вместе с ней', async () => {
+    const user = userEvent.setup();
+    render(<SpecsDictionaryForm value={filledDictionary} save={acceptingSave} />);
+
+    await user.click(screen.getByRole('button', { name: texts.groupRemove(1) }));
+
+    const ask = await screen.findByRole('dialog');
+    const fields = filledDictionary.groups[0]?.fields.length ?? 0;
+    expect(ask).toHaveTextContent(texts.groupRemoveText(fields));
+
+    await user.click(screen.getByRole('button', { name: texts.groupRemoveConfirm }));
+    expect(screen.queryByDisplayValue('Основное')).not.toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Пустая группа вопроса не стоит: терять нечего, а вопрос на каждое
+   * нажатие учит отвечать «Да» не читая.
+   */
+  it('🔴 только что добавленная пустая группа убирается без вопроса', async () => {
+    const user = userEvent.setup();
+    render(<SpecsDictionaryForm value={emptyDictionary} save={acceptingSave} />);
+
+    await user.click(screen.getByRole('button', { name: texts.groupAdd }));
+    await user.click(screen.getByRole('button', { name: texts.groupRemove(1) }));
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(screen.getByText(texts.empty)).toBeInTheDocument();
   });
 
   it('отправляет справочник целиком', async () => {

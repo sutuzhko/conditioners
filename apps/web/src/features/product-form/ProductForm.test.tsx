@@ -163,11 +163,47 @@ describe('Характеристики модели', () => {
     render(<ProductForm values={filledProduct} save={save} />);
 
     await user.click(screen.getByRole('button', { name: texts.specRemove(1) }));
+    await user.click(await screen.findByRole('button', { name: texts.specRemoveConfirm }));
     await user.click(screen.getByRole('button', { name: texts.save }));
 
     expect(save).toHaveBeenCalledWith(
       expect.objectContaining({ specs: [{ k: 'Уровень шума', v: '21 дБ' }] }),
     );
+  });
+
+  /**
+   * 🔴 Заполненная характеристика исчезает безвозвратно: формы прежних
+   * значений не хранит, «Отменить» у неё нет (issue #35).
+   */
+  it('🔴 отказ от подтверждения оставляет характеристику на месте', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true, id: 'x' }) as const);
+    render(<ProductForm values={filledProduct} save={save} />);
+
+    await user.click(screen.getByRole('button', { name: texts.specRemove(1) }));
+    await user.click(await screen.findByRole('button', { name: texts.specRemoveCancel }));
+    await user.click(screen.getByRole('button', { name: texts.save }));
+
+    expect(save).toHaveBeenCalledWith(expect.objectContaining({ specs: filledProduct.specs }));
+  });
+
+  /**
+   * 🔴 Пустая строка вопроса не стоит: терять нечего, а вопрос на каждое
+   * нажатие учит отвечать «Да» не читая — и тогда он не сработает там, где
+   * нужен.
+   */
+  it('🔴 только что добавленная пустая пара удаляется без вопроса', async () => {
+    const user = userEvent.setup();
+    const save = vi.fn(async () => ({ ok: true, id: 'x' }) as const);
+    render(<ProductForm values={filledProduct} save={save} />);
+
+    await user.click(screen.getByRole('button', { name: texts.specAdd }));
+    await user.click(screen.getByRole('button', { name: texts.specRemove(3) }));
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: texts.save }));
+    expect(save).toHaveBeenCalledWith(expect.objectContaining({ specs: filledProduct.specs }));
   });
 
   it('модель без характеристик предупреждает о таблице сравнения', () => {
