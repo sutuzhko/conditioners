@@ -122,6 +122,7 @@ declare namespace __next_route_internal_types__ {
     | `/api/admin/clients/${SafeSlug<T>}`
     | `/api/admin/clients/${SafeSlug<T>}/units`
     | `/api/admin/clients/${SafeSlug<T>}/units/${SafeSlug<T>}`
+    | `/api/admin/clients/${SafeSlug<T>}/units/${SafeSlug<T>}/photo`
     | `/api/admin/crm/${SafeSlug<T>}`
     | `/api/admin/leads/${SafeSlug<T>}`
     | `/api/admin/leads/${SafeSlug<T>}/client`
