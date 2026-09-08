@@ -13,6 +13,7 @@ import {
   StaffDangerZone,
   StaffOrders,
   StaffPayouts,
+  StaffPermissions,
   staffCardTabFromParam,
   staffManagerContent as texts,
   staffTitle,
@@ -81,6 +82,11 @@ export default async function AdminTeamMemberPage({ params, searchParams }: Page
   const active = staffCardTabFromParam(tab);
 
   const viewer = { role: session.role, userId: session.userId };
+  /* 🔴 Экран прав видит только владелец (issue #787). Карточку сотрудника
+     правит и администратор, которому владелец выдал «Управление людьми», —
+     а раздачу прав ему не открывает ни один переключатель (ADR-344). Здесь
+     это удобство: сервер отказывает и без скрытого экрана. */
+  const grantsAccess = isOwner(session);
 
   /* Карточка с ИНН: реквизит правит владелец, и раздел закрыт `requireOwnerPage`
      выше по коду. Заголовку вкладки достаточно `findById` — там ИНН незачем. */
@@ -123,7 +129,7 @@ export default async function AdminTeamMemberPage({ params, searchParams }: Page
         title={texts.cardLoadFailed}
         note={blockErrorNote(TEAM_PATH)}
       >
-        <StaffCard staff={staff} active={active} viewer={viewer} />
+        <StaffCard staff={staff} active={active} viewer={viewer} grantsAccess={grantsAccess} />
       </DataBlock>
     </div>
   );
@@ -139,10 +145,13 @@ async function StaffCard({
   staff,
   active,
   viewer,
+  grantsAccess,
 }: {
   readonly staff: NonNullable<Awaited<ReturnType<typeof findDetails>>>;
   readonly active: ReturnType<typeof staffCardTabFromParam>;
   readonly viewer: Viewer;
+  /** Владелец ли смотрит: экран прав есть только у него (issue #787). */
+  readonly grantsAccess: boolean;
 }) {
   const [notes, orders, totals] = await Promise.all([
     listNotes(staff.id),
@@ -180,6 +189,11 @@ async function StaffCard({
     account: (
       <>
         <StaffAccountForm staff={staff} />
+
+        {/* Права — только у администратора и только владельцу: у остальных
+            ролей доступ задан ролью целиком, и переключатели у них означали бы
+            настройку, которая ни на что не влияет (ADR-344). */}
+        {grantsAccess && staff.role === 'admin' ? <StaffPermissions staff={staff} /> : null}
 
         {/* 🔴 Опасная зона всегда последняя: до неё доскроллят осознанно.
             Удаление закрыто, пока за человеком закреплены наряды — иначе

@@ -1,4 +1,5 @@
 /** Данные для историй и тестов раздела команды. */
+import { DANGEROUS_PERMISSIONS, PANEL_SECTION_PERMISSIONS } from './model';
 import type {
   InstallerNoteCard,
   StaffApi,
@@ -18,9 +19,51 @@ export const activeInstaller: StaffDetails = {
   /* Настоящий по контрольным разрядам: битый номер схема не пропустит, и
      история с ним показывала бы состояние, до которого нельзя дойти. */
   inn: '710703123450',
+  /* У монтажника разрешений нет и быть не может: доступ ему задан ролью
+     целиком, переключатели есть только у администратора (ADR-344). */
+  permissions: [],
   active: true,
   createdAt: '2026-04-10T09:00:00.000Z',
   lastLoginAt: '2026-08-24T06:12:00.000Z',
+};
+
+/**
+ * Администратор с частью открытых разделов — то, ради чего заведён экран прав.
+ *
+ * Набор нарочно неровный: два раздела клиентского цикла и одно опасное
+ * действие. Полный и пустой наборы — свои фикстуры: по ним видно оба края.
+ */
+export const administrator: StaffDetails = {
+  id: 'u9',
+  login: 'ivanova',
+  name: 'Мария Иванова',
+  phone: '+7 (910) 155-24-70',
+  role: 'admin',
+  employment: null,
+  inn: null,
+  permissions: ['leads', 'clients', 'data_delete'],
+  active: true,
+  createdAt: '2026-09-01T09:00:00.000Z',
+  lastLoginAt: '2026-09-07T07:40:00.000Z',
+};
+
+/** Только что заведённый администратор: не открыто ничего, кроме профиля. */
+export const administratorWithoutRights: StaffDetails = {
+  ...administrator,
+  id: 'u10',
+  login: 'petrova',
+  name: 'Анна Петрова',
+  permissions: [],
+  lastLoginAt: null,
+};
+
+/** Второй владелец компании во всём, кроме роли: открыто всё. */
+export const administratorWithAllRights: StaffDetails = {
+  ...administrator,
+  id: 'u11',
+  login: 'zaharova',
+  name: 'Ольга Захарова',
+  permissions: [...PANEL_SECTION_PERMISSIONS, ...DANGEROUS_PERMISSIONS],
 };
 
 /**
@@ -102,6 +145,10 @@ export const ownerAccount: StaffDetails = {
      вознаграждение самому себе не из чего. */
   employment: null,
   inn: null,
+  /* 🔴 Пусто и у владельца: разрешения — это переключатели **над ним**, а не
+     его собственные. Полный набор в базе у него есть (миграция), но экрану
+     прав он не показывается — настраивать владельцу нечего (ADR-344). */
+  permissions: [],
   active: true,
   createdAt: '2026-01-15T09:00:00.000Z',
   lastLoginAt: '2026-08-25T05:00:00.000Z',
@@ -165,8 +212,21 @@ export const acceptingApi: StaffApi = {
   create: async () => ({ ok: true }),
   update: async () => ({ ok: true }),
   remove: async () => ({ ok: true }),
+  setAccess: async () => ({ ok: true }),
   addNote: async () => ({ ok: true }),
   removeNote: async () => ({ ok: true }),
+};
+
+/**
+ * Ответ, который не приходит: история отправки.
+ *
+ * 🔴 Состояние «сохраняем» иначе не увидеть — принимающий шов отвечает
+ * мгновенно, и кадр застаёт уже сохранённое. Показать заблокированные
+ * переключатели и индикатор на кнопке можно только так.
+ */
+export const pendingApi: StaffApi = {
+  ...acceptingApi,
+  setAccess: () => new Promise(() => undefined),
 };
 
 const refused = { ok: false, message: 'Такой логин уже занят' } as const;
@@ -175,8 +235,20 @@ export const failingApi: StaffApi = {
   create: async () => refused,
   update: async () => refused,
   remove: async () => refused,
+  setAccess: async () => refused,
   addNote: async () => refused,
   removeNote: async () => refused,
+};
+
+/**
+ * Отказ на правке прав — свой текст: «логин занят» здесь ничего не объясняет.
+ */
+export const accessRefusingApi: StaffApi = {
+  ...acceptingApi,
+  setAccess: async () => ({
+    ok: false,
+    message: 'Сервер не принял изменения. Попробуйте ещё раз',
+  }),
 };
 
 /**
@@ -189,6 +261,7 @@ export const fieldRefusingApi: StaffApi = {
   create: async () => refusedField,
   update: async () => refusedField,
   remove: async () => refused,
+  setAccess: async () => refused,
   addNote: async () => refused,
   removeNote: async () => refused,
 };

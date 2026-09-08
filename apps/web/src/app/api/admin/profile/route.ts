@@ -31,7 +31,12 @@ export const PATCH = withRoles(EVERYONE, async (request, _context, session) => {
   const parsed = profileUpdateSchema.safeParse(body);
   if (!parsed.success) return validationError(parsed.error);
 
-  return json(await update(session.userId, parsed.data));
+  /* Свою учётную запись правит каждый — правило `mayManage` в репозитории
+     этот случай называет отдельно. Актор всё равно передаётся: аргумент
+     обязателен намеренно, чтобы следующий вызывающий не смог его не назвать. */
+  return json(
+    await update(session.userId, parsed.data, { userId: session.userId, role: session.role }),
+  );
 });
 
 function mentionsEmployment(body: unknown): boolean {

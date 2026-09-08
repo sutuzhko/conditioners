@@ -91,6 +91,11 @@ describe('оформление в своём профиле', () => {
     const response = await PATCH(patchRequest({ name: 'Дмитрий С.' }), undefined);
 
     expect(response.status).toBe(200);
-    expect(adminUsers.update).toHaveBeenCalledWith('u2', { name: 'Дмитрий С.' });
+    /* Актор — он сам: свою учётную запись правит каждый (repo/admin-users). */
+    expect(adminUsers.update).toHaveBeenCalledWith(
+      'u2',
+      { name: 'Дмитрий С.' },
+      { userId: 'u2', role: 'installer' },
+    );
   });
 });

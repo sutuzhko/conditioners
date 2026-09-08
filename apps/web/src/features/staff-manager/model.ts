@@ -2,6 +2,7 @@
 import type { Route } from 'next';
 
 import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { AdminPermission } from '@/entities/staff/permissions';
 import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 import type { Employment } from '@/shared/lib/employment';
 
@@ -13,6 +14,16 @@ export type {
   StaffDetails,
   StaffUpdate,
 } from '@/entities/staff/model';
+
+export {
+  ADMIN_PERMISSION_HINTS,
+  ADMIN_PERMISSION_TITLES,
+  DANGEROUS_PERMISSIONS,
+  PANEL_SECTION_PERMISSIONS,
+  samePermissions,
+  sortPermissions,
+} from '@/entities/staff/permissions';
+export type { AdminPermission } from '@/entities/staff/permissions';
 
 export {
   ADMIN_ROLES,
@@ -208,6 +219,15 @@ export type StaffApi = {
     }>,
   ) => Promise<StaffResult>;
   readonly remove: (id: string) => Promise<StaffResult>;
+  /**
+   * Роль и разрешения — своя ручка, а не поле в правке карточки (ADR-344).
+   * Карточку правит и администратор с «Управлением людьми», а права раздаёт
+   * только владелец, и разделять их приходится адресом, а не полем.
+   */
+  readonly setAccess: (
+    id: string,
+    access: { readonly permissions: readonly AdminPermission[] },
+  ) => Promise<StaffResult>;
   readonly addNote: (id: string, text: string) => Promise<StaffResult>;
   readonly removeNote: (id: string, noteId: string) => Promise<StaffResult>;
 };

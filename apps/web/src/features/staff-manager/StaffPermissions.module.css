@@ -1,0 +1,56 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: var(--fs-caption);
+}
+
+/* Сколько выдано — своей строкой: это состояние набора, а не продолжение
+   объяснения. */
+.count {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+/*
+ * Переключатели — списком, а не сеткой в две колонки: подписи разной длины, и
+ * при двух колонках правая половина строк начинается с разного отступа, а
+ * пояснение под подписью уезжает под соседний переключатель.
+ */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}

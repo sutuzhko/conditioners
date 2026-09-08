@@ -70,6 +70,11 @@ const person = {
   active: true,
   employment: 'STAFF' as const,
   inn: null,
+  /* Разрешения появились у карточки вместе с ADR-344. Пустого поля тут быть
+     не может: `permissionsFromDb` не подставляет умолчание нарочно — молчаливое
+     «ничего не открыто» у владельца читалось бы как настройка, а не как дыра в
+     чтении. */
+  permissions: [],
   telegramChatId: null,
   notifyEmail: null,
   createdAt: new Date('2026-01-01T00:00:00Z'),

@@ -4,6 +4,7 @@ import { forbidden, redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { getAdminSession } from '@/server/auth';
+import { adminPageAllows, permissionsOf } from '@/server/permissions';
 import { ADMIN_PATHNAME_HEADER } from '@/shared/config/admin-headers';
 import { sectionAllows } from '@/widgets/admin-shell';
 
@@ -40,7 +41,16 @@ export default async function AdminPanelLayout({ children }: { children: ReactNo
   const jar = await headers();
   const pathname = jar.get(ADMIN_PATHNAME_HEADER) ?? '';
 
-  if (!sectionAllows(pathname, session.role)) {
+  /* 🔴 У администратора перечень ролей раздела не спрашивается: ему доступ
+     раздаёт владелец переключателями, и отвечает за это центральная карта
+     `server/permissions.ts` (ADR-344, issue #783). Остальным трём ролям
+     отвечает колонка — их доступ задан ролью целиком. */
+  const allowed =
+    session.role === 'admin'
+      ? adminPageAllows(pathname, permissionsOf(session))
+      : sectionAllows(pathname, session.role);
+
+  if (!allowed) {
     /* Куда идти дальше, говорит сама страница отказа: её единственная ссылка
        ведёт на календарь своих выездов — рабочий экран монтажника. */
     forbidden();

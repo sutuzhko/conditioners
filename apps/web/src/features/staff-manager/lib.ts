@@ -44,6 +44,8 @@ export const staffApi: StaffApi = {
 
   remove: (id) => send(`/api/admin/staff/${id}`, jsonInit('DELETE')),
 
+  setAccess: (id, access) => send(`/api/admin/staff/${id}/access`, jsonInit('PATCH', access)),
+
   addNote: (id, text) => send(`/api/admin/staff/${id}/notes`, jsonInit('POST', { text })),
 
   removeNote: (id, noteId) => send(`/api/admin/staff/${id}/notes/${noteId}`, jsonInit('DELETE')),
