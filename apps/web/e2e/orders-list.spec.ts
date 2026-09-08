@@ -160,8 +160,14 @@ test.describe('заказы: групповое действие и страни
     if ((await second.count()) > 0) {
       await second.click();
       await page.waitForURL(/page=2/);
-      /* Текущая страница помечена разметкой, а не только заливкой (#748). */
-      await expect(page.locator('[aria-current="page"]')).toHaveText('2');
+      /* Текущая страница помечена разметкой, а не только заливкой (#748).
+
+         🔴 Ищем внутри самой разбивки, а не по всей странице: `aria-current`
+         носят и раздел в левом меню, и вкладка стопки, и три пункта фильтра —
+         пометка «вы находитесь здесь» в панели общая, и без имени ряда
+         утверждение видит семь элементов вместо одного. */
+      const pager = page.getByRole('navigation', { name: pagerLabels.nav });
+      await expect(pager.locator('[aria-current="page"]')).toHaveText('2');
     }
 
     /* Шаг листания — тоже адрес: значение пункта и есть ссылка, по которой
