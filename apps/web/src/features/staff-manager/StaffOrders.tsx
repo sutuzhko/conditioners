@@ -79,7 +79,7 @@ function OrderRow({ order }: { readonly order: StaffOrder }) {
         <time className={styles.when} dateTime={order.at}>
           {texts.date(order.at)}
         </time>
-        <span>{texts.orderType(order.type)}</span>
+        <span>{order.workType}</span>
         <span className={styles.who}>{order.clientName}</span>
         <span className={styles.address}>{order.address}</span>
       </span>

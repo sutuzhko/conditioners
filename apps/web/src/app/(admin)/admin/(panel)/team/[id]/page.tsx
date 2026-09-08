@@ -156,7 +156,7 @@ async function StaffCard({
   const works: readonly StaffOrder[] = orders.items.map((order) => ({
     id: order.id,
     number: order.number,
-    type: order.type,
+    workType: order.workType.title,
     status: order.status,
     at: order.at,
     address: order.address,

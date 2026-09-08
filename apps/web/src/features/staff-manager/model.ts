@@ -1,7 +1,7 @@
 /** Раздел команды: типы представления. Доменные схемы — в `entities/staff`. */
 import type { Route } from 'next';
 
-import type { OrderStatus, OrderType } from '@/entities/order/model';
+import type { OrderStatus } from '@/entities/order/model';
 import { PANEL_TABS, resolvePanelTab, type PanelTab } from '@/shared/config/admin-tabs';
 import type { Employment } from '@/shared/lib/employment';
 
@@ -75,7 +75,8 @@ export function staffCardTabFromParam(value: unknown): StaffCardTab {
 export type StaffOrder = {
   readonly id: string;
   readonly number: number;
-  readonly type: OrderType;
+  /** Вид работ подписью: название живёт в справочнике, а не в словаре кода. */
+  readonly workType: string;
   readonly status: OrderStatus;
   /** ISO в UTC: в московское время переводит подпись при показе. */
   readonly at: string;
