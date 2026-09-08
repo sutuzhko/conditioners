@@ -332,7 +332,7 @@ form.SettingsGroups__form
         span.SettingsGroups__fill  bg #0891b2
       span.SettingsGroups__percent  color #0f172a
       div.SettingsGroups__actions
-        button.Button__button  bg #0e7490  border #0e7490
+        button.Button__button  bg #0e7490  border #0e7490  outline #0891b2
           span.Button__content
             span.Button__label  color #ffffff
           span.Button__reason  color #ffffff
@@ -438,7 +438,7 @@ form.SettingsGroups__form
         span.SettingsGroups__fill  bg #22d3ee
       span.SettingsGroups__percent  color #eaf1f8
       div.SettingsGroups__actions
-        button.Button__button  bg #0e7490  border #0e7490
+        button.Button__button  bg #0e7490  border #0e7490  outline #22d3ee
           span.Button__content
             span.Button__label  color #ffffff
           span.Button__reason  color #ffffff

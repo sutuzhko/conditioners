@@ -17,7 +17,7 @@ div.Table__viewport  326×344 @32,32
       th  130×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Сплит-система 07, тихая серия»
       td[role=cell]  73×96 @130,0  Manrope 400 15/22  b0 0 1 0  lines=3  «31 900 ₽»
       td[role=cell]#2  176×96 @203,0  b0 0 1 0
-        div.TableActions__actions  140×44 @18,15
+        div.TableActions__actions  140×44 @18,26
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -37,7 +37,7 @@ div.Table__viewport  326×344 @32,32
       th  130×96 @0,0  Manrope 600 15/22  b0 0 1 0  lines=3  «Сплит-система 09, инверторная»
       td[role=cell]  73×96 @130,0  Manrope 400 15/22  b0 0 1 0  lines=3  «34 900 ₽»
       td[role=cell]#2  176×96 @203,0  b0 0 1 0
-        div.TableActions__actions#2  140×44 @18,15
+        div.TableActions__actions#2  140×44 @18,26
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#2  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -57,7 +57,7 @@ div.Table__viewport  326×344 @32,32
       th  130×96 @0,0  Manrope 600 15/22  lines=3  «Мульти-сплит на два блока»
       td[role=cell]  73×96 @130,0  Manrope 400 15/22  lines=2  «58 700 ₽»
       td[role=cell]#2  176×96 @203,0
-        div.TableActions__actions#3  140×44 @18,15
+        div.TableActions__actions#3  140×44 @18,26
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#3  44×44 @0,0
               button.TableActions__action  44×44 @0,0  r100

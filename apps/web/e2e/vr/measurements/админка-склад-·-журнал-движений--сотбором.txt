@@ -2,17 +2,17 @@
 шрифты: Manrope 400, Manrope 500, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1234
+390 → 390×1261
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-div.StockJournal__wrap  358×1202 @16,16
-  section.Card__card  358×1202 @0,0
-    div.StockJournal__head  358×532 @0,0
+div.StockJournal__wrap  358×1229 @16,16
+  section.Card__card  358×1229 @0,0
+    div.StockJournal__head  358×559 @0,0
       h2.StockJournal__title  358×21 @0,0  Onest 700 17/21  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  358×40 @0,25  Manrope 400 13/20  lines=2  «Что, куда, сколько, кто и когда. Без жур»
-      div.StockJournalFilters__filters  358×423 @0,79
+      div.StockJournalFilters__filters  358×450 @0,79
         nav.StockJournalFilters__row  358×148 @0,0
           a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
           a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
@@ -24,18 +24,18 @@ div.StockJournal__wrap  358×1202 @16,16
           a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
           a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
           a.StockJournalFilters__chip#3  131×44 @0,52  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-        form.StockJournalFilters__form  358×159 @0,264
+        form.StockJournalFilters__form  358×186 @0,264
           div.Field__field  358×103 @0,0
             label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
             input  358×49 @0,27  r11  b1
             p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-          div.StockJournalFilters__actions  193×44 @0,115
-            button.Button__button  69×44 @0,0  r9  b1
+          div.StockJournalFilters__actions  193×71 @0,115
+            button.Button__button  69×44 @0,27  r9  b1
               span.Button__content  39×16 @15,14
                 span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-            a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
-      p.StockJournal__found  358×20 @0,511  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
-    div.StockJournal__scroller  358×670 @0,532
+            a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      p.StockJournal__found  358×20 @0,538  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
+    div.StockJournal__scroller  358×670 @0,559
       div.Table__viewport  358×670 @0,0
         table.Table__table  358×670 @0,0
           tr[role=row]  1×56 @0,0
@@ -118,11 +118,11 @@ div.StockJournal__wrap  736×836 @16,16
             label.Field__label  493×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
             input  493×49 @0,27  r11  b1
             p.Field__hint  493×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-          div.StockJournalFilters__actions  193×70 @505,0
-            button.Button__button  69×44 @0,26  r9  b1
+          div.StockJournalFilters__actions  193×71 @505,0
+            button.Button__button  69×44 @0,27  r9  b1
               span.Button__content  39×16 @15,14
                 span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-            a.StockJournalFilters__reset  112×24 @81,36  Manrope 400 15/22  lines=1  «Сбросить отбор»
+            a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
       p.StockJournal__found  698×20 @18,350  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
     div.StockJournal__scroller  734×463 @1,371
       div.Table__viewport  734×463 @0,0
@@ -139,7 +139,7 @@ div.StockJournal__wrap  736×836 @16,16
             th#9  155×56 @907,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
           tr.StockJournal__row  1062×96 @0,56
             td.StockJournal__when  116×96 @0,0  b0 0 1 0
-              time  80×41 @18,16  Manrope 400 15/22  lines=2  «20.08.2026, 10:15»
+              time  80×41 @18,27  Manrope 400 15/22  lines=2  «20.08.2026, 10:15»
             td.StockJournal__kind  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Приход»
             td.StockJournal__itemCell  100×96 @268,0  b0 0 1 0
               a.StockJournal__item  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
@@ -151,7 +151,7 @@ div.StockJournal__wrap  736×836 @16,16
             td.StockJournal__reason  155×96 @907,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Накладная 4517»
           tr.StockJournal__row#2  1062×96 @0,152
             td.StockJournal__when  116×96 @0,0  b0 0 1 0
-              time#2  79×41 @18,16  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
+              time#2  79×41 @18,27  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
             td.StockJournal__kind  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Перемещение»
             td.StockJournal__itemCell  100×96 @268,0  b0 0 1 0
               a.StockJournal__item#2  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
@@ -163,7 +163,7 @@ div.StockJournal__wrap  736×836 @16,16
             td.StockJournal__reason  155×96 @907,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
           tr.StockJournal__row#3  1062×96 @0,249
             td.StockJournal__when  116×96 @0,0  b0 0 1 0
-              time#3  80×41 @18,16  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
+              time#3  80×41 @18,27  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
             td.StockJournal__kind  152×96 @116,0  Manrope 400 15/22  b0 0 1 0  lines=2  «Списание в наряд»
             td.StockJournal__itemCell  100×96 @268,0  b0 0 1 0
               a.StockJournal__item#3  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
@@ -176,16 +176,16 @@ div.StockJournal__wrap  736×836 @16,16
             td.StockJournal__reason  155×96 @907,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
           tr.StockJournal__row#4  1062×118 @0,345
             td.StockJournal__when  116×118 @0,0
-              time#4  77×41 @18,16  Manrope 400 15/22  lines=2  «27.08.2026, 09:00»
+              time#4  77×41 @18,38  Manrope 400 15/22  lines=2  «27.08.2026, 09:00»
             td.StockJournal__kind  152×118 @116,0  Manrope 400 15/22  lines=1  «Инвентаризация»
             td.StockJournal__itemCell  100×118 @268,0
-              a.StockJournal__item#4  64×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
+              a.StockJournal__item#4  64×67 @18,26  Manrope 600 15/22  lines=3  «Труба медная 1/4″»
             td.StockJournal__qty  98×118 @368,0  Manrope 600 15/22  lines=1  «−2,5 м»
             td.StockJournal__from  130×118 @466,0  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__to  130×118 @597,0  Manrope 400 15/22  lines=2  «Гараж на Демидовской»
             td.StockJournal__orderCell  83×118 @727,0  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__author  97×118 @810,0
-              span.StockJournal__gone  49×41 @18,16  Manrope 400 15/22  lines=2  «автор удалён»
+              span.StockJournal__gone  49×41 @18,38  Manrope 400 15/22  lines=2  «автор удалён»
             td.StockJournal__reason  155×118 @907,0  Manrope 400 15/22  lines=4  «Пересчёт после инвентаризации: обрезки н»
 
 [геометрия 1440]
@@ -211,11 +211,11 @@ div.StockJournal__wrap  1408×653 @16,16
             label.Field__label  1165×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
             input  1165×49 @0,27  r11  b1
             p.Field__hint  1165×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-          div.StockJournalFilters__actions  193×66 @1177,0
-            button.Button__button  69×40 @0,26  r9  b1
+          div.StockJournalFilters__actions  193×67 @1177,0
+            button.Button__button  69×40 @0,27  r9  b1
               span.Button__content  39×16 @15,12
                 span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-            a.StockJournalFilters__reset  112×24 @81,34  Manrope 400 15/22  lines=1  «Сбросить отбор»
+            a.StockJournalFilters__reset  112×24 @81,35  Manrope 400 15/22  lines=1  «Сбросить отбор»
       p.StockJournal__found  1370×20 @18,280  Manrope 400 13/20  lines=1  «Найдено: 4 движения»
     div.StockJournal__scroller  1406×351 @1,301
       div.Table__viewport  1406×351 @0,0
@@ -278,7 +278,7 @@ div.StockJournal__wrap  1408×653 @16,16
             td.StockJournal__to  165×73 @694,0  Manrope 400 15/22  lines=2  «Гараж на Демидовской»
             td.StockJournal__orderCell  112×73 @859,0  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__author  131×73 @971,0
-              span.StockJournal__gone  93×19 @18,16  Manrope 400 15/22  lines=1  «автор удалён»
+              span.StockJournal__gone  93×19 @18,27  Manrope 400 15/22  lines=1  «автор удалён»
             td.StockJournal__reason  304×73 @1102,0  Manrope 400 15/22  lines=2  «Пересчёт после инвентаризации: обрезки н»
 
 [палитра light]

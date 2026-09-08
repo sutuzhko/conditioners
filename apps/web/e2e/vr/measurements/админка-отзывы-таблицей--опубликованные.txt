@@ -85,7 +85,7 @@ section.Card__card  736×250 @16,16  r20  b1
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  734×96 @0,56
         td[role=cell]  200×96 @0,0  b0 0 1 0
-          span.ReviewTable__author  164×39 @18,15
+          span.ReviewTable__author  164×39 @18,28
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
@@ -101,16 +101,16 @@ section.Card__card  736×250 @16,16  r20  b1
         td[role=cell]#2  204×96 @200,0  b0 0 1 0
           blockquote.ReviewTable__text  168×67 @18,15  Manrope 400 15/22  lines=4  clipped  «Приехали в тот же день, смету назвали за»
         td.ReviewTable__cellDate  120×96 @404,0  b0 0 1 0
-          time.ReviewTable__when  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when  79×19 @18,38  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#3  210×96 @524,0  b0 0 1 0
-          div.ReviewRowActions__cell  174×44 @18,15
+          div.ReviewRowActions__cell  174×44 @18,26
             div.ReviewRowActions__actions  118×44 @0,0
               button.Button__button  118×44 @0,0  r9  b1
                 span.Button__content  88×16 @15,14
                   span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
       tr[role=row]#3  734×96 @0,152
         td[role=cell]  200×96 @0,0
-          span.ReviewTable__author#2  164×39 @18,15
+          span.ReviewTable__author#2  164×39 @18,28
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
               span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
@@ -126,9 +126,9 @@ section.Card__card  736×250 @16,16  r20  b1
         td[role=cell]#2  204×96 @200,0
           blockquote.ReviewTable__text#2  168×67 @18,15  Manrope 400 15/22  lines=4  clipped  «Ставили сплит в 2019-м, работает до сих»
         td.ReviewTable__cellDate  120×96 @404,0
-          time.ReviewTable__when#2  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#2  79×19 @18,38  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#3  210×96 @524,0
-          div.ReviewRowActions__cell#2  174×44 @18,15
+          div.ReviewRowActions__cell#2  174×44 @18,26
             div.ReviewRowActions__actions  118×44 @0,0
               button.Button__button#2  118×44 @0,0  r9  b1
                 span.Button__content  88×16 @15,14
@@ -147,23 +147,23 @@ section.Card__card  1408×195 @16,16  r20  b1
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  1406×69 @0,56
         td[role=cell]  200×69 @0,0  b0 0 1 0
-          span.ReviewTable__author  164×28 @18,15
+          span.ReviewTable__author  164×28 @18,21
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
             span.ReviewTable__who  60×22 @38,3
               span.ReviewTable__name  60×22 @0,0  Manrope 600 15/22  lines=1  «Алексей»
         td.ReviewTable__colRating  135×69 @200,0  b0 0 1 0
-          span.Rating__stars  99×15 @18,16
+          span.Rating__stars  99×15 @18,24
             svg.Rating__star  15×15 @0,0
             svg.Rating__star#2  15×15 @21,0
             svg.Rating__star#3  15×15 @42,0
             svg.Rating__star#4  15×15 @63,0
             svg.Rating__star#5  15×15 @84,0
         td[role=cell]#2  741×69 @335,0  b0 0 1 0
-          blockquote.ReviewTable__text  705×22 @18,15  Manrope 400 15/22  lines=1  «Приехали в тот же день, смету назвали за»
+          blockquote.ReviewTable__text  705×22 @18,23  Manrope 400 15/22  lines=1  «Приехали в тот же день, смету назвали за»
         td.ReviewTable__cellDate  120×69 @1076,0  b0 0 1 0
-          time.ReviewTable__when  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when  79×19 @18,24  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#3  210×69 @1196,0  b0 0 1 0
           div.ReviewRowActions__cell  174×40 @18,15
             div.ReviewRowActions__actions  118×40 @0,0
@@ -172,23 +172,23 @@ section.Card__card  1408×195 @16,16  r20  b1
                   span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
       tr[role=row]#3  1406×69 @0,125
         td[role=cell]  200×69 @0,0
-          span.ReviewTable__author#2  164×28 @18,15
+          span.ReviewTable__author#2  164×28 @18,21
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
               span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
             span.ReviewTable__who  52×22 @38,3
               span.ReviewTable__name#2  52×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
         td.ReviewTable__colRating  135×69 @200,0
-          span.Rating__stars#2  99×15 @18,16
+          span.Rating__stars#2  99×15 @18,24
             svg.Rating__star  15×15 @0,0
             svg.Rating__star#2  15×15 @21,0
             svg.Rating__star#3  15×15 @42,0
             svg.Rating__star#4  15×15 @63,0
             svg.Rating__star#5  15×15 @84,0
         td[role=cell]#2  741×69 @335,0
-          blockquote.ReviewTable__text#2  705×22 @18,15  Manrope 400 15/22  lines=1  «Ставили сплит в 2019-м, работает до сих»
+          blockquote.ReviewTable__text#2  705×22 @18,23  Manrope 400 15/22  lines=1  «Ставили сплит в 2019-м, работает до сих»
         td.ReviewTable__cellDate  120×69 @1076,0
-          time.ReviewTable__when#2  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#2  79×19 @18,24  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#3  210×69 @1196,0
           div.ReviewRowActions__cell#2  174×40 @18,15
             div.ReviewRowActions__actions  118×40 @0,0

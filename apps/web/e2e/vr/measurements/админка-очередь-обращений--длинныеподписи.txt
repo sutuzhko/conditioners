@@ -57,13 +57,13 @@ section.Card__card  736×277 @16,16  r20  b1
           a.LeadQueue__name  146×90 @18,15  Manrope 600 15/22  lines=4  «Константинопольская-Твердолобова Аполлин»
           span.LeadQueue__address  146×101 @18,104  Manrope 400 13/20  lines=5  «Новомосковск, микрорайон Урванский, Комс»
         td.LeadQueue__topic  205×219 @252,0
-          span.Badge__badge  169×73 @18,15  Manrope 600 12/16  r100  b1  lines=4  «Установка мультисплит-системы на два вну»
+          span.Badge__badge  169×73 @18,73  Manrope 600 12/16  r100  b1  lines=4  «Установка мультисплит-системы на два вну»
         td.LeadQueue__when  104×219 @458,0
-          time  68×18 @18,16  Manrope 400 13/20  lines=1  «1 час назад»
+          time  68×18 @18,101  Manrope 400 13/20  lines=1  «1 час назад»
         td[role=cell]  92×219 @562,0
-          span.Badge__badge  56×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+          span.Badge__badge  56×24 @18,98  Manrope 600 12/16  r100  b1  lines=1  «Новая»
         td.LeadQueue__actions  80×219 @654,0
-          div.LeadRowActions__wrap  44×44 @18,15
+          div.LeadRowActions__wrap  44×44 @18,88
             div.RowMenu__root  44×44 @0,0
               button.RowMenu__trigger  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
@@ -86,13 +86,13 @@ section.Card__card  1408×149 @16,16  r20  b1
           a.LeadQueue__name  503×22 @18,15  Manrope 600 15/22  lines=1  «Константинопольская-Твердолобова Аполлин»
           span.LeadQueue__address  503×40 @18,37  Manrope 400 13/20  lines=2  «Новомосковск, микрорайон Урванский, Комс»
         td.LeadQueue__topic  520×91 @610,0
-          span.Badge__badge  484×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка мультисплит-системы на два вну»
+          span.Badge__badge  484×40 @18,26  Manrope 600 12/16  r100  b1  lines=2  «Установка мультисплит-системы на два вну»
         td.LeadQueue__when  104×91 @1130,0
-          time  68×18 @18,16  Manrope 400 13/20  lines=1  «1 час назад»
+          time  68×18 @18,37  Manrope 400 13/20  lines=1  «1 час назад»
         td[role=cell]  92×91 @1234,0
-          span.Badge__badge  56×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Новая»
+          span.Badge__badge  56×24 @18,34  Manrope 600 12/16  r100  b1  lines=1  «Новая»
         td.LeadQueue__actions  80×91 @1326,0
-          div.LeadRowActions__wrap  44×44 @18,15
+          div.LeadRowActions__wrap  44×44 @18,24
             div.RowMenu__root  44×44 @0,0
               button.RowMenu__trigger  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
