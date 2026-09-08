@@ -2,6 +2,13 @@ import type { Preview } from '@storybook/nextjs-vite';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import '../src/shared/styles/global.css';
 
+/**
+ * Раздел витрины, который показывает панель. Заголовок — единственный признак
+ * раздела, доступный глобальному декоратору, и он же тот, по которому раздел
+ * отбирают снепшоты и измерения.
+ */
+const PANEL_SECTION = 'Админка/';
+
 const preview: Preview = {
   initialGlobals: { viewport: { value: 'lg' } },
   parameters: {
@@ -24,6 +31,28 @@ const preview: Preview = {
     nextjs: { appDirectory: true },
   },
   decorators: [
+    /* 🔴 Раздел «Админка» идёт внутри контейнера панели (issue #867).
+       Плотность, радиусы, заливка поля и тени панели объявлены на
+       `[data-ui='panel']` и на `body:has([data-ui='panel'])` — на живой
+       странице атрибут ставит `NavState`, а на витрине не ставил никто, и
+       105 историй из 111 показывали геометрию витрины: кнопка радиусом 9
+       вместо пилюли, с тенью, которой в панели нет, и высотой 44 там, где на
+       странице 32 (замер по `админка-склад-·-разбивка--базовое`).
+
+       Признак — заголовок, а не декоратор в каждом файле. Ста пяти копий
+       одного и того же не бывает без пропусков: три недели держались шесть,
+       и каждая заводилась своим issue, когда дефект уже дошёл до владельца.
+       Разделы `UI Kit/` и `Кит/` сюда не попадают намеренно: половина их
+       историй существует ровно затем, чтобы показать разницу витрины и
+       панели, и общая обёртка стёрла бы её. */
+    (Story, context) =>
+      context.title.startsWith(PANEL_SECTION) ? (
+        <div data-ui="panel">
+          <Story />
+        </div>
+      ) : (
+        <Story />
+      ),
     withThemeByDataAttribute({
       themes: { light: 'light', dark: 'dark' },
       defaultTheme: 'light',
