@@ -3,7 +3,7 @@
 
 [документ]
 390 → 390×900
-768 → 768×960
+768 → 768×906
 1440 → 1440×900
 
 [геометрия 390]
@@ -138,25 +138,28 @@ div.StockTable__wrap  358×766 @16,16
                     svg#4  16×16 @0,0
     div.StockPager__pager  358×129 @0,495  b1 0 0 0
       div.StockPager__nav  326×52 @16,13
-        nav.Pager__pager  170×52 @78,0
-          a.Pager__step  44×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-            span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
-          span.Pager__position  66×44 @52,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 3»
-          a.Pager__step#2  44×44 @126,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-            span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
-          p[role=status]  1×1 @84,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
-      span.StockPager__size  326×44 @16,73
-        a.StockPager__sizeItem  44×44 @93,0  r100  b1
-          span  8×16 @18,14  Manrope 600 13/16  lines=1  «8»
-        span.StockPager__sizeOn  44×44 @141,0  Manrope 700 13/16  r100  b1  lines=1  «20»
-        a.StockPager__sizeItem#2  44×44 @189,0  r100  b1
-          span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
+        nav.Pager__pager  144×52 @91,0
+          a.Pager__step  44×44 @0,4  r100  b1
+            span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+          span.Pager__count  40×22 @52,15  Manrope 600 15/22  lines=1  «2 из 3»
+          a.Pager__step#2  44×44 @100,4  r100  b1
+            span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
+          p[role=status]  1×1 @71,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
+      span.PageSize__root  326×44 @16,73
+        span.PageSize__title  1×1 @163,22  Manrope 400 13/20  lines=1  clipped  «Строк на странице»
+        div.Field__field  75×44 @126,0
+          span.Select__wrapper  75×44 @0,0
+            select.Select__select  75×44 @0,0  r100  b1
+              option  0×0 @-157,-584  Manrope 400 15/21  lines=0  «8»
+              option#2  0×0 @-157,-584  Manrope 400 15/21  lines=0  «20»
+              option#3  0×0 @-157,-584  Manrope 400 15/21  lines=0  «50»
+            svg.Select__chevron  14×14 @47,15
   p[role=status]  1×1 @-1,-1
   p.StockTable__warning  358×130 @0,636  Manrope 400 15/22  r11  b1  lines=5  «Минус означает, что списали больше, чем»
 
 [геометрия 768]
-div.StockTable__wrap  736×928 @16,16
-  section.Card__card  736×821 @0,0  r20  b1
+div.StockTable__wrap  736×874 @16,16
+  section.Card__card  736×767 @0,0  r20  b1
     div.Table__viewport  734×688 @1,1
       table.Table__table  1118×688 @0,0
         tr[role=row]  1118×116 @0,0
@@ -263,29 +266,31 @@ div.StockTable__wrap  736×928 @16,16
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
                     svg#4  16×16 @0,0
-    div.StockPager__pager  734×131 @1,689  b1 0 0 0
+    div.StockPager__pager  734×77 @1,689  b1 0 0 0
       span.StockPager__count  160×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 47 позиций»
       div.StockPager__nav  0×0 @-17,-705
-        nav.Pager__pager  347×52 @388,718
-          a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-            span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
-          ol.Pager__numbers  135×44 @100,4
+        nav.Pager__pager  252×52 @238,718
+          a.Pager__step  44×44 @0,4  r100  b1
+            span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+          ol.Pager__numbers  140×44 @56,4
             a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-            span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-            a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-          a.Pager__step#2  100×44 @247,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-            span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
-          p[role=status]  1×1 @173,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
-      span.StockPager__size  265×44 @16,75
-        span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
-        a.StockPager__sizeItem  44×44 @125,0  r100  b1
-          span  8×16 @18,14  Manrope 600 13/16  lines=1  «8»
-        span.StockPager__sizeOn  44×44 @173,0  Manrope 600 13/16  r100  b1  lines=1  «20»
-        a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
-          span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
+            span.Pager__current  44×44 @48,0  Manrope 700 15/17  r100  b1  lines=1  «2»
+            a.Pager__number#2  44×44 @96,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+          a.Pager__step#2  44×44 @208,4  r100  b1
+            span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
+          p[role=status]  1×1 @126,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
+      span.PageSize__root  200×44 @518,17
+        span.PageSize__title  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+        div.Field__field  75×44 @125,0
+          span.Select__wrapper  75×44 @0,0
+            select.Select__select  75×44 @0,0  r100  b1
+              option  0×0 @-660,-722  Manrope 400 15/21  lines=0  «8»
+              option#2  0×0 @-660,-722  Manrope 400 15/21  lines=0  «20»
+              option#3  0×0 @-660,-722  Manrope 400 15/21  lines=0  «50»
+            svg.Select__chevron  14×14 @47,15
   p[role=status]  1×1 @-1,-1
-  p.StockTable__hint  736×20 @0,833  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
-  p.StockTable__warning  736×63 @0,865  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
+  p.StockTable__hint  736×20 @0,779  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
+  p.StockTable__warning  736×63 @0,811  Manrope 400 15/22  r11  b1  lines=2  «Минус означает, что списали больше, чем»
 
 [геометрия 1440]
 div.StockTable__wrap  1408×678 @16,16
@@ -399,23 +404,25 @@ div.StockTable__wrap  1408×678 @16,16
     div.StockPager__pager  1406×77 @1,483  b1 0 0 0
       span.StockPager__count  160×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 47 позиций»
       div.StockPager__nav  0×0 @-17,-499
-        nav.Pager__pager  347×52 @494,512
-          a.Pager__step  88×44 @0,4  Manrope 600 15/17  r100  b1  lines=1  «←»
-            span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
-          ol.Pager__numbers  135×44 @100,4
+        nav.Pager__pager  252×52 @574,512
+          a.Pager__step  44×44 @0,4  r100  b1
+            span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+          ol.Pager__numbers  140×44 @56,4
             a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-            span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
-            a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-          a.Pager__step#2  100×44 @247,4  Manrope 600 15/17  r100  b1  lines=1  «→»
-            span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
-          p[role=status]  1×1 @173,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
-      span.StockPager__size  265×44 @1125,17
-        span.StockPager__sizeTitle  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
-        a.StockPager__sizeItem  44×44 @125,0  r100  b1
-          span  8×16 @18,14  Manrope 600 13/16  lines=1  «8»
-        span.StockPager__sizeOn  44×44 @173,0  Manrope 600 13/16  r100  b1  lines=1  «20»
-        a.StockPager__sizeItem#2  44×44 @221,0  r100  b1
-          span  16×16 @14,14  Manrope 600 13/16  lines=1  «50»
+            span.Pager__current  44×44 @48,0  Manrope 700 15/17  r100  b1  lines=1  «2»
+            a.Pager__number#2  44×44 @96,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+          a.Pager__step#2  44×44 @208,4  r100  b1
+            span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
+          p[role=status]  1×1 @126,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
+      span.PageSize__root  200×44 @1190,17
+        span.PageSize__title  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
+        div.Field__field  75×44 @125,0
+          span.Select__wrapper  75×44 @0,0
+            select.Select__select  75×44 @0,0  r100  b1
+              option  0×0 @-1332,-516  Manrope 400 15/21  lines=0  «8»
+              option#2  0×0 @-1332,-516  Manrope 400 15/21  lines=0  «20»
+              option#3  0×0 @-1332,-516  Manrope 400 15/21  lines=0  «50»
+            svg.Select__chevron  14×14 @47,15
   p[role=status]  1×1 @-1,-1
   p.StockTable__hint  1408×20 @0,573  Manrope 400 13/20  lines=1  «Таблица прокручивается вбок, название по»
   p.StockTable__hint#2  1408×20 @0,605  Manrope 400 13/20  lines=1  «Остаток можно перетащить мышью в другую»
@@ -534,22 +541,24 @@ div.StockTable__wrap
       span.StockPager__count  color #5b6a7d
       div.StockPager__nav
         nav.Pager__pager
-          a.Pager__step  color #0e7490  border #7e8fa6
-            span.Pager__stepText  color #0e7490
+          a.Pager__step  border transparent
+            span  color #0e7490
           ol.Pager__numbers
             a.Pager__number  color #0e7490  border transparent
-            span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+            span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
             a.Pager__number#2  color #0e7490  border transparent
-          a.Pager__step#2  color #0e7490  border #7e8fa6
-            span.Pager__stepText  color #0e7490
+          a.Pager__step#2  border transparent
+            span  color #0e7490
           p[role=status]  color #475569
-      span.StockPager__size
-        span.StockPager__sizeTitle  color #5b6a7d
-        a.StockPager__sizeItem  border #7e8fa6
-          span  color #0e7490
-        span.StockPager__sizeOn  color #ffffff  bg #0e7490  border #0e7490
-        a.StockPager__sizeItem#2  border #7e8fa6
-          span  color #0e7490
+      span.PageSize__root
+        span.PageSize__title  color #5b6a7d
+        div.Field__field
+          span.Select__wrapper
+            select.Select__select  border #7e8fa6
+              option  color #0f172a
+              option#2  color #0f172a
+              option#3  color #0f172a
+            svg.Select__chevron
   p[role=status]
   p.StockTable__hint  color #5b6a7d
   p.StockTable__hint#2  color #5b6a7d
@@ -638,12 +647,7 @@ div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__t
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesName  color #556173
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesQty  color #0f172a
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__menuCell
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem  border transparent
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem > span  color #0f172a
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > span.StockPager__sizeOn  color #0f172a  border transparent
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2  border transparent
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2 > span  color #0f172a
+div.StockTable__wrap > section.Card__card > div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__count  color #556173
 [палитра light @768]
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__numberHead#4  color #0f172a  bg #ffffff  border #0f172a #0f172a #e2e8f0 #0f172a
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number  border #334155 #334155 #eef2f6 #334155
@@ -772,22 +776,24 @@ div.StockTable__wrap
       span.StockPager__count  color #7e92a7
       div.StockPager__nav
         nav.Pager__pager
-          a.Pager__step  color #22d3ee  border #566d95
-            span.Pager__stepText  color #22d3ee
+          a.Pager__step  border transparent
+            span  color #22d3ee
           ol.Pager__numbers
             a.Pager__number  color #22d3ee  border transparent
-            span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+            span.Pager__current  color #ffffff  bg #0e7490  border #0e7490
             a.Pager__number#2  color #22d3ee  border transparent
-          a.Pager__step#2  color #22d3ee  border #566d95
-            span.Pager__stepText  color #22d3ee
+          a.Pager__step#2  border transparent
+            span  color #22d3ee
           p[role=status]  color #a8b6c6
-      span.StockPager__size
-        span.StockPager__sizeTitle  color #7e92a7
-        a.StockPager__sizeItem  border #566d95
-          span  color #22d3ee
-        span.StockPager__sizeOn  color #ffffff  bg #0e7490  border #0e7490
-        a.StockPager__sizeItem#2  border #566d95
-          span  color #22d3ee
+      span.PageSize__root
+        span.PageSize__title  color #7e92a7
+        div.Field__field
+          span.Select__wrapper
+            select.Select__select  border #566d95
+              option  color #eaf1f8
+              option#2  color #eaf1f8
+              option#3  color #eaf1f8
+            svg.Select__chevron
   p[role=status]
   p.StockTable__hint  color #7e92a7
   p.StockTable__hint#2  color #7e92a7
@@ -876,12 +882,7 @@ div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__t
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesName  color #556173
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__zonesCell > details.StockTable__zones#4 > ul.StockTable__zonesList > li.StockTable__zonesItem#7 > span.StockTable__zonesQty  color #0f172a
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row#4 > td.StockTable__menuCell
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem  border transparent
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem > span  color #eaf1f8
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > span.StockPager__sizeOn  color #eaf1f8  border transparent
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2  border transparent
-div.StockTable__wrap > section.Card__card > div.StockPager__pager > span.StockPager__size > a.StockPager__sizeItem#2 > span  color #eaf1f8
+div.StockTable__wrap > section.Card__card > div.StockPager__pager > div.StockPager__nav > nav.Pager__pager > span.Pager__count  color #8598ac
 [палитра dark @768]
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr[role=row] > th.StockTable__numberHead#4  color #eaf1f8  bg #121d31  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
 div.StockTable__wrap > section.Card__card > div.Table__viewport > table.Table__table > tr.StockTable__row > td.StockTable__number  border #c9d5e2 #c9d5e2 #182338 #c9d5e2

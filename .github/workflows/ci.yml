@@ -83,6 +83,14 @@ jobs:
       - run: pnpm lint
       - run: pnpm lint:css
       - run: pnpm typecheck
+
+      # 🔴 Вторая проверка типов — по копии контракта маршрутов (issue #883).
+      # Типы `typedRoutes` живут в `.next/types`, которого здесь нет: без них
+      # `Route` вырождается в `string`, и `router.push(строка)` проходит
+      # молча, чтобы упасть через десять минут на сборке образа. Копия
+      # подставляется вместо `.next/types` и ловит это за секунды.
+      - run: pnpm typecheck:routes
+
       - run: pnpm test
 
       # 🔴 Витрина компонентов обязана собираться. Историй больше сотни, и до
@@ -119,6 +127,13 @@ jobs:
           docker cp "$id:/app/apps/web/.next" ./next-build
           docker rm "$id"
           node scripts/js-budget.mjs ./next-build --strict
+
+      # 🔴 Единственное место, где копия контракта маршрутов сверяется не с
+      # собой, а с Next (issue #883): сборка только что написала свой список
+      # адресов. Тест в `pnpm test` держит копию в ногу с деревом `app/`, но
+      # общую ошибку в правилах обхода он бы повторил — а этот шаг нет.
+      - name: Копия контракта маршрутов против сборки
+        run: node scripts/routes-contract.mjs --witness ./next-build/types/link.d.ts
 
   # 🔴 Снимки историй — отдельными работами, а не шагом в `check`.
   #
@@ -1627,13 +1642,19 @@ jobs:
           merge-multiple: true
           path: vr-partials
 
-      # Частичные всех шардов → файл на историю. Отчёт сборки читает
-      # сравнение: история без полного набора пар — отказ, а не изменение.
+      # Частичные всех шардов → файл на историю. Рядом с файлами ложится
+      # паспорт замера `manifest.json`: история без полного набора пар — отказ,
+      # а не изменение, и его читает сравнение.
+      #
+      # 🔴 Паспорт лежит в том же каталоге, что и файлы, нарочно (issue #865):
+      # каталог уезжает артефактом целиком, и забыть выгрузить паспорт нельзя.
+      # Без него забирающий не отличит «историю пропустили по графу» от
+      # «историю удалили» и снесёт чужие измерения.
       - name: Сборка файлов историй
         if: steps.scope.outputs.pixels == 'true'
         run: |
           node scripts/measurements-assemble.mjs \
-            --partials vr-partials --out measurements-new --report assemble-report.json
+            --partials vr-partials --out measurements-new
 
       # 🔴 Обновлённые файлы — артефактом и ДО вердикта: и при зелёном, и при
       # красном разработчику нужно, что забирать. Push из работы отвергнут:
@@ -1670,7 +1691,7 @@ jobs:
         run: |
           node scripts/measurements-compare.mjs \
             --committed apps/web/e2e/vr/measurements --actual measurements-new \
-            --assemble-report assemble-report.json
+            --assemble-report measurements-new/manifest.json
           [ "${{ steps.runner.outputs.flag }}" = "success" ]
 
       # 🔴 Работа, у которой шлюз не отработал, обязана краснеть, а не молчать

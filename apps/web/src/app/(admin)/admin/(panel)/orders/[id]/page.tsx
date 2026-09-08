@@ -18,7 +18,8 @@ import {
   type ConsumptionLoad,
 } from '@/features/order-manager';
 import type { AdminSession } from '@/server/auth';
-import { requirePage } from '@/server/guards';
+import { FIELD } from '@/entities/staff/access';
+import { requireRolePage } from '@/server/guards';
 import { findById, type Viewer } from '@/server/repo/orders';
 import { consumptionOf, directory } from '@/server/repo/stock';
 import { TabLinks } from '@/shared/ui';
@@ -38,7 +39,7 @@ type PageProps = {
 
 export async function generateMetadata({ params }: Pick<PageProps, 'params'>): Promise<Metadata> {
   const { id } = await params;
-  const session = await requirePage();
+  const session = await requireRolePage(FIELD);
   const order = await findById(id, { role: session.role, userId: session.userId });
 
   return { title: order === null ? texts.cardTitle : texts.number(order.number) };
@@ -90,7 +91,7 @@ async function loadConsumption(orderId: string, viewer: Viewer): Promise<Consump
 type OrderOnCard = NonNullable<Awaited<ReturnType<typeof findById>>>;
 
 export default async function AdminOrderPage({ params, searchParams }: PageProps) {
-  const session = await requirePage();
+  const session = await requireRolePage(FIELD);
   const { id } = await params;
 
   /* Вкладка разбирается здесь, на сервере: карточка приходит открытой на той,

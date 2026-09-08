@@ -1,21 +1,23 @@
 /**
  * Наряды — docs/API.md §13.
  *
- * Список открыт обеим ролям: монтажник работает в той же панели и видит в ней
- * свои выезды. Что именно он увидит, решает репозиторий — там же, где стоит
- * фильтр по исполнителю (CRM.md §6). Заводит наряды только владелец.
+ * Список открыт владельцу и монтажнику (перечень `FIELD`): монтажник работает
+ * в той же панели и видит в ней свои выезды. Что именно он увидит, решает
+ * репозиторий — там же, где стоит фильтр по исполнителю (CRM.md §6). Заводит
+ * наряды только владелец.
  *
  * Ревалидации здесь нет: наряды на публичных страницах не показываются.
  */
 import { isOrderPeriod, isOrderTab, orderCreateSchema } from '@/entities/order/model';
-import { json, readJson, validationError, withAdmin, withOwner } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { json, readJson, validationError, withOwner, withRoles } from '@/server/http';
 import { notifyOrderCreated } from '@/server/notifications/orders';
 import { create, isOrderSort, list } from '@/server/repo/orders';
 import { pageNumber } from '@/shared/lib/paging';
 
 export const dynamic = 'force-dynamic';
 
-export const GET = withAdmin(async (request, _context, session) => {
+export const GET = withRoles(FIELD, async (request, _context, session) => {
   const params = request.nextUrl.searchParams;
 
   const tab = params.get('tab');

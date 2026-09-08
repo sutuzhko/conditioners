@@ -8,14 +8,15 @@
  * Монтажнику доступно только своё списание и только пока наряд не закрыт —
  * разбирает это репозиторий.
  */
-import { json, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { json, withRoles } from '@/server/http';
 import { cancelConsumption } from '@/server/repo/stock';
 
 export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string; move: string }> };
 
-export const DELETE = withAdmin(async (_request, context: Context, session) => {
+export const DELETE = withRoles(FIELD, async (_request, context: Context, session) => {
   const { id, move } = await context.params;
 
   const movement = await cancelConsumption(id, move, {

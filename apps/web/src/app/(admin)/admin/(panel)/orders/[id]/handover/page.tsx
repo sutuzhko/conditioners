@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { OrderHandover, installerContent as own } from '@/features/order-manager';
-import { requirePage } from '@/server/guards';
+import { FIELD } from '@/entities/staff/access';
+import { requireRolePage } from '@/server/guards';
 import { findById } from '@/server/repo/orders';
 
 import styles from '../../page.module.css';
@@ -34,7 +35,7 @@ type PageProps = { params: Promise<{ id: string }> };
  * и способ оплаты он и так видит в карточке наряда.
  */
 export default async function AdminOrderHandoverPage({ params }: PageProps) {
-  const session = await requirePage();
+  const session = await requireRolePage(FIELD);
   const { id } = await params;
 
   const order = await findById(id, { role: session.role, userId: session.userId });

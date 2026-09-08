@@ -1,20 +1,22 @@
 /**
  * Фотографии наряда — docs/API.md §13, разбор — docs/CRM.md §3.3.
  *
- * Маршрут открыт обеим ролям, но этапы у них разные: «до» — место установки,
- * его снимает владелец; «после» — выполненные работы, их снимает монтажник.
+ * Маршрут открыт владельцу и монтажнику (перечень `FIELD`), но этапы у них
+ * разные: «до» — место установки, его снимает владелец; «после» — выполненные
+ * работы, их снимает монтажник.
  * 🔴 Правило проверяет репозиторий, а не форма: у монтажника нет кнопки
  * «загрузить фото до», но защита не в этом (CRM.md §6).
  */
 import { isPhotoStage } from '@/entities/order/model';
-import { apiError, json, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { apiError, json, withRoles } from '@/server/http';
 import { addPhoto } from '@/server/repo/order-files';
 
 export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string }> };
 
-export const POST = withAdmin(async (request, context: Context, session) => {
+export const POST = withRoles(FIELD, async (request, context: Context, session) => {
   const { id } = await context.params;
 
   const form = await request.formData();

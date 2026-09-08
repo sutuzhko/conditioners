@@ -6,22 +6,26 @@
  * же заявке. До ADR-171 снимок отдавался публичным `/api/media/{name}` всякому,
  * кто знает имя файла.
  *
- * Заявки в панели видит только владелец (`withOwner`), поэтому и снимок —
- * тоже. Ответ помечен `private, no-store`: между панелью и браузером стоит
- * Caddy, и снимок в общем кеше — та же утечка, только отложенная.
+ * Снимок закрыт тем же перечнем, что и само обращение, — клиентским циклом
+ * (ADR-344): карточка рисует его тегом `img`, то есть обычным запросом
+ * браузера с той же сессией. Разойдись перечни — менеджер, которому раздел
+ * открыт, видел бы на месте фотографии битую картинку. Ответ помечен
+ * `private, no-store`: между панелью и браузером стоит Caddy, и снимок в общем
+ * кеше — та же утечка, только отложенная.
  */
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { Readable } from 'node:stream';
 
-import { notFound, withOwner } from '@/server/http';
+import { CLIENT_CYCLE } from '@/entities/staff/access';
+import { notFound, withRoles } from '@/server/http';
 import { findPhotoFile } from '@/server/repo/leads';
 
 export const dynamic = 'force-dynamic';
 
 type Context = { params: Promise<{ id: string }> };
 
-export const GET = withOwner(async (_request, context: Context) => {
+export const GET = withRoles(CLIENT_CYCLE, async (_request, context: Context) => {
   const { id } = await context.params;
   const photo = await findPhotoFile(id);
 

@@ -1,4 +1,5 @@
-import { json, withAdmin } from '@/server/http';
+import { FIELD } from '@/entities/staff/access';
+import { json, withRoles } from '@/server/http';
 import { search } from '@/server/repo/crm';
 
 export const dynamic = 'force-dynamic';
@@ -15,7 +16,7 @@ export const dynamic = 'force-dynamic';
  * поиска, и отвечать на него `400` значило бы мигать ошибкой при каждом
  * стирании строки.
  */
-export const GET = withAdmin(async (request, _context, session) => {
+export const GET = withRoles(FIELD, async (request, _context, session) => {
   const query = new URL(request.url).searchParams.get('q') ?? '';
 
   return json({ items: await search(session, query) });

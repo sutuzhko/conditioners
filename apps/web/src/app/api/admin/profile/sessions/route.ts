@@ -11,11 +11,12 @@
  * заново. Смена пароля рядом делает то же самое своим следствием.
  */
 import { SESSION_COOKIE, logoutOtherSessions } from '@/server/auth';
-import { noContent, withAdmin } from '@/server/http';
+import { EVERYONE } from '@/entities/staff/access';
+import { noContent, withRoles } from '@/server/http';
 
 export const dynamic = 'force-dynamic';
 
-export const DELETE = withAdmin(async (request, _context, session) => {
+export const DELETE = withRoles(EVERYONE, async (request, _context, session) => {
   await logoutOtherSessions(session.userId, request.cookies.get(SESSION_COOKIE)?.value);
 
   return noContent();

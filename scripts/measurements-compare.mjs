@@ -17,6 +17,9 @@
  * Запуск:
  *   node scripts/measurements-compare.mjs --committed <dir> --actual <dir>
  *     [--assemble-report <file>] [--details N]
+ *
+ * Отчёт сборки — это паспорт замера `manifest.json`, который сборщик кладёт
+ * рядом с файлами историй (issue #865): оттуда берутся отказы и пропущенные.
  */
 import { appendFileSync, existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';

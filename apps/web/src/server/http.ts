@@ -6,7 +6,9 @@
  */
 import { NextResponse, type NextRequest } from 'next/server';
 import { ZodError } from 'zod';
-import { getAdminSession, isOwner, type AdminSession } from '@/server/auth';
+import { OWNER } from '@/entities/staff/access';
+import { isAdminRole, type AdminRole } from '@/entities/staff/model';
+import { getAdminSession, type AdminSession } from '@/server/auth';
 import { clientIp } from '@/server/client-ip';
 import { hit } from '@/server/repo/rate-limit';
 
@@ -172,8 +174,20 @@ function isCrossSiteMutation(request: NextRequest): boolean {
 
 const CROSS_SITE_REFUSAL = 'Запрос пришёл с чужого сайта и отклонён';
 
-/** Маршрут админки: без сессии — 401, исключения не утекают наружу стектрейсом. */
-export function withAdmin<Ctx>(
+/**
+ * Общая часть любого закрытого маршрута: без сессии — 401, чужой сайт — 403,
+ * исключения не утекают наружу стектрейсом.
+ *
+ * 🔴 Наружу не экспортируется, и это главное в ней. Раньше здесь стоял
+ * `withAdmin`, и им были закрыты двадцать шесть методов — заказы, склад,
+ * календарь, отлучки. Пока ролей было две, «любой вошедший» значило «владелец
+ * или монтажник» и читалось как правило. С появлением `admin` и `manager`
+ * (ADR-344) те же двадцать шесть методов открылись двум новым ролям — без
+ * единой правки маршрута и без строчки в диффе. Роль, которую никто не
+ * называл, не должна получать доступ по умолчанию, поэтому перечень ролей
+ * теперь обязателен: назвать его — единственный способ закрыть маршрут.
+ */
+function withSession<Ctx>(
   handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
 ): RouteHandler<Ctx> {
   return async (request: NextRequest, context: Ctx): Promise<Response> => {
@@ -191,20 +205,87 @@ export function withAdmin<Ctx>(
 }
 
 /**
- * Маршрут, доступный только владельцу: клиенты, команда, деньги, всё про сайт.
+ * 🔴 Текст безличный, а не «доступен только владельцу». Ролей четыре, и
+ * прежняя формулировка врала бы менеджеру: закрытый ему раздел бывает открыт
+ * администратору. Та же причина, что у страницы отказа (`forbidden-content`).
+ */
+export const ROLE_REFUSAL = 'Этот раздел панели вашей учётной записи не открыт';
+
+/**
+ * Маршрут панели, обёрнутый вместе со своим перечнем ролей.
+ *
+ * 🔴 Перечень остаётся на самом обработчике (`roles`), а не только в замыкании:
+ * по нему контрактный тест спрашивает у каждого экспортированного метода, кому
+ * тот открыт, — и метод, забывший перечень, отвечает `undefined`, то есть
+ * падает. Прежняя проверка читала исходник маршрута регулярным выражением и
+ * знала ровно то, что там написано; эта — то, что действительно выполняется.
+ */
+export type GuardedRoute<Ctx> = RouteHandler<Ctx> & { readonly roles: readonly AdminRole[] };
+
+/**
+ * Маршрут панели, открытый перечисленным ролям. Остальным — 403 (ADR-344).
  *
  * 🔴 Проверка здесь, а не в разметке: скрытая кнопка — подсказка интерфейса,
  * а не защита. Монтажник знает адреса панели — он в ней работает (ADR-092).
+ *
+ * Перечни именованные и лежат в `entities/staff/access`: раздел, выписавший
+ * себе роли массивом по месту, заводит второй источник правды — а матрица
+ * доступа расходится сама с собой именно так.
  */
-export function withOwner<Ctx>(
+export function withRoles<Ctx>(
+  roles: readonly AdminRole[],
   handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
-): RouteHandler<Ctx> {
-  return withAdmin(async (request, context: Ctx, session) => {
-    if (!isOwner(session)) {
-      return apiError('forbidden', 'Раздел доступен только владельцу');
+): GuardedRoute<Ctx> {
+  const route = withSession<Ctx>(async (request, context: Ctx, session) => {
+    if (!roles.includes(session.role)) {
+      return apiError('forbidden', ROLE_REFUSAL);
     }
     return handler(request, context, session);
   });
+
+  return Object.assign(route, { roles });
+}
+
+/**
+ * Перечень ролей, которым закрыт этот обработчик, — или `null`, если он не
+ * обёрнут стражем вовсе.
+ *
+ * 🔴 Существует ради контрактных проверок: они обходят дерево `app/api/admin`
+ * и спрашивают у каждого экспортированного метода, кому он открыт. Спросить
+ * иначе нельзя — Next не держит перечня маршрутов, маршрут это просто файл, —
+ * а разбор исходника регулярным выражением отвечает не на тот вопрос: он
+ * читает, что написано, а не что выполнится.
+ */
+export function rolesOf(handler: unknown): readonly AdminRole[] | null {
+  if (typeof handler !== 'function' || !('roles' in handler)) return null;
+
+  const roles: unknown = handler.roles;
+  return isRoleList(roles) ? roles : null;
+}
+
+/**
+ * Проверка формы, а не пересборка списка: возвращается **тот же** массив.
+ * Контрактная проверка сравнивает перечень маршрута с перечнем из
+ * `entities/staff/access` по тождеству, и копия сломала бы ровно это.
+ */
+function isRoleList(value: unknown): value is readonly AdminRole[] {
+  return (
+    Array.isArray(value) && value.every((role) => typeof role === 'string' && isAdminRole(role))
+  );
+}
+
+/**
+ * Маршрут, доступный только владельцу: клиенты, команда, деньги, всё про сайт.
+ *
+ * Остался отдельной функцией, а не заменён вызовом `withRoles` по месту:
+ * владельческий маршрут — самый частый случай в панели (семь десятков
+ * методов), и повторять его перечень у каждого значит завести семьдесят мест,
+ * где он может разойтись. Ровно та же причина, что у `requireOwnerPage`.
+ */
+export function withOwner<Ctx>(
+  handler: (request: NextRequest, context: Ctx, session: AdminSession) => Promise<Response>,
+): GuardedRoute<Ctx> {
+  return withRoles(OWNER, handler);
 }
 
 /** Публичный маршрут: та же обработка ошибок, без проверки сессии. */

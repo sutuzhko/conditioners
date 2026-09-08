@@ -83,6 +83,33 @@ function skippedFileName(run: MeasureRun, shard: Shard | null): string {
   return `measure-skipped-${run.group}${part}-${run.width}-${run.theme}.json`;
 }
 
+/**
+ * Ведомость обхода: пропущенные истории плюс план, по которому эта пара
+ * шла, — группа, её ширины и темы, номер доли и сколько долей всего.
+ *
+ * 🔴 План объявляется, а не выводится сборщиком из встреченного (issue #865).
+ * Сборщик считает по ведомостям, полон ли обход, а пул по этому ответу решает,
+ * удалять ли файлы измерений. Выведи он ожидаемое из того, что пришло, — пара,
+ * не отчитавшаяся ни в одной доле, исчезла бы из ожидаемого вместе со своими
+ * историями, и обход назвал бы себя полным. Истории, закреплённые за такой
+ * шириной тегом `vr-<N>`, были бы удалены как «ушедшие из витрины».
+ */
+function ledger(run: MeasureRun, shard: Shard | null, skipped: readonly string[]): string {
+  return `${JSON.stringify(
+    {
+      group: run.group,
+      width: run.width,
+      theme: run.theme,
+      shard: shard === null ? 1 : shard.index,
+      shards: shard === null ? 1 : shard.total,
+      plan: { widths: [...run.widths], themes: [...VR_THEMES] },
+      skipped,
+    },
+    null,
+    2,
+  )}\n`;
+}
+
 async function measureStories(page: Page, run: MeasureRun): Promise<void> {
   const shard = shardFromEnv();
   const stories = shard === null ? run.stories : shardSlice(run.stories, shard);
@@ -160,11 +187,7 @@ async function measureStories(page: Page, run: MeasureRun): Promise<void> {
       `${JSON.stringify({ failed }, null, 2)}\n`,
       'utf8',
     );
-    writeFileSync(
-      join(dir, skippedFileName(run, shard)),
-      `${JSON.stringify({ skipped }, null, 2)}\n`,
-      'utf8',
-    );
+    writeFileSync(join(dir, skippedFileName(run, shard)), ledger(run, shard, skipped), 'utf8');
   }
 
   expect(
