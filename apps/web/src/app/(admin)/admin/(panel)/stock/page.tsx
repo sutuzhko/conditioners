@@ -126,7 +126,7 @@ export default async function AdminStockPage({ searchParams }: PageProps) {
         counts={
           tab === 'stock' ? (
             <DataBlock
-              surface="bare"
+              surface="line"
               skeleton={
                 <p className={styles.counts}>
                   <LineSkeleton width="min(280px, 70%)" />

@@ -75,7 +75,7 @@ export default async function AdminTeamPage({
             наряды за месяц значит держать пустым весь экран. Заготовка
             занимает ту же строку — плитки под ней не двигаются (ADR-239). */}
         <DataBlock
-          surface="bare"
+          surface="line"
           skeleton={<Skeleton variant="text" width="14ch" />}
           title={texts.loadFailed}
           note={blockErrorNote(TEAM_PATH)}

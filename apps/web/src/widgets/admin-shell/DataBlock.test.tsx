@@ -94,6 +94,30 @@ describe('DataBlock', () => {
     expect(screen.queryByRole('alert')).toBeNull();
   });
 
+  it('🔴 блок-строка отвечает строкой: одна заметка и ни одной кнопки', () => {
+    render(
+      <DataBlock
+        surface="line"
+        skeleton={<span>скелетон</span>}
+        title="Не удалось загрузить команду"
+        note="Команда записана в базу."
+      >
+        <Flaky server={{ failing: true }} />
+      </DataBlock>,
+    );
+
+    expect(screen.getByRole('alert')).toHaveTextContent('Не удалось загрузить команду');
+
+    /* Ни «Повторить», ни «Обновить страницу»: полная карточка с действиями
+       остаётся у блока, ради которого раздел открывают, — две одинаковые
+       кнопки на экране не отвечают, какая из них что чинит (issue #890). */
+    expect(screen.queryByRole('button')).toBeNull();
+
+    /* Длинное объяснение — тоже часть карточки: строке счёта хватает
+       заголовка, а повтор того же текста дважды и был дефектом. */
+    expect(screen.queryByText('Команда записана в базу.')).toBeNull();
+  });
+
   it('объяснение блока подменяется своим', () => {
     render(
       <DataBlock
