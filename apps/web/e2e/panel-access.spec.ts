@@ -2,6 +2,10 @@ import { expect, test, type Page } from '@playwright/test';
 
 import { PANEL_NOT_FOUND_CONTENT } from '@/app/(admin)/admin/not-found-content';
 import { FORBIDDEN_CONTENT } from '@/app/forbidden-content';
+import { leadManagerContent } from '@/features/lead-manager/content';
+import { adminShellContent } from '@/widgets/admin-shell/content';
+
+import { DEMO_MANAGER_LOGIN, DEMO_PASSWORD } from '../prisma/demo-accounts';
 
 import { BASE_URL, withAdmin } from './support/admin-api';
 import { loginViaUi } from './support/admin-ui';
@@ -220,6 +224,104 @@ test.describe('🔴 закрытые разделы панели', () => {
         await api.deleteStaff(created.id);
       });
     }
+  });
+});
+
+/**
+ * 🔴 Менеджер входит и видит свои разделы — план «Роли», Фаза 1 (issue #771).
+ *
+ * Проверяется ровно то, чем фаза объявлена готовой: заведённый менеджер
+ * входит, «Заявки» ему открыты, «Каталог» отвечает отказом, а отказ выводит
+ * из тупика, а не во второй отказ.
+ *
+ * 🔴 Учётная запись берётся из демонстрационного сида, а не заводится
+ * сценарием, и это вынужденно: заведение через панель и API пока создаёт
+ * только монтажника (Фаза 6). Логин и пароль импортируются из того же модуля,
+ * который читает сид, — выписанные сюда второй раз, они разъехались бы молча,
+ * и сценарий перестал бы входить, а не упал бы понятной ошибкой.
+ *
+ * Стенд для сквозных сценариев поднимается с демо-данными (`pnpm e2e:stand`,
+ * тот же порядок в пайплайне), поэтому запись на месте.
+ */
+test.describe('🔴 менеджер в панели', () => {
+  const MANAGER = { login: DEMO_MANAGER_LOGIN, password: DEMO_PASSWORD };
+
+  /** Разделы, которых у менеджера нет: сайт, склад, команда, сводка. */
+  const CLOSED_FOR_MANAGER: readonly string[] = [
+    '/admin',
+    '/admin/catalog',
+    '/admin/knowledge',
+    '/admin/reviews',
+    '/admin/stock',
+    '/admin/team',
+    '/admin/settings',
+  ];
+
+  test('заявки открыты, разделы про сайт отвечают отказом', async ({ page }) => {
+    /* Семь адресов, и каждый на стенде собирается по первому обращению. */
+    test.setTimeout(300_000);
+
+    await loginViaUi(page, MANAGER);
+
+    const leads = await get(page, '/admin/leads');
+    expect(leads.status, 'менеджеру раздел заявок открыт').toBe(200);
+    expect(leads.body, 'на странице заголовок раздела').toContain(leadManagerContent.title);
+
+    for (const path of CLOSED_FOR_MANAGER) {
+      const { status, body } = await get(page, path);
+
+      expect(status, `${path} менеджеру закрыт`).toBe(403);
+      expect(body, `${path} показывает страницу отказа`).toContain(FORBIDDEN_CONTENT.title);
+    }
+  });
+
+  /* 🔴 Колонка — подсказка интерфейса, а не защита, но подсказка обязана
+     совпадать с защитой: пункт, который отвечает отказом, хуже отсутствующего
+     (CRM §6). */
+  test('в колонке стоят «Заявки» и нет ни «Каталога», ни «Заказов»', async ({ page }) => {
+    await loginViaUi(page, MANAGER);
+    await page.goto('/admin/leads', { timeout: 60_000 });
+
+    const nav = page.getByRole('navigation', { name: adminShellContent.navLabel });
+
+    await expect(nav.getByRole('link', { name: 'Заявки' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Каталог' })).toHaveCount(0);
+    await expect(nav.getByRole('link', { name: 'Заказы' })).toHaveCount(0);
+  });
+
+  /**
+   * 🔴 Отказ обязан выводить из тупика.
+   *
+   * Пока ролей было две, выход со страницы отказа был один — календарь
+   * выездов монтажника. Менеджеру он тоже отвечает отказом, то есть кнопка
+   * «выхода» вела бы во второй 403, и человек ходил бы по кругу (ADR-344).
+   */
+  test('со страницы отказа кнопка ведёт в открытый ему раздел', async ({ page }) => {
+    await loginViaUi(page, MANAGER);
+
+    const response = await page.goto('/admin/catalog', { timeout: 60_000 });
+    expect(response?.status(), 'каталог менеджеру закрыт').toBe(403);
+
+    const exit = page.getByRole('link', { name: FORBIDDEN_CONTENT.manager.label });
+    await expect(exit).toHaveAttribute('href', FORBIDDEN_CONTENT.manager.href);
+
+    await Promise.all([
+      page.waitForURL((url) => url.pathname === FORBIDDEN_CONTENT.manager.href, {
+        timeout: 60_000,
+      }),
+      exit.click(),
+    ]);
+
+    /* 🔴 Сначала код ответа, потом заголовок. Отказ на этом месте обязан
+       читаться как 403, а не как «в заголовке не то слово»: первая версия
+       сценария падала именно на заголовке, и по её выводу нельзя было
+       отличить закрытый раздел от переиспользованной раскладки. */
+    const landed = await get(page, FORBIDDEN_CONTENT.manager.href);
+    expect(landed.status, 'выход со страницы отказа обязан открывать раздел').toBe(200);
+
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(leadManagerContent.title, {
+      timeout: 60_000,
+    });
   });
 });
 

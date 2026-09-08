@@ -16,16 +16,42 @@
  */
 import { forbidden, redirect } from 'next/navigation';
 
-import { getAdminSession, isOwner, type AdminSession } from '@/server/auth';
+import type { AdminRole } from '@/entities/staff/model';
+import { getAdminSession, type AdminSession } from '@/server/auth';
 
-/** Страница раздела владельца. Монтажнику отвечает отказом — 403. */
-export async function requireOwnerPage(): Promise<AdminSession> {
+/**
+ * Страница, открытая перечисленным ролям. Остальным — 403 (ADR-344).
+ *
+ * 🔴 Перечень, а не «владелец / любой вошедший». Пока ролей было две, вопрос
+ * доступа сводился к «владелец ли это», и проверка была булевой. С четырьмя
+ * ролями булев ответ перестаёт существовать: «Заявки» открыты владельцу,
+ * администратору и менеджеру и закрыты монтажнику — одним `isOwner` такое не
+ * выражается, а вырази́ть его вычитанием («все, кроме монтажника») значило бы
+ * открывать каждую новую роль по умолчанию. Перечень закрыт: роль, которую в
+ * нём не назвали, не проходит.
+ */
+export async function requireRolePage(roles: readonly AdminRole[]): Promise<AdminSession> {
   const session = await getAdminSession();
   /* Не вошёл — это не отказ, а «сначала войдите»: 307 на форму входа. */
   if (session === null) redirect('/admin/login');
-  if (!isOwner(session)) forbidden();
+  if (!roles.includes(session.role)) forbidden();
 
   return session;
+}
+
+/** Перечень из одной роли: владелец. */
+const OWNER_ONLY: readonly AdminRole[] = ['owner'];
+
+/**
+ * Страница раздела владельца. Всем прочим ролям отвечает отказом — 403.
+ *
+ * Осталась отдельной функцией, а не заменена вызовом `requireRolePage` по
+ * месту: раздел владельца — самый частый случай в панели, и повторять его
+ * перечень в шестидесяти файлах значит завести шестьдесят мест, где он может
+ * разойтись.
+ */
+export async function requireOwnerPage(): Promise<AdminSession> {
+  return requireRolePage(OWNER_ONLY);
 }
 
 /** Страница, доступная любому вошедшему: календарь, профиль. */

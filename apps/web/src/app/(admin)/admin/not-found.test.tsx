@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
+import { ADMIN_ROLES } from '@/entities/staff/model';
+import { columnSectionsFor } from '@/widgets/admin-shell';
+
 import { PANEL_NOT_FOUND_CONTENT as t } from './not-found-content';
 import { PanelNotFoundView } from './PanelNotFoundView';
 
@@ -37,6 +40,24 @@ describe('Страницы «не найдено» в панели', () => {
 
     const links = screen.getAllByRole('link').map((link) => link.getAttribute('href'));
     expect(links).toEqual([t.installer.href]);
+  });
+
+  /**
+   * 🔴 Выход обязан вести туда, куда роль пускают (ADR-344).
+   *
+   * До четырёх ролей ветка была одна — «владелец или все остальные», — и
+   * «остальные» означало монтажника. Менеджеру та же ветка предлагала бы
+   * календарь выездов, который отвечает ему отказом: из тупика в тупик.
+   * Сверяем не подпись, а адрес — с первым разделом колонки этой роли.
+   */
+  it.each(ADMIN_ROLES)('роль %s возвращают в её собственный первый раздел', (role) => {
+    render(<PanelNotFoundView kind="address" role={role} />);
+
+    const first = columnSectionsFor(role)[0];
+
+    expect(first, `у роли ${role} нет ни одного раздела колонки`).toBeDefined();
+    expect(t[role].href).toBe(first?.href);
+    expect(screen.getByRole('link', { name: t[role].label })).toHaveAttribute('href', t[role].href);
   });
 
   it('🔴 не содержат ни одного факта о компании', () => {

@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
+import { ADMIN_ROLES } from '@/entities/staff/model';
 import { settingKeySchema } from '@/entities/settings/model';
 
 import {
   ADMIN_COUNTER_TITLES,
+  ADMIN_LEADS_ROLES,
+  ADMIN_ROLE_TITLES,
   ADMIN_SECTIONS,
   ADMIN_TABS,
   bottomSectionsFor,
@@ -29,6 +32,54 @@ describe('разделы панели по ролям', () => {
       '/admin/orders',
       '/admin/profile',
     ]);
+  });
+
+  /* 🔴 Готовность Фазы 1 плана «Роли» словами задачи: менеджер видит «Заявки»
+     и не видит «Каталог» (issue #769). Список проверяется целиком, а не
+     двумя `toContain`: раздел, приехавший к менеджеру по инерции с соседнего,
+     иначе остался бы незамеченным. */
+  it('🔴 менеджеру открыты заявки и профиль — и ничего сверх', () => {
+    expect(sectionsFor('manager').map((section) => section.href)).toEqual([
+      '/admin/leads',
+      '/admin/profile',
+    ]);
+  });
+
+  /* 🔴 Администратор получает разделы не по роли, а по переключателям
+     владельца, и переключателей ещё нет (план «Роли», Фаза 4). До них он
+     видит ровно то, что открыто ему явно: открыть всё «пока временно» значит
+     на время сделать его вторым владельцем — тем самым, чего ADR-344 не
+     допускает. */
+  it('🔴 администратору до переключателей владельца открыто только явное', () => {
+    expect(sectionsFor('admin').map((section) => section.href)).toEqual([
+      '/admin/leads',
+      '/admin/profile',
+    ]);
+  });
+
+  /* 🔴 Список ролей в `content.ts` выписан руками — иначе клиентская колонка
+     панели тянула бы за собой схемы Zod из `entities/staff`. Цена этого —
+     возможность разойтись с настоящим перечнем, и платит по ней эта проверка:
+     роль, заведённая в схеме и забытая в разделах, не получит даже профиля. */
+  it('🔴 профиль открыт ровно тому перечню ролей, который знает схема', () => {
+    const withProfile = ADMIN_ROLES.filter((role) =>
+      sectionsFor(role).some((section) => section.href === '/admin/profile'),
+    );
+
+    expect(withProfile).toEqual([...ADMIN_ROLES]);
+  });
+
+  it('свой профиль есть у каждой роли', () => {
+    for (const role of ADMIN_ROLES) {
+      expect(sectionsFor(role).map((section) => section.href)).toContain('/admin/profile');
+    }
+  });
+
+  it('🔴 у каждой роли есть русская подпись: роль без неё уедет ключом в карточку', () => {
+    for (const role of ADMIN_ROLES) {
+      expect(ADMIN_ROLE_TITLES[role]).not.toBe(role);
+      expect(ADMIN_ROLE_TITLES[role]).not.toBe('');
+    }
   });
 
   it('раздел определяется и по вложенному адресу', () => {
@@ -101,6 +152,39 @@ describe('🔴 допуск по адресу', () => {
 
   it('сводка монтажнику не адресована: она про готовность сайта и модерацию', () => {
     expect(sectionAllows('/admin', 'installer')).toBe(false);
+  });
+
+  /* 🔴 Два рубежа доступа — раскладка панели и сама страница (ADR-095) —
+     считают по одному списку. Разойдись они, один окажется мягче другого, и
+     мягкий станет настоящим правилом: страница отдаёт данные до того, как
+     раскладка успевает что-то решить. */
+  it('🔴 «Заявки» стоят в колонке по тому же перечню, которым закрыта страница', () => {
+    expect(sectionOf('/admin/leads')?.roles).toBe(ADMIN_LEADS_ROLES);
+    expect([...ADMIN_LEADS_ROLES]).toEqual(['owner', 'admin', 'manager']);
+  });
+
+  it('менеджера пускает в заявки и не пускает в разделы про сайт', () => {
+    expect(sectionAllows('/admin/leads', 'manager')).toBe(true);
+    expect(sectionAllows('/admin/catalog', 'manager')).toBe(false);
+    expect(sectionAllows('/admin/catalog/42', 'manager')).toBe(false);
+    expect(sectionAllows('/admin/team', 'manager')).toBe(false);
+    expect(sectionAllows('/admin', 'manager')).toBe(false);
+  });
+
+  it('монтажника в заявки не пускает — ни в сам раздел, ни во вложенное', () => {
+    expect(sectionAllows('/admin/leads', 'installer')).toBe(false);
+    expect(sectionAllows('/admin/leads/l1/order', 'installer')).toBe(false);
+  });
+
+  /* 🔴 Незнакомый адрес проходит намеренно, и это не дыра, а половина
+     договорённости: так живёт `/admin/activity` — раздел без пункта в
+     колонке, закрытый `requireOwnerPage()` на самой странице. Вторая половина
+     договорённости — страж на странице; проверка стоит здесь затем, чтобы
+     мягкость этой ветки была видимым решением, а не случайностью. */
+  it('🔴 адрес вне колонки раскладка пропускает — закрывает его страница', () => {
+    for (const role of ADMIN_ROLES) {
+      expect(sectionAllows('/admin/activity', role)).toBe(true);
+    }
   });
 
   it('свои разделы монтажнику открыты', () => {

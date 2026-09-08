@@ -4,6 +4,8 @@
  * Типы повторяют то, что отдаёт репозиторий: страница читает данные на
  * сервере и передаёт сюда пропсами, фича в базу не ходит.
  */
+import type { AdminRole } from '@/entities/staff/model';
+
 export type DeliveryStatus = 'pending' | 'sent' | 'failed';
 
 export type DeliveryFailureView = {
@@ -47,7 +49,13 @@ export type RetryApi = {
 export type DeliveryAddressView = {
   readonly id: string;
   readonly name: string;
-  readonly role: 'owner' | 'installer';
+  /**
+   * 🔴 Роль берётся из словаря ролей, а не выписывается парой значений. Своя
+   * копия «владелец или монтажник» разошлась бы с настоящим перечнем в тот же
+   * день, когда ролей стало четыре (ADR-344), — а список здесь показывает
+   * всю команду целиком, включая тех, кого в копию не внесли.
+   */
+  readonly role: AdminRole;
   readonly active: boolean;
   /** Привязан ли чат телеграма — сам идентификатор чата владельцу не нужен. */
   readonly telegram: boolean;

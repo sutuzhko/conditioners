@@ -3,8 +3,13 @@ import type { AdminRole } from '@/entities/staff/model';
 import { employmentTitle, type Employment } from '@/shared/lib/employment';
 import { formatDateTime } from '@/shared/lib/format';
 
+/* Со строчной: подпись стоит внутри фразы о вошедшем, а не отдельным ярлыком.
+   Ключ на каждую роль — `Record` не даст завести роль и забыть ей название
+   (ADR-344): без подписи в профиль уехал бы английский ключ. */
 const ROLE_TITLES: Record<AdminRole, string> = {
   owner: 'владелец',
+  admin: 'администратор',
+  manager: 'менеджер',
   installer: 'монтажник',
 };
 

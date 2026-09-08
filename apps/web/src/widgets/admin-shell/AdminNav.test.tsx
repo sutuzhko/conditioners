@@ -3,7 +3,12 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AdminNav } from './AdminNav';
-import { ADMIN_COUNTER_TITLES, adminShellContent as texts, columnSectionsFor } from './content';
+import {
+  ADMIN_COUNTER_TITLES,
+  ADMIN_ROLE_TITLES,
+  adminShellContent as texts,
+  columnSectionsFor,
+} from './content';
 
 const pathname = vi.fn(() => '/admin/catalog');
 
@@ -142,6 +147,34 @@ describe('Навигация панели', () => {
 
     expect(screen.getByRole('link', { name: 'Профиль' })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Настройки' })).not.toBeInTheDocument();
+  });
+
+  /* 🔴 Готовность Фазы 1 плана «Роли» глазами колонки (issue #769): менеджер
+     видит «Заявки» и не видит ни «Каталога», ни «Заказов». Проверка идёт по
+     отрисованной колонке, а не по списку разделов: список сверен рядом, в
+     `content.test.ts`, а здесь доказывается, что колонка его слушает. */
+  it('🔴 менеджер видит заявки и не видит ни каталога, ни чужих заказов', async () => {
+    pathname.mockReturnValue('/admin/leads');
+    render(<AdminNav role="manager" userName="Лебедева Ольга" />);
+
+    expect(screen.getByRole('link', { name: 'Заявки' })).toHaveAttribute('href', '/admin/leads');
+    expect(screen.queryByRole('link', { name: 'Каталог' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Заказы' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Календарь работ' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Клиенты' })).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { expanded: false }));
+
+    expect(screen.getByRole('link', { name: 'Профиль' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Настройки' })).not.toBeInTheDocument();
+  });
+
+  /* Подпись роли стоит в карточке «кто вошёл»: без неё менеджер и монтажник
+     на экране неотличимы, а от роли зависит, что человеку вообще открыто. */
+  it('называет роль вошедшего', () => {
+    render(<AdminNav role="manager" userName="Лебедева Ольга" />);
+
+    expect(screen.getByText(ADMIN_ROLE_TITLES.manager)).toBeInTheDocument();
   });
 });
 

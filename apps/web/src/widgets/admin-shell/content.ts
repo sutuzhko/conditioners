@@ -90,6 +90,8 @@ export const ADMIN_SHEET_GROUP_TITLES: Readonly<Record<AdminSectionGroup, string
 /** Подпись роли в карточке «кто вошёл». С заглавной: это подпись, а не часть фразы. */
 export const ADMIN_ROLE_TITLES: Readonly<Record<AdminRole, string>> = {
   owner: 'Владелец',
+  admin: 'Администратор',
+  manager: 'Менеджер',
   installer: 'Монтажник',
 };
 
@@ -109,8 +111,48 @@ export const ADMIN_COUNTER_TITLES: Readonly<Record<AdminCounterKey, string>> = {
 /** Страница-указатель, которую открывает пункт «Настройки». */
 export const ADMIN_SETTINGS_PATH = '/admin/settings';
 
-const BOTH: readonly AdminRole[] = ['owner', 'installer'];
+/* ---------- Кому раздел показывается — и кого по его адресу пускает
+   раскладка панели.
+
+   🔴 Перечни именованные, а не выписанные у каждого раздела. Раздел со своим
+   списком ролей — это ещё одно место, где матрица доступа расходится сама с
+   собой; четыре роли вместо двух делают расхождение почти неизбежным
+   (ADR-344).
+
+   🔴 Роль, которой в перечне нет, раздела не получает. Именно так, а не «все,
+   кроме монтажника»: вычитание открывало бы каждую новую роль по умолчанию, и
+   следующая роль въехала бы в чужие разделы молча. ---------- */
+
+/**
+ * Все роли. Список выписан, а не взят из `ADMIN_ROLES`, намеренно: `content.ts`
+ * читает клиентская колонка панели, и значение из `entities/staff/model`
+ * притащило бы в её бандл схемы Zod вместе с проверкой ИНН и словарём
+ * оформления. Расхождение с настоящим перечнем ролей ловит тест рядом.
+ */
+const EVERYONE: readonly AdminRole[] = ['owner', 'admin', 'manager', 'installer'];
+
+/** Рабочий экран выезда: календарь и наряды. Их ведёт монтажник, смотрит владелец. */
+const FIELD: readonly AdminRole[] = ['owner', 'installer'];
+
+/**
+ * Жизненный цикл клиента: обращение — звонок — наряд (ADR-344).
+ *
+ * 🔴 Монтажника здесь нет и не будет: обращения и клиенты — персональные
+ * данные, которых он по работе не касается (CRM §6).
+ */
+const CLIENT_CYCLE: readonly AdminRole[] = ['owner', 'admin', 'manager'];
+
 const OWNER: readonly AdminRole[] = ['owner'];
+
+/**
+ * Роли раздела «Заявки» — тот же список, по которому страница раздела ставит
+ * себе стража (issue #770).
+ *
+ * 🔴 Экспортируется именно затем, чтобы страница не завела свою копию: два
+ * рубежа доступа — раскладка и сама страница (ADR-095) — обязаны считать по
+ * одному списку, иначе один из них однажды окажется мягче другого.
+ */
+export const ADMIN_LEADS_ROLES = CLIENT_CYCLE;
 
 export const ADMIN_SECTIONS: readonly AdminSection[] = [
   {
@@ -129,7 +171,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     short: 'Календарь',
     hint: 'Замеры, монтажи, звонки и заявки по дням',
     icon: 'calendar',
-    roles: BOTH,
+    roles: FIELD,
     place: 'main',
     group: 'work',
   },
@@ -138,7 +180,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     title: 'Заказы',
     hint: 'Наряды на монтаж, обслуживание и ремонт: кто едет, когда и за сколько',
     icon: 'orders',
-    roles: BOTH,
+    roles: FIELD,
     place: 'main',
     group: 'work',
     counter: 'orders',
@@ -148,7 +190,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     title: 'Заявки',
     hint: 'Обращения с сайта и их статусы',
     icon: 'leads',
-    roles: OWNER,
+    roles: ADMIN_LEADS_ROLES,
     place: 'main',
     group: 'work',
     counter: 'leads',
@@ -251,7 +293,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     title: 'Профиль',
     hint: 'Имя, телефон, пароль и тема интерфейса',
     icon: 'profile',
-    roles: BOTH,
+    roles: EVERYONE,
     place: 'bottom',
   },
 ];
@@ -368,17 +410,24 @@ export function navHrefOf(pathname: string): string | undefined {
 /**
  * Пускать ли эту роль по этому адресу.
  *
- * Адрес вне известных разделов (сводка `/admin`) остаётся открытым обеим
- * ролям — что на нём показывать, решает сама страница.
+ * 🔴 Отдельной ветки «владелец проходит всегда» здесь больше нет, и это не
+ * упрощение, а требование ADR-344: ролей четыре, и ответ на вопрос доступа
+ * даёт перечень раздела, а не сравнение с одной привилегированной ролью.
+ * Владелец назван в `roles` каждого раздела, поэтому проходит по общему
+ * правилу — как все.
+ *
+ * 🔴 Адрес вне известных разделов проходит намеренно. Так живёт `/admin/activity`:
+ * журнал событий заведён без пункта в колонке (Журнал · Фаза 1), и закрывает
+ * его `requireOwnerPage()` на самой странице — второй рубеж ADR-095. Мягкость
+ * этой строки — цена того, что новый раздел не обязан появляться в колонке
+ * раньше, чем он готов; страж на странице при этом обязателен, и без него
+ * незнакомый адрес окажется открыт любому вошедшему.
  */
 export function sectionAllows(pathname: string, role: AdminRole): boolean {
-  if (role === 'owner') return true;
-
   const section = sectionOf(pathname);
   if (section !== undefined) return section.roles.includes(role);
 
-  /* Сводка монтажнику не адресована: она про готовность сайта и модерацию. */
-  return pathname !== '/admin';
+  return true;
 }
 
 export const adminShellContent = {
