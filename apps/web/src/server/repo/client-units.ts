@@ -17,10 +17,12 @@ import type { ClientUnitCard, ClientUnitCreate, ClientUnitUpdate } from '@/entit
 import { warrantySchema } from '@/entities/settings/model';
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
+import { mimeFor, protectedImageExists, resolveProtectedPath } from '@/server/uploads/store';
 import { momentOf } from '@/shared/lib/calendar';
 
 const unitSelect = {
   id: true,
+  clientId: true,
   model: true,
   installedAt: true,
   warrantyUntil: true,
@@ -30,12 +32,27 @@ const unitSelect = {
 
 type UnitRow = {
   id: string;
+  clientId: string;
   model: string;
   installedAt: Date;
   warrantyUntil: Date | null;
   photo: string | null;
   orderId: string | null;
 };
+
+/**
+ * 🔴 Адрес снимка установки — закрытый, как у заявки и у наряда (ADR-171).
+ *
+ * В колонке лежит **имя файла**: снимок «после» живёт в закрытом подкаталоге,
+ * куда публичный `/api/media/{name}` не дотягивается. До issue #868 карточка
+ * получала это имя как есть, и в `<Image src>` уезжал относительный путь без
+ * ведущей косой черты — `next/image` бросал на нём исключение. Адрес
+ * собирается тем же способом, что у снимка наряда (`toPhotoCard`): по номерам
+ * записей, а не по имени файла на томе.
+ */
+export function clientUnitPhotoUrl(clientId: string, unitId: string): string {
+  return `/api/admin/clients/${clientId}/units/${unitId}/photo`;
+}
 
 /**
  * Дата — это день, а не момент: час установки никого не интересует, а
@@ -46,15 +63,28 @@ function momentOfDay(day: string): Date {
   return momentOf(day, '00:00');
 }
 
-function toCard(row: UnitRow, numbers: ReadonlyMap<string, number>): ClientUnitCard {
+/**
+ * Карточка записи.
+ *
+ * 🔴 Дожил ли снимок до сегодня, спрашивает сервер, а не браузер (issue #690,
+ * #868). Имя файла есть прямо здесь, в строке базы, — отдельного запроса
+ * проверка не стоит, а карточка приходит уже верной: значку сломанной
+ * картинки взяться неоткуда (инвариант 1). Проверяется закрытое хранилище:
+ * публичная проверка `mediaExists` ждёт адрес с префиксом `/api/media` и на
+ * любое имя файла честно отвечает «нет» — то есть показывала бы «файла нет»
+ * там, где файл на месте.
+ */
+async function toCard(row: UnitRow, numbers: ReadonlyMap<string, number>): Promise<ClientUnitCard> {
   const number = row.orderId === null ? undefined : numbers.get(row.orderId);
+  const photo = row.photo;
 
   return {
     id: row.id,
     model: row.model,
     installedAt: row.installedAt.toISOString(),
     warrantyUntil: row.warrantyUntil?.toISOString() ?? null,
-    photo: row.photo,
+    photo: photo === null ? null : clientUnitPhotoUrl(row.clientId, row.id),
+    ...(photo === null ? {} : { photoMissing: !(await protectedImageExists(photo)) }),
     /* Наряд мог быть удалён: у `orderId` нет внешнего ключа намеренно —
        удалённый наряд не отменяет того, что кондиционер у человека висит. */
     order: row.orderId === null || number === undefined ? null : { id: row.orderId, number },
@@ -75,7 +105,7 @@ async function orderNumbers(rows: readonly UnitRow[]): Promise<ReadonlyMap<strin
 }
 
 async function cardOf(row: UnitRow): Promise<ClientUnitCard> {
-  return toCard(row, await orderNumbers([row]));
+  return await toCard(row, await orderNumbers([row]));
 }
 
 /**
@@ -90,7 +120,7 @@ export async function listByClient(clientId: string): Promise<readonly ClientUni
   });
 
   const numbers = await orderNumbers(rows);
-  return rows.map((row) => toCard(row, numbers));
+  return await Promise.all(rows.map(async (row) => await toCard(row, numbers)));
 }
 
 async function assertClient(clientId: string): Promise<void> {
@@ -161,6 +191,31 @@ export async function update(
 export async function remove(clientId: string, id: string): Promise<void> {
   const removed = await db.clientUnit.deleteMany({ where: { id, clientId } });
   if (removed.count === 0) throw new ApiException('not_found', 'Запись о технике не найдена');
+}
+
+export type ClientUnitPhotoFile = { readonly path: string; readonly mime: string };
+
+/**
+ * 🔴 Выдача снимка установки: путь собирается здесь, а не в обработчике.
+ *
+ * Номер записи сверяется с клиентом — по той же причине, что и в правке:
+ * иначе чужой снимок открывался бы по угаданному номеру, зная только своего
+ * клиента. В колонке лежит имя файла, сгенерированное сервером, и
+ * `resolveProtectedPath` пропускает только такое имя: выйти им за закрытый
+ * подкаталог нельзя. Сессию проверяет `withOwner` на маршруте — база клиентов
+ * принадлежит владельцу целиком (ADR-105).
+ */
+export async function findPhotoFile(clientId: string, id: string): Promise<ClientUnitPhotoFile> {
+  const row = await db.clientUnit.findFirst({
+    where: { id, clientId },
+    select: { photo: true },
+  });
+  if (row === null || row.photo === null) throw new ApiException('not_found', 'Фото не найдено');
+
+  const path = resolveProtectedPath(row.photo);
+  if (path === null) throw new ApiException('not_found', 'Фото не найдено');
+
+  return { path, mime: mimeFor(row.photo) };
 }
 
 /* ---------- Техника из выполненного монтажа ---------- */
@@ -281,6 +336,10 @@ export async function fromCompletedOrder(
 
     const months = await warrantyBySource(client);
     const installDay = dayOf(order.at);
+    /* 🔴 В колонку едет имя файла, а не адрес: снимок наряда лежит в закрытом
+       хранилище, и `OrderPhoto.url` с ADR-171 хранит именно имя. Адрес
+       карточке собирает `clientUnitPhotoUrl` — так же, как наряду его
+       собирает `toPhotoCard` (issue #868). */
     const photo = order.photos[0]?.url ?? null;
 
     const { count } = await client.clientUnit.createMany({

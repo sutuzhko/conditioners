@@ -1,12 +1,17 @@
 /**
  * Разовый перенос снимков клиента в закрытое хранилище — ADR-171.
  *
- * До ADR-171 фото заявки и снимки наряда лежали в общем каталоге загрузок и
- * отдавались публичным `/api/media/{name}`. Новый код кладёт их в подкаталог
- * `protected` и хранит в колонке имя файла, а не адрес. Уже накопленные записи
- * этого не знают: без переноса панель покажет битую картинку, а старый адрес
- * останется рабочим — то есть дефект останется закрытым только для новых
- * снимков.
+ * До ADR-171 фото заявки, снимки наряда и снимок установки в карточке клиента
+ * лежали в общем каталоге загрузок и отдавались публичным `/api/media/{name}`.
+ * Новый код кладёт их в подкаталог `protected` и хранит в колонке имя файла, а
+ * не адрес. Уже накопленные записи этого не знают: без переноса панель покажет
+ * битую картинку, а старый адрес останется рабочим — то есть дефект останется
+ * закрытым только для новых снимков.
+ *
+ * 🔴 Техники клиента в этом переносе не было вовсе (issue #868), хотя снимок
+ * ей достаётся от того же наряда: строка, заведённая до ADR-171, держала
+ * публичный адрес, строка после — голое имя файла, и карточка не открывала ни
+ * ту, ни другую.
  *
  * Скрипт идемпотентен: перенесённую запись он узнаёт по тому, что в колонке
  * уже имя файла, и пропускает. Файл, которого нет на диске (том пересоздали,
@@ -116,17 +121,62 @@ async function movePhotos(): Promise<Moved> {
   return { moved, skipped, missing };
 }
 
+/**
+ * Техника клиента — issue #868.
+ *
+ * Файл здесь тот же самый, что у снимка наряда: техника уносит с собой ссылку
+ * на фотографию «после». Значит к моменту этого прохода он, скорее всего, уже
+ * лежит в закрытом подкаталоге — `moveFile` отвечает на это `already`, и
+ * колонка всё равно приводится к имени файла. Порядок проходов от этого не
+ * зависит.
+ */
+async function moveClientUnits(): Promise<Moved> {
+  const rows = await db.clientUnit.findMany({
+    where: { photo: { not: null } },
+    select: { id: true, photo: true },
+  });
+
+  let moved = 0;
+  let skipped = 0;
+  let missing = 0;
+
+  for (const row of rows) {
+    const name = row.photo === null ? null : filenameOfLegacy(row.photo);
+    if (name === null) {
+      skipped += 1;
+      continue;
+    }
+
+    const result = await moveFile(name);
+    if (result === 'missing') {
+      console.warn(`Техника ${row.id}: файла ${name} нет на диске, запись не тронута`);
+      missing += 1;
+      continue;
+    }
+
+    await db.clientUnit.update({ where: { id: row.id }, data: { photo: name } });
+    moved += 1;
+  }
+
+  return { moved, skipped, missing };
+}
+
 async function main(): Promise<void> {
   await mkdir(PROTECTED_DIR, { recursive: true });
 
   const leads = await moveLeads();
   const photos = await movePhotos();
+  const units = await moveClientUnits();
 
   console.info(
     `Заявки: перенесено ${leads.moved}, уже перенесено ${leads.skipped}, без файла ${leads.missing}`,
   );
   console.info(
     `Наряды: перенесено ${photos.moved}, уже перенесено ${photos.skipped}, без файла ${photos.missing}`,
+  );
+  console.info(
+    `Техника клиентов: перенесено ${units.moved}, уже перенесено ${units.skipped}, ` +
+      `без файла ${units.missing}`,
   );
 }
 

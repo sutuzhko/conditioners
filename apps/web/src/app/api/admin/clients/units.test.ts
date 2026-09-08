@@ -50,7 +50,7 @@ const unit = {
   model: 'Сплит-система 09',
   installedAt: '2026-07-14T06:30:00.000Z',
   warrantyUntil: '2029-07-14T00:00:00.000Z',
-  photo: '/api/media/after-1.jpg',
+  photo: '/api/admin/clients/c1/units/un1/photo',
   order: { id: 'o1', number: 1059 },
 };
 

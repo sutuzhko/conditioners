@@ -86,6 +86,7 @@ const EXPECTED: Readonly<Record<string, Role>> = {
   'clients/[id]/units POST': 'owner',
   'clients/[id]/units/[unitId] PATCH': 'owner',
   'clients/[id]/units/[unitId] DELETE': 'owner',
+  'clients/[id]/units/[unitId]/photo GET': 'owner',
   'leads GET': 'owner',
   'leads/[id] GET': 'owner',
   'leads/[id] PATCH': 'owner',
