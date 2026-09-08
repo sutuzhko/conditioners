@@ -89,7 +89,7 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
     where: { status: 'DONE', at: range },
     select: {
       at: true,
-      workType: { select: { title: true } },
+      workType: { select: { id: true, title: true } },
       price: true,
       installerFee: true,
       deductionSum: true,
@@ -97,7 +97,10 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
     },
   });
 
-  const byType = new Map<string, number>();
+  /* 🔴 Ключ — идентификатор вида работ, а не название: уникален в справочнике
+     только `code`, а два вида с одинаковым названием владелец завести может, и
+     сложенные в одну строку они соврали бы о выручке. Подпись едет рядом. */
+  const byType = new Map<string, { readonly title: string; sum: number }>();
   const weeks = WEEK_STARTS.map(() => 0);
 
   let revenue = 0;
@@ -105,13 +108,12 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
   let cash = 0;
 
   for (const row of rows) {
-    const title = row.workType.title;
-
     revenue += row.price;
     payout += Math.max(row.installerFee - row.deductionSum, 0);
     if (row.payment === 'CASH_TO_INSTALLER') cash += row.price;
 
-    byType.set(title, (byType.get(title) ?? 0) + row.price);
+    const share = byType.get(row.workType.id) ?? { title: row.workType.title, sum: 0 };
+    byType.set(row.workType.id, { title: share.title, sum: share.sum + row.price });
 
     /* День берётся в поясе работ: наряд, закрытый в три часа ночи первого
        числа по Москве, принадлежит этому месяцу и этой неделе, а не UTC. */
@@ -123,11 +125,11 @@ export async function monthMoney(month: MonthKey): Promise<MonthMoney> {
     weeks[index] = (weeks[index] ?? 0) + row.price;
   }
 
-  const shares = [...byType.entries()]
-    .map(([title, sum]) => ({
-      title,
-      sum,
-      percent: revenue === 0 ? 0 : Math.round((sum / revenue) * 100),
+  const shares = [...byType.values()]
+    .map((share) => ({
+      title: share.title,
+      sum: share.sum,
+      percent: revenue === 0 ? 0 : Math.round((share.sum / revenue) * 100),
     }))
     .sort((left, right) => right.sum - left.sum);
 

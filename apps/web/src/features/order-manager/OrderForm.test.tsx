@@ -19,7 +19,9 @@ import {
   staffInstaller,
   unassignedDraft,
   vacationBlocks,
+  retiredWorkType,
   workTypes,
+  workTypesWithRetired,
 } from './fixtures';
 
 const lists = { clients, installers, workTypes } as const;
@@ -29,6 +31,43 @@ const reasonLabel = new RegExp(`^${texts.deductionReason}`);
 const cancelLabel = new RegExp(`^${texts.cancelReason}`);
 
 describe('Форма наряда', () => {
+  /**
+   * 🔴 Отключённый вид работ остаётся у прежних нарядов (ADR-343), и правка
+   * такого наряда обязана показать его выбранным. Без этого поле открывалось
+   * бы пустым у наряда, у которого вид работ есть, — и владелец, поправив
+   * адрес, перезаписал бы вид работ первым попавшимся.
+   */
+  it('🔴 отключённый вид работ виден выбранным и подписан', () => {
+    render(
+      <OrderForm
+        {...lists}
+        workTypes={workTypesWithRetired}
+        orderId={order.id}
+        initial={{ ...draft, workTypeId: retiredWorkType.id }}
+        api={acceptingApi}
+      />,
+    );
+
+    const field = screen.getByLabelText(texts.workType);
+    expect(field).toHaveValue(retiredWorkType.id);
+
+    const option = screen.getByRole('option', { name: texts.workTypeOff(retiredWorkType.title) });
+    /* Виден — но выбрать его заново нельзя: отключённый вид новой работы не
+       получает. */
+    expect(option).toBeDisabled();
+  });
+
+  /** Действующие виды работ выбираются как прежде и подписи не меняют. */
+  it('действующий вид работ выбирается и подписан своим названием', () => {
+    render(<OrderForm {...lists} api={acceptingApi} />);
+
+    const first = workTypes[0];
+    expect(first).toBeDefined();
+    if (first === undefined) return;
+
+    expect(screen.getByRole('option', { name: first.title })).toBeEnabled();
+  });
+
   it('заводит наряд и очищает форму: следующий вводят сразу', async () => {
     const user = userEvent.setup();
     const create = vi.fn(async () => ({ ok: true, id: 'o9' }) as const);

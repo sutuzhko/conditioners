@@ -72,3 +72,44 @@ export type WorkTypeMark = {
    */
   readonly dayLong: boolean;
 };
+
+/**
+ * Вид работ в списке выбора.
+ *
+ * 🔴 Отключённый вид работ остаётся у прежних записей (ADR-343): отключение —
+ * это то, что владелец делает вместо удаления, и удаление занятого вида
+ * запрещено именно затем. Но список выбора собирается из активных, и наряд с
+ * отключённым видом открывался бы на правку с пустым обязательным полем —
+ * владелец видел бы «вид работ не заполнен» там, где он заполнен, и перезаписал
+ * бы его первым попавшимся.
+ *
+ * Поэтому запись самой карточки подмешивается в список и помечается: она
+ * видна как выбранная, но выбрать её заново нельзя.
+ */
+export type WorkTypeOption = WorkTypeMark & { readonly active: boolean };
+
+/**
+ * Список выбора: активные виды работ плюс те, что стоят у показываемых
+ * записей.
+ *
+ * Чистая функция, а не второй запрос: запись привозит свой вид работ целиком
+ * (`WorkTypeMark`), и узнавать в базе то, что уже в руках, незачем.
+ * Отключённым считается всё, чего нет в активном списке, — по построению, а не
+ * по колонке: другого способа попасть сюда у вида работ нет.
+ */
+export function workTypeOptions(
+  active: readonly WorkTypeMark[],
+  used: readonly WorkTypeMark[],
+): readonly WorkTypeOption[] {
+  const options: WorkTypeOption[] = active.map((workType) => ({ ...workType, active: true }));
+  const known = new Set(options.map((workType) => workType.id));
+
+  for (const workType of used) {
+    if (known.has(workType.id)) continue;
+
+    known.add(workType.id);
+    options.push({ ...workType, active: false });
+  }
+
+  return options;
+}

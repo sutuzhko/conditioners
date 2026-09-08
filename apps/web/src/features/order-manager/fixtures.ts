@@ -1,5 +1,5 @@
 /** Данные для историй и тестов раздела заказов. */
-import type { WorkTypeMark } from '@/shared/lib/work-type';
+import type { WorkTypeMark, WorkTypeOption } from '@/shared/lib/work-type';
 
 import { DEFAULT_ORDER_FILTERS, consumptionHints, orderDraftOf } from './model';
 import type {
@@ -64,11 +64,27 @@ export const workTypeRepair: WorkTypeMark = {
 };
 
 /** Порядок — тот, в каком справочник отдаёт сервер: по `sort` владельца. */
-export const workTypes: readonly WorkTypeMark[] = [
-  workTypeInstall,
-  workTypeService,
-  workTypeRepair,
+export const workTypes: readonly WorkTypeOption[] = [
+  { ...workTypeInstall, active: true },
+  { ...workTypeService, active: true },
+  { ...workTypeRepair, active: true },
 ];
+
+/**
+ * Вид работ, который владелец отключил, а у наряда он остался (ADR-343).
+ * Список выбора обязан показать его выбранным и не дать выбрать заново.
+ */
+export const retiredWorkType: WorkTypeOption = {
+  id: 'wt_drain',
+  code: 'drain',
+  title: 'Чистка дренажа',
+  icon: 'settings',
+  tone: 'info',
+  dayLong: false,
+  active: false,
+};
+
+export const workTypesWithRetired: readonly WorkTypeOption[] = [...workTypes, retiredWorkType];
 
 export const clientRef: OrderClientRef = {
   id: 'c1',

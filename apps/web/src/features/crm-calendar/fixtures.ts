@@ -1,6 +1,6 @@
 /** Данные для историй и тестов календаря работ. */
 import type { StaffCard } from '@/entities/staff/model';
-import type { WorkTypeMark } from '@/shared/lib/work-type';
+import type { WorkTypeMark, WorkTypeOption } from '@/shared/lib/work-type';
 
 import type { CalendarLead, CalendarOrderCard, CrmEventCard, DayBlockCard } from './model';
 
@@ -78,15 +78,29 @@ export const workTypeNote: WorkTypeMark = {
 };
 
 /** Порядок — тот, в каком справочник отдаёт сервер: по `sort` владельца. */
-export const workTypes: readonly WorkTypeMark[] = [
-  workTypeCall,
-  workTypeMeasure,
-  workTypeInstall,
-  workTypeService,
-  workTypeRepair,
-  workTypeMeeting,
-  workTypeNote,
+export const workTypes: readonly WorkTypeOption[] = [
+  { ...workTypeCall, active: true },
+  { ...workTypeMeasure, active: true },
+  { ...workTypeInstall, active: true },
+  { ...workTypeService, active: true },
+  { ...workTypeRepair, active: true },
+  { ...workTypeMeeting, active: true },
+  { ...workTypeNote, active: true },
 ];
+
+/**
+ * Вид работ, который владелец отключил, а у дела он остался (ADR-343).
+ * В списке он виден выбранным и подписан, но новой записи не предлагается.
+ */
+export const retiredWorkType: WorkTypeOption = {
+  id: 'wt_drain',
+  code: 'drain',
+  title: 'Чистка дренажа',
+  icon: 'settings',
+  tone: 'info',
+  dayLong: false,
+  active: false,
+};
 
 /** 23 августа 2026, 10:00 по московскому времени. */
 export const plannedCall: CrmEventCard = {

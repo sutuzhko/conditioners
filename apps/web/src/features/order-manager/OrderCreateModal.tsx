@@ -1,6 +1,6 @@
 'use client';
 
-import type { WorkTypeMark } from '@/shared/lib/work-type';
+import type { WorkTypeOption } from '@/shared/lib/work-type';
 import { RouteModal, useRouteClose, useUnsavedInput } from '@/shared/ui';
 
 import { orderManagerContent as texts } from './content';
@@ -20,7 +20,7 @@ export interface OrderCreateModalProps {
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
   /** Виды работ из справочника — перечня в коде нет (ADR-343). */
-  readonly workTypes: readonly WorkTypeMark[];
+  readonly workTypes: readonly WorkTypeOption[];
   /** Занятость: форма предупреждает о ней, но назначать не мешает (ADR-115). */
   readonly blocks?: readonly OrderBlock[] | undefined;
   readonly work?: readonly OrderWorkSpan[] | undefined;

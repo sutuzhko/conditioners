@@ -1014,10 +1014,12 @@ type OrderRefs = {
   readonly clientId?: string | undefined;
   readonly installerId?: string | null | undefined;
   readonly leadId?: string | null | undefined;
+  readonly workTypeId?: string | undefined;
 };
 
 /**
- * Несуществующий клиент, монтажник или обращение — ошибка ввода, а не сбой.
+ * Несуществующий клиент, монтажник, обращение или вид работ — ошибка ввода, а
+ * не сбой.
  *
  * Без проверки Prisma отвечает нарушением внешнего ключа (`P2003`), а
  * `handleRouteError` превращает его в 500 «не получилось обработать запрос»:
@@ -1026,11 +1028,42 @@ type OrderRefs = {
  * `keepInstaller` — исполнитель, уже стоящий в наряде. Он не перепроверяется
  * на активность: человек уволился, но со своих прошлых нарядов не исчез, и
  * правка адреса такого наряда не должна упираться в его увольнение.
+ *
+ * `keepWorkType` — вид работ, уже стоящий в наряде, и правило у него ровно то
+ * же: владелец отключил вид работ, но прежние наряды его сохраняют (ADR-343),
+ * и правка адреса такого наряда не должна упираться в отключение.
  */
 async function assertRefs(
   refs: OrderRefs,
   keepInstaller: string | null = null,
+  keepWorkType: string | null = null,
 ): Promise<string | null> {
+  if (refs.workTypeId !== undefined) {
+    const workType = await db.workType.findUnique({
+      where: { id: refs.workTypeId },
+      select: { id: true, active: true },
+    });
+    if (workType === null) {
+      throw new ApiException(
+        'validation_error',
+        'Такого вида работ нет в справочнике',
+        'workTypeId',
+      );
+    }
+
+    /* 🔴 Отключённый вид работ новой работы не получает: отключение — это то,
+       что владелец делает вместо удаления, и означает оно «больше так не
+       заводим». Форма предлагает только действующие, но маршрут открыт и мимо
+       формы. */
+    if (!workType.active && refs.workTypeId !== keepWorkType) {
+      throw new ApiException(
+        'validation_error',
+        'Этот вид работ отключён: выберите другой',
+        'workTypeId',
+      );
+    }
+  }
+
   if (refs.clientId !== undefined) {
     const client = await db.client.findUnique({
       where: { id: refs.clientId },
@@ -1401,6 +1434,7 @@ function nextStatus(
 type CurrentOrder = {
   readonly status: DbStatus;
   readonly installerId: string | null;
+  readonly workTypeId: string;
   readonly deductionSum: number;
   readonly deductionReason: string | null;
   readonly cancelReason: DbCancelReason | null;
@@ -1528,6 +1562,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
     select: {
       status: true,
       installerId: true,
+      workTypeId: true,
       deductionSum: true,
       deductionReason: true,
       cancelReason: true,
@@ -1535,7 +1570,7 @@ export async function update(id: string, input: OrderUpdate, authorId: string): 
   });
   if (current === null) throw new ApiException('not_found', 'Наряд не найден');
 
-  const installerName = await assertRefs(input, current.installerId);
+  const installerName = await assertRefs(input, current.installerId, current.workTypeId);
   assertDeduction(current, input);
 
   const status = nextStatus(current, input);

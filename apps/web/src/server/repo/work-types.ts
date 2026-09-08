@@ -144,22 +144,6 @@ export async function listActive(): Promise<readonly WorkTypeMark[]> {
 }
 
 /**
- * Инструмент выезда по виду работ — первые строки чеклиста наряда.
- *
- * Отдельно от метки: подпись, значок и краска нужны разметке, а список
- * инструмента — только сборке чеклиста, и таскать его в каждую метку сетки
- * календаря незачем.
- */
-export async function toolsOf(workTypeId: string): Promise<readonly string[]> {
-  const row = await db.workType.findUnique({
-    where: { id: workTypeId },
-    select: { tools: true },
-  });
-
-  return row?.tools ?? [];
-}
-
-/**
  * 🔴 Занятый вид работ не удаляется — он отключается (ADR-343, issue #836).
  *
  * Удаление стёрло бы вид у выполненных выездов и нарядов: наряд за прошлый

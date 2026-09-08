@@ -29,7 +29,6 @@ import {
   toMark,
   toneFromDb,
   toneToDb,
-  toolsOf,
 } from '@/server/repo/work-types';
 
 const row = {
@@ -116,27 +115,6 @@ describe('справочник видов работ', () => {
     const [args] = mocks.findMany.mock.calls[0] ?? [];
     expect(args?.where).toEqual({ active: true });
     expect(args?.orderBy).toEqual([{ sort: 'asc' }, { title: 'asc' }]);
-  });
-});
-
-describe('инструмент выезда по виду работ', () => {
-  /**
-   * 🔴 Список приезжает из справочника, а не из таблицы в коде (ADR-343).
-   * Владелец правит его сам — до переезда «Чистка дренажа» уехала бы на выезд
-   * без единой строки про инструмент, и дописать её было бы некуда.
-   */
-  it('отдаёт то, что записано у вида работ', async () => {
-    mocks.findUnique.mockResolvedValue({ tools: ['Стремянка', 'Труборез'] });
-
-    expect(await toolsOf('wt_install')).toEqual(['Стремянка', 'Труборез']);
-  });
-
-  /* Вида работ нет — чеклист собирается без строк инструмента, а не падает:
-     наряд с адресом и деньгами важнее строки «взять стремянку». */
-  it('вид работ не найден — инструмента нет, но и падения нет', async () => {
-    mocks.findUnique.mockResolvedValue(null);
-
-    expect(await toolsOf('wt_ghost')).toEqual([]);
   });
 });
 

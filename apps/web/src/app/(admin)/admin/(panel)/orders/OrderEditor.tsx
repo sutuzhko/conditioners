@@ -10,14 +10,14 @@ import {
   type OrderDraft,
   type OrderInstallerRef,
 } from '@/features/order-manager';
-import type { WorkTypeMark } from '@/shared/lib/work-type';
+import type { WorkTypeOption } from '@/shared/lib/work-type';
 import type { FormSurface } from '@/shared/ui';
 
 export interface OrderEditorProps {
   readonly clients: readonly OrderClientRef[];
   readonly installers: readonly OrderInstallerRef[];
   /** Виды работ из справочника — перечня в коде нет (ADR-343). */
-  readonly workTypes: readonly WorkTypeMark[];
+  readonly workTypes: readonly WorkTypeOption[];
   /** Занятость: форма предупреждает о ней, но назначать не мешает (ADR-115). */
   readonly blocks?: readonly OrderBlock[] | undefined;
   readonly work?: readonly OrderWorkSpan[] | undefined;

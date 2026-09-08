@@ -323,10 +323,12 @@ function dayLabelOf(day: string, today: string, tomorrow: string, at: Date): str
 /**
  * Что за работа. Название вида работ приходит из справочника готовым
  * (ADR-343): словаря, в котором его можно было бы найти по ключу, больше нет
- * — ни у дела, ни у наряда.
+ * — ни у дела, ни у наряда. И у наряда, и у дела вид работ обязателен, поэтому
+ * запасного имени по природе строки здесь нет: ветка, которой не бывает,
+ * читается как живая и врёт о том, что бывает.
  */
 function kindOf(row: UpcomingRow): string {
-  return row.workType === '' ? texts.natureTitle(row.nature) : row.workType;
+  return row.workType;
 }
 
 /**

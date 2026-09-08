@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react';
 
 import { busyAt, busyOn, minutesOfTime } from '@/entities/crm/lib/busy';
 import { BusyNote } from '@/entities/crm/ui';
-import type { WorkTypeMark } from '@/shared/lib/work-type';
+import type { WorkTypeOption } from '@/shared/lib/work-type';
 import { CANCEL_REASON_OPTIONS, isCancelReason } from '@/shared/lib/cancel-reason';
 import { formatPhone } from '@/shared/lib/format';
 import {
@@ -71,10 +71,14 @@ export interface OrderFormProps {
    * заявки на сайте (ADR-343).
    *
    * 🔴 Пропсом, а не константой: набор видов работ задаёт владелец из
-   * настроек, и перечня в коде не осталось (инвариант 8). Отключённые сюда не
-   * приходят — их не предлагают, но у прежних нарядов они остаются.
+   * настроек, и перечня в коде не осталось (инвариант 8).
+   *
+   * 🔴 Отключённый вид работ приходит сюда только тогда, когда он стоит у
+   * правимого наряда, и помечен `active: false`: поле обязано показывать то,
+   * что в наряде записано, а не пустоту, — но выбрать отключённый вид для
+   * новой работы нельзя.
    */
-  readonly workTypes: readonly WorkTypeMark[];
+  readonly workTypes: readonly WorkTypeOption[];
   /**
    * Занятость всех, кого можно назначить: свои дни человек заводит себе сам
    * (ADR-115). Форма отбирает из них записи выбранного монтажника.
@@ -134,10 +138,12 @@ export function OrderForm({
   surface = 'card',
 }: OrderFormProps) {
   const { confirm: ask, dialog } = useConfirm();
-  /* Первый вид справочника — умолчание нового наряда: порядок в списке задаёт
-     владелец, и наверху у него стоит то, что заводят чаще. Пустой справочник
+  /* Первый действующий вид справочника — умолчание нового наряда: порядок в
+     списке задаёт владелец, и наверху у него стоит то, что заводят чаще.
+     Отключённые пропускаются: они попадают в список только ради уже
+     записанного вида и новой работе не предлагаются. Пустой справочник
      оставляет поле незаполненным, и схема на нём остановит отправку. */
-  const firstWorkTypeId = workTypes[0]?.id ?? '';
+  const firstWorkTypeId = workTypes.find((workType) => workType.active)?.id ?? '';
   const [draft, setDraft] = useState<OrderDraft>(
     () => initial ?? emptyOrderDraft(undefined, firstWorkTypeId),
   );
@@ -315,7 +321,8 @@ export function OrderForm({
               label={texts.workType}
               options={workTypes.map((workType) => ({
                 value: workType.id,
-                label: workType.title,
+                label: workType.active ? workType.title : texts.workTypeOff(workType.title),
+                disabled: !workType.active,
               }))}
               placeholder={texts.workTypePlaceholder}
               value={draft.workTypeId}
