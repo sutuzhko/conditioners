@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×336 @16,16  r20  b1
+section.Card__card  358×336 @16,16  r14  b1
   header.ClientLeads__header  316×45 @21,21
     h2.ClientLeads__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «Обращения»
     p.ClientLeads__hint  316×20 @0,25  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
@@ -26,7 +26,7 @@ section.Card__card  358×336 @16,16  r20  b1
   a.ClientLeads__all  127×44 @21,271  Manrope 600 15/22  lines=1  «Все обращения →»
 
 [геометрия 768]
-section.Card__card  736×289 @16,16  r20  b1
+section.Card__card  736×289 @16,16  r14  b1
   header.ClientLeads__header  694×46 @21,21
     h2.ClientLeads__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Обращения»
     p.ClientLeads__hint  694×20 @0,26  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
@@ -45,7 +45,7 @@ section.Card__card  736×289 @16,16  r20  b1
   a.ClientLeads__all  127×44 @21,224  Manrope 600 15/22  lines=1  «Все обращения →»
 
 [геометрия 1440]
-section.Card__card  1408×270 @16,16  r20  b1
+section.Card__card  1408×270 @16,16  r14  b1
   header.ClientLeads__header  1366×47 @21,21
     h2.ClientLeads__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «Обращения»
     p.ClientLeads__hint  1366×20 @0,27  Manrope 400 13/20  lines=1  «Всё, что этот человек присылал с сайта.»
@@ -64,7 +64,7 @@ section.Card__card  1408×270 @16,16  r20  b1
   a.ClientLeads__all  127×24 @21,225  Manrope 600 15/22  lines=1  «Все обращения →»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   header.ClientLeads__header
     h2.ClientLeads__title  color #0f172a
     p.ClientLeads__hint  color #556173
@@ -83,7 +83,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
   a.ClientLeads__all  color #0e7490
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   header.ClientLeads__header
     h2.ClientLeads__title  color #eaf1f8
     p.ClientLeads__hint  color #8598ac

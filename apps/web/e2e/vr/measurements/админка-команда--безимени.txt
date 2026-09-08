@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.StaffList__list  358×556 @16,16
-  section.Card__card  358×435 @0,0  r20  b1
+div.StaffList__list  358×553 @16,16
+  section.Card__card  358×435 @0,0  r14  b1
     div.Table__viewport  356×433 @1,1
       table.Table__table  356×433 @0,0
         th  122×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
@@ -65,16 +65,16 @@ div.StaffList__list  358×556 @16,16
               button.RowMenu__trigger  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
                   svg  16×16 @0,0
-  div.Alert__alert  358×109 @0,447  r14  b1
-    span.Alert__icon  18×20 @15,13
+  div.Alert__alert  358×106 @0,447  r14  b1
+    span.Alert__icon  18×20 @17,13
       svg  18×18 @0,1
-    div.Alert__body  300×83 @43,13
-      p.Alert__title  300×20 @0,0  Manrope 700 15/20  lines=1  «Заметки владельца монтажник не видит»
-      div.Alert__text  300×61 @0,22  Manrope 400 15/20  lines=3  «Они живут в карточке и закрыты сервером,»
+    div.Alert__body  296×80 @45,13
+      p.Alert__title  296×20 @0,0  Manrope 700 14/20  lines=1  «Заметки владельца монтажник не видит»
+      div.Alert__text  296×59 @0,22  Manrope 400 14/20  lines=3  «Они живут в карточке и закрыты сервером,»
 
 [геометрия 768]
-div.StaffList__list  736×271 @16,16
-  section.Card__card  736×171 @0,0  r20  b1
+div.StaffList__list  736×269 @16,16
+  section.Card__card  736×171 @0,0  r14  b1
     div.Table__viewport  734×169 @1,1
       table.Table__table  954×169 @0,0
         th  138×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
@@ -120,48 +120,48 @@ div.StaffList__list  736×271 @16,16
               button.RowMenu__trigger  44×44 @0,0  r100  b1
                 span.RowMenu__dots  16×16 @14,14
                   svg  16×16 @0,0
-  div.Alert__alert  736×89 @0,183  r14  b1
-    span.Alert__icon  18×20 @15,13
+  div.Alert__alert  736×87 @0,183  r14  b1
+    span.Alert__icon  18×20 @17,13
       svg  18×18 @0,1
-    div.Alert__body  678×63 @43,13
-      p.Alert__title  678×20 @0,0  Manrope 700 15/20  lines=1  «Заметки владельца монтажник не видит»
-      div.Alert__text  678×41 @0,22  Manrope 400 15/20  lines=2  «Они живут в карточке и закрыты сервером,»
+    div.Alert__body  674×61 @45,13
+      p.Alert__title  674×20 @0,0  Manrope 700 14/20  lines=1  «Заметки владельца монтажник не видит»
+      div.Alert__text  674×39 @0,22  Manrope 400 14/20  lines=2  «Они живут в карточке и закрыты сервером,»
 
 [геометрия 1440]
-div.StaffList__list  1408×211 @16,16
-  section.Card__card  1408×130 @0,0  r20  b1
-    div.Table__viewport  1406×128 @1,1
-      table.Table__table  1406×128 @0,0
-        th  227×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
-        th.StaffList__colEmployment  170×56 @227,0  Onest 700 15/23  b0 0 1 0  lines=1  «Оформление»
-        th#2  248×56 @397,0  Onest 700 15/23  b0 0 1 0  lines=1  «Загрузка недели»
-        th#3  183×56 @645,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выполнено»
-        th#4  177×56 @828,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заработал»
-        th#5  183×56 @1005,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержания»
-        th#6  138×56 @1188,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доступ»
-        span  1×1 @1343,38  Onest 700 15/23  lines=1  clipped  «Действия»
-        tr.TableRow__row  1406×73 @0,56
-          td.StaffRow__who  227×73 @0,0
-            div.StaffRow__person  191×43 @18,15
+div.StaffList__list  1408×208 @16,16
+  section.Card__card  1408×129 @0,0  r14  b1
+    div.Table__viewport  1406×127 @1,1
+      table.Table__table  1406×127 @0,0
+        th  229×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Монтажник»
+        th.StaffList__colEmployment  170×56 @229,0  Onest 700 15/23  b0 0 1 0  lines=1  «Оформление»
+        th#2  250×56 @399,0  Onest 700 15/23  b0 0 1 0  lines=1  «Загрузка недели»
+        th#3  185×56 @650,0  Onest 700 15/23  b0 0 1 0  lines=1  «Выполнено»
+        th#4  179×56 @835,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заработал»
+        th#5  185×56 @1014,0  Onest 700 15/23  b0 0 1 0  lines=1  «Удержания»
+        th#6  139×56 @1199,0  Onest 700 15/23  b0 0 1 0  lines=1  «Доступ»
+        span  1×1 @1355,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr.TableRow__row  1406×71 @0,56
+          td.StaffRow__who  229×71 @0,0
+            div.StaffRow__person  193×43 @18,15
               span.Avatar__avatar  28×28 @0,7  r100  b1
                 span.Avatar__initials  7×11 @10,9  Onest 700 11/11  ls0  lines=1  «P»
                 span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «petrov»
               div.StaffRow__names  76×43 @36,0
                 a.StaffRow__name  76×22 @0,0  Manrope 600 15/22  lines=1  «petrov»
                 span.StaffRow__since  76×20 @0,22  Manrope 400 13/20  lines=1  «с 10.04.2026»
-          td.StaffRow__employment  170×73 @227,0
+          td.StaffRow__employment  170×71 @229,0
             div.StaffRow__badges  134×24 @18,24
               span.Tooltip__wrap  94×24 @0,0
                 span.Tooltip__anchor  94×24 @0,0
                   span.Badge__badge  94×24 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Не заведено»
               span  1×1 @-1,-1  Manrope 400 15/22  lines=1  clipped  «Пока оформление не заведено, наряд не ум»
-          td[role=cell]  248×73 @397,0
+          td[role=cell]  250×71 @399,0
             span.StaffRow__missing  11×19 @18,26  Manrope 400 15/22  lines=1  «—»
-          td.StaffRow__number  183×73 @645,0  JetBrains Mono 400 15/22  lines=1  «0»
-          td.StaffRow__number#2  177×73 @828,0  JetBrains Mono 400 15/22  lines=1  «0 ₽»
-          td.StaffRow__number#3  183×73 @1005,0
-            span.StaffRow__missing  26×19 @139,26  JetBrains Mono 400 15/22  lines=1  «нет»
-          td[role=cell]#2  138×73 @1188,0
+          td.StaffRow__number  185×71 @650,0  JetBrains Mono 400 15/22  lines=1  «0»
+          td.StaffRow__number#2  179×71 @835,0  JetBrains Mono 400 15/22  lines=1  «0 ₽»
+          td.StaffRow__number#3  185×71 @1014,0
+            span.StaffRow__missing  26×19 @141,26  JetBrains Mono 400 15/22  lines=1  «нет»
+          td[role=cell]#2  139×71 @1199,0
             span.Tooltip__wrap  44×26 @18,22
               span.Tooltip__anchor#2  44×26 @0,0
                 div.Switch__root  44×26 @0,0
@@ -170,21 +170,21 @@ div.StaffList__list  1408×211 @16,16
                       span.Switch__thumb  18×18 @24,4  r100
                     input.Switch__input  1×1 @0,13
                     label  1×1 @-1,13  Manrope 400 15/22  lines=1  clipped  «Активен»
-          td.StaffRow__actions  80×73 @1326,0
-            div.RowMenu__root  44×44 @18,15
-              button.RowMenu__trigger  44×44 @0,0  r100  b1
-                span.RowMenu__dots  16×16 @14,14
+          td.StaffRow__actions  68×71 @1338,0
+            div.RowMenu__root  32×32 @18,20
+              button.RowMenu__trigger  32×32 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @8,8
                   svg  16×16 @0,0
-  div.Alert__alert  1408×69 @0,142  r14  b1
-    span.Alert__icon  18×20 @15,13
+  div.Alert__alert  1408×67 @0,141  r14  b1
+    span.Alert__icon  18×20 @17,13
       svg  18×18 @0,1
-    div.Alert__body  1350×43 @43,13
-      p.Alert__title  1350×20 @0,0  Manrope 700 15/20  lines=1  «Заметки владельца монтажник не видит»
-      div.Alert__text  1350×20 @0,22  Manrope 400 15/20  lines=1  «Они живут в карточке и закрыты сервером,»
+    div.Alert__body  1346×41 @45,13
+      p.Alert__title  1346×20 @0,0  Manrope 700 14/20  lines=1  «Заметки владельца монтажник не видит»
+      div.Alert__text  1346×20 @0,22  Manrope 400 14/20  lines=1  «Они живут в карточке и закрыты сервером,»
 
 [палитра light]
 div.StaffList__list
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.Table__viewport
       table.Table__table
         th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
@@ -222,7 +222,7 @@ div.StaffList__list
                 div.Switch__root
                   div.Switch__row
                     label.Switch__track  bg #0e7490  border #0e7490
-                      span.Switch__thumb  bg #ffffff  shadow #0f172a3d 0px 1px 3px 0px
+                      span.Switch__thumb  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
                     input.Switch__input
                     label  color #334155
           td.StaffRow__actions
@@ -253,7 +253,7 @@ div.StaffList__list > section.Card__card > div.Table__viewport > table.Table__ta
 
 [палитра dark]
 div.StaffList__list
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.Table__viewport
       table.Table__table
         th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
@@ -291,7 +291,7 @@ div.StaffList__list
                 div.Switch__root
                   div.Switch__row
                     label.Switch__track  bg #0e7490  border #0e7490
-                      span.Switch__thumb  bg #121d31  shadow #0f172a3d 0px 1px 3px 0px
+                      span.Switch__thumb  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
                     input.Switch__input
                     label  color #c9d5e2
           td.StaffRow__actions

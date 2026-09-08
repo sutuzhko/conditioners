@@ -12,7 +12,7 @@ fieldset.OrderUnits__root  358×241 @16,16  r14  b1
   p.OrderUnits__hint  328×60 @15,36  Manrope 400 13/20  lines=3  «Позиций может быть несколько: в одном вы»
   p.OrderUnits__empty  328×65 @15,107  Manrope 400 15/22  r11  lines=2  «Позиций нет. Наряд заводят по звонку, а»
   div.OrderUnits__actions  328×44 @15,182
-    button.Button__button  151×44 @0,0  r9  b1
+    button.Button__button  151×44 @0,0  r999  b1
       span.Button__content  121×16 @15,14
         span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
 
@@ -22,18 +22,18 @@ fieldset.OrderUnits__root  736×198 @16,16  r14  b1
   p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
   p.OrderUnits__empty  706×42 @15,87  Manrope 400 15/22  r11  lines=1  «Позиций нет. Наряд заводят по звонку, а»
   div.OrderUnits__actions  706×44 @15,139
-    button.Button__button  151×44 @0,0  r9  b1
+    button.Button__button  151×44 @0,0  r999  b1
       span.Button__content  121×16 @15,14
         span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
 
 [геометрия 1440]
-fieldset.OrderUnits__root  1408×194 @16,16  r14  b1
+fieldset.OrderUnits__root  1408×186 @16,16  r14  b1
   legend.OrderUnits__legend  118×22 @15,0  Onest 700 15/22  lines=1  «Оборудование»
   p.OrderUnits__hint  508×40 @15,36  Manrope 400 13/20  lines=2  «Позиций может быть несколько: в одном вы»
   p.OrderUnits__empty  1378×42 @15,87  Manrope 400 15/22  r11  lines=1  «Позиций нет. Наряд заводят по звонку, а»
-  div.OrderUnits__actions  1378×40 @15,139
-    button.Button__button  151×40 @0,0  r9  b1
-      span.Button__content  121×16 @15,12
+  div.OrderUnits__actions  1378×32 @15,139
+    button.Button__button  151×32 @0,0  r999  b1
+      span.Button__content  121×16 @15,8
         span.Button__label  121×16 @0,0  Manrope 600 13/16  lines=1  «Добавить позицию»
 
 [палитра light]

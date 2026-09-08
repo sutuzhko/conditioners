@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×592 @16,16  r20  b1
+section.Card__card  358×592 @16,16  r14  b1
   header.ClientOrders__header  316×65 @21,21
     h2.ClientOrders__title  316×21 @0,0  Onest 700 17/21  ls0  lines=1  «История заказов»
     p.ClientOrders__hint  316×40 @0,25  Manrope 400 13/20  lines=2  «Все работы у этого человека: когда ездил»
@@ -46,7 +46,7 @@ section.Card__card  358×592 @16,16  r20  b1
     a.ClientOrders__all  143×44 @0,0  Manrope 600 15/22  lines=1  «Все наряды клиента»
 
 [геометрия 768]
-section.Card__card  736×383 @16,16  r20  b1
+section.Card__card  736×383 @16,16  r14  b1
   header.ClientOrders__header  694×46 @21,21
     h2.ClientOrders__title  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «История заказов»
     p.ClientOrders__hint  539×20 @0,26  Manrope 400 13/20  lines=1  «Все работы у этого человека: когда ездил»
@@ -85,7 +85,7 @@ section.Card__card  736×383 @16,16  r20  b1
     a.ClientOrders__all  143×44 @0,0  Manrope 600 15/22  lines=1  «Все наряды клиента»
 
 [геометрия 1440]
-section.Card__card  1408×364 @16,16  r20  b1
+section.Card__card  1408×364 @16,16  r14  b1
   header.ClientOrders__header  1366×47 @21,21
     h2.ClientOrders__title  1366×23 @0,0  Onest 700 19/23  ls0  lines=1  «История заказов»
     p.ClientOrders__hint  539×20 @0,27  Manrope 400 13/20  lines=1  «Все работы у этого человека: когда ездил»
@@ -124,7 +124,7 @@ section.Card__card  1408×364 @16,16  r20  b1
     a.ClientOrders__all  143×24 @0,0  Manrope 600 15/22  lines=1  «Все наряды клиента»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   header.ClientOrders__header
     h2.ClientOrders__title  color #0f172a
     p.ClientOrders__hint  color #556173
@@ -163,7 +163,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     a.ClientOrders__all  color #0e7490
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   header.ClientOrders__header
     h2.ClientOrders__title  color #eaf1f8
     p.ClientOrders__hint  color #8598ac

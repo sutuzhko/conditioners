@@ -2,292 +2,292 @@
 шрифты: Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1216
-768 → 768×1160
-1440 → 1440×993
+390 → 390×1186
+768 → 768×1130
+1440 → 1440×914
 
 [геометрия 390]
-form.SpecsDictionaryForm__form  358×1184 @16,16
-  section.Card__card  358×628 @0,0  r20  b1
-    div.SpecsDictionaryForm__groupHead  316×76 @21,21
-      div.Field__field  264×76 @0,0
-        label.Field__label  264×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
-        input  264×49 @0,27  r11  b1
-      button.IconButton__iconButton  44×44 @272,32  r11  b1
+form.SpecsDictionaryForm__form  358×1154 @16,16
+  section.Card__card  358×616 @0,0  r14  b1
+    div.SpecsDictionaryForm__groupHead  316×52 @21,21
+      div.Field__field  264×52 @0,0
+        label.Field__label  93×13 @15,8  Manrope 600 11/13  lines=1  «Название группы»
+        input  264×52 @0,0  r999  b1
+      button.IconButton__iconButton  44×44 @272,8  r11  b1
         svg  16×16 @14,14
-    div.SpecsDictionaryForm__fields  316×442 @21,109
-      div.SpecsDictionaryForm__fieldRow  316×217 @0,0  b0 0 1 0
-        div.Field__field  264×49 @0,0
-          input#2  264×49 @0,0  r11  b1
-        div.Field__field#2  264×49 @0,55
-          input  264×49 @0,0  r11  b1
-        div.Field__field#3  264×96 @0,110
-          textarea.Textarea__textarea  264×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Сколько тепла отводит из помещения»
-        button.IconButton__iconButton  44×44 @272,136  r11  b1
+    div.SpecsDictionaryForm__fields  316×454 @21,85
+      div.SpecsDictionaryForm__fieldRow  316×223 @0,0  b0 0 1 0
+        div.Field__field  264×52 @0,0
+          input#2  264×52 @0,0  r999  b1
+        div.Field__field#2  264×52 @0,58
+          input  264×52 @0,0  r999  b1
+        div.Field__field#3  264×96 @0,116
+          textarea.Textarea__textarea  264×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Сколько тепла отводит из помещения»
+        button.IconButton__iconButton  44×44 @272,142  r11  b1
           svg#2  16×16 @14,14
-      div.SpecsDictionaryForm__fieldRow#2  316×217 @0,225  b0 0 1 0
-        div.Field__field  264×49 @0,0
-          input#3  264×49 @0,0  r11  b1
-        div.Field__field#2  264×49 @0,55
-          input#2  264×49 @0,0  r11  b1
-        div.Field__field#3  264×96 @0,110
-          textarea.Textarea__textarea#2  264×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Инверторный или обычный»
-        button.IconButton__iconButton  44×44 @272,136  r11  b1
+      div.SpecsDictionaryForm__fieldRow#2  316×223 @0,231  b0 0 1 0
+        div.Field__field  264×52 @0,0
+          input#3  264×52 @0,0  r999  b1
+        div.Field__field#2  264×52 @0,58
+          input#2  264×52 @0,0  r999  b1
+        div.Field__field#3  264×96 @0,116
+          textarea.Textarea__textarea#2  264×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Инверторный или обычный»
+        button.IconButton__iconButton  44×44 @272,142  r11  b1
           svg#3  16×16 @14,14
-    button.Button__button  197×44 @21,563  r9  b1
+    button.Button__button  197×44 @21,551  r999  b1
       span.Button__content  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  section.Card__card#2  358×403 @0,642  r20  b1
-    div.SpecsDictionaryForm__groupHead  316×76 @21,21
-      div.Field__field#2  264×76 @0,0
-        label.Field__label  264×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
-        input#3  264×49 @0,27  r11  b1
-      button.IconButton__iconButton#2  44×44 @272,32  r11  b1
+  section.Card__card#2  358×385 @0,630  r14  b1
+    div.SpecsDictionaryForm__groupHead  316×52 @21,21
+      div.Field__field#2  264×52 @0,0
+        label.Field__label  93×13 @15,8  Manrope 600 11/13  lines=1  «Название группы»
+        input#3  264×52 @0,0  r999  b1
+      button.IconButton__iconButton#2  44×44 @272,8  r11  b1
         svg  16×16 @14,14
-    div.SpecsDictionaryForm__fields  316×217 @21,109
-      div.SpecsDictionaryForm__fieldRow#3  316×217 @0,0  b0 0 1 0
-        div.Field__field  264×49 @0,0
-          input#4  264×49 @0,0  r11  b1  clipped
-        div.Field__field#2  264×49 @0,55
-          input#4  264×49 @0,0  r11  b1
-        div.Field__field#3  264×96 @0,110
-          textarea.Textarea__textarea#3  264×96 @0,0  r11  b1
-        button.IconButton__iconButton  44×44 @272,136  r11  b1
+    div.SpecsDictionaryForm__fields  316×223 @21,85
+      div.SpecsDictionaryForm__fieldRow#3  316×223 @0,0  b0 0 1 0
+        div.Field__field  264×52 @0,0
+          input#4  264×52 @0,0  r999  b1
+        div.Field__field#2  264×52 @0,58
+          input#4  264×52 @0,0  r999  b1
+        div.Field__field#3  264×96 @0,116
+          textarea.Textarea__textarea#3  264×96 @0,0  r14  b1
+        button.IconButton__iconButton  44×44 @272,142  r11  b1
           svg#4  16×16 @14,14
-    button.Button__button  197×44 @21,338  r9  b1
+    button.Button__button  197×44 @21,320  r999  b1
       span.Button__content#2  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  div.SpecsDictionaryForm__actions  358×125 @16,1075  b1 0 0 0  fixed
-    button.Button__button  158×44 @0,13  r11  b1
-      span.Button__content#3  120×17 @19,13
-        span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @0,69  r11  b1
-      span.Button__content  164×17 @19,13
-        span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
+  div.SpecsDictionaryForm__actions  358×125 @16,719  b1 0 0 0  fixed
+    button.Button__button  154×44 @0,13  r999  b1
+      span.Button__content#3  116×17 @19,14
+        span.Button__label  116×17 @0,0  Manrope 600 14/17  lines=1  «Добавить группу»
+    button.Button__button#2  197×44 @0,69  r999  b1
+      span.Button__content  159×17 @19,14
+        span.Button__label#2  159×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить справочник»
 div.Modal__overlay  390×900 @0,0  fixed  portal
-  div.Modal__window  390×271 @0,629  r22 22 0 0  b1
-    div.Modal__head  388×156 @1,1  b0 0 1 0
-      h2.Modal__title  292×50 @20,20  Onest 700 21/25  ls0  lines=2  «Удалить группу «Основное"?»
-      p.Modal__description  292×60 @20,74  Manrope 400 13/20  lines=3  «Вместе с группой исчезнут её характерист»
-      button.IconButton__iconButton  40×40 @328,20  r11  b1
+  div.Modal__window  390×226 @0,674  r14 14 0 0  b1
+    div.Modal__head  388×123 @1,1  b0 0 1 0
+      h2.Modal__title  300×25 @16,16  Onest 700 21/25  ls0  lines=1  «Удалить группу «Основное"?»
+      p.Modal__description  300×60 @16,45  Manrope 400 13/20  lines=3  «Вместе с группой исчезнут её характерист»
+      button.IconButton__iconButton  40×40 @332,16  r11  b1
         svg#5  18×18 @11,11
-    div.Modal__body  388×40 @1,157
-    div.Modal__footer  388×73 @1,197  b1 0 0 0
-      button.Button__button  105×44 @107,15  r11  b1
-        span.Button__content#4  67×17 @19,13
-          span.Button__label  67×17 @0,0  Manrope 600 15/17  lines=1  «Оставить»
-      button.Button__button#2  148×44 @220,15  r11  b1
-        span.Button__content#2  110×17 @19,13
-          span.Button__label#2  110×17 @0,0  Manrope 600 15/17  lines=1  «Удалить группу»
+    div.Modal__body  388×32 @1,124
+    div.Modal__footer  388×69 @1,156  b1 0 0 0
+      button.Button__button  103×44 @118,13  r999  b1
+        span.Button__content#4  65×17 @19,14
+          span.Button__label  65×17 @0,0  Manrope 600 14/17  lines=1  «Оставить»
+      button.Button__button#2  144×44 @228,13  r999  b1
+        span.Button__content#2  106×17 @19,14
+          span.Button__label#2  106×17 @0,0  Manrope 600 14/17  lines=1  «Удалить группу»
 
 [геометрия 768]
-form.SpecsDictionaryForm__form  736×1128 @16,16
-  section.Card__card  736×628 @0,0  r20  b1
-    div.SpecsDictionaryForm__groupHead  694×76 @21,21
-      div.Field__field  642×76 @0,0
-        label.Field__label  642×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
-        input  642×49 @0,27  r11  b1
-      button.IconButton__iconButton  44×44 @650,32  r11  b1
+form.SpecsDictionaryForm__form  736×1098 @16,16
+  section.Card__card  736×616 @0,0  r14  b1
+    div.SpecsDictionaryForm__groupHead  694×52 @21,21
+      div.Field__field  642×52 @0,0
+        label.Field__label  93×13 @15,8  Manrope 600 11/13  lines=1  «Название группы»
+        input  642×52 @0,0  r999  b1
+      button.IconButton__iconButton  44×44 @650,8  r11  b1
         svg  16×16 @14,14
-    div.SpecsDictionaryForm__fields  694×442 @21,109
-      div.SpecsDictionaryForm__fieldRow  694×217 @0,0  b0 0 1 0
-        div.Field__field  642×49 @0,0
-          input#2  642×49 @0,0  r11  b1
-        div.Field__field#2  642×49 @0,55
-          input  642×49 @0,0  r11  b1
-        div.Field__field#3  642×96 @0,110
-          textarea.Textarea__textarea  642×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Сколько тепла отводит из помещения»
-        button.IconButton__iconButton  44×44 @650,136  r11  b1
+    div.SpecsDictionaryForm__fields  694×454 @21,85
+      div.SpecsDictionaryForm__fieldRow  694×223 @0,0  b0 0 1 0
+        div.Field__field  642×52 @0,0
+          input#2  642×52 @0,0  r999  b1
+        div.Field__field#2  642×52 @0,58
+          input  642×52 @0,0  r999  b1
+        div.Field__field#3  642×96 @0,116
+          textarea.Textarea__textarea  642×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Сколько тепла отводит из помещения»
+        button.IconButton__iconButton  44×44 @650,142  r11  b1
           svg#2  16×16 @14,14
-      div.SpecsDictionaryForm__fieldRow#2  694×217 @0,225  b0 0 1 0
-        div.Field__field  642×49 @0,0
-          input#3  642×49 @0,0  r11  b1
-        div.Field__field#2  642×49 @0,55
-          input#2  642×49 @0,0  r11  b1
-        div.Field__field#3  642×96 @0,110
-          textarea.Textarea__textarea#2  642×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Инверторный или обычный»
-        button.IconButton__iconButton  44×44 @650,136  r11  b1
+      div.SpecsDictionaryForm__fieldRow#2  694×223 @0,231  b0 0 1 0
+        div.Field__field  642×52 @0,0
+          input#3  642×52 @0,0  r999  b1
+        div.Field__field#2  642×52 @0,58
+          input#2  642×52 @0,0  r999  b1
+        div.Field__field#3  642×96 @0,116
+          textarea.Textarea__textarea#2  642×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Инверторный или обычный»
+        button.IconButton__iconButton  44×44 @650,142  r11  b1
           svg#3  16×16 @14,14
-    button.Button__button  197×44 @21,563  r9  b1
+    button.Button__button  197×44 @21,551  r999  b1
       span.Button__content  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  section.Card__card#2  736×403 @0,642  r20  b1
-    div.SpecsDictionaryForm__groupHead  694×76 @21,21
-      div.Field__field#2  642×76 @0,0
-        label.Field__label  642×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
-        input#3  642×49 @0,27  r11  b1
-      button.IconButton__iconButton#2  44×44 @650,32  r11  b1
+  section.Card__card#2  736×385 @0,630  r14  b1
+    div.SpecsDictionaryForm__groupHead  694×52 @21,21
+      div.Field__field#2  642×52 @0,0
+        label.Field__label  93×13 @15,8  Manrope 600 11/13  lines=1  «Название группы»
+        input#3  642×52 @0,0  r999  b1
+      button.IconButton__iconButton#2  44×44 @650,8  r11  b1
         svg  16×16 @14,14
-    div.SpecsDictionaryForm__fields  694×217 @21,109
-      div.SpecsDictionaryForm__fieldRow#3  694×217 @0,0  b0 0 1 0
-        div.Field__field  642×49 @0,0
-          input#4  642×49 @0,0  r11  b1
-        div.Field__field#2  642×49 @0,55
-          input#4  642×49 @0,0  r11  b1
-        div.Field__field#3  642×96 @0,110
-          textarea.Textarea__textarea#3  642×96 @0,0  r11  b1
-        button.IconButton__iconButton  44×44 @650,136  r11  b1
+    div.SpecsDictionaryForm__fields  694×223 @21,85
+      div.SpecsDictionaryForm__fieldRow#3  694×223 @0,0  b0 0 1 0
+        div.Field__field  642×52 @0,0
+          input#4  642×52 @0,0  r999  b1
+        div.Field__field#2  642×52 @0,58
+          input#4  642×52 @0,0  r999  b1
+        div.Field__field#3  642×96 @0,116
+          textarea.Textarea__textarea#3  642×96 @0,0  r14  b1
+        button.IconButton__iconButton  44×44 @650,142  r11  b1
           svg#4  16×16 @14,14
-    button.Button__button  197×44 @21,338  r9  b1
+    button.Button__button  197×44 @21,320  r999  b1
       span.Button__content#2  167×16 @15,14
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  div.SpecsDictionaryForm__actions  736×69 @16,1075  b1 0 0 0  fixed
-    button.Button__button  158×44 @0,13  r11  b1
-      span.Button__content#3  120×17 @19,13
-        span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @170,13  r11  b1
-      span.Button__content  164×17 @19,13
-        span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
+  div.SpecsDictionaryForm__actions  736×69 @16,775  b1 0 0 0  fixed
+    button.Button__button  154×44 @0,13  r999  b1
+      span.Button__content#3  116×17 @19,14
+        span.Button__label  116×17 @0,0  Manrope 600 14/17  lines=1  «Добавить группу»
+    button.Button__button#2  197×44 @166,13  r999  b1
+      span.Button__content  159×17 @19,14
+        span.Button__label#2  159×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить справочник»
 div.Modal__overlay  768×900 @0,0  fixed  portal
-  div.Modal__window  420×246 @174,327  r22  b1
-    div.Modal__head  418×131 @1,1  b0 0 1 0
-      h2.Modal__title  322×25 @20,20  Onest 700 21/25  ls0  lines=1  «Удалить группу «Основное"?»
-      p.Modal__description  322×60 @20,49  Manrope 400 13/20  lines=3  «Вместе с группой исчезнут её характерист»
-      button.IconButton__iconButton  40×40 @358,20  r11  b1
+  div.Modal__window  420×226 @174,337  r14  b1
+    div.Modal__head  418×123 @1,1  b0 0 1 0
+      h2.Modal__title  330×25 @16,16  Onest 700 21/25  ls0  lines=1  «Удалить группу «Основное"?»
+      p.Modal__description  330×60 @16,45  Manrope 400 13/20  lines=3  «Вместе с группой исчезнут её характерист»
+      button.IconButton__iconButton  40×40 @362,16  r11  b1
         svg#5  18×18 @11,11
-    div.Modal__body  418×40 @1,132
-    div.Modal__footer  418×73 @1,172  b1 0 0 0
-      button.Button__button  105×44 @137,15  r11  b1
-        span.Button__content#4  67×17 @19,13
-          span.Button__label  67×17 @0,0  Manrope 600 15/17  lines=1  «Оставить»
-      button.Button__button#2  148×44 @250,15  r11  b1
-        span.Button__content#2  110×17 @19,13
-          span.Button__label#2  110×17 @0,0  Manrope 600 15/17  lines=1  «Удалить группу»
+    div.Modal__body  418×32 @1,124
+    div.Modal__footer  418×69 @1,156  b1 0 0 0
+      button.Button__button  103×44 @148,13  r999  b1
+        span.Button__content#4  65×17 @19,14
+          span.Button__label  65×17 @0,0  Manrope 600 14/17  lines=1  «Оставить»
+      button.Button__button#2  144×44 @258,13  r999  b1
+        span.Button__content#2  106×17 @19,14
+          span.Button__label#2  106×17 @0,0  Manrope 600 14/17  lines=1  «Удалить группу»
 
 [геометрия 1440]
-form.SpecsDictionaryForm__form  1408×961 @16,16
-  section.Card__card  1408×518 @0,0  r20  b1
-    div.SpecsDictionaryForm__groupHead  1366×76 @21,21
-      div.Field__field  1314×76 @0,0
-        label.Field__label  1314×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
-        input  1314×49 @0,27  r11  b1
-      button.IconButton__iconButton  44×44 @1322,32  r11  b1
+form.SpecsDictionaryForm__form  1408×882 @16,16
+  section.Card__card  1408×480 @0,0  r14  b1
+    div.SpecsDictionaryForm__groupHead  1366×48 @21,21
+      div.Field__field  1314×48 @0,0
+        label.Field__label  93×13 @15,8  Manrope 600 11/13  lines=1  «Название группы»
+        input  1314×48 @0,0  r999  b1
+      button.IconButton__iconButton  44×44 @1322,4  r11  b1
         svg  16×16 @14,14
-    div.SpecsDictionaryForm__fields  1366×336 @21,109
-      div.SpecsDictionaryForm__fieldRow  1366×164 @0,0  b0 0 1 0
-        div.Field__field  980×49 @0,0
-          input#2  980×49 @0,0  r11  b1
-        div.Field__field#2  379×49 @988,0
-          input  379×49 @0,0  r11  b1
-        div.Field__field#3  1314×96 @0,57
-          textarea.Textarea__textarea  1314×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Сколько тепла отводит из помещения»
-        button.IconButton__iconButton  44×44 @1322,83  r11  b1
+    div.SpecsDictionaryForm__fields  1366×334 @21,81
+      div.SpecsDictionaryForm__fieldRow  1366×163 @0,0  b0 0 1 0
+        div.Field__field  980×48 @0,0
+          input#2  980×48 @0,0  r999  b1
+        div.Field__field#2  379×48 @988,0
+          input  379×48 @0,0  r999  b1
+        div.Field__field#3  1314×96 @0,56
+          textarea.Textarea__textarea  1314×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Сколько тепла отводит из помещения»
+        button.IconButton__iconButton  44×44 @1322,82  r11  b1
           svg#2  16×16 @14,14
-      div.SpecsDictionaryForm__fieldRow#2  1366×164 @0,172  b0 0 1 0
-        div.Field__field  980×49 @0,0
-          input#3  980×49 @0,0  r11  b1
-        div.Field__field#2  379×49 @988,0
-          input#2  379×49 @0,0  r11  b1
-        div.Field__field#3  1314×96 @0,57
-          textarea.Textarea__textarea#2  1314×96 @0,0  Manrope 400 15/21  r11  b1  lines=0  «Инверторный или обычный»
-        button.IconButton__iconButton  44×44 @1322,83  r11  b1
+      div.SpecsDictionaryForm__fieldRow#2  1366×163 @0,171  b0 0 1 0
+        div.Field__field  980×48 @0,0
+          input#3  980×48 @0,0  r999  b1
+        div.Field__field#2  379×48 @988,0
+          input#2  379×48 @0,0  r999  b1
+        div.Field__field#3  1314×96 @0,56
+          textarea.Textarea__textarea#2  1314×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Инверторный или обычный»
+        button.IconButton__iconButton  44×44 @1322,82  r11  b1
           svg#3  16×16 @14,14
-    button.Button__button  197×40 @21,457  r9  b1
-      span.Button__content  167×16 @15,12
+    button.Button__button  197×32 @21,427  r999  b1
+      span.Button__content  167×16 @15,8
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  section.Card__card#2  1408×346 @0,532  r20  b1
-    div.SpecsDictionaryForm__groupHead  1366×76 @21,21
-      div.Field__field#2  1314×76 @0,0
-        label.Field__label  1314×20 @0,0  Manrope 600 13/20  lines=1  «Название группы»
-        input#3  1314×49 @0,27  r11  b1
-      button.IconButton__iconButton#2  44×44 @1322,32  r11  b1
+  section.Card__card#2  1408×309 @0,494  r14  b1
+    div.SpecsDictionaryForm__groupHead  1366×48 @21,21
+      div.Field__field#2  1314×48 @0,0
+        label.Field__label  93×13 @15,8  Manrope 600 11/13  lines=1  «Название группы»
+        input#3  1314×48 @0,0  r999  b1
+      button.IconButton__iconButton#2  44×44 @1322,4  r11  b1
         svg  16×16 @14,14
-    div.SpecsDictionaryForm__fields  1366×164 @21,109
-      div.SpecsDictionaryForm__fieldRow#3  1366×164 @0,0  b0 0 1 0
-        div.Field__field  980×49 @0,0
-          input#4  980×49 @0,0  r11  b1
-        div.Field__field#2  379×49 @988,0
-          input#4  379×49 @0,0  r11  b1
-        div.Field__field#3  1314×96 @0,57
-          textarea.Textarea__textarea#3  1314×96 @0,0  r11  b1
-        button.IconButton__iconButton  44×44 @1322,83  r11  b1
+    div.SpecsDictionaryForm__fields  1366×163 @21,81
+      div.SpecsDictionaryForm__fieldRow#3  1366×163 @0,0  b0 0 1 0
+        div.Field__field  980×48 @0,0
+          input#4  980×48 @0,0  r999  b1
+        div.Field__field#2  379×48 @988,0
+          input#4  379×48 @0,0  r999  b1
+        div.Field__field#3  1314×96 @0,56
+          textarea.Textarea__textarea#3  1314×96 @0,0  r14  b1
+        button.IconButton__iconButton  44×44 @1322,82  r11  b1
           svg#4  16×16 @14,14
-    button.Button__button  197×40 @21,285  r9  b1
-      span.Button__content#2  167×16 @15,12
+    button.Button__button  197×32 @21,256  r999  b1
+      span.Button__content#2  167×16 @15,8
         span.Button__label  167×16 @0,0  Manrope 600 13/16  lines=1  «Добавить характеристику»
-  div.SpecsDictionaryForm__actions  1408×69 @16,831  b1 0 0 0  fixed
-    button.Button__button  158×44 @0,13  r11  b1
-      span.Button__content#3  120×17 @19,13
-        span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @170,13  r11  b1
-      span.Button__content  164×17 @19,13
-        span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
+  div.SpecsDictionaryForm__actions  1408×65 @16,833  b1 0 0 0  fixed
+    button.Button__button  154×40 @0,13  r999  b1
+      span.Button__content#3  116×17 @19,12
+        span.Button__label  116×17 @0,0  Manrope 600 14/17  lines=1  «Добавить группу»
+    button.Button__button#2  197×40 @166,13  r999  b1
+      span.Button__content  159×17 @19,12
+        span.Button__label#2  159×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить справочник»
 div.Modal__overlay  1440×900 @0,0  fixed  portal
-  div.Modal__window  420×246 @510,327  r22  b1
-    div.Modal__head  418×131 @1,1  b0 0 1 0
-      h2.Modal__title  322×25 @20,20  Onest 700 21/25  ls0  lines=1  «Удалить группу «Основное"?»
-      p.Modal__description  322×60 @20,49  Manrope 400 13/20  lines=3  «Вместе с группой исчезнут её характерист»
-      button.IconButton__iconButton  40×40 @358,20  r11  b1
+  div.Modal__window  420×222 @510,339  r14  b1
+    div.Modal__head  418×123 @1,1  b0 0 1 0
+      h2.Modal__title  330×25 @16,16  Onest 700 21/25  ls0  lines=1  «Удалить группу «Основное"?»
+      p.Modal__description  330×60 @16,45  Manrope 400 13/20  lines=3  «Вместе с группой исчезнут её характерист»
+      button.IconButton__iconButton  40×40 @362,16  r11  b1
         svg#5  18×18 @11,11
-    div.Modal__body  418×40 @1,132
-    div.Modal__footer  418×73 @1,172  b1 0 0 0
-      button.Button__button  105×44 @137,15  r11  b1
-        span.Button__content#4  67×17 @19,13
-          span.Button__label  67×17 @0,0  Manrope 600 15/17  lines=1  «Оставить»
-      button.Button__button#2  148×44 @250,15  r11  b1
-        span.Button__content#2  110×17 @19,13
-          span.Button__label#2  110×17 @0,0  Manrope 600 15/17  lines=1  «Удалить группу»
+    div.Modal__body  418×32 @1,124
+    div.Modal__footer  418×65 @1,156  b1 0 0 0
+      button.Button__button  103×40 @148,13  r999  b1
+        span.Button__content#4  65×17 @19,12
+          span.Button__label  65×17 @0,0  Manrope 600 14/17  lines=1  «Оставить»
+      button.Button__button#2  144×40 @258,13  r999  b1
+        span.Button__content#2  106×17 @19,12
+          span.Button__label#2  106×17 @0,0  Manrope 600 14/17  lines=1  «Удалить группу»
 
 [палитра light]
 form.SpecsDictionaryForm__form
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.SpecsDictionaryForm__groupHead
       div.Field__field
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
       button.IconButton__iconButton  border transparent
         svg
     div.SpecsDictionaryForm__fields
       div.SpecsDictionaryForm__fieldRow  border #475569 #475569 #eef2f6 #475569
         div.Field__field
-          input#2  bg #ffffff  border #7e8fa6
+          input#2  bg #f8fafc  border #7e8fa6
         div.Field__field#2
-          input  bg #ffffff  border #7e8fa6
+          input  bg #f8fafc  border #7e8fa6
         div.Field__field#3
-          textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+          textarea.Textarea__textarea  color #0f172a  bg #f8fafc  border #7e8fa6
         button.IconButton__iconButton  border transparent
           svg#2
       div.SpecsDictionaryForm__fieldRow#2  border #475569 #475569 #eef2f6 #475569
         div.Field__field
-          input#3  bg #ffffff  border #7e8fa6
+          input#3  bg #f8fafc  border #7e8fa6
         div.Field__field#2
-          input#2  bg #ffffff  border #7e8fa6
+          input#2  bg #f8fafc  border #7e8fa6
         div.Field__field#3
-          textarea.Textarea__textarea#2  color #0f172a  bg #ffffff  border #7e8fa6
+          textarea.Textarea__textarea#2  color #0f172a  bg #f8fafc  border #7e8fa6
         button.IconButton__iconButton  border transparent
           svg#3
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content
         span.Button__label  color #0f172a
-  section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.SpecsDictionaryForm__groupHead
       div.Field__field#2
-        label.Field__label  color #334155
-        input#3  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input#3  bg #f8fafc  border #7e8fa6
       button.IconButton__iconButton#2  border transparent
         svg
     div.SpecsDictionaryForm__fields
       div.SpecsDictionaryForm__fieldRow#3  border #475569 #475569 #eef2f6 #475569
         div.Field__field
-          input#4  bg #ffffff  border #7e8fa6
+          input#4  bg #f8fafc  border #7e8fa6
         div.Field__field#2
-          input#4  bg #ffffff  border #7e8fa6
+          input#4  bg #f8fafc  border #7e8fa6
         div.Field__field#3
-          textarea.Textarea__textarea#3  bg #ffffff  border #7e8fa6
+          textarea.Textarea__textarea#3  bg #f8fafc  border #7e8fa6
         button.IconButton__iconButton  border transparent
           svg#4
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content#2
         span.Button__label  color #0f172a
-  div.SpecsDictionaryForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+  div.SpecsDictionaryForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content#3
         span.Button__label  color #0f172a
-    button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button#2  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label#2  color #ffffff
 div.Modal__overlay  bg #0f172a73
-  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
     div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
       h2.Modal__title  color #0f172a
       p.Modal__description  color #556173
@@ -304,64 +304,64 @@ div.Modal__overlay  bg #0f172a73
 
 [палитра dark]
 form.SpecsDictionaryForm__form
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.SpecsDictionaryForm__groupHead
       div.Field__field
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
       button.IconButton__iconButton  border transparent
         svg
     div.SpecsDictionaryForm__fields
       div.SpecsDictionaryForm__fieldRow  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
         div.Field__field
-          input#2  bg #0b1424  border #566d95
+          input#2  bg #0e1729  border #566d95
         div.Field__field#2
-          input  bg #0b1424  border #566d95
+          input  bg #0e1729  border #566d95
         div.Field__field#3
-          textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+          textarea.Textarea__textarea  color #eaf1f8  bg #0e1729  border #566d95
         button.IconButton__iconButton  border transparent
           svg#2
       div.SpecsDictionaryForm__fieldRow#2  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
         div.Field__field
-          input#3  bg #0b1424  border #566d95
+          input#3  bg #0e1729  border #566d95
         div.Field__field#2
-          input#2  bg #0b1424  border #566d95
+          input#2  bg #0e1729  border #566d95
         div.Field__field#3
-          textarea.Textarea__textarea#2  color #eaf1f8  bg #0b1424  border #566d95
+          textarea.Textarea__textarea#2  color #eaf1f8  bg #0e1729  border #566d95
         button.IconButton__iconButton  border transparent
           svg#3
     button.Button__button  bg #121d31  border #566d95
       span.Button__content
         span.Button__label  color #eaf1f8
-  section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card#2  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.SpecsDictionaryForm__groupHead
       div.Field__field#2
-        label.Field__label  color #c9d5e2
-        input#3  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input#3  bg #0e1729  border #566d95
       button.IconButton__iconButton#2  border transparent
         svg
     div.SpecsDictionaryForm__fields
       div.SpecsDictionaryForm__fieldRow#3  border #a8b6c6 #a8b6c6 #182338 #a8b6c6
         div.Field__field
-          input#4  bg #0b1424  border #566d95
+          input#4  bg #0e1729  border #566d95
         div.Field__field#2
-          input#4  bg #0b1424  border #566d95
+          input#4  bg #0e1729  border #566d95
         div.Field__field#3
-          textarea.Textarea__textarea#3  bg #0b1424  border #566d95
+          textarea.Textarea__textarea#3  bg #0e1729  border #566d95
         button.IconButton__iconButton  border transparent
           svg#4
     button.Button__button  bg #121d31  border #566d95
       span.Button__content#2
         span.Button__label  color #eaf1f8
-  div.SpecsDictionaryForm__actions  bg #0b1220  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  div.SpecsDictionaryForm__actions  bg #0b1220  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8  shadow #0000003d 0px 0px 15px 0px, #00000057 0px 2px 30px 0px
     button.Button__button  bg #121d31  border #566d95
       span.Button__content#3
         span.Button__label  color #eaf1f8
-    button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button#2  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label#2  color #ffffff
 div.Modal__overlay  bg #020610ad
-  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
     div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
       h2.Modal__title  color #eaf1f8
       p.Modal__description  color #8598ac

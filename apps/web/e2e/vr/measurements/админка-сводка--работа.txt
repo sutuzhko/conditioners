@@ -12,7 +12,7 @@ div.AdminSummary__summary  358×649 @16,16
     div.AdminSummary__headText  253×55 @0,0
       h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
       p.AdminSummary__lead  253×22 @0,32  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
-    a.Button__button  133×44 @0,65  r9  b1
+    a.Button__button  133×44 @0,65  r999  b1
       span.Button__content  103×16 @15,14
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
@@ -36,7 +36,7 @@ div.AdminSummary__summary  358×649 @16,16
         dd.StatTile__value#2  149×34 @13,32
           span.StatTile__number  11×21 @0,6  Onest 700 16/21  ls0  lines=1  «9»
         dd.StatTile__note#2  149×16 @13,70  Manrope 400 12/16  lines=1  «назначены и на объекте»
-  section.Card__card  358×336 @0,314  r20  b1
+  section.Card__card  358×336 @0,314  r14  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Требуют внимания»
     p.AdminSummary__text  316×45 @21,60  Manrope 400 15/22  lines=2  «Наряды, по которым время вышло или неком»
     ul.AdminSummary__events  316×132 @21,115
@@ -58,7 +58,7 @@ div.AdminSummary__summary  736×697 @16,16
     div.AdminSummary__headText  312×62 @0,0
       h1.AdminSummary__title  312×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Доброе утро, Сергей»
       p.AdminSummary__lead  312×22 @0,39  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
-    a.Button__button  133×44 @603,9  r9  b1
+    a.Button__button  133×44 @603,9  r999  b1
       span.Button__content  103×16 @15,14
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
@@ -94,7 +94,7 @@ div.AdminSummary__summary  736×697 @16,16
         dd.StatTile__value#4  328×34 @17,36
           span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «3»
         dd.StatTile__note#4  328×16 @17,74  Manrope 400 12/16  lines=1  «с открытым доступом в панель»
-  section.Card__card  736×303 @0,394  r20  b1
+  section.Card__card  736×303 @0,394  r14  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Требуют внимания»
     p.AdminSummary__text  694×22 @21,61  Manrope 400 15/22  lines=1  «Наряды, по которым время вышло или неком»
     ul.AdminSummary__events  694×121 @21,93
@@ -116,8 +116,8 @@ div.AdminSummary__summary  1408×516 @16,16
     div.AdminSummary__headText  381×70 @0,0
       h1.AdminSummary__title  381×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Доброе утро, Сергей»
       p.AdminSummary__lead  381×22 @0,48  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
-    a.Button__button  133×40 @1275,15  r9  b1
-      span.Button__content  103×16 @15,12
+    a.Button__button  133×32 @1275,19  r999  b1
+      span.Button__content  103×16 @15,8
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
   div.AdminSummary__bar  1408×40 @0,88
@@ -152,7 +152,7 @@ div.AdminSummary__summary  1408×516 @16,16
         dd.StatTile__value#4  306×34 @17,36
           span.StatTile__number  17×34 @0,0  Onest 700 26/34  ls-1  lines=1  «3»
         dd.StatTile__note#4  306×16 @17,74  Manrope 400 12/16  lines=1  «с открытым доступом в панель»
-  section.Card__card  1408×245 @0,271  r20  b1
+  section.Card__card  1408×245 @0,271  r14  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Требуют внимания»
     p.AdminSummary__text  1366×22 @21,62  Manrope 400 15/22  lines=1  «Наряды, по которым время вышло или неком»
     ul.AdminSummary__events  1366×81 @21,94
@@ -174,7 +174,7 @@ div.AdminSummary__summary
     div.AdminSummary__headText
       h1.AdminSummary__title  color #0f172a
       p.AdminSummary__lead  color #475569
-    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         svg
         span.Button__label  color #ffffff
@@ -182,35 +182,35 @@ div.AdminSummary__summary
     nav.Tabs__strip
       div.Tabs__row  bg #f8fafc  border #e2e8f0
         a.Tabs__tab  color #556173
-        a.Tabs__tab#2  color #0f172a  bg #ffffff
+        a.Tabs__tab#2  color #0f172a  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         a.Tabs__tab#3  color #556173
     p.AdminSummary__period  color #556173
   div.StatTile__tiles
     a.AdminSummary__tileLink
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label  color #556173
         dd.StatTile__value
           span.StatTile__number  color #0f172a
         dd.StatTile__note  color #556173
     a.AdminSummary__tileLink#2
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label#2  color #556173
         dd.StatTile__value#2
           span.StatTile__number  color #0f172a
         dd.StatTile__note#2  color #556173
     a.AdminSummary__tileLink#3
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label#3  color #556173
         dd.StatTile__value#3
           span.StatTile__number  color #0f172a
         dd.StatTile__note#3  color #556173
     a.AdminSummary__tileLink#4
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label#4  color #556173
         dd.StatTile__value#4
           span.StatTile__number  color #0f172a
         dd.StatTile__note#4  color #556173
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     h2.AdminSummary__cardTitle  color #0f172a
     p.AdminSummary__text  color #475569
     ul.AdminSummary__events
@@ -232,7 +232,7 @@ div.AdminSummary__summary
     div.AdminSummary__headText
       h1.AdminSummary__title  color #eaf1f8
       p.AdminSummary__lead  color #a8b6c6
-    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         svg
         span.Button__label  color #ffffff
@@ -240,35 +240,35 @@ div.AdminSummary__summary
     nav.Tabs__strip
       div.Tabs__row  bg #0e1729  border #1e2b41
         a.Tabs__tab  color #8598ac
-        a.Tabs__tab#2  color #eaf1f8  bg #121d31
+        a.Tabs__tab#2  color #eaf1f8  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         a.Tabs__tab#3  color #8598ac
     p.AdminSummary__period  color #8598ac
   div.StatTile__tiles
     a.AdminSummary__tileLink
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label  color #8598ac
         dd.StatTile__value
           span.StatTile__number  color #eaf1f8
         dd.StatTile__note  color #8598ac
     a.AdminSummary__tileLink#2
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label#2  color #8598ac
         dd.StatTile__value#2
           span.StatTile__number  color #eaf1f8
         dd.StatTile__note#2  color #8598ac
     a.AdminSummary__tileLink#3
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label#3  color #8598ac
         dd.StatTile__value#3
           span.StatTile__number  color #eaf1f8
         dd.StatTile__note#3  color #8598ac
     a.AdminSummary__tileLink#4
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label#4  color #8598ac
         dd.StatTile__value#4
           span.StatTile__number  color #eaf1f8
         dd.StatTile__note#4  color #8598ac
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     h2.AdminSummary__cardTitle  color #eaf1f8
     p.AdminSummary__text  color #a8b6c6
     ul.AdminSummary__events

@@ -31,7 +31,7 @@ div.DeliveryLog__log  358×716 @16,16
   h2.DeliveryLog__title#2  358×21 @0,204  Onest 700 17/21  ls0  lines=1  «Что не дошло»
   p.DeliveryLog__hint  358×90 @0,231  Manrope 400 15/22  lines=4  «Причина приходит от самого канала. Испра»
   ul.DeliveryLog__failures  358×218 @0,330
-    div.Card__card  358×218 @0,0  r20  b1
+    div.Card__card  358×218 @0,0  r14  b1
       div.DeliveryLog__head  316×51 @21,21
         span.DeliveryLog__kind  51×23 @0,0  Manrope 600 15/23  lines=1  «Заявка»
         span.DeliveryLog__channelTag  36×19 @59,3  JetBrains Mono 400 12/19  lines=1  «email»
@@ -39,7 +39,7 @@ div.DeliveryLog__log  358×716 @16,16
         span.DeliveryLog__meta  160×19 @0,32  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 6»
       p.DeliveryLog__to  228×19 @21,80  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
       p.DeliveryLog__reason  316×39 @21,106  JetBrains Mono 400 13/19  lines=2  «Почтовый канал не настроен: не задан SMT»
-      button.Button__button  99×44 @21,153  r9  b1
+      button.Button__button  99×44 @21,153  r999  b1
         span.Button__content  69×16 @15,14
           span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
   h2.DeliveryLog__title#3  358×21 @0,567  Onest 700 17/21  ls0  lines=1  «Что ушло людям»
@@ -71,7 +71,7 @@ div.DeliveryLog__log  736×522 @16,16
   h2.DeliveryLog__title#2  736×22 @0,145  Onest 700 18/22  ls0  lines=1  «Что не дошло»
   p.DeliveryLog__hint  637×45 @0,172  Manrope 400 15/22  lines=2  «Причина приходит от самого канала. Испра»
   ul.DeliveryLog__failures  736×172 @0,227
-    div.Card__card  736×172 @0,0  r20  b1
+    div.Card__card  736×172 @0,0  r14  b1
       div.DeliveryLog__head  324×24 @21,21
         span.DeliveryLog__kind  51×23 @0,0  Manrope 600 15/23  lines=1  «Заявка»
         span.DeliveryLog__channelTag  36×19 @59,3  JetBrains Mono 400 12/19  lines=1  «email»
@@ -79,7 +79,7 @@ div.DeliveryLog__log  736×522 @16,16
         span.DeliveryLog__meta  160×19 @164,3  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 6»
       p.DeliveryLog__to  228×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
       p.DeliveryLog__reason  345×19 @21,80  JetBrains Mono 400 13/19  lines=1  «Почтовый канал не настроен: не задан SMT»
-      button.Button__button  99×44 @21,107  r9  b1
+      button.Button__button  99×44 @21,107  r999  b1
         span.Button__content  69×16 @15,14
           span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
   h2.DeliveryLog__title#3  736×22 @0,417  Onest 700 18/22  ls0  lines=1  «Что ушло людям»
@@ -87,7 +87,7 @@ div.DeliveryLog__log  736×522 @16,16
   p.DeliveryLog__empty  736×22 @0,500  Manrope 400 15/22  lines=1  «Адресных уведомлений ещё не было: наряды»
 
 [геометрия 1440]
-div.DeliveryLog__log  1408×522 @16,16
+div.DeliveryLog__log  1408×514 @16,16
   h2.DeliveryLog__title  1408×23 @0,0  Onest 700 19/23  ls0  lines=1  «Доставка уведомлений»
   ul.DeliveryLog__summary  1408×99 @0,29
     li.DeliveryLog__channel  1408×45 @0,0  r14  b1
@@ -110,8 +110,8 @@ div.DeliveryLog__log  1408×522 @16,16
           b  10×19 @74,1  Manrope 700 15/22  lines=1  «0»
   h2.DeliveryLog__title#2  1408×23 @0,146  Onest 700 19/23  ls0  lines=1  «Что не дошло»
   p.DeliveryLog__hint  637×45 @0,175  Manrope 400 15/22  lines=2  «Причина приходит от самого канала. Испра»
-  ul.DeliveryLog__failures  1408×168 @0,229
-    div.Card__card  1408×168 @0,0  r20  b1
+  ul.DeliveryLog__failures  1408×160 @0,229
+    div.Card__card  1408×160 @0,0  r14  b1
       div.DeliveryLog__head  324×24 @21,21
         span.DeliveryLog__kind  51×23 @0,0  Manrope 600 15/23  lines=1  «Заявка»
         span.DeliveryLog__channelTag  36×19 @59,3  JetBrains Mono 400 12/19  lines=1  «email»
@@ -119,12 +119,12 @@ div.DeliveryLog__log  1408×522 @16,16
         span.DeliveryLog__meta  160×19 @164,3  Manrope 400 12/19  lines=1  «26 августа 2026 · попыток: 6»
       p.DeliveryLog__to  228×19 @21,53  Manrope 400 12/19  lines=1  «Кому: Владелец, общий адрес компании»
       p.DeliveryLog__reason  345×19 @21,80  JetBrains Mono 400 13/19  lines=1  «Почтовый канал не настроен: не задан SMT»
-      button.Button__button  99×40 @21,107  r9  b1
-        span.Button__content  69×16 @15,12
+      button.Button__button  99×32 @21,107  r999  b1
+        span.Button__content  69×16 @15,8
           span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Повторить»
-  h2.DeliveryLog__title#3  1408×23 @0,416  Onest 700 19/23  ls0  lines=1  «Что ушло людям»
-  p.DeliveryLog__hint#2  637×45 @0,444  Manrope 400 15/22  lines=2  «Копию сообщения монтажнику владелец не п»
-  p.DeliveryLog__empty  1408×22 @0,499  Manrope 400 15/22  lines=1  «Адресных уведомлений ещё не было: наряды»
+  h2.DeliveryLog__title#3  1408×23 @0,408  Onest 700 19/23  ls0  lines=1  «Что ушло людям»
+  p.DeliveryLog__hint#2  637×45 @0,436  Manrope 400 15/22  lines=2  «Копию сообщения монтажнику владелец не п»
+  p.DeliveryLog__empty  1408×22 @0,491  Manrope 400 15/22  lines=1  «Адресных уведомлений ещё не было: наряды»
 
 [палитра light]
 div.DeliveryLog__log

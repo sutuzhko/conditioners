@@ -14,7 +14,7 @@ div.OrderOwnerActions__head  358×113 @16,16
     span.Badge__badge#2  73×28 @106,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
     span.OrderOwnerActions__address  204×22 @0,36  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
   div.OrderOwnerActions__actions  358×44 @0,69
-    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Править наряд»
     div.RowMenu__root  44×44 @133,0
       button.RowMenu__trigger  44×44 @0,0  r100  b1
         span.RowMenu__dots  16×16 @14,14
@@ -28,24 +28,24 @@ div.OrderOwnerActions__head  736×44 @16,16
     span.Badge__badge#2  73×28 @106,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
     span.OrderOwnerActions__address  204×22 @186,3  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
   div.OrderOwnerActions__actions  177×44 @559,0
-    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Править наряд»
     div.RowMenu__root  44×44 @133,0
       button.RowMenu__trigger  44×44 @0,0  r100  b1
         span.RowMenu__dots  16×16 @14,14
           svg  16×16 @0,0
 
 [геометрия 1440]
-div.OrderOwnerActions__head  1408×44 @16,16
-  div.OrderOwnerActions__marks  1219×28 @0,8
+div.OrderOwnerActions__head  1408×32 @16,16
+  div.OrderOwnerActions__marks  1231×28 @0,2
     span.Badge__badge  98×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Выполнен»
       span.Badge__dot  6×6 @13,11  r100
     span.Badge__badge#2  73×28 @106,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
     span.OrderOwnerActions__address  204×22 @186,3  Manrope 600 15/22  lines=1  «Тула, Первомайская, 12, кв. 4»
-  div.OrderOwnerActions__actions  177×44 @1231,0
-    a.Button__button  125×40 @0,2  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
-    div.RowMenu__root  44×44 @133,0
-      button.RowMenu__trigger  44×44 @0,0  r100  b1
-        span.RowMenu__dots  16×16 @14,14
+  div.OrderOwnerActions__actions  165×32 @1243,0
+    a.Button__button  125×32 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Править наряд»
+    div.RowMenu__root  32×32 @133,0
+      button.RowMenu__trigger  32×32 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @8,8
           svg  16×16 @0,0
 
 [палитра light]

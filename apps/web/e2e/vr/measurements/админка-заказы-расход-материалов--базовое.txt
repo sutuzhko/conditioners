@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×2358
-768 → 768×1411
-1440 → 1440×1310
+390 → 390×2261
+768 → 768×1315
+1440 → 1440×1181
 
 [геометрия 390]
-section.Card__card  358×2326 @16,16  r20  b1
+section.Card__card  358×2229 @16,16  r14  b1
   h2.OrderConsumption__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Израсходовано»
   p.OrderConsumption__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Что ушло на эту работу по факту. Чеклист»
   div.Table__viewport  316×1199 @21,120
@@ -31,7 +31,7 @@ section.Card__card  358×2326 @16,16  r20  b1
           span  124×22 @14,41  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
           span.OrderConsumption__when  95×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:12»
         td[role=cell]#2  314×59 @1,222  b1 0 0 0
-          button.Button__button  141×44 @159,8  r9  b1
+          button.Button__button  141×44 @159,8  r999  b1
             span.Button__content  111×16 @15,14
               span.Button__label  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#3  316×318 @0,296  r14  b1
@@ -48,7 +48,7 @@ section.Card__card  358×2326 @16,16  r20  b1
           span#2  124×22 @14,41  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
           span.OrderConsumption__when#2  97×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:20»
         td[role=cell]#2  314×59 @1,254  b1 0 0 0
-          button.Button__button#2  141×44 @159,8  r9  b1
+          button.Button__button#2  141×44 @159,8  r999  b1
             span.Button__content  111×16 @15,14
               span.Button__label#2  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#4  316×286 @0,624  r14  b1
@@ -64,7 +64,7 @@ section.Card__card  358×2326 @16,16  r20  b1
           span#3  165×22 @14,41  Manrope 400 15/22  lines=1  «Автор удалён из панели»
           span.OrderConsumption__when#3  98×19 @14,78  Manrope 400 12/19  lines=1  «28.08.2026, 12:26»
         td[role=cell]#2  314×59 @1,222  b1 0 0 0
-          button.Button__button#3  141×44 @159,8  r9  b1
+          button.Button__button#3  141×44 @159,8  r999  b1
             span.Button__content  111×16 @15,14
               span.Button__label#3  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#5  316×280 @0,919  r14  b1
@@ -94,56 +94,56 @@ section.Card__card  358×2326 @16,16  r20  b1
       li.OrderConsumption__total#3  267×22 @0,57
         span  209×22 @0,0  Manrope 400 15/22  lines=1  «Кронштейны наружного блока»
         b.OrderConsumption__totalQty  52×22 @215,0  JetBrains Mono 700 15/22  lines=1  «1 пар.»
-  form.OrderConsumptionForm__form  316×799 @21,1505  b1 0 0 0
+  form.OrderConsumptionForm__form  316×703 @21,1505  b1 0 0 0
     h3.OrderConsumptionForm__title  316×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
     div.OrderConsumptionForm__hints  316×291 @0,47  r11  b1
       p.OrderConsumptionForm__hintsTitle  290×20 @13,11  Manrope 700 13/20  lines=1  «Из чеклиста выезда»
       p.OrderConsumptionForm__hint  290×60 @13,37  Manrope 400 13/20  lines=3  «Пунктам сборов нашлись позиции склада —»
       ul.OrderConsumptionForm__hintList  290×174 @13,106
         li.OrderConsumptionForm__hintItem  249×83 @0,0
-          button.Button__button  249×44 @0,0  r9  b1
+          button.Button__button  249×44 @0,0  r999  b1
             span.Button__content#2  194×16 @27,14
               span.Button__label  194×16 @0,0  Manrope 600 13/16  lines=1  «Кронштейны наружного блока»
           span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
         li.OrderConsumptionForm__hintItem#2  249×83 @0,91
-          button.Button__button  249×44 @0,0  r9  b1
+          button.Button__button  249×44 @0,0  r999  b1
             span.Button__content#3  117×16 @66,14
               span.Button__label  117×16 @0,0  Manrope 600 13/16  lines=1  «Сплит-система 09»
           span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
-    fieldset.OrderConsumptionForm__fields  316×393 @0,350
-      div.Field__field  316×76 @0,0
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
-        span.Select__wrapper  316×49 @0,27
-          select.Select__select  316×49 @0,0  r11  b1
-            option  0×0 @-37,-1898  Manrope 400 15/21  lines=0  «Выберите зону»
-            option#2  0×0 @-37,-1898  Manrope 400 15/21  lines=0  «Гараж»
-            option#3  0×0 @-37,-1898  Manrope 400 15/21  lines=0  «Газель»
-          svg.Select__chevron  14×14 @288,18
-      div.Field__field#2  316×103 @0,88
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
-        input  316×49 @0,27  r11  b1
-        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
-      div.Field__field#3  316×76 @0,203
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
-        span.Select__wrapper  316×49 @0,27
-          select.Select__select#2  316×49 @0,0  r11  b1
-            option  0×0 @-37,-2101  Manrope 400 15/21  lines=0  «Выберите позицию»
-            option#2  0×0 @-37,-2101  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
-            option#3  0×0 @-37,-2101  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
-            option#4  0×0 @-37,-2101  Manrope 400 15/21  lines=0  «Фреон R32»
-            option#5  0×0 @-37,-2101  Manrope 400 15/21  lines=0  «Сплит-система 09»
-          svg.Select__chevron#2  14×14 @288,18
-      div.Field__field#4  316×103 @0,291
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
-        input  316×49 @0,27  r11  b1
-        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Дробное можно: «1,5" и «12 000" разбираю»
-    div.OrderConsumptionForm__actions  316×44 @0,755
-      button.Button__button  84×44 @0,0  r9  b1
+    fieldset.OrderConsumptionForm__fields  316×297 @0,350
+      div.Field__field  316×52 @0,0
+        label.Field__label  101×13 @15,8  Manrope 600 11/13  lines=1  «Откуда списываем»
+        span.Select__wrapper  316×52 @0,0
+          select.Select__select  316×52 @0,0  r999  b1
+            option  0×0 @-37,-1871  Manrope 400 14/20  lines=0  «Выберите зону»
+            option#2  0×0 @-37,-1871  Manrope 400 14/20  lines=0  «Гараж»
+            option#3  0×0 @-37,-1871  Manrope 400 14/20  lines=0  «Газель»
+          svg.Select__chevron  14×14 @288,19
+      div.Field__field#2  316×78 @0,64
+        label.Field__label  81×13 @15,8  Manrope 600 11/13  lines=1  «Поиск позиции»
+        input  316×52 @0,0  r999  b1
+        p.Field__hint  316×19 @0,59  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+      div.Field__field#3  316×52 @0,154
+        label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Позиция»
+        span.Select__wrapper  316×52 @0,0
+          select.Select__select#2  316×52 @0,0  r999  b1
+            option  0×0 @-37,-2026  Manrope 400 14/20  lines=0  «Выберите позицию»
+            option#2  0×0 @-37,-2026  Manrope 400 14/20  lines=0  «Труба медная 1/4″»
+            option#3  0×0 @-37,-2026  Manrope 400 14/20  lines=0  «Кронштейны наружного блока»
+            option#4  0×0 @-37,-2026  Manrope 400 14/20  lines=0  «Фреон R32»
+            option#5  0×0 @-37,-2026  Manrope 400 14/20  lines=0  «Сплит-система 09»
+          svg.Select__chevron#2  14×14 @288,19
+      div.Field__field#4  316×78 @0,218
+        label.Field__label  64×13 @15,8  Manrope 600 11/13  lines=1  «Количество»
+        input  316×52 @0,0  r999  b1
+        p.Field__hint  316×19 @0,59  Manrope 400 13/19  lines=1  «Дробное можно: «1,5" и «12 000" разбираю»
+    div.OrderConsumptionForm__actions  316×44 @0,659
+      button.Button__button  84×44 @0,0  r999  b1
         span.Button__content#4  54×16 @15,14
           span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
 
 [геометрия 768]
-section.Card__card  736×1379 @16,16  r20  b1
+section.Card__card  736×1283 @16,16  r14  b1
   h2.OrderConsumption__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Израсходовано»
   p.OrderConsumption__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
   div.Table__viewport  694×441 @21,101
@@ -163,7 +163,7 @@ section.Card__card  736×1379 @16,16  r20  b1
           span  99×45 @18,14  Manrope 400 15/22  lines=2  «Дмитрий Соколов»
           span.OrderConsumption__when  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:12»
         td[role=cell]#2  177×95 @517,0  b0 0 1 0
-          button.Button__button  141×44 @18,26  r9  b1
+          button.Button__button  141×44 @18,26  r999  b1
             span.Button__content  111×16 @15,14
               span.Button__label  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#3  694×95 @0,151
@@ -176,7 +176,7 @@ section.Card__card  736×1379 @16,16  r20  b1
           span#2  99×45 @18,14  Manrope 400 15/22  lines=2  «Дмитрий Соколов»
           span.OrderConsumption__when#2  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:20»
         td[role=cell]#2  177×95 @517,0  b0 0 1 0
-          button.Button__button#2  141×44 @18,25  r9  b1
+          button.Button__button#2  141×44 @18,25  r999  b1
             span.Button__content  111×16 @15,14
               span.Button__label#2  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#4  694×95 @0,245
@@ -188,7 +188,7 @@ section.Card__card  736×1379 @16,16  r20  b1
           span#3  99×45 @18,14  Manrope 400 15/22  lines=2  «Автор удалён из панели»
           span.OrderConsumption__when#3  99×19 @18,61  Manrope 400 12/19  lines=1  «28.08.2026, 12:26»
         td[role=cell]#2  177×95 @517,0  b0 0 1 0
-          button.Button__button#3  141×44 @18,25  r9  b1
+          button.Button__button#3  141×44 @18,25  r999  b1
             span.Button__content  111×16 @15,14
               span.Button__label#3  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#5  694×101 @0,340
@@ -214,56 +214,56 @@ section.Card__card  736×1379 @16,16  r20  b1
       li.OrderConsumption__total#3  267×22 @369,0
         span  209×22 @0,0  Manrope 400 15/22  lines=1  «Кронштейны наружного блока»
         b.OrderConsumption__totalQty  52×22 @215,0  JetBrains Mono 700 15/22  lines=1  «1 пар.»
-  form.OrderConsumptionForm__form  694×707 @21,651  b1 0 0 0
+  form.OrderConsumptionForm__form  694×611 @21,651  b1 0 0 0
     h3.OrderConsumptionForm__title  694×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
     div.OrderConsumptionForm__hints  694×180 @0,47  r11  b1
       p.OrderConsumptionForm__hintsTitle  668×20 @13,11  Manrope 700 13/20  lines=1  «Из чеклиста выезда»
       p.OrderConsumptionForm__hint  539×40 @13,37  Manrope 400 13/20  lines=2  «Пунктам сборов нашлись позиции склада —»
       ul.OrderConsumptionForm__hintList  668×83 @13,85
         li.OrderConsumptionForm__hintItem  249×83 @0,0
-          button.Button__button  249×44 @0,0  r9  b1
+          button.Button__button  249×44 @0,0  r999  b1
             span.Button__content#2  194×16 @27,14
               span.Button__label  194×16 @0,0  Manrope 600 13/16  lines=1  «Кронштейны наружного блока»
           span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
         li.OrderConsumptionForm__hintItem#2  249×83 @257,0
-          button.Button__button  249×44 @0,0  r9  b1
+          button.Button__button  249×44 @0,0  r999  b1
             span.Button__content#3  117×16 @66,14
               span.Button__label  117×16 @0,0  Manrope 600 13/16  lines=1  «Сплит-система 09»
           span.OrderConsumptionForm__hintPoint  249×37 @0,46  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
-    fieldset.OrderConsumptionForm__fields  694×413 @0,239
-      div.Field__field  694×76 @0,0
-        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
-        span.Select__wrapper  694×49 @0,27
-          select.Select__select  694×49 @0,0  r11  b1
-            option  0×0 @-37,-933  Manrope 400 15/21  lines=0  «Выберите зону»
-            option#2  0×0 @-37,-933  Manrope 400 15/21  lines=0  «Гараж»
-            option#3  0×0 @-37,-933  Manrope 400 15/21  lines=0  «Газель»
-          svg.Select__chevron  14×14 @666,18
-      div.Field__field#2  694×103 @0,88
-        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
-        input  694×49 @0,27  r11  b1
-        p.Field__hint  694×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
-      div.Field__field#3  694×76 @0,203
-        label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
-        span.Select__wrapper  694×49 @0,27
-          select.Select__select#2  694×49 @0,0  r11  b1
-            option  0×0 @-37,-1135  Manrope 400 15/21  lines=0  «Выберите позицию»
-            option#2  0×0 @-37,-1135  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
-            option#3  0×0 @-37,-1135  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
-            option#4  0×0 @-37,-1135  Manrope 400 15/21  lines=0  «Фреон R32»
-            option#5  0×0 @-37,-1135  Manrope 400 15/21  lines=0  «Сплит-система 09»
-          svg.Select__chevron#2  14×14 @666,18
-      div.Field__field#4  223×122 @0,291
-        label.Field__label  223×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
-        input  223×49 @0,27  r11  b1
-        p.Field__hint  223×39 @0,83  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
-    div.OrderConsumptionForm__actions  694×44 @0,663
-      button.Button__button  84×44 @0,0  r9  b1
+    fieldset.OrderConsumptionForm__fields  694×316 @0,239
+      div.Field__field  694×52 @0,0
+        label.Field__label  101×13 @15,8  Manrope 600 11/13  lines=1  «Откуда списываем»
+        span.Select__wrapper  694×52 @0,0
+          select.Select__select  694×52 @0,0  r999  b1
+            option  0×0 @-37,-906  Manrope 400 14/20  lines=0  «Выберите зону»
+            option#2  0×0 @-37,-906  Manrope 400 14/20  lines=0  «Гараж»
+            option#3  0×0 @-37,-906  Manrope 400 14/20  lines=0  «Газель»
+          svg.Select__chevron  14×14 @666,19
+      div.Field__field#2  694×78 @0,64
+        label.Field__label  81×13 @15,8  Manrope 600 11/13  lines=1  «Поиск позиции»
+        input  694×52 @0,0  r999  b1
+        p.Field__hint  694×19 @0,59  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+      div.Field__field#3  694×52 @0,154
+        label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Позиция»
+        span.Select__wrapper  694×52 @0,0
+          select.Select__select#2  694×52 @0,0  r999  b1
+            option  0×0 @-37,-1060  Manrope 400 14/20  lines=0  «Выберите позицию»
+            option#2  0×0 @-37,-1060  Manrope 400 14/20  lines=0  «Труба медная 1/4″»
+            option#3  0×0 @-37,-1060  Manrope 400 14/20  lines=0  «Кронштейны наружного блока»
+            option#4  0×0 @-37,-1060  Manrope 400 14/20  lines=0  «Фреон R32»
+            option#5  0×0 @-37,-1060  Manrope 400 14/20  lines=0  «Сплит-система 09»
+          svg.Select__chevron#2  14×14 @666,19
+      div.Field__field#4  223×98 @0,218
+        label.Field__label  64×13 @15,8  Manrope 600 11/13  lines=1  «Количество»
+        input  223×52 @0,0  r999  b1
+        p.Field__hint  223×39 @0,59  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
+    div.OrderConsumptionForm__actions  694×44 @0,567
+      button.Button__button  84×44 @0,0  r999  b1
         span.Button__content#4  54×16 @15,14
           span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
 
 [геометрия 1440]
-section.Card__card  1408×1278 @16,16  r20  b1
+section.Card__card  1408×1149 @16,16  r14  b1
   h2.OrderConsumption__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Израсходовано»
   p.OrderConsumption__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Что ушло на эту работу по факту. Чеклист»
   div.Table__viewport  1366×346 @21,102
@@ -283,8 +283,8 @@ section.Card__card  1408×1278 @16,16  r20  b1
           span  246×22 @18,14  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
           span.OrderConsumption__when  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:12»
         td[role=cell]#2  248×73 @1118,0  b0 0 1 0
-          button.Button__button  141×40 @18,16  r9  b1
-            span.Button__content  111×16 @15,12
+          button.Button__button  141×32 @18,20  r999  b1
+            span.Button__content  111×16 @15,8
               span.Button__label  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#3  1366×74 @0,128
         td.OrderConsumption__item  538×74 @0,0  b0 0 1 0
@@ -296,8 +296,8 @@ section.Card__card  1408×1278 @16,16  r20  b1
           span#2  246×22 @18,14  Manrope 400 15/22  lines=1  «Дмитрий Соколов»
           span.OrderConsumption__when#2  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:20»
         td[role=cell]#2  248×74 @1118,0  b0 0 1 0
-          button.Button__button#2  141×40 @18,17  r9  b1
-            span.Button__content  111×16 @15,12
+          button.Button__button#2  141×32 @18,21  r999  b1
+            span.Button__content  111×16 @15,8
               span.Button__label#2  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#4  1366×72 @0,202
         td.OrderConsumption__item  538×51 @0,0  b0 0 1 0
@@ -308,8 +308,8 @@ section.Card__card  1408×1278 @16,16  r20  b1
           span#3  246×22 @18,14  Manrope 400 15/22  lines=1  «Автор удалён из панели»
           span.OrderConsumption__when#3  246×19 @18,38  Manrope 400 12/19  lines=1  «28.08.2026, 12:26»
         td[role=cell]#2  248×72 @1118,0  b0 0 1 0
-          button.Button__button#3  141×40 @18,16  r9  b1
-            span.Button__content  111×16 @15,12
+          button.Button__button#3  141×32 @18,20  r999  b1
+            span.Button__content  111×16 @15,8
               span.Button__label#3  111×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на склад»
       tr[role=row]#5  1366×72 @0,274
         td.OrderConsumption__item  538×52 @0,0
@@ -334,56 +334,56 @@ section.Card__card  1408×1278 @16,16  r20  b1
       li.OrderConsumption__total#3  267×22 @369,0
         span  209×22 @0,0  Manrope 400 15/22  lines=1  «Кронштейны наружного блока»
         b.OrderConsumption__totalQty  52×22 @215,0  JetBrains Mono 700 15/22  lines=1  «1 пар.»
-  form.OrderConsumptionForm__form  1366×699 @21,558  b1 0 0 0
+  form.OrderConsumptionForm__form  1366×571 @21,558  b1 0 0 0
     h3.OrderConsumptionForm__title  1366×18 @0,17  Onest 700 15/18  ls0  lines=1  «Списать материал»
-    div.OrderConsumptionForm__hints  1366×176 @0,47  r11  b1
+    div.OrderConsumptionForm__hints  1366×168 @0,47  r11  b1
       p.OrderConsumptionForm__hintsTitle  1340×20 @13,11  Manrope 700 13/20  lines=1  «Из чеклиста выезда»
       p.OrderConsumptionForm__hint  539×40 @13,37  Manrope 400 13/20  lines=2  «Пунктам сборов нашлись позиции склада —»
-      ul.OrderConsumptionForm__hintList  1340×79 @13,85
-        li.OrderConsumptionForm__hintItem  249×79 @0,0
-          button.Button__button  249×40 @0,0  r9  b1
-            span.Button__content#2  194×16 @27,12
+      ul.OrderConsumptionForm__hintList  1340×71 @13,85
+        li.OrderConsumptionForm__hintItem  249×71 @0,0
+          button.Button__button  249×32 @0,0  r999  b1
+            span.Button__content#2  194×16 @27,8
               span.Button__label  194×16 @0,0  Manrope 600 13/16  lines=1  «Кронштейны наружного блока»
-          span.OrderConsumptionForm__hintPoint  249×37 @0,42  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
-        li.OrderConsumptionForm__hintItem#2  249×79 @257,0
-          button.Button__button  249×40 @0,0  r9  b1
-            span.Button__content#3  117×16 @66,12
+          span.OrderConsumptionForm__hintPoint  249×37 @0,34  Manrope 400 12/19  lines=2  «Кронштейны наружного блока — пара с анке»
+        li.OrderConsumptionForm__hintItem#2  249×71 @257,0
+          button.Button__button  249×32 @0,0  r999  b1
+            span.Button__content#3  117×16 @66,8
               span.Button__label  117×16 @0,0  Manrope 600 13/16  lines=1  «Сплит-система 09»
-          span.OrderConsumptionForm__hintPoint  249×37 @0,42  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
-    fieldset.OrderConsumptionForm__fields  1366×413 @0,235
-      div.Field__field  1366×76 @0,0
-        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Откуда списываем»
-        span.Select__wrapper  1366×49 @0,27
-          select.Select__select  1366×49 @0,0  r11  b1
-            option  0×0 @-37,-835  Manrope 400 15/21  lines=0  «Выберите зону»
-            option#2  0×0 @-37,-835  Manrope 400 15/21  lines=0  «Гараж»
-            option#3  0×0 @-37,-835  Manrope 400 15/21  lines=0  «Газель»
-          svg.Select__chevron  14×14 @1338,18
-      div.Field__field#2  1366×103 @0,88
-        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
-        input  1366×49 @0,27  r11  b1
-        p.Field__hint  1366×19 @0,83  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
-      div.Field__field#3  1366×76 @0,203
-        label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Позиция»
-        span.Select__wrapper  1366×49 @0,27
-          select.Select__select#2  1366×49 @0,0  r11  b1
-            option  0×0 @-37,-1038  Manrope 400 15/21  lines=0  «Выберите позицию»
-            option#2  0×0 @-37,-1038  Manrope 400 15/21  lines=0  «Труба медная 1/4″»
-            option#3  0×0 @-37,-1038  Manrope 400 15/21  lines=0  «Кронштейны наружного блока»
-            option#4  0×0 @-37,-1038  Manrope 400 15/21  lines=0  «Фреон R32»
-            option#5  0×0 @-37,-1038  Manrope 400 15/21  lines=0  «Сплит-система 09»
-          svg.Select__chevron#2  14×14 @1338,18
-      div.Field__field#4  218×122 @0,291
-        label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Количество»
-        input  218×49 @0,27  r11  b1
-        p.Field__hint  218×39 @0,83  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
-    div.OrderConsumptionForm__actions  1366×40 @0,659
-      button.Button__button  84×40 @0,0  r9  b1
-        span.Button__content#4  54×16 @15,12
+          span.OrderConsumptionForm__hintPoint  249×37 @0,34  Manrope 400 12/19  lines=2  «Забрать со склада — Позиция 1, Сплит-сис»
+    fieldset.OrderConsumptionForm__fields  1366×300 @0,227
+      div.Field__field  1366×48 @0,0
+        label.Field__label  101×13 @15,8  Manrope 600 11/13  lines=1  «Откуда списываем»
+        span.Select__wrapper  1366×48 @0,0
+          select.Select__select  1366×48 @0,0  r999  b1
+            option  0×0 @-37,-800  Manrope 400 14/20  lines=0  «Выберите зону»
+            option#2  0×0 @-37,-800  Manrope 400 14/20  lines=0  «Гараж»
+            option#3  0×0 @-37,-800  Manrope 400 14/20  lines=0  «Газель»
+          svg.Select__chevron  14×14 @1338,17
+      div.Field__field#2  1366×74 @0,60
+        label.Field__label  81×13 @15,8  Manrope 600 11/13  lines=1  «Поиск позиции»
+        input  1366×48 @0,0  r999  b1
+        p.Field__hint  1366×19 @0,55  Manrope 400 13/19  lines=1  «Сузьте список, если позиций в справочник»
+      div.Field__field#3  1366×48 @0,146
+        label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Позиция»
+        span.Select__wrapper  1366×48 @0,0
+          select.Select__select#2  1366×48 @0,0  r999  b1
+            option  0×0 @-37,-946  Manrope 400 14/20  lines=0  «Выберите позицию»
+            option#2  0×0 @-37,-946  Manrope 400 14/20  lines=0  «Труба медная 1/4″»
+            option#3  0×0 @-37,-946  Manrope 400 14/20  lines=0  «Кронштейны наружного блока»
+            option#4  0×0 @-37,-946  Manrope 400 14/20  lines=0  «Фреон R32»
+            option#5  0×0 @-37,-946  Manrope 400 14/20  lines=0  «Сплит-система 09»
+          svg.Select__chevron#2  14×14 @1338,17
+      div.Field__field#4  218×94 @0,206
+        label.Field__label  64×13 @15,8  Manrope 600 11/13  lines=1  «Количество»
+        input  218×48 @0,0  r999  b1
+        p.Field__hint  218×39 @0,55  Manrope 400 13/19  lines=2  «Дробное можно: «1,5" и «12 000" разбираю»
+    div.OrderConsumptionForm__actions  1366×32 @0,539
+      button.Button__button  84×32 @0,0  r999  b1
+        span.Button__content#4  54×16 @15,8
           span.Button__label  54×16 @0,0  Manrope 600 13/16  lines=1  «Списать»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   h2.OrderConsumption__title  color #0f172a
   p.OrderConsumption__hint  color #556173
   div.Table__viewport
@@ -472,21 +472,21 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           span.OrderConsumptionForm__hintPoint  color #556173
     fieldset.OrderConsumptionForm__fields
       div.Field__field
-        label.Field__label  color #334155
+        label.Field__label  color #556173
         span.Select__wrapper
-          select.Select__select  bg #ffffff  border #7e8fa6
+          select.Select__select  bg #f8fafc  border #7e8fa6
             option  color #0f172a
             option#2  color #0f172a
             option#3  color #0f172a
           svg.Select__chevron
       div.Field__field#2
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
         p.Field__hint  color #556173
       div.Field__field#3
-        label.Field__label  color #334155
+        label.Field__label  color #556173
         span.Select__wrapper
-          select.Select__select#2  bg #ffffff  border #7e8fa6
+          select.Select__select#2  bg #f8fafc  border #7e8fa6
             option  color #0f172a
             option#2  color #0f172a
             option#3  color #0f172a
@@ -494,11 +494,11 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
             option#5  color #0f172a
           svg.Select__chevron#2
       div.Field__field#4
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
         p.Field__hint  color #556173
     div.OrderConsumptionForm__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content#4
           span.Button__label  color #ffffff
 [палитра light @390]
@@ -540,7 +540,7 @@ section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 >
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]#2  border #eef2f6 #334155 #334155 #334155
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   h2.OrderConsumption__title  color #eaf1f8
   p.OrderConsumption__hint  color #8598ac
   div.Table__viewport
@@ -629,21 +629,21 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           span.OrderConsumptionForm__hintPoint  color #8598ac
     fieldset.OrderConsumptionForm__fields
       div.Field__field
-        label.Field__label  color #c9d5e2
+        label.Field__label  color #8598ac
         span.Select__wrapper
-          select.Select__select  bg #0b1424  border #566d95
+          select.Select__select  bg #0e1729  border #566d95
             option  color #eaf1f8
             option#2  color #eaf1f8
             option#3  color #eaf1f8
           svg.Select__chevron
       div.Field__field#2
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
         p.Field__hint  color #8598ac
       div.Field__field#3
-        label.Field__label  color #c9d5e2
+        label.Field__label  color #8598ac
         span.Select__wrapper
-          select.Select__select#2  bg #0b1424  border #566d95
+          select.Select__select#2  bg #0e1729  border #566d95
             option  color #eaf1f8
             option#2  color #eaf1f8
             option#3  color #eaf1f8
@@ -651,11 +651,11 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
             option#5  color #eaf1f8
           svg.Select__chevron#2
       div.Field__field#4
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
         p.Field__hint  color #8598ac
     div.OrderConsumptionForm__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content#4
           span.Button__label  color #ffffff
 [палитра dark @390]

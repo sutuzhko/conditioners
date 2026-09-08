@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×248 @16,16  r20  b1
+section.Card__card  358×248 @16,16  r14  b1
   h2.StockJournal__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Журнал движений»
   div.EmptyState__box  316×186 @21,42
     span.EmptyState__badge  48×48 @134,28  r100
@@ -16,7 +16,7 @@ section.Card__card  358×248 @16,16  r20  b1
     p.EmptyState__text  284×45 @16,113  Manrope 400 15/22  lines=2  «Движений не было: остаток появится после»
 
 [геометрия 768]
-section.Card__card  736×250 @16,16  r20  b1
+section.Card__card  736×250 @16,16  r14  b1
   h2.StockJournal__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Журнал движений»
   div.EmptyState__box  694×187 @21,43
     span.EmptyState__badge  48×48 @323,28  r100
@@ -25,7 +25,7 @@ section.Card__card  736×250 @16,16  r20  b1
     p.EmptyState__text  371×45 @161,114  Manrope 400 15/22  lines=2  «Движений не было: остаток появится после»
 
 [геометрия 1440]
-section.Card__card  1408×253 @16,16  r20  b1
+section.Card__card  1408×253 @16,16  r14  b1
   h2.StockJournal__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Журнал движений»
   div.EmptyState__box  1366×188 @21,44
     span.EmptyState__badge  48×48 @659,28  r100
@@ -34,7 +34,7 @@ section.Card__card  1408×253 @16,16  r20  b1
     p.EmptyState__text  371×45 @497,115  Manrope 400 15/22  lines=2  «Движений не было: остаток появится после»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   h2.StockJournal__title  color #0f172a
   div.EmptyState__box
     span.EmptyState__badge  bg #ecfeff
@@ -43,7 +43,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     p.EmptyState__text  color #556173
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   h2.StockJournal__title  color #eaf1f8
   div.EmptyState__box
     span.EmptyState__badge  bg #22d3ee1a

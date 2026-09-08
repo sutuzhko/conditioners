@@ -7,112 +7,112 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×404 @16,16  r20  b1
-  form.ReviewFilters__form  316×362 @21,21
-    div.Field__field  316×103 @0,0
-      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по отзывам»
-      input  316×49 @0,27  r11  b1
-      p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Имя автора или слова из отзыва»
-    div.Field__field#2  180×76 @0,115
-      label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
-      span.Select__wrapper  180×49 @0,27
-        select.Select__select  180×49 @0,0  r11  b1
-          option  0×0 @-37,-179  Manrope 400 15/21  lines=0  «Любой»
-          option#2  0×0 @-37,-179  Manrope 400 15/21  lines=0  «На модерации»
-          option#3  0×0 @-37,-179  Manrope 400 15/21  lines=0  «Опубликован»
-          option#4  0×0 @-37,-179  Manrope 400 15/21  lines=0  «Отклонён»
-          option#5  0×0 @-37,-179  Manrope 400 15/21  lines=0  «В архиве»
-        svg.Select__chevron  14×14 @152,18
-    div.Field__field#3  180×76 @0,203
-      label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
-      span.Select__wrapper  180×49 @0,27
-        select.Select__select#2  180×49 @0,0  r11  b1
-          option  0×0 @-37,-267  Manrope 400 15/21  lines=0  «Любая»
-          option#2  0×0 @-37,-267  Manrope 400 15/21  lines=0  «5 из 5»
-          option#3  0×0 @-37,-267  Manrope 400 15/21  lines=0  «4 из 5»
-          option#4  0×0 @-37,-267  Manrope 400 15/21  lines=0  «3 из 5»
-          option#5  0×0 @-37,-267  Manrope 400 15/21  lines=0  «2 из 5»
-          option#6  0×0 @-37,-267  Manrope 400 15/21  lines=0  «1 из 5»
-        svg.Select__chevron#2  14×14 @152,18
-    div.ReviewFilters__actions  196×71 @0,291
-      button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-      a.ReviewFilters__reset  115×44 @81,27  Manrope 600 15/22  lines=1  «Сбросить отбор»
+section.Card__card  358×304 @16,16  r14  b1
+  form.ReviewFilters__form  316×262 @21,21
+    div.Field__field  316×78 @0,0
+      label.Field__label  97×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по отзывам»
+      input  316×52 @0,0  r999  b1
+      p.Field__hint  316×19 @0,59  Manrope 400 13/19  lines=1  «Имя автора или слова из отзыва»
+    div.Field__field#2  180×52 @0,90
+      label.Field__label  38×13 @15,8  Manrope 600 11/13  lines=1  «Статус»
+      span.Select__wrapper  180×52 @0,0
+        select.Select__select  180×52 @0,0  r999  b1
+          option  0×0 @-37,-127  Manrope 400 14/20  lines=0  «Любой»
+          option#2  0×0 @-37,-127  Manrope 400 14/20  lines=0  «На модерации»
+          option#3  0×0 @-37,-127  Manrope 400 14/20  lines=0  «Опубликован»
+          option#4  0×0 @-37,-127  Manrope 400 14/20  lines=0  «Отклонён»
+          option#5  0×0 @-37,-127  Manrope 400 14/20  lines=0  «В архиве»
+        svg.Select__chevron  14×14 @152,19
+    div.Field__field#3  180×52 @0,154
+      label.Field__label  41×13 @15,8  Manrope 600 11/13  lines=1  «Оценка»
+      span.Select__wrapper  180×52 @0,0
+        select.Select__select#2  180×52 @0,0  r999  b1
+          option  0×0 @-37,-191  Manrope 400 14/20  lines=0  «Любая»
+          option#2  0×0 @-37,-191  Manrope 400 14/20  lines=0  «5 из 5»
+          option#3  0×0 @-37,-191  Manrope 400 14/20  lines=0  «4 из 5»
+          option#4  0×0 @-37,-191  Manrope 400 14/20  lines=0  «3 из 5»
+          option#5  0×0 @-37,-191  Manrope 400 14/20  lines=0  «2 из 5»
+          option#6  0×0 @-37,-191  Manrope 400 14/20  lines=0  «1 из 5»
+        svg.Select__chevron#2  14×14 @152,19
+    div.ReviewFilters__actions  196×44 @0,218
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Найти»
+      a.ReviewFilters__reset  115×44 @81,0  Manrope 600 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 768]
-section.Card__card  736×228 @16,16  r20  b1
-  form.ReviewFilters__form  694×186 @21,21
-    div.Field__field  310×103 @0,0
-      label.Field__label  310×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по отзывам»
-      input  310×49 @0,27  r11  b1
-      p.Field__hint  310×19 @0,83  Manrope 400 13/19  lines=1  «Имя автора или слова из отзыва»
-    div.Field__field#2  180×76 @322,0
-      label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
-      span.Select__wrapper  180×49 @0,27
-        select.Select__select  180×49 @0,0  r11  b1
-          option  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Любой»
-          option#2  0×0 @-359,-64  Manrope 400 15/21  lines=0  «На модерации»
-          option#3  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Опубликован»
-          option#4  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Отклонён»
-          option#5  0×0 @-359,-64  Manrope 400 15/21  lines=0  «В архиве»
-        svg.Select__chevron  14×14 @152,18
-    div.Field__field#3  180×76 @514,0
-      label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
-      span.Select__wrapper  180×49 @0,27
-        select.Select__select#2  180×49 @0,0  r11  b1
-          option  0×0 @-551,-64  Manrope 400 15/21  lines=0  «Любая»
-          option#2  0×0 @-551,-64  Manrope 400 15/21  lines=0  «5 из 5»
-          option#3  0×0 @-551,-64  Manrope 400 15/21  lines=0  «4 из 5»
-          option#4  0×0 @-551,-64  Manrope 400 15/21  lines=0  «3 из 5»
-          option#5  0×0 @-551,-64  Manrope 400 15/21  lines=0  «2 из 5»
-          option#6  0×0 @-551,-64  Manrope 400 15/21  lines=0  «1 из 5»
-        svg.Select__chevron#2  14×14 @152,18
-    div.ReviewFilters__actions  196×71 @0,115
-      button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-      a.ReviewFilters__reset  115×44 @81,27  Manrope 600 15/22  lines=1  «Сбросить отбор»
+section.Card__card  736×176 @16,16  r14  b1
+  form.ReviewFilters__form  694×134 @21,21
+    div.Field__field  310×78 @0,0
+      label.Field__label  97×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по отзывам»
+      input  310×52 @0,0  r999  b1
+      p.Field__hint  310×19 @0,59  Manrope 400 13/19  lines=1  «Имя автора или слова из отзыва»
+    div.Field__field#2  180×52 @322,0
+      label.Field__label  38×13 @15,8  Manrope 600 11/13  lines=1  «Статус»
+      span.Select__wrapper  180×52 @0,0
+        select.Select__select  180×52 @0,0  r999  b1
+          option  0×0 @-359,-37  Manrope 400 14/20  lines=0  «Любой»
+          option#2  0×0 @-359,-37  Manrope 400 14/20  lines=0  «На модерации»
+          option#3  0×0 @-359,-37  Manrope 400 14/20  lines=0  «Опубликован»
+          option#4  0×0 @-359,-37  Manrope 400 14/20  lines=0  «Отклонён»
+          option#5  0×0 @-359,-37  Manrope 400 14/20  lines=0  «В архиве»
+        svg.Select__chevron  14×14 @152,19
+    div.Field__field#3  180×52 @514,0
+      label.Field__label  41×13 @15,8  Manrope 600 11/13  lines=1  «Оценка»
+      span.Select__wrapper  180×52 @0,0
+        select.Select__select#2  180×52 @0,0  r999  b1
+          option  0×0 @-551,-37  Manrope 400 14/20  lines=0  «Любая»
+          option#2  0×0 @-551,-37  Manrope 400 14/20  lines=0  «5 из 5»
+          option#3  0×0 @-551,-37  Manrope 400 14/20  lines=0  «4 из 5»
+          option#4  0×0 @-551,-37  Manrope 400 14/20  lines=0  «3 из 5»
+          option#5  0×0 @-551,-37  Manrope 400 14/20  lines=0  «2 из 5»
+          option#6  0×0 @-551,-37  Manrope 400 14/20  lines=0  «1 из 5»
+        svg.Select__chevron#2  14×14 @152,19
+    div.ReviewFilters__actions  196×44 @0,90
+      button.Button__button  69×44 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Найти»
+      a.ReviewFilters__reset  115×44 @81,0  Manrope 600 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 1440]
-section.Card__card  1408×145 @16,16  r20  b1
-  form.ReviewFilters__form  1366×103 @21,21
-    div.Field__field  774×103 @0,0
-      label.Field__label  774×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по отзывам»
-      input  774×49 @0,27  r11  b1
-      p.Field__hint  774×19 @0,83  Manrope 400 13/19  lines=1  «Имя автора или слова из отзыва»
-    div.Field__field#2  180×76 @786,0
-      label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
-      span.Select__wrapper  180×49 @0,27
-        select.Select__select  180×49 @0,0  r11  b1
-          option  0×0 @-823,-64  Manrope 400 15/21  lines=0  «Любой»
-          option#2  0×0 @-823,-64  Manrope 400 15/21  lines=0  «На модерации»
-          option#3  0×0 @-823,-64  Manrope 400 15/21  lines=0  «Опубликован»
-          option#4  0×0 @-823,-64  Manrope 400 15/21  lines=0  «Отклонён»
-          option#5  0×0 @-823,-64  Manrope 400 15/21  lines=0  «В архиве»
-        svg.Select__chevron  14×14 @152,18
-    div.Field__field#3  180×76 @978,0
-      label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Оценка»
-      span.Select__wrapper  180×49 @0,27
-        select.Select__select#2  180×49 @0,0  r11  b1
-          option  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «Любая»
-          option#2  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «5 из 5»
-          option#3  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «4 из 5»
-          option#4  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «3 из 5»
-          option#5  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «2 из 5»
-          option#6  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «1 из 5»
-        svg.Select__chevron#2  14×14 @152,18
-    div.ReviewFilters__actions  196×67 @1170,0
-      button.Button__button  69×40 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-      a.ReviewFilters__reset  115×22 @81,36  Manrope 600 15/22  lines=1  «Сбросить отбор»
+section.Card__card  1408×116 @16,16  r14  b1
+  form.ReviewFilters__form  1366×74 @21,21
+    div.Field__field  774×74 @0,0
+      label.Field__label  97×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по отзывам»
+      input  774×48 @0,0  r999  b1
+      p.Field__hint  774×19 @0,55  Manrope 400 13/19  lines=1  «Имя автора или слова из отзыва»
+    div.Field__field#2  180×48 @786,0
+      label.Field__label  38×13 @15,8  Manrope 600 11/13  lines=1  «Статус»
+      span.Select__wrapper  180×48 @0,0
+        select.Select__select  180×48 @0,0  r999  b1
+          option  0×0 @-823,-37  Manrope 400 14/20  lines=0  «Любой»
+          option#2  0×0 @-823,-37  Manrope 400 14/20  lines=0  «На модерации»
+          option#3  0×0 @-823,-37  Manrope 400 14/20  lines=0  «Опубликован»
+          option#4  0×0 @-823,-37  Manrope 400 14/20  lines=0  «Отклонён»
+          option#5  0×0 @-823,-37  Manrope 400 14/20  lines=0  «В архиве»
+        svg.Select__chevron  14×14 @152,17
+    div.Field__field#3  180×48 @978,0
+      label.Field__label  41×13 @15,8  Manrope 600 11/13  lines=1  «Оценка»
+      span.Select__wrapper  180×48 @0,0
+        select.Select__select#2  180×48 @0,0  r999  b1
+          option  0×0 @-1015,-37  Manrope 400 14/20  lines=0  «Любая»
+          option#2  0×0 @-1015,-37  Manrope 400 14/20  lines=0  «5 из 5»
+          option#3  0×0 @-1015,-37  Manrope 400 14/20  lines=0  «4 из 5»
+          option#4  0×0 @-1015,-37  Manrope 400 14/20  lines=0  «3 из 5»
+          option#5  0×0 @-1015,-37  Manrope 400 14/20  lines=0  «2 из 5»
+          option#6  0×0 @-1015,-37  Manrope 400 14/20  lines=0  «1 из 5»
+        svg.Select__chevron#2  14×14 @152,17
+    div.ReviewFilters__actions  196×32 @1170,0
+      button.Button__button  69×32 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Найти»
+      a.ReviewFilters__reset  115×22 @81,5  Manrope 600 15/22  lines=1  «Сбросить отбор»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   form.ReviewFilters__form
     div.Field__field
-      label.Field__label  color #334155
-      input  bg #ffffff  border #7e8fa6
+      label.Field__label  color #556173
+      input  bg #f8fafc  border #7e8fa6
       p.Field__hint  color #556173
     div.Field__field#2
-      label.Field__label  color #334155
+      label.Field__label  color #556173
       span.Select__wrapper
-        select.Select__select  bg #ffffff  border #7e8fa6
+        select.Select__select  bg #f8fafc  border #7e8fa6
           option  color #0f172a
           option#2  color #0f172a
           option#3  color #0f172a
@@ -120,9 +120,9 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           option#5  color #0f172a
         svg.Select__chevron
     div.Field__field#3
-      label.Field__label  color #334155
+      label.Field__label  color #556173
       span.Select__wrapper
-        select.Select__select#2  bg #ffffff  border #7e8fa6
+        select.Select__select#2  bg #f8fafc  border #7e8fa6
           option  color #0f172a
           option#2  color #0f172a
           option#3  color #0f172a
@@ -131,20 +131,20 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           option#6  color #0f172a
         svg.Select__chevron#2
     div.ReviewFilters__actions
-      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490
       a.ReviewFilters__reset  color #0e7490
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   form.ReviewFilters__form
     div.Field__field
-      label.Field__label  color #c9d5e2
-      input  bg #0b1424  border #566d95
+      label.Field__label  color #8598ac
+      input  bg #0e1729  border #566d95
       p.Field__hint  color #8598ac
     div.Field__field#2
-      label.Field__label  color #c9d5e2
+      label.Field__label  color #8598ac
       span.Select__wrapper
-        select.Select__select  bg #0b1424  border #566d95
+        select.Select__select  bg #0e1729  border #566d95
           option  color #eaf1f8
           option#2  color #eaf1f8
           option#3  color #eaf1f8
@@ -152,9 +152,9 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           option#5  color #eaf1f8
         svg.Select__chevron
     div.Field__field#3
-      label.Field__label  color #c9d5e2
+      label.Field__label  color #8598ac
       span.Select__wrapper
-        select.Select__select#2  bg #0b1424  border #566d95
+        select.Select__select#2  bg #0e1729  border #566d95
           option  color #eaf1f8
           option#2  color #eaf1f8
           option#3  color #eaf1f8
@@ -163,5 +163,5 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           option#6  color #eaf1f8
         svg.Select__chevron#2
     div.ReviewFilters__actions
-      button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  color #ffffff  bg #0e7490  border #0e7490
       a.ReviewFilters__reset  color #22d3ee

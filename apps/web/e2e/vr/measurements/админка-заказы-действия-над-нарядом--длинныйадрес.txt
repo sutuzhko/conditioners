@@ -14,8 +14,8 @@ div.OrderOwnerActions__head  358×187 @16,16
     span.Badge__badge#2  73×28 @103,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
     span.OrderOwnerActions__address  358×45 @0,36  Manrope 600 15/22  lines=2  «Тульская область, Ленинский район, посёл»
   div.OrderOwnerActions__actions  358×96 @0,91
-    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
-    button.Button__button  358×44 @0,52  r9  b1
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Править наряд»
+    button.Button__button  358×44 @0,52  r999  b1
       span.Button__content  155×16 @102,14
         span.Button__label  155×16 @0,0  Manrope 600 13/16  lines=1  «Отметить выполненным»
     div.RowMenu__root  44×44 @133,0
@@ -31,8 +31,8 @@ div.OrderOwnerActions__head  736×81 @16,16
     span.Badge__badge#2  73×28 @103,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
     span.OrderOwnerActions__address  354×45 @0,36  Manrope 600 15/22  lines=2  «Тульская область, Ленинский район, посёл»
   div.OrderOwnerActions__actions  370×44 @366,19
-    a.Button__button  125×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
-    button.Button__button  185×44 @133,0  r9  b1
+    a.Button__button  125×44 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Править наряд»
+    button.Button__button  185×44 @133,0  r999  b1
       span.Button__content  155×16 @15,14
         span.Button__label  155×16 @0,0  Manrope 600 13/16  lines=1  «Отметить выполненным»
     div.RowMenu__root  44×44 @326,0
@@ -41,20 +41,20 @@ div.OrderOwnerActions__head  736×81 @16,16
           svg  16×16 @0,0
 
 [геометрия 1440]
-div.OrderOwnerActions__head  1408×44 @16,16
-  div.OrderOwnerActions__marks  1026×28 @0,8
+div.OrderOwnerActions__head  1408×32 @16,16
+  div.OrderOwnerActions__marks  1038×28 @0,2
     span.Badge__badge  95×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Назначен»
       span.Badge__dot  6×6 @13,11  r100
     span.Badge__badge#2  73×28 @103,0  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
     span.OrderOwnerActions__address  630×22 @184,3  Manrope 600 15/22  lines=1  «Тульская область, Ленинский район, посёл»
-  div.OrderOwnerActions__actions  370×44 @1038,0
-    a.Button__button  125×40 @0,2  Manrope 600 13/16  r9  b1  lines=1  «Править наряд»
-    button.Button__button  185×40 @133,2  r9  b1
-      span.Button__content  155×16 @15,12
+  div.OrderOwnerActions__actions  358×32 @1050,0
+    a.Button__button  125×32 @0,0  Manrope 600 13/16  r999  b1  lines=1  «Править наряд»
+    button.Button__button  185×32 @133,0  r999  b1
+      span.Button__content  155×16 @15,8
         span.Button__label  155×16 @0,0  Manrope 600 13/16  lines=1  «Отметить выполненным»
-    div.RowMenu__root  44×44 @326,0
-      button.RowMenu__trigger  44×44 @0,0  r100  b1
-        span.RowMenu__dots  16×16 @14,14
+    div.RowMenu__root  32×32 @326,0
+      button.RowMenu__trigger  32×32 @0,0  r100  b1
+        span.RowMenu__dots  16×16 @8,8
           svg  16×16 @0,0
 
 [палитра light]
@@ -66,7 +66,7 @@ div.OrderOwnerActions__head
     span.OrderOwnerActions__address  color #556173
   div.OrderOwnerActions__actions
     a.Button__button  color #0f172a  bg #ffffff  border #7e8fa6
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label  color #ffffff
     div.RowMenu__root
@@ -83,7 +83,7 @@ div.OrderOwnerActions__head
     span.OrderOwnerActions__address  color #8598ac
   div.OrderOwnerActions__actions
     a.Button__button  color #eaf1f8  bg #121d31  border #566d95
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label  color #ffffff
     div.RowMenu__root

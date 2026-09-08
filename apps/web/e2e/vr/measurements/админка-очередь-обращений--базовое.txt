@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×1313 @16,16  r20  b1
+section.Card__card  358×1313 @16,16  r14  b1
   div.Table__viewport  356×1311 @1,1
     table.Table__table  356×1311 @0,0
       th.LeadQueue__numberHead  52×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «№»
@@ -107,7 +107,7 @@ section.Card__card  358×1313 @16,16  r20  b1
                   svg#4  16×16 @0,0
 
 [геометрия 768]
-section.Card__card  736×511 @16,16  r20  b1
+section.Card__card  736×511 @16,16  r14  b1
   div.Table__viewport  734×509 @1,1
     table.Table__table  734×509 @0,0
       th.LeadQueue__numberHead  53×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «№»
@@ -187,87 +187,87 @@ section.Card__card  736×511 @16,16  r20  b1
                   svg#4  16×16 @0,0
 
 [геометрия 1440]
-section.Card__card  1408×349 @16,16  r20  b1
-  div.Table__viewport  1406×347 @1,1
-    table.Table__table  1406×347 @0,0
+section.Card__card  1408×344 @16,16  r14  b1
+  div.Table__viewport  1406×342 @1,1
+    table.Table__table  1406×342 @0,0
       th.LeadQueue__numberHead  53×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «№»
-      th  489×56 @53,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
-      th#2  365×56 @542,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
-      th#3  202×56 @907,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
-      th#4  217×56 @1109,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
-      th.LeadQueue__actionsHead  80×56 @1326,0  b0 0 1 0
+      th  493×56 @53,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто и что»
+      th#2  368×56 @547,0  Onest 700 15/23  b0 0 1 0  lines=1  «Тема»
+      th#3  204×56 @915,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+      th#4  219×56 @1119,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      th.LeadQueue__actionsHead  68×56 @1338,0  b0 0 1 0
         span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr.TableRow__row  1406×73 @0,56
-        td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «41»
-        td.LeadQueue__who  489×73 @53,0  b0 0 1 0
-          a.LeadQueue__name  453×22 @18,15  Manrope 600 15/22  lines=1  «Ирина»
-          span.LeadQueue__address  453×20 @18,38  Manrope 400 13/20  lines=1  «Щёкино, Пионерская 4 · гостиная 32 м²»
-        td.LeadQueue__topic  365×73 @542,0  b0 0 1 0
+      tr.TableRow__row  1406×72 @0,56
+        td.LeadQueue__number  53×72 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «41»
+        td.LeadQueue__who  493×72 @53,0  b0 0 1 0
+          a.LeadQueue__name  457×22 @18,15  Manrope 600 15/22  lines=1  «Ирина»
+          span.LeadQueue__address  457×20 @18,37  Manrope 400 13/20  lines=1  «Щёкино, Пионерская 4 · гостиная 32 м²»
+        td.LeadQueue__topic  368×72 @547,0  b0 0 1 0
           span.Badge__badge  169×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
-        td.LeadQueue__when  202×73 @907,0  b0 0 1 0
+        td.LeadQueue__when  204×72 @915,0  b0 0 1 0
           time  38×18 @18,27  Manrope 400 13/20  lines=1  «20 авг»
-        td[role=cell]  217×73 @1109,0  b0 0 1 0
+        td[role=cell]  219×72 @1119,0  b0 0 1 0
           span.Badge__badge  56×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Новая»
-        td.LeadQueue__actions  80×73 @1326,0  b0 0 1 0
-          div.LeadRowActions__wrap  44×44 @18,15
-            div.RowMenu__root  44×44 @0,0
-              button.RowMenu__trigger  44×44 @0,0  r100  b1
-                span.RowMenu__dots  16×16 @14,14
+        td.LeadQueue__actions  68×72 @1338,0  b0 0 1 0
+          div.LeadRowActions__wrap  32×32 @18,20
+            div.RowMenu__root  32×32 @0,0
+              button.RowMenu__trigger  32×32 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @8,8
                   svg  16×16 @0,0
-      tr.TableRow__row#2  1406×73 @0,129
-        td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «40»
-        td.LeadQueue__who  489×73 @53,0  b0 0 1 0
-          a.LeadQueue__name#2  453×22 @18,15  Manrope 600 15/22  lines=1  «Федотова Лидия Ивановна»
-          span.LeadQueue__address#2  453×20 @18,38  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
-        td.LeadQueue__topic  365×73 @542,0  b0 0 1 0
+      tr.TableRow__row#2  1406×72 @0,127
+        td.LeadQueue__number  53×72 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «40»
+        td.LeadQueue__who  493×72 @53,0  b0 0 1 0
+          a.LeadQueue__name#2  457×22 @18,15  Manrope 600 15/22  lines=1  «Федотова Лидия Ивановна»
+          span.LeadQueue__address#2  457×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
+        td.LeadQueue__topic  368×72 @547,0  b0 0 1 0
           span.Badge__badge#2  169×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
-        td.LeadQueue__when  202×73 @907,0  b0 0 1 0
+        td.LeadQueue__when  204×72 @915,0  b0 0 1 0
           time#2  78×18 @18,27  Manrope 400 13/20  lines=1  «2 часа назад»
-        td[role=cell]  217×73 @1109,0  b0 0 1 0
+        td[role=cell]  219×72 @1119,0  b0 0 1 0
           span.Badge__badge#2  72×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «В работе»
-        td.LeadQueue__actions  80×73 @1326,0  b0 0 1 0
-          div.LeadRowActions__wrap#2  44×44 @18,15
-            div.RowMenu__root  44×44 @0,0
-              button.RowMenu__trigger#2  44×44 @0,0  r100  b1
-                span.RowMenu__dots  16×16 @14,14
+        td.LeadQueue__actions  68×72 @1338,0  b0 0 1 0
+          div.LeadRowActions__wrap#2  32×32 @18,20
+            div.RowMenu__root  32×32 @0,0
+              button.RowMenu__trigger#2  32×32 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @8,8
                   svg#2  16×16 @0,0
-      tr.TableRow__row#3  1406×73 @0,202
-        td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «39»
-        td.LeadQueue__who  489×73 @53,0  b0 0 1 0
-          a.LeadQueue__name#3  453×22 @18,15  Manrope 600 15/22  lines=1  «Игорь»
-          span.LeadQueue__address#3  453×20 @18,38  Manrope 400 13/20  lines=1  «Телефон оставлен, адреса нет»
-        td.LeadQueue__topic  365×73 @542,0  b0 0 1 0
+      tr.TableRow__row#3  1406×72 @0,199
+        td.LeadQueue__number  53×72 @0,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «39»
+        td.LeadQueue__who  493×72 @53,0  b0 0 1 0
+          a.LeadQueue__name#3  457×22 @18,15  Manrope 600 15/22  lines=1  «Игорь»
+          span.LeadQueue__address#3  457×20 @18,37  Manrope 400 13/20  lines=1  «Телефон оставлен, адреса нет»
+        td.LeadQueue__topic  368×72 @547,0  b0 0 1 0
           span.Badge__badge#3  103×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
-        td.LeadQueue__when  202×73 @907,0  b0 0 1 0
+        td.LeadQueue__when  204×72 @915,0  b0 0 1 0
           time#3  37×18 @18,27  Manrope 400 13/20  lines=1  «23 авг»
-        td[role=cell]  217×73 @1109,0  b0 0 1 0
+        td[role=cell]  219×72 @1119,0  b0 0 1 0
           span.Badge__badge#3  54×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Отказ»
-        td.LeadQueue__actions  80×73 @1326,0  b0 0 1 0
-          div.LeadRowActions__wrap#3  44×44 @18,15
-            div.RowMenu__root  44×44 @0,0
-              button.RowMenu__trigger#3  44×44 @0,0  r100  b1
-                span.RowMenu__dots  16×16 @14,14
+        td.LeadQueue__actions  68×72 @1338,0  b0 0 1 0
+          div.LeadRowActions__wrap#3  32×32 @18,20
+            div.RowMenu__root  32×32 @0,0
+              button.RowMenu__trigger#3  32×32 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @8,8
                   svg#3  16×16 @0,0
-      tr.TableRow__row#4  1406×73 @0,275
-        td.LeadQueue__number  53×73 @0,0  JetBrains Mono 400 15/22  lines=1  «38»
-        td.LeadQueue__who  489×73 @53,0
-          a.LeadQueue__name#4  453×22 @18,15  Manrope 600 15/22  lines=1  «Беляева Ольга»
-          span.LeadQueue__address#4  453×20 @18,38  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
-        td.LeadQueue__topic  365×73 @542,0
+      tr.TableRow__row#4  1406×71 @0,271
+        td.LeadQueue__number  53×71 @0,0  JetBrains Mono 400 15/22  lines=1  «38»
+        td.LeadQueue__who  493×71 @53,0
+          a.LeadQueue__name#4  457×22 @18,15  Manrope 600 15/22  lines=1  «Беляева Ольга»
+          span.LeadQueue__address#4  457×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
+        td.LeadQueue__topic  368×71 @547,0
           span.Badge__badge#4  64×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Ремонт»
-        td.LeadQueue__when  202×73 @907,0
+        td.LeadQueue__when  204×71 @915,0
           time#4  35×18 @18,27  Manrope 400 13/20  lines=1  «15 авг»
-        td[role=cell]  217×73 @1109,0
+        td[role=cell]  219×71 @1119,0
           span.Badge__badge#4  86×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Завершена»
-        td.LeadQueue__actions  80×73 @1326,0
-          div.LeadRowActions__wrap#4  44×44 @18,15
-            div.RowMenu__root  44×44 @0,0
-              button.RowMenu__trigger#4  44×44 @0,0  r100  b1
-                span.RowMenu__dots  16×16 @14,14
+        td.LeadQueue__actions  68×71 @1338,0
+          div.LeadRowActions__wrap#4  32×32 @18,20
+            div.RowMenu__root  32×32 @0,0
+              button.RowMenu__trigger#4  32×32 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @8,8
                   svg#4  16×16 @0,0
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   div.Table__viewport
     table.Table__table
       th.LeadQueue__numberHead  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
@@ -391,7 +391,7 @@ section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row
 section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#4 > td.LeadQueue__actions  border #eef2f6 #334155 #334155 #334155
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   div.Table__viewport
     table.Table__table
       th.LeadQueue__numberHead  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8

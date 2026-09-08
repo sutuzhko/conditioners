@@ -45,12 +45,12 @@ div.Table__viewport  358×393 @16,16
               svg  16×16 @0,0
 div.RowMenu__menu  200×211 @0,0  r14  b1  fixed  portal  side=bottom
   span.RowMenu__caption  190×25 @5,5  Manrope 400 13/17  lines=1  «Скопировать»
-  div.RowMenu__item  190×44 @5,30  Manrope 400 15/19  r11  lines=1  «Назад»
+  div.RowMenu__item  190×44 @5,30  Manrope 400 14/18  r12  lines=1  «Назад»
     span.RowMenu__itemIcon  14×14 @10,15
       svg.RowMenu__backIcon  14×14 @0,0
-  div.RowMenu__item#2  190×44 @5,74  Manrope 400 15/19  r11  lines=1  «Телефон»
-  div.RowMenu__item#3  190×44 @5,118  Manrope 400 15/19  r11  lines=1  «Адрес»
-  div.RowMenu__item#4  190×44 @5,162  Manrope 400 15/19  r11  lines=1  «Имя»
+  div.RowMenu__item#2  190×44 @5,74  Manrope 400 14/18  r12  lines=1  «Телефон»
+  div.RowMenu__item#3  190×44 @5,118  Manrope 400 14/18  r12  lines=1  «Адрес»
+  div.RowMenu__item#4  190×44 @5,162  Manrope 400 14/18  r12  lines=1  «Имя»
 
 [геометрия 768]
 div.Table__viewport  736×185 @16,16
@@ -85,52 +85,52 @@ div.Table__viewport  736×185 @16,16
               svg  16×16 @0,0
 div.RowMenu__menu  200×211 @0,0  r14  b1  fixed  portal  side=bottom
   span.RowMenu__caption  190×25 @5,5  Manrope 400 13/17  lines=1  «Скопировать»
-  div.RowMenu__item  190×44 @5,30  Manrope 400 15/19  r11  lines=1  «Назад»
+  div.RowMenu__item  190×44 @5,30  Manrope 400 14/18  r12  lines=1  «Назад»
     span.RowMenu__itemIcon  14×14 @10,15
       svg.RowMenu__backIcon  14×14 @0,0
-  div.RowMenu__item#2  190×44 @5,74  Manrope 400 15/19  r11  lines=1  «Телефон»
-  div.RowMenu__item#3  190×44 @5,118  Manrope 400 15/19  r11  lines=1  «Адрес»
-  div.RowMenu__item#4  190×44 @5,162  Manrope 400 15/19  r11  lines=1  «Имя»
+  div.RowMenu__item#2  190×44 @5,74  Manrope 400 14/18  r12  lines=1  «Телефон»
+  div.RowMenu__item#3  190×44 @5,118  Manrope 400 14/18  r12  lines=1  «Адрес»
+  div.RowMenu__item#4  190×44 @5,162  Manrope 400 14/18  r12  lines=1  «Имя»
 
 [геометрия 1440]
-div.Table__viewport  1408×128 @16,16
-  table.Table__table  1408×128 @0,0
-    th  432×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
-    th#2  223×56 @432,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
-    th#3  268×56 @655,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
-    th#4  122×56 @923,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
-    th#5  133×56 @1045,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
-    th#6  149×56 @1179,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
-    span  1×1 @1345,38  Onest 700 15/23  lines=1  clipped  «Действия»
-    tr.TableRow__row  1408×73 @0,56
-      td.ClientRow__who  432×73 @0,0
-        div.ClientRow__person  396×43 @18,15
+div.Table__viewport  1408×127 @16,16
+  table.Table__table  1408×127 @0,0
+    th  436×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+    th#2  225×56 @436,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+    th#3  271×56 @661,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
+    th#4  123×56 @931,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
+    th#5  135×56 @1055,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+    th#6  151×56 @1189,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
+    span  1×1 @1357,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    tr.TableRow__row  1408×71 @0,56
+      td.ClientRow__who  436×71 @0,0
+        div.ClientRow__person  400×43 @18,15
           span.Avatar__avatar  28×28 @0,7  r100  b1
             span.Avatar__initials  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИС»
             span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Ирина Соколова»
           div.ClientRow__names  270×43 @36,0
             a.ClientRow__name  270×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
             span.ClientRow__note  270×20 @0,22  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
-      td.ClientRow__phone  223×73 @432,0
+      td.ClientRow__phone  225×71 @436,0
         a.TableRow__above  140×17 @18,27  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
-      td.ClientRow__address  268×73 @655,0  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
-      td.ClientRow__number  122×73 @923,0  JetBrains Mono 400 15/22  lines=1  «3»
-      td.ClientRow__number#2  133×73 @1045,0  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
-      td.ClientRow__when  149×73 @1179,0
+      td.ClientRow__address  271×71 @661,0  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
+      td.ClientRow__number  123×71 @931,0  JetBrains Mono 400 15/22  lines=1  «3»
+      td.ClientRow__number#2  135×71 @1055,0  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
+      td.ClientRow__when  151×71 @1189,0
         time  68×18 @18,27  Manrope 400 13/20  lines=1  «29.08.2026»
-      td.ClientRow__actions  80×73 @1328,0
-        div.RowMenu__root  44×44 @18,15
-          button.RowMenu__trigger  44×44 @0,0  r100  b1
-            span.RowMenu__dots  16×16 @14,14
+      td.ClientRow__actions  68×71 @1340,0
+        div.RowMenu__root  32×32 @18,20
+          button.RowMenu__trigger  32×32 @0,0  r100  b1
+            span.RowMenu__dots  16×16 @8,8
               svg  16×16 @0,0
 div.RowMenu__menu  200×211 @0,0  r14  b1  fixed  portal  side=bottom
   span.RowMenu__caption  190×25 @5,5  Manrope 400 13/17  lines=1  «Скопировать»
-  div.RowMenu__item  190×44 @5,30  Manrope 400 15/19  r11  lines=1  «Назад»
+  div.RowMenu__item  190×44 @5,30  Manrope 400 14/18  r12  lines=1  «Назад»
     span.RowMenu__itemIcon  14×14 @10,15
       svg.RowMenu__backIcon  14×14 @0,0
-  div.RowMenu__item#2  190×44 @5,74  Manrope 400 15/19  r11  lines=1  «Телефон»
-  div.RowMenu__item#3  190×44 @5,118  Manrope 400 15/19  r11  lines=1  «Адрес»
-  div.RowMenu__item#4  190×44 @5,162  Manrope 400 15/19  r11  lines=1  «Имя»
+  div.RowMenu__item#2  190×44 @5,74  Manrope 400 14/18  r12  lines=1  «Телефон»
+  div.RowMenu__item#3  190×44 @5,118  Manrope 400 14/18  r12  lines=1  «Адрес»
+  div.RowMenu__item#4  190×44 @5,162  Manrope 400 14/18  r12  lines=1  «Имя»
 
 [палитра light]
 div.Table__viewport
@@ -163,7 +163,7 @@ div.Table__viewport
           button.RowMenu__trigger  border transparent
             span.RowMenu__dots
               svg
-div.RowMenu__menu  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+div.RowMenu__menu  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
   span.RowMenu__caption  color #5b6a7d
   div.RowMenu__item  color #0e7490  bg #ecfeff
     span.RowMenu__itemIcon
@@ -212,7 +212,7 @@ div.Table__viewport
           button.RowMenu__trigger  border transparent
             span.RowMenu__dots
               svg
-div.RowMenu__menu  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+div.RowMenu__menu  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
   span.RowMenu__caption  color #7e92a7
   div.RowMenu__item  color #22d3ee  bg #22d3ee1a
     span.RowMenu__itemIcon

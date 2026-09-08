@@ -8,7 +8,7 @@
 
 [геометрия 390]
 div.ClientList__list  358×777 @16,16
-  section.Card__card  358×777 @0,0  r20  b1
+  section.Card__card  358×777 @0,0  r14  b1
     div.Table__viewport  356×775 @1,1
       table.Table__table  356×775 @0,0
         th  89×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
@@ -77,7 +77,7 @@ div.ClientList__list  358×777 @16,16
 
 [геометрия 768]
 div.ClientList__list  736×280 @16,16
-  section.Card__card  736×280 @0,0  r20  b1
+  section.Card__card  736×280 @0,0  r14  b1
     div.Table__viewport  734×278 @1,1
       table.Table__table  1027×278 @0,0
         th  342×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
@@ -133,65 +133,65 @@ div.ClientList__list  736×280 @16,16
                   svg  16×16 @0,0
 
 [геометрия 1440]
-div.ClientList__list  1408×203 @16,16
-  section.Card__card  1408×203 @0,0  r20  b1
-    div.Table__viewport  1406×201 @1,1
-      table.Table__table  1406×201 @0,0
-        th  421×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
-        th#2  217×56 @421,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
-        th#3  261×56 @638,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
-        th#4  119×56 @899,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
-        th#5  162×56 @1018,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
-        th#6  145×56 @1181,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
-        span  1×1 @1343,38  Onest 700 15/23  lines=1  clipped  «Действия»
-        tr.TableRow__row  1406×73 @0,56
-          td.ClientRow__who  421×73 @0,0  b0 0 1 0
-            div.ClientRow__person  385×43 @18,15
+div.ClientList__list  1408×200 @16,16
+  section.Card__card  1408×200 @0,0  r14  b1
+    div.Table__viewport  1406×198 @1,1
+      table.Table__table  1406×198 @0,0
+        th  424×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+        th#2  219×56 @424,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+        th#3  264×56 @644,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
+        th#4  120×56 @907,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
+        th#5  164×56 @1028,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+        th#6  147×56 @1191,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
+        span  1×1 @1355,38  Onest 700 15/23  lines=1  clipped  «Действия»
+        tr.TableRow__row  1406×72 @0,56
+          td.ClientRow__who  424×72 @0,0  b0 0 1 0
+            div.ClientRow__person  388×43 @18,15
               span.Avatar__avatar  28×28 @0,7  r100  b1
                 span.Avatar__initials  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИС»
                 span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Ирина Соколова»
               div.ClientRow__names  270×43 @36,0
                 a.ClientRow__name  270×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
                 span.ClientRow__note  270×20 @0,22  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
-          td.ClientRow__phone  217×73 @421,0  b0 0 1 0
+          td.ClientRow__phone  219×72 @424,0  b0 0 1 0
             a.TableRow__above  140×17 @18,27  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
-          td.ClientRow__address  261×73 @638,0  Manrope 400 13/20  b0 0 1 0  lines=1  «Тула, Первомайская, 12, кв. 4»
-          td.ClientRow__number  119×73 @899,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «3»
-          td.ClientRow__number#2  162×73 @1018,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «98 700 ₽»
-          td.ClientRow__when  145×73 @1181,0  b0 0 1 0
+          td.ClientRow__address  264×72 @644,0  Manrope 400 13/20  b0 0 1 0  lines=1  «Тула, Первомайская, 12, кв. 4»
+          td.ClientRow__number  120×72 @907,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «3»
+          td.ClientRow__number#2  164×72 @1028,0  JetBrains Mono 400 15/22  b0 0 1 0  lines=1  «98 700 ₽»
+          td.ClientRow__when  147×72 @1191,0  b0 0 1 0
             time  68×18 @18,27  Manrope 400 13/20  lines=1  «29.08.2026»
-          td.ClientRow__actions  80×73 @1326,0  b0 0 1 0
-            div.RowMenu__root  44×44 @18,15
-              button.RowMenu__trigger  44×44 @0,0  r100  b1
-                span.RowMenu__dots  16×16 @14,14
+          td.ClientRow__actions  68×72 @1338,0  b0 0 1 0
+            div.RowMenu__root  32×32 @18,20
+              button.RowMenu__trigger  32×32 @0,0  r100  b1
+                span.RowMenu__dots  16×16 @8,8
                   svg  16×16 @0,0
-        tr.TableRow__row#2  1406×73 @0,129
-          td.ClientRow__who  421×73 @0,0
-            div.ClientRow__person#2  385×43 @18,15
+        tr.TableRow__row#2  1406×71 @0,127
+          td.ClientRow__who  424×71 @0,0
+            div.ClientRow__person#2  388×43 @18,15
               span.Avatar__avatar  28×28 @0,7  r100  b1
                 span.Avatar__initials#2  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ПИ»
                 span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Пётр Ильин»
               div.ClientRow__names  94×43 @36,0
                 a.ClientRow__name#2  94×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
                 span.ClientRow__note#2  94×20 @0,22  Manrope 400 13/20  lines=1  «без обращений»
-          td.ClientRow__phone  217×73 @421,0
+          td.ClientRow__phone  219×71 @424,0
             a.TableRow__above#2  140×17 @18,27  JetBrains Mono 400 13/20  lines=1  «+7 (953) 100-20-30»
-          td.ClientRow__address  261×73 @638,0
+          td.ClientRow__address  264×71 @644,0
             span.ClientRow__missing  71×18 @18,27  Manrope 400 13/20  lines=1  «Не заведён»
-          td.ClientRow__number  119×73 @899,0  JetBrains Mono 400 15/22  lines=1  «0»
-          td.ClientRow__number#2  162×73 @1018,0
-            span.ClientRow__missing  96×19 @48,26  JetBrains Mono 400 15/22  lines=1  «Ещё не было»
-          td.ClientRow__when  145×73 @1181,0
+          td.ClientRow__number  120×71 @907,0  JetBrains Mono 400 15/22  lines=1  «0»
+          td.ClientRow__number#2  164×71 @1028,0
+            span.ClientRow__missing  96×19 @50,26  JetBrains Mono 400 15/22  lines=1  «Ещё не было»
+          td.ClientRow__when  147×71 @1191,0
             span.ClientRow__missing  10×18 @18,27  Manrope 400 13/20  lines=1  «—»
-          td.ClientRow__actions  80×73 @1326,0
-            div.RowMenu__root#2  44×44 @18,15
-              button.RowMenu__trigger  44×44 @0,0  r100  b1
-                span.RowMenu__dots#2  16×16 @14,14
+          td.ClientRow__actions  68×71 @1338,0
+            div.RowMenu__root#2  32×32 @18,20
+              button.RowMenu__trigger  32×32 @0,0  r100  b1
+                span.RowMenu__dots#2  16×16 @8,8
                   svg  16×16 @0,0
 
 [палитра light]
 div.ClientList__list
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.Table__viewport
       table.Table__table
         th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
@@ -271,7 +271,7 @@ div.ClientList__list > section.Card__card > div.Table__viewport > table.Table__t
 
 [палитра dark]
 div.ClientList__list
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.Table__viewport
       table.Table__table
         th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8

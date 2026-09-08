@@ -11,7 +11,7 @@ div.StockFilters__bar  358×52 @16,16
   div.StockFilters__pills  358×44 @0,0
     details.StockFilters__filter  77×44 @0,0
       summary.StockFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
-      div.StockFilters__sheet  220×413 @0,50  r14  b1
+      div.StockFilters__sheet  220×389 @0,50  r14  b1
         nav.StockFilters__group  194×169 @13,13
           span.StockFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Что показывать»
           a.StockFilters__item  106×44 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Все позиции»
@@ -23,11 +23,11 @@ div.StockFilters__bar  358×52 @16,16
           a.StockFilters__item#2  75×44 @104,25  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
           a.StockFilters__item#3  115×44 @0,75  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
           a.StockFilters__item#4  67×44 @121,75  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
-        form.StockFilters__form  194×76 @13,324
-          div.Field__field  117×76 @0,0
-            label.Field__label  117×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
-            input  117×49 @0,27  r11  b1
-          button.Button__button  69×44 @125,0  r9  b1
+        form.StockFilters__form  194×52 @13,324
+          div.Field__field  117×52 @0,0
+            label.Field__label  81×13 @15,8  Manrope 600 11/13  lines=1  «Поиск позиции»
+            input  117×52 @0,0  r999  b1
+          button.Button__button  69×44 @125,0  r999  b1
             span.Button__content  39×16 @15,14
               span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
   p.StockFilters__total  358×0 @0,52
@@ -37,7 +37,7 @@ div.StockFilters__bar  736×72 @16,16
   div.StockFilters__pills  736×44 @0,0
     details.StockFilters__filter  77×44 @0,0
       summary.StockFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
-      div.StockFilters__sheet  220×413 @0,50  r14  b1
+      div.StockFilters__sheet  220×389 @0,50  r14  b1
         nav.StockFilters__group  194×169 @13,13
           span.StockFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Что показывать»
           a.StockFilters__item  106×44 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Все позиции»
@@ -49,11 +49,11 @@ div.StockFilters__bar  736×72 @16,16
           a.StockFilters__item#2  75×44 @104,25  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
           a.StockFilters__item#3  115×44 @0,75  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
           a.StockFilters__item#4  67×44 @121,75  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
-        form.StockFilters__form  194×76 @13,324
-          div.Field__field  117×76 @0,0
-            label.Field__label  117×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
-            input  117×49 @0,27  r11  b1
-          button.Button__button  69×44 @125,0  r9  b1
+        form.StockFilters__form  194×52 @13,324
+          div.Field__field  117×52 @0,0
+            label.Field__label  81×13 @15,8  Manrope 600 11/13  lines=1  «Поиск позиции»
+            input  117×52 @0,0  r999  b1
+          button.Button__button  69×44 @125,0  r999  b1
             span.Button__content  39×16 @15,14
               span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
   p.StockFilters__total  736×20 @0,52
@@ -64,7 +64,7 @@ div.StockFilters__bar  1408×62 @16,16
   div.StockFilters__pills  1408×34 @0,0
     details.StockFilters__filter  77×34 @0,0
       summary.StockFilters__pill  77×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
-      div.StockFilters__sheet  220×364 @0,40  r14  b1
+      div.StockFilters__sheet  220×336 @0,40  r14  b1
         nav.StockFilters__group  194×139 @13,13
           span.StockFilters__groupTitle  194×19 @0,0  Manrope 700 12/19  ls0  lines=1  «Что показывать»
           a.StockFilters__item  106×34 @0,25  Manrope 600 13/20  r100  b1  lines=1  «Все позиции»
@@ -76,12 +76,12 @@ div.StockFilters__bar  1408×62 @16,16
           a.StockFilters__item#2  75×34 @104,25  Manrope 600 13/20  r100  b1  lines=1  «Крепёж»
           a.StockFilters__item#3  115×34 @0,65  Manrope 600 13/20  r100  b1  lines=1  «Медная труба»
           a.StockFilters__item#4  67×34 @121,65  Manrope 600 13/20  r100  b1  lines=1  «Фреон»
-        form.StockFilters__form  194×76 @13,275
-          div.Field__field  117×76 @0,0
-            label.Field__label  117×20 @0,0  Manrope 600 13/20  lines=1  «Поиск позиции»
-            input  117×49 @0,27  r11  b1
-          button.Button__button  69×40 @125,0  r9  b1
-            span.Button__content  39×16 @15,12
+        form.StockFilters__form  194×48 @13,275
+          div.Field__field  117×48 @0,0
+            label.Field__label  81×13 @15,8  Manrope 600 11/13  lines=1  «Поиск позиции»
+            input  117×48 @0,0  r999  b1
+          button.Button__button  69×32 @125,0  r999  b1
+            span.Button__content  39×16 @15,8
               span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
   p.StockFilters__total  1408×20 @0,42
     span.StockFilters__counter  318×20 @0,0  Manrope 400 13/20  lines=1  «Всего позиций: 4 · остаток считается по»
@@ -91,7 +91,7 @@ div.StockFilters__bar
   div.StockFilters__pills
     details.StockFilters__filter
       summary.StockFilters__pill  color #475569  border #e2e8f0
-      div.StockFilters__sheet  bg #ffffff  border #e2e8f0
+      div.StockFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.StockFilters__group
           span.StockFilters__groupTitle  color #5b6a7d
           a.StockFilters__item  color #0e7490  bg #ecfeff  border #0891b2
@@ -105,9 +105,9 @@ div.StockFilters__bar
           a.StockFilters__item#4  color #475569  bg #f8fafc  border transparent
         form.StockFilters__form
           div.Field__field
-            label.Field__label  color #334155
-            input  bg #ffffff  border #7e8fa6
-          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            label.Field__label  color #556173
+            input  bg #f8fafc  border #7e8fa6
+          button.Button__button  bg #0e7490  border #0e7490
             span.Button__content
               span.Button__label  color #ffffff
   p.StockFilters__total
@@ -118,7 +118,7 @@ div.StockFilters__bar
   div.StockFilters__pills
     details.StockFilters__filter
       summary.StockFilters__pill  color #a8b6c6  border #1e2b41
-      div.StockFilters__sheet  bg #ffffff  border #e2e8f0
+      div.StockFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.StockFilters__group
           span.StockFilters__groupTitle  color #5b6a7d
           a.StockFilters__item  color #0e7490  bg #ecfeff  border #0891b2
@@ -132,9 +132,9 @@ div.StockFilters__bar
           a.StockFilters__item#4  color #475569  bg #f8fafc  border transparent
         form.StockFilters__form
           div.Field__field
-            label.Field__label  color #334155
-            input  bg #ffffff  border #7e8fa6
-          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            label.Field__label  color #556173
+            input  bg #f8fafc  border #7e8fa6
+          button.Button__button  bg #0e7490  border #0e7490
             span.Button__content
               span.Button__label  color #ffffff
   p.StockFilters__total

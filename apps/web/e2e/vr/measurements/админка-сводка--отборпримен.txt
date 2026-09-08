@@ -2,17 +2,17 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Manrope 700, Onest 700
 
 [документ]
-390 → 390×1261
-768 → 768×1351
-1440 → 1440×1153
+390 → 390×1245
+768 → 768×1327
+1440 → 1440×1125
 
 [геометрия 390]
-div.AdminSummary__summary  358×1229 @16,16
+div.AdminSummary__summary  358×1213 @16,16
   header.AdminSummary__header  358×109 @0,0
     div.AdminSummary__headText  253×55 @0,0
       h1.AdminSummary__title  253×30 @0,0  Onest 700 25/30  ls-1  lines=1  «Доброе утро, Сергей»
       p.AdminSummary__lead  253×22 @0,32  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
-    a.Button__button  133×44 @0,65  r9  b1
+    a.Button__button  133×44 @0,65  r999  b1
       span.Button__content  103×16 @15,14
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
@@ -43,14 +43,14 @@ div.AdminSummary__summary  358×1229 @16,16
             span#4  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «рост»
         dd.StatTile__note#2  149×32 @13,70  Manrope 400 12/16  lines=2  «назначены и на объекте →»
   div.AdminSummary__charts  358×0 @0,330
-  section.Card__card  358×748 @0,348  r20  b1
+  section.Card__card  358×732 @0,348  r14  b1
     div.AdminSummary__cardHead  316×24 @21,21
       h2.AdminSummary__cardTitle  141×21 @0,2  Onest 700 17/21  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  25×24 @149,0  r100  b1
         span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
         span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 дело в списке»
     p.AdminSummary__text  316×45 @21,55  Manrope 400 15/22  lines=2  «Наряды и дела календаря по времени. Прос»
-    div.SummaryFilters__bar  316×232 @21,110
+    div.SummaryFilters__bar  316×208 @21,110
       div.SummaryFilters__pills  316×148 @0,0
         details.SummaryFilters__filter  110×44 @0,0
           summary.SummaryFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -88,12 +88,12 @@ div.AdminSummary__summary  358×1229 @16,16
           span.SummaryFilters__chipText  87×20 @13,12  Manrope 600 13/20  lines=1  ««Оборонная"»
           span.SummaryFilters__chipCross  7×15 @106,15  Manrope 600 15/15  lines=1  «×»
           span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
-      form.SummaryFilters__form  316×76 @0,156
-        div.Field__field  316×76 @0,0
-          label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
-          input  316×49 @0,27  r11  b1
-    div.Table__viewport  316×307 @21,352
-      table.Table__table  316×307 @0,0
+      form.SummaryFilters__form  316×52 @0,156
+        div.Field__field  316×52 @0,0
+          label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
+          input  316×52 @0,0  r999  b1
+    div.Table__viewport  316×315 @21,328
+      table.Table__table  316×315 @0,0
         tr[role=row]  1×56 @0,0
           th.SummaryTable__whenCol  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
           th.SummaryTable__workCol  158×56 @79,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
@@ -102,7 +102,7 @@ div.AdminSummary__summary  358×1229 @16,16
           th.SummaryTable__sumCol  86×56 @446,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
           th.SummaryTable__actionsCol  36×56 @532,0  b0 0 1 0
             span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-        tr[role=row]#2  316×307 @0,0  r14  b1
+        tr[role=row]#2  316×315 @0,0  r14  b1
           td.SummaryTable__whenCol  314×56 @1,5
             td.SummaryTable__whenCol::before  36×20 @0,0
             time.SummaryTable__when  79×41 @221,8
@@ -124,30 +124,30 @@ div.AdminSummary__summary  358×1229 @16,16
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  314×34 @1,212  Manrope 400 13/20  lines=1  «—»
             td.SummaryTable__sumCol::before  41×20 @0,0
-          td.SummaryTable__actions  314×51 @1,251  b1 0 0 0
-            div.TableActions__actions  76×36 @224,8
-              span.Tooltip__wrap  36×36 @0,0  r100
-                span.Tooltip__anchor  36×36 @0,0
-                  a.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
-                      svg  18×18 @9,9
-              span.Tooltip__wrap#2  36×36 @40,0  r100
-                span.Tooltip__anchor  36×36 @0,0
-                  a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
-                      svg#2  18×18 @9,9
-    a.AdminSummary__link  316×44 @21,683  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  358×116 @0,1114  r20  b1
+          td.SummaryTable__actions  314×59 @1,251  b1 0 0 0
+            div.TableActions__actions  92×44 @208,8
+              span.Tooltip__wrap  44×44 @0,0  r100
+                span.Tooltip__anchor  44×44 @0,0
+                  a.TableActions__action  44×44 @0,0  r100
+                    span.TableActions__iconArea  44×44 @0,0
+                      svg  18×18 @13,13
+              span.Tooltip__wrap#2  44×44 @48,0  r100
+                span.Tooltip__anchor  44×44 @0,0
+                  a.TableActions__action#2  44×44 @0,0  r100
+                    span.TableActions__iconArea  44×44 @0,0
+                      svg#2  18×18 @13,13
+    a.AdminSummary__link  316×44 @21,667  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  358×116 @0,1098  r14  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  316×45 @21,50  Manrope 400 15/22  lines=2  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 768]
-div.AdminSummary__summary  736×1319 @16,16
+div.AdminSummary__summary  736×1295 @16,16
   header.AdminSummary__header  736×62 @0,0
     div.AdminSummary__headText  312×62 @0,0
       h1.AdminSummary__title  312×37 @0,0  Onest 700 31/37  ls-1  lines=1  «Доброе утро, Сергей»
       p.AdminSummary__lead  312×22 @0,39  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
-    a.Button__button  133×44 @603,9  r9  b1
+    a.Button__button  133×44 @603,9  r999  b1
       span.Button__content  103×16 @15,14
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
@@ -196,20 +196,20 @@ div.AdminSummary__summary  736×1319 @16,16
             span#8  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «без изменений»
         dd.StatTile__note#4  328×16 @17,74  Manrope 400 12/16  lines=1  «до материалов и налогов →»
   div.AdminSummary__charts  736×331 @0,394
-    section.Card__card  736×331 @0,0  r20  b1
+    section.Card__card  736×331 @0,0  r14  b1
       div.AdminSummary__chartHead  694×42 @21,21
         h2.AdminSummary__cardTitle  694×22 @0,0  Onest 700 18/22  ls0  lines=1  «Заказы по неделям»
         p.AdminSummary__chartNote  694×19 @0,24  Manrope 400 12/19  lines=1  «выполненные наряды, 12 недель»
       figure.Chart__figure  694×239 @21,71
         svg.Chart__canvas  694×239 @0,0
-  section.Card__card  736×464 @0,743  r20  b1
+  section.Card__card  736×440 @0,743  r14  b1
     div.AdminSummary__cardHead  694×24 @21,21
       h2.AdminSummary__cardTitle  148×22 @0,1  Onest 700 18/22  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  25×24 @156,0  r100  b1
         span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
         span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 дело в списке»
     p.AdminSummary__text  694×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
-    div.SummaryFilters__bar  694×128 @21,88
+    div.SummaryFilters__bar  694×104 @21,88
       div.SummaryFilters__pills  694×44 @0,0
         details.SummaryFilters__filter  110×44 @0,0
           summary.SummaryFilters__pill  110×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -247,59 +247,59 @@ div.AdminSummary__summary  736×1319 @16,16
           span.SummaryFilters__chipText  87×20 @13,12  Manrope 600 13/20  lines=1  ««Оборонная"»
           span.SummaryFilters__chipCross  7×15 @106,15  Manrope 600 15/15  lines=1  «×»
           span  1×1 @12,22  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
-      form.SummaryFilters__form  694×76 @0,52
-        div.Field__field  694×76 @0,0
-          label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
-          input  694×49 @0,27  r11  b1
-    div.Table__viewport  694×150 @21,226
+      form.SummaryFilters__form  694×52 @0,52
+        div.Field__field  694×52 @0,0
+          label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
+          input  694×52 @0,0  r999  b1
+    div.Table__viewport  694×150 @21,202
       table.Table__table  720×150 @0,0
         tr[role=row]  720×56 @0,0
           th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
-          th.SummaryTable__workCol  220×56 @116,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
-          th.SummaryTable__statusCol  140×56 @336,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
-          th.SummaryTable__sumCol  118×56 @476,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
-          th.SummaryTable__actionsCol  126×56 @594,0  b0 0 1 0
+          th.SummaryTable__workCol  218×56 @116,0  Onest 700 15/23  b0 0 1 0  lines=1  «Работа и объект»
+          th.SummaryTable__statusCol  140×56 @334,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+          th.SummaryTable__sumCol  118×56 @474,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+          th.SummaryTable__actionsCol  128×56 @592,0  b0 0 1 0
             span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
         tr[role=row]#2  720×94 @0,56
           td.SummaryTable__whenCol  116×94 @0,0
             time.SummaryTable__when  80×41 @18,27
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
-          td.SummaryTable__workCol  220×94 @116,0
-            span.SummaryTable__workBox  184×65 @18,15
-              span.SummaryTable__kindRow  184×24 @0,0
+          td.SummaryTable__workCol  218×94 @116,0
+            span.SummaryTable__workBox  182×65 @18,15
+              span.SummaryTable__kindRow  182×24 @0,0
                 span.SummaryTable__kind  51×22 @0,1  Manrope 600 15/22  lines=1  «Звонок»
                 span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
-              span.SummaryTable__place  184×37 @0,28  Manrope 400 12/19  lines=2  «Сергей Данилов · Тула, Первомайская 12»
-          td.SummaryTable__statusCol  140×94 @336,0
+              span.SummaryTable__place  182×37 @0,28  Manrope 400 12/19  lines=2  «Сергей Данилов · Тула, Первомайская 12»
+          td.SummaryTable__statusCol  140×94 @334,0
             span.Badge__badge  98×24 @18,36  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
               span.Badge__dot  6×6 @10,9  r100
-          td.SummaryTable__sumCol  118×94 @476,0  Manrope 400 13/20  lines=1  «—»
-          td.SummaryTable__actions  126×94 @594,0
-            div.TableActions__actions  90×36 @18,29
-              span.Tooltip__wrap  36×36 @14,0  r100
-                span.Tooltip__anchor  36×36 @0,0
-                  a.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
-                      svg  18×18 @9,9
-              span.Tooltip__wrap#2  36×36 @54,0  r100
-                span.Tooltip__anchor  36×36 @0,0
-                  a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
-                      svg#2  18×18 @9,9
-    a.AdminSummary__link  694×44 @21,399  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  736×94 @0,1225  r20  b1
+          td.SummaryTable__sumCol  118×94 @474,0  Manrope 400 13/20  lines=1  «—»
+          td.SummaryTable__actions  128×94 @592,0
+            div.TableActions__actions  92×44 @18,25
+              span.Tooltip__wrap  44×44 @0,0  r100
+                span.Tooltip__anchor  44×44 @0,0
+                  a.TableActions__action  44×44 @0,0  r100
+                    span.TableActions__iconArea  44×44 @0,0
+                      svg  18×18 @13,13
+              span.Tooltip__wrap#2  44×44 @48,0  r100
+                span.Tooltip__anchor  44×44 @0,0
+                  a.TableActions__action#2  44×44 @0,0  r100
+                    span.TableActions__iconArea  44×44 @0,0
+                      svg#2  18×18 @13,13
+    a.AdminSummary__link  694×44 @21,375  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  736×94 @0,1201  r14  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  694×22 @21,51  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 
 [геометрия 1440]
-div.AdminSummary__summary  1408×1121 @16,16
+div.AdminSummary__summary  1408×1093 @16,16
   header.AdminSummary__header  1408×70 @0,0
     div.AdminSummary__headText  381×70 @0,0
       h1.AdminSummary__title  381×46 @0,0  Onest 700 38/46  ls-1  lines=1  «Доброе утро, Сергей»
       p.AdminSummary__lead  381×22 @0,48  Manrope 400 15/22  lines=1  «Среда, 29 августа · 3 выезда сегодня»
-    a.Button__button  133×40 @1275,15  r9  b1
-      span.Button__content  103×16 @15,12
+    a.Button__button  133×32 @1275,19  r999  b1
+      span.Button__content  103×16 @15,8
         svg  16×16 @0,0
         span.Button__label  79×16 @24,0  Manrope 600 13/16  lines=1  «Новый заказ»
   div.AdminSummary__bar  1408×40 @0,88
@@ -347,13 +347,13 @@ div.AdminSummary__summary  1408×1121 @16,16
             span#8  1×1 @9,12  Manrope 600 12/14  lines=1  clipped  «без изменений»
         dd.StatTile__note#4  306×16 @17,74  Manrope 400 12/16  lines=1  «до материалов и налогов →»
   div.AdminSummary__charts  1408×345 @0,271
-    section.Card__card  696×318 @0,0  r20  b1
+    section.Card__card  696×318 @0,0  r14  b1
       div.AdminSummary__chartHead  654×43 @21,21
         h2.AdminSummary__cardTitle  654×23 @0,0  Onest 700 19/23  ls0  lines=1  «Заказы по неделям»
         p.AdminSummary__chartNote  654×19 @0,25  Manrope 400 12/19  lines=1  «выполненные наряды, 12 недель»
       figure.Chart__figure  654×225 @21,72
         svg.Chart__canvas  654×225 @0,0
-    section.Card__card#2  696×345 @712,0  r20  b1
+    section.Card__card#2  696×345 @712,0  r14  b1
       div.AdminSummary__chartHead  654×43 @21,21
         h2.AdminSummary__cardTitle#2  654×23 @0,0  Onest 700 19/23  ls0  lines=1  «Выручка и выплаты»
         p.AdminSummary__chartNote#2  654×19 @0,25  Manrope 400 12/19  lines=1  «обе величины в одной шкале, 8 месяцев»
@@ -364,14 +364,14 @@ div.AdminSummary__summary  1408×1121 @16,16
           span.Chart__legendItem#2  160×19 @90,0  Manrope 600 12/19  lines=1  «Выплаты монтажникам»
             span.Chart__swatch  18×2 @0,8  b2 0 0 0
         svg.Chart__canvas#2  654×225 @0,27
-  section.Card__card  1408×374 @0,634  r20  b1
+  section.Card__card  1408×346 @0,634  r14  b1
     div.AdminSummary__cardHead  1366×24 @21,21
       h2.AdminSummary__cardTitle  156×23 @0,1  Onest 700 19/23  ls0  lines=1  «Ближайшие дела»
       span.Badge__badge  25×24 @164,0  r100  b1
         span  5×16 @10,4  Manrope 600 12/16  lines=1  «1»
         span#2  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «1 дело в списке»
     p.AdminSummary__text  1366×22 @21,55  Manrope 400 15/22  lines=1  «Наряды и дела календаря по времени. Прос»
-    div.SummaryFilters__bar  1366×76 @21,88
+    div.SummaryFilters__bar  1366×48 @21,88
       div.SummaryFilters__pills  1074×38 @0,0
         details.SummaryFilters__filter  110×38 @0,0
           summary.SummaryFilters__pill  110×38 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -409,11 +409,11 @@ div.AdminSummary__summary  1408×1121 @16,16
           span.SummaryFilters__chipText  87×20 @13,7  Manrope 600 13/20  lines=1  ««Оборонная"»
           span.SummaryFilters__chipCross  7×15 @106,10  Manrope 600 15/15  lines=1  «×»
           span  1×1 @12,17  Manrope 600 13/20  lines=1  clipped  «Снять условие: «Оборонная"»
-      form.SummaryFilters__form  280×76 @1086,0
-        div.Field__field  280×76 @0,0
-          label.Field__label  280×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по клиенту и адресу»
-          input  280×49 @0,27  r11  b1
-    div.Table__viewport  1366×131 @21,174
+      form.SummaryFilters__form  280×48 @1086,0
+        div.Field__field  280×48 @0,0
+          label.Field__label  144×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по клиенту и адресу»
+          input  280×48 @0,0  r999  b1
+    div.Table__viewport  1366×131 @21,146
       table.Table__table  1366×131 @0,0
         tr[role=row]  1366×56 @0,0
           th.SummaryTable__whenCol  116×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
@@ -441,19 +441,19 @@ div.AdminSummary__summary  1408×1121 @16,16
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×75 @1122,0  Manrope 400 13/20  lines=1  «—»
           td.SummaryTable__actions  126×75 @1240,0
-            div.TableActions__actions  90×36 @18,20
-              span.Tooltip__wrap  36×36 @14,0  r100
-                span.Tooltip__anchor  36×36 @0,0
-                  a.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
-                      svg  18×18 @9,9
-              span.Tooltip__wrap#2  36×36 @54,0  r100
-                span.Tooltip__anchor  36×36 @0,0
-                  a.TableActions__action#2  36×36 @0,0  r100
-                    span.TableActions__iconArea  36×36 @0,0
-                      svg#2  18×18 @9,9
-    a.AdminSummary__link  1366×24 @21,329  Manrope 600 15/22  lines=1  «Открыть календарь →»
-  section.Card__card#2  1408×95 @0,1026  r20  b1
+            div.TableActions__actions  90×32 @18,22
+              span.Tooltip__wrap  32×32 @22,0  r100
+                span.Tooltip__anchor  32×32 @0,0
+                  a.TableActions__action  32×32 @0,0  r100
+                    span.TableActions__iconArea  32×32 @0,0
+                      svg  18×18 @7,7
+              span.Tooltip__wrap#2  32×32 @58,0  r100
+                span.Tooltip__anchor  32×32 @0,0
+                  a.TableActions__action#2  32×32 @0,0  r100
+                    span.TableActions__iconArea  32×32 @0,0
+                      svg#2  18×18 @7,7
+    a.AdminSummary__link  1366×24 @21,301  Manrope 600 15/22  lines=1  «Открыть календарь →»
+  section.Card__card#2  1408×95 @0,998  r14  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
     p.AdminSummary__text  1366×22 @21,52  Manrope 400 15/22  lines=1  «Все данные о компании заполнены. Сайт мо»
 
@@ -463,20 +463,20 @@ div.AdminSummary__summary
     div.AdminSummary__headText
       h1.AdminSummary__title  color #0f172a
       p.AdminSummary__lead  color #475569
-    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         svg
         span.Button__label  color #ffffff
   div.AdminSummary__bar
     nav.Tabs__strip
       div.Tabs__row  bg #f8fafc  border #e2e8f0
-        a.Tabs__tab  color #0f172a  bg #ffffff
+        a.Tabs__tab  color #0f172a  bg #ffffff  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         a.Tabs__tab#2  color #556173
         a.Tabs__tab#3  color #556173
     p.AdminSummary__period  color #556173
   div.StatTile__tiles
     a.AdminSummary__tileLink
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label  color #556173
         dd.StatTile__value
           span.StatTile__number  color #0f172a
@@ -485,7 +485,7 @@ div.AdminSummary__summary
             span#2  color #be123c
         dd.StatTile__note  color #556173
     a.AdminSummary__tileLink#2
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label#2  color #556173
         dd.StatTile__value#2
           span.StatTile__number  color #0f172a
@@ -494,7 +494,7 @@ div.AdminSummary__summary
             span#4  color #166534
         dd.StatTile__note#2  color #556173
     a.AdminSummary__tileLink#3
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label#3  color #556173
         dd.StatTile__value#3
           span.StatTile__number  color #0f172a
@@ -503,7 +503,7 @@ div.AdminSummary__summary
             span#6  color #166534
         dd.StatTile__note#3  color #556173
     a.AdminSummary__tileLink#4
-      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
         dt.StatTile__label#4  color #556173
         dd.StatTile__value#4
           span.StatTile__number  color #0f172a
@@ -512,13 +512,13 @@ div.AdminSummary__summary
             span#8  color #556173
         dd.StatTile__note#4  color #556173
   div.AdminSummary__charts
-    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       div.AdminSummary__chartHead
         h2.AdminSummary__cardTitle  color #0f172a
         p.AdminSummary__chartNote  color #556173
       figure.Chart__figure
         svg.Chart__canvas
-    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       div.AdminSummary__chartHead
         h2.AdminSummary__cardTitle#2  color #0f172a
         p.AdminSummary__chartNote#2  color #556173
@@ -529,7 +529,7 @@ div.AdminSummary__summary
           span.Chart__legendItem#2  color #556173
             span.Chart__swatch  border #b45309 #556173 #556173 #556173
         svg.Chart__canvas#2
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.AdminSummary__cardHead
       h2.AdminSummary__cardTitle  color #0f172a
       span.Badge__badge  bg #f8fafc  border #e2e8f0
@@ -543,7 +543,7 @@ div.AdminSummary__summary
             span.Badge__badge  bg #ecfeff  border #a5f3fc
               span#3  color #0e7490
               span#4  color #0e7490
-          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
             nav.SummaryFilters__group
               a.SummaryFilters__item  color #475569  bg #f8fafc  border transparent
               a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
@@ -552,13 +552,13 @@ div.AdminSummary__summary
               a.SummaryFilters__item#5  color #475569  bg #f8fafc  border transparent
         details.SummaryFilters__filter#2
           summary.SummaryFilters__pill  color #475569  border #e2e8f0
-          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
             nav.SummaryFilters__group#2
               a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
               a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
         details.SummaryFilters__filter#3
           summary.SummaryFilters__pill  color #475569  border #e2e8f0
-          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
             nav.SummaryFilters__group#3
               a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
                 span.SummaryFilters__mark  color #0e7490
@@ -576,8 +576,8 @@ div.AdminSummary__summary
           span  color #0e7490
       form.SummaryFilters__form
         div.Field__field
-          label.Field__label  color #334155
-          input  bg #ffffff  border #7e8fa6
+          label.Field__label  color #556173
+          input  bg #f8fafc  border #7e8fa6
     div.Table__viewport
       table.Table__table
         tr[role=row]
@@ -636,20 +636,20 @@ div.AdminSummary__summary
     div.AdminSummary__headText
       h1.AdminSummary__title  color #eaf1f8
       p.AdminSummary__lead  color #a8b6c6
-    a.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    a.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         svg
         span.Button__label  color #ffffff
   div.AdminSummary__bar
     nav.Tabs__strip
       div.Tabs__row  bg #0e1729  border #1e2b41
-        a.Tabs__tab  color #eaf1f8  bg #121d31
+        a.Tabs__tab  color #eaf1f8  bg #121d31  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         a.Tabs__tab#2  color #8598ac
         a.Tabs__tab#3  color #8598ac
     p.AdminSummary__period  color #8598ac
   div.StatTile__tiles
     a.AdminSummary__tileLink
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label  color #8598ac
         dd.StatTile__value
           span.StatTile__number  color #eaf1f8
@@ -658,7 +658,7 @@ div.AdminSummary__summary
             span#2  color #fb7185
         dd.StatTile__note  color #8598ac
     a.AdminSummary__tileLink#2
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label#2  color #8598ac
         dd.StatTile__value#2
           span.StatTile__number  color #eaf1f8
@@ -667,7 +667,7 @@ div.AdminSummary__summary
             span#4  color #4ade80
         dd.StatTile__note#2  color #8598ac
     a.AdminSummary__tileLink#3
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label#3  color #8598ac
         dd.StatTile__value#3
           span.StatTile__number  color #eaf1f8
@@ -676,7 +676,7 @@ div.AdminSummary__summary
             span#6  color #4ade80
         dd.StatTile__note#3  color #8598ac
     a.AdminSummary__tileLink#4
-      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+      dl.StatTile__tile  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
         dt.StatTile__label#4  color #8598ac
         dd.StatTile__value#4
           span.StatTile__number  color #eaf1f8
@@ -685,13 +685,13 @@ div.AdminSummary__summary
             span#8  color #8598ac
         dd.StatTile__note#4  color #8598ac
   div.AdminSummary__charts
-    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       div.AdminSummary__chartHead
         h2.AdminSummary__cardTitle  color #eaf1f8
         p.AdminSummary__chartNote  color #8598ac
       figure.Chart__figure
         svg.Chart__canvas
-    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       div.AdminSummary__chartHead
         h2.AdminSummary__cardTitle#2  color #eaf1f8
         p.AdminSummary__chartNote#2  color #8598ac
@@ -702,7 +702,7 @@ div.AdminSummary__summary
           span.Chart__legendItem#2  color #8598ac
             span.Chart__swatch  border #fbbf24 #8598ac #8598ac #8598ac
         svg.Chart__canvas#2
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.AdminSummary__cardHead
       h2.AdminSummary__cardTitle  color #eaf1f8
       span.Badge__badge  bg #0e1729  border #1e2b41
@@ -716,7 +716,7 @@ div.AdminSummary__summary
             span.Badge__badge  bg #22d3ee1a  border #22d3ee59
               span#3  color #22d3ee
               span#4  color #22d3ee
-          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
             nav.SummaryFilters__group
               a.SummaryFilters__item  color #475569  bg #f8fafc  border transparent
               a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
@@ -725,13 +725,13 @@ div.AdminSummary__summary
               a.SummaryFilters__item#5  color #475569  bg #f8fafc  border transparent
         details.SummaryFilters__filter#2
           summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
-          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
             nav.SummaryFilters__group#2
               a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
               a.SummaryFilters__item#2  color #475569  bg #f8fafc  border transparent
         details.SummaryFilters__filter#3
           summary.SummaryFilters__pill  color #a8b6c6  border #1e2b41
-          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0
+          div.SummaryFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
             nav.SummaryFilters__group#3
               a.SummaryFilters__item  color #0e7490  bg #ecfeff  border #0891b2
                 span.SummaryFilters__mark  color #0e7490
@@ -749,8 +749,8 @@ div.AdminSummary__summary
           span  color #22d3ee
       form.SummaryFilters__form
         div.Field__field
-          label.Field__label  color #c9d5e2
-          input  bg #0b1424  border #566d95
+          label.Field__label  color #8598ac
+          input  bg #0e1729  border #566d95
     div.Table__viewport
       table.Table__table
         tr[role=row]

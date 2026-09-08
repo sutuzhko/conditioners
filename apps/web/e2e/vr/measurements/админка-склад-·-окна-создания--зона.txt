@@ -8,106 +8,106 @@
 
 [геометрия 390]
 div.Modal__overlay  390×900 @0,0  fixed  portal
-  div.Modal__window  390×565 @0,335  r22 22 0 0  b1
-    div.Modal__head  388×110 @1,1  b0 0 1 0
-      h2.Modal__title  292×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая зона»
-      p.Modal__description  292×40 @20,49  Manrope 400 13/20  lines=2  «Гараж, бытовка, машина монтажника — как»
-      button.IconButton__iconButton  40×40 @328,20  r11  b1
+  div.Modal__window  390×477 @0,423  r14 14 0 0  b1
+    div.Modal__head  388×102 @1,1  b0 0 1 0
+      h2.Modal__title  300×25 @16,16  Onest 700 21/25  ls0  lines=1  «Новая зона»
+      p.Modal__description  300×40 @16,45  Manrope 400 13/20  lines=2  «Гараж, бытовка, машина монтажника — как»
+      button.IconButton__iconButton  40×40 @332,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  388×453 @1,111
-      section.FormSection__section  348×413 @20,20
-        form.StockZoneForm__form  348×413 @0,0
-          div.StockZoneForm__grid  348×357 @0,0
-            div.Field__field  348×76 @0,0
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Что это»
-              span.Select__wrapper  348×49 @0,27
-                select.Select__select  348×49 @0,0  r11  b1
-                  option  0×0 @-21,-493  Manrope 400 15/21  lines=0  «Склад»
-                  option#2  0×0 @-21,-493  Manrope 400 15/21  lines=0  «Машина монтажника»
-                svg.Select__chevron  14×14 @320,18
-            div.Field__field#2  348×122 @0,88
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Название»
-              input  348×49 @0,27  r11  b1
-              p.Field__hint  348×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
-            p.StockZoneForm__note  348×20 @0,222  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
-            div.Field__field#3  348×103 @0,254
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
-              input  348×49 @0,27  r11  b1
-              p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Чем меньше число, тем левее колонка в та»
-          div.StockZoneForm__actions  348×44 @0,369
-            button.Button__button  124×44 @0,0  r9  b1
+    div.Modal__body  388×372 @1,103
+      section.FormSection__section  356×340 @16,16
+        form.StockZoneForm__form  356×340 @0,0
+          div.StockZoneForm__grid  356×284 @0,0
+            div.Field__field  356×52 @0,0
+              label.Field__label  40×13 @15,8  Manrope 600 11/13  lines=1  «Что это»
+              span.Select__wrapper  356×52 @0,0
+                select.Select__select  356×52 @0,0  r999  b1
+                  option  0×0 @-17,-543  Manrope 400 14/20  lines=0  «Склад»
+                  option#2  0×0 @-17,-543  Manrope 400 14/20  lines=0  «Машина монтажника»
+                svg.Select__chevron  14×14 @328,19
+            div.Field__field#2  356×98 @0,64
+              label.Field__label  52×13 @15,8  Manrope 600 11/13  lines=1  «Название»
+              input  356×52 @0,0  r999  b1
+              p.Field__hint  356×39 @0,59  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
+            p.StockZoneForm__note  356×20 @0,174  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
+            div.Field__field#3  356×78 @0,206
+              label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Порядок»
+              input  356×52 @0,0  r999  b1
+              p.Field__hint  356×19 @0,59  Manrope 400 13/19  lines=1  «Чем меньше число, тем левее колонка в та»
+          div.StockZoneForm__actions  356×44 @0,296
+            button.Button__button  124×44 @0,0  r999  b1
               span.Button__content  94×16 @15,14
                 span.Button__label  94×16 @0,0  Manrope 600 13/16  lines=1  «Добавить зону»
 
 [геометрия 768]
 div.Modal__overlay  768×900 @0,0  fixed  portal
-  div.Modal__window  560×444 @104,228  r22  b1
-    div.Modal__head  558×90 @1,1  b0 0 1 0
-      h2.Modal__title  368×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая зона»
-      p.Modal__description  368×20 @20,49  Manrope 400 13/20  lines=1  «Гараж, бытовка, машина монтажника — как»
-      button.IconButton__iconButton  40×40 @498,20  r11  b1
+  div.Modal__window  560×380 @104,260  r14  b1
+    div.Modal__head  558×82 @1,1  b0 0 1 0
+      h2.Modal__title  368×25 @16,16  Onest 700 21/25  ls0  lines=1  «Новая зона»
+      p.Modal__description  368×20 @16,45  Manrope 400 13/20  lines=1  «Гараж, бытовка, машина монтажника — как»
+      button.IconButton__iconButton  40×40 @502,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  558×352 @1,91
-      section.FormSection__section  518×312 @20,20
-        form.StockZoneForm__form  518×312 @0,0
-          div.StockZoneForm__grid  518×256 @0,0
-            div.Field__field  253×76 @0,0
-              label.Field__label  253×20 @0,0  Manrope 600 13/20  lines=1  «Что это»
-              span.Select__wrapper  253×49 @0,27
-                select.Select__select  253×49 @0,0  r11  b1
-                  option  0×0 @-125,-366  Manrope 400 15/21  lines=0  «Склад»
-                  option#2  0×0 @-125,-366  Manrope 400 15/21  lines=0  «Машина монтажника»
-                svg.Select__chevron  14×14 @225,18
-            div.Field__field#2  253×122 @265,0
-              label.Field__label  253×20 @0,0  Manrope 600 13/20  lines=1  «Название»
-              input  253×49 @0,27  r11  b1
-              p.Field__hint  253×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
-            p.StockZoneForm__note  253×20 @0,185  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
-            div.Field__field#3  253×122 @265,134
-              label.Field__label  253×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
-              input  253×49 @0,27  r11  b1
-              p.Field__hint  253×39 @0,83  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
-          div.StockZoneForm__actions  518×44 @0,268
-            button.Button__button  124×44 @0,0  r9  b1
+    div.Modal__body  558×296 @1,83
+      section.FormSection__section  526×264 @16,16
+        form.StockZoneForm__form  526×264 @0,0
+          div.StockZoneForm__grid  526×208 @0,0
+            div.Field__field  257×52 @0,0
+              label.Field__label  40×13 @15,8  Manrope 600 11/13  lines=1  «Что это»
+              span.Select__wrapper  257×52 @0,0
+                select.Select__select  257×52 @0,0  r999  b1
+                  option  0×0 @-121,-359  Manrope 400 14/20  lines=0  «Склад»
+                  option#2  0×0 @-121,-359  Manrope 400 14/20  lines=0  «Машина монтажника»
+                svg.Select__chevron  14×14 @229,19
+            div.Field__field#2  257×98 @269,0
+              label.Field__label  52×13 @15,8  Manrope 600 11/13  lines=1  «Название»
+              input  257×52 @0,0  r999  b1
+              p.Field__hint  257×39 @0,59  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
+            p.StockZoneForm__note  257×20 @0,149  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
+            div.Field__field#3  257×98 @269,110
+              label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Порядок»
+              input  257×52 @0,0  r999  b1
+              p.Field__hint  257×39 @0,59  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
+          div.StockZoneForm__actions  526×44 @0,220
+            button.Button__button  124×44 @0,0  r999  b1
               span.Button__content  94×16 @15,14
                 span.Button__label  94×16 @0,0  Manrope 600 13/16  lines=1  «Добавить зону»
 
 [геометрия 1440]
 div.Modal__overlay  1440×900 @0,0  fixed  portal
-  div.Modal__window  560×440 @440,230  r22  b1
-    div.Modal__head  558×90 @1,1  b0 0 1 0
-      h2.Modal__title  368×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая зона»
-      p.Modal__description  368×20 @20,49  Manrope 400 13/20  lines=1  «Гараж, бытовка, машина монтажника — как»
-      button.IconButton__iconButton  40×40 @498,20  r11  b1
+  div.Modal__window  560×360 @440,270  r14  b1
+    div.Modal__head  558×82 @1,1  b0 0 1 0
+      h2.Modal__title  368×25 @16,16  Onest 700 21/25  ls0  lines=1  «Новая зона»
+      p.Modal__description  368×20 @16,45  Manrope 400 13/20  lines=1  «Гараж, бытовка, машина монтажника — как»
+      button.IconButton__iconButton  40×40 @502,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  558×348 @1,91
-      section.FormSection__section  518×308 @20,20
-        form.StockZoneForm__form  518×308 @0,0
-          div.StockZoneForm__grid  518×256 @0,0
-            div.Field__field  253×76 @0,0
-              label.Field__label  253×20 @0,0  Manrope 600 13/20  lines=1  «Что это»
-              span.Select__wrapper  253×49 @0,27
-                select.Select__select  253×49 @0,0  r11  b1
-                  option  0×0 @-461,-368  Manrope 400 15/21  lines=0  «Склад»
-                  option#2  0×0 @-461,-368  Manrope 400 15/21  lines=0  «Машина монтажника»
-                svg.Select__chevron  14×14 @225,18
-            div.Field__field#2  253×122 @265,0
-              label.Field__label  253×20 @0,0  Manrope 600 13/20  lines=1  «Название»
-              input  253×49 @0,27  r11  b1
-              p.Field__hint  253×39 @0,83  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
-            p.StockZoneForm__note  253×20 @0,185  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
-            div.Field__field#3  253×122 @265,134
-              label.Field__label  253×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
-              input  253×49 @0,27  r11  b1
-              p.Field__hint  253×39 @0,83  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
-          div.StockZoneForm__actions  518×40 @0,268
-            button.Button__button  124×40 @0,0  r9  b1
-              span.Button__content  94×16 @15,12
+    div.Modal__body  558×276 @1,83
+      section.FormSection__section  526×244 @16,16
+        form.StockZoneForm__form  526×244 @0,0
+          div.StockZoneForm__grid  526×200 @0,0
+            div.Field__field  257×48 @0,0
+              label.Field__label  40×13 @15,8  Manrope 600 11/13  lines=1  «Что это»
+              span.Select__wrapper  257×48 @0,0
+                select.Select__select  257×48 @0,0  r999  b1
+                  option  0×0 @-457,-369  Manrope 400 14/20  lines=0  «Склад»
+                  option#2  0×0 @-457,-369  Manrope 400 14/20  lines=0  «Машина монтажника»
+                svg.Select__chevron  14×14 @229,17
+            div.Field__field#2  257×94 @269,0
+              label.Field__label  52×13 @15,8  Manrope 600 11/13  lines=1  «Название»
+              input  257×48 @0,0  r999  b1
+              p.Field__hint  257×39 @0,55  Manrope 400 13/19  lines=2  «Как называете сами — это название встане»
+            p.StockZoneForm__note  257×20 @0,143  Manrope 400 13/20  lines=1  «У склада хозяина нет: он общий»
+            div.Field__field#3  257×94 @269,106
+              label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Порядок»
+              input  257×48 @0,0  r999  b1
+              p.Field__hint  257×39 @0,55  Manrope 400 13/19  lines=2  «Чем меньше число, тем левее колонка в та»
+          div.StockZoneForm__actions  526×32 @0,212
+            button.Button__button  124×32 @0,0  r999  b1
+              span.Button__content  94×16 @15,8
                 span.Button__label  94×16 @0,0  Manrope 600 13/16  lines=1  «Добавить зону»
 
 [палитра light]
 div.Modal__overlay  bg #0f172a73
-  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
     div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
       h2.Modal__title  color #0f172a
       p.Modal__description  color #556173
@@ -118,29 +118,29 @@ div.Modal__overlay  bg #0f172a73
         form.StockZoneForm__form
           div.StockZoneForm__grid
             div.Field__field
-              label.Field__label  color #334155
+              label.Field__label  color #556173
               span.Select__wrapper
-                select.Select__select  bg #ffffff  border #7e8fa6
+                select.Select__select  bg #f8fafc  border #7e8fa6
                   option  color #0f172a
                   option#2  color #0f172a
                 svg.Select__chevron
             div.Field__field#2
-              label.Field__label  color #334155
-              input  bg #ffffff  border #7e8fa6
+              label.Field__label  color #556173
+              input  bg #f8fafc  border #7e8fa6
               p.Field__hint  color #556173
             p.StockZoneForm__note  color #556173
             div.Field__field#3
-              label.Field__label  color #334155
-              input  bg #ffffff  border #7e8fa6
+              label.Field__label  color #556173
+              input  bg #f8fafc  border #7e8fa6
               p.Field__hint  color #556173
           div.StockZoneForm__actions
-            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            button.Button__button  bg #0e7490  border #0e7490
               span.Button__content
                 span.Button__label  color #ffffff
 
 [палитра dark]
 div.Modal__overlay  bg #020610ad
-  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
     div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
       h2.Modal__title  color #eaf1f8
       p.Modal__description  color #8598ac
@@ -151,22 +151,22 @@ div.Modal__overlay  bg #020610ad
         form.StockZoneForm__form
           div.StockZoneForm__grid
             div.Field__field
-              label.Field__label  color #c9d5e2
+              label.Field__label  color #8598ac
               span.Select__wrapper
-                select.Select__select  bg #0b1424  border #566d95
+                select.Select__select  bg #0e1729  border #566d95
                   option  color #eaf1f8
                   option#2  color #eaf1f8
                 svg.Select__chevron
             div.Field__field#2
-              label.Field__label  color #c9d5e2
-              input  bg #0b1424  border #566d95
+              label.Field__label  color #8598ac
+              input  bg #0e1729  border #566d95
               p.Field__hint  color #8598ac
             p.StockZoneForm__note  color #8598ac
             div.Field__field#3
-              label.Field__label  color #c9d5e2
-              input  bg #0b1424  border #566d95
+              label.Field__label  color #8598ac
+              input  bg #0e1729  border #566d95
               p.Field__hint  color #8598ac
           div.StockZoneForm__actions
-            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            button.Button__button  bg #0e7490  border #0e7490
               span.Button__content
                 span.Button__label  color #ffffff

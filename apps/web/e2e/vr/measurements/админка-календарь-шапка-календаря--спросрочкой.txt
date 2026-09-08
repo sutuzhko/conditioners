@@ -18,11 +18,11 @@ div.CalendarNav__nav  358×263 @16,16
         a.CalendarNav__view#2  72×44 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
         a.CalendarNav__view#3  57×44 @145,3  Manrope 600 13/20  r100  lines=1  «День»
       div.CalendarCreate__buttons  294×44 @0,58
-        button.Button__button  184×44 @0,0  r9  b1
+        button.Button__button  184×44 @0,0  r999  b1
           span.Button__content  154×16 @15,14
             svg  16×16 @0,0
             span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-        button.Button__button#2  104×44 @190,0  r9  b1
+        button.Button__button#2  104×44 @190,0  r999  b1
           span.Button__content  74×20 @15,12
             svg#2  20×20 @0,0
             span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
@@ -52,11 +52,11 @@ div.CalendarNav__nav  736×159 @16,16
         a.CalendarNav__view#2  72×44 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
         a.CalendarNav__view#3  57×44 @145,3  Manrope 600 13/20  r100  lines=1  «День»
       div.CalendarCreate__buttons  294×44 @213,3
-        button.Button__button  184×44 @0,0  r9  b1
+        button.Button__button  184×44 @0,0  r999  b1
           span.Button__content  154×16 @15,14
             svg  16×16 @0,0
             span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-        button.Button__button#2  104×44 @190,0  r9  b1
+        button.Button__button#2  104×44 @190,0  r999  b1
           span.Button__content  74×20 @15,12
             svg#2  20×20 @0,0
             span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
@@ -68,7 +68,7 @@ div.CalendarNav__nav  736×159 @16,16
         svg  18×18 @13,13
     a.CalendarNav__today  85×44 @98,0  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
     a.CalendarNav__overdue  110×44 @191,0  Manrope 700 12/19  r100  b1  lines=1  «Просрочено: 3»
-    button.Button__button  86×44 @308,0  r9  b1
+    button.Button__button  86×44 @308,0  r999  b1
       span.Button__content#2  56×16 @15,14
         span.Button__label  56×16 @0,0  Manrope 600 13/16  lines=1  «Клавиши»
     div.CalendarNav__find  190×44 @546,0
@@ -78,37 +78,37 @@ div.CalendarNav__nav  736×159 @16,16
         input.CalendarSearch__field  190×44 @0,0  r11  b1
 
 [геометрия 1440]
-div.CalendarNav__nav  1408×102 @16,16
+div.CalendarNav__nav  1408×98 @16,16
   div.CalendarNav__headline  1408×50 @0,0
     div.CalendarNav__titles  330×50 @0,0
       h1.CalendarNav__title  330×30 @0,0  Onest 700 26/30  ls-1  lines=1  «Август 2026»
       p.CalendarNav__sub  330×18 @0,32  Manrope 400 13/18  lines=1  «Календарь работ · 4 монтажника, рабочее»
-    div.CalendarNav__tools  506×40 @902,10
-      nav.CalendarNav__views  205×36 @0,2  r100  b1
+    div.CalendarNav__tools  506×36 @902,14
+      nav.CalendarNav__views  205×36 @0,0  r100  b1
         a.CalendarNav__view  66×30 @3,3  Manrope 600 13/20  r100  lines=1  «Месяц»
         a.CalendarNav__view#2  72×30 @71,3  Manrope 600 13/20  r100  lines=1  «Неделя»
         a.CalendarNav__view#3  57×30 @145,3  Manrope 600 13/20  r100  lines=1  «День»
-      div.CalendarCreate__buttons  294×40 @213,0
-        button.Button__button  184×40 @0,0  r9  b1
-          span.Button__content  154×16 @15,12
+      div.CalendarCreate__buttons  294×32 @213,2
+        button.Button__button  184×32 @0,0  r999  b1
+          span.Button__content  154×16 @15,8
             svg  16×16 @0,0
             span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-        button.Button__button#2  104×40 @190,0  r9  b1
-          span.Button__content  74×20 @15,10
+        button.Button__button#2  104×32 @190,0  r999  b1
+          span.Button__content  74×20 @15,6
             svg#2  20×20 @0,0
             span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
-  div.CalendarNav__toolbar  1408×40 @0,62
-    div.CalendarNav__steps  74×36 @0,2
+  div.CalendarNav__toolbar  1408×36 @0,62
+    div.CalendarNav__steps  74×36 @0,0
       a.CalendarNav__step  36×36 @0,0  r11  b1
         svg.CalendarNav__back  18×18 @9,9
       a.CalendarNav__step#2  36×36 @38,0  r11  b1
         svg  18×18 @9,9
-    a.CalendarNav__today  85×36 @82,2  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
-    a.CalendarNav__overdue  110×27 @175,7  Manrope 700 12/19  r100  b1  lines=1  «Просрочено: 3»
-    button.Button__button  86×40 @292,0  r9  b1
-      span.Button__content#2  56×16 @15,12
+    a.CalendarNav__today  85×36 @82,0  Manrope 600 13/20  r11  b1  lines=1  «Сегодня»
+    a.CalendarNav__overdue  110×27 @175,5  Manrope 700 12/19  r100  b1  lines=1  «Просрочено: 3»
+    button.Button__button  86×32 @292,2  r999  b1
+      span.Button__content#2  56×16 @15,8
         span.Button__label  56×16 @0,0  Manrope 600 13/16  lines=1  «Клавиши»
-    div.CalendarNav__find  190×35 @1218,3
+    div.CalendarNav__find  190×35 @1218,1
       div.CalendarSearch__box  190×35 @0,0
         span.CalendarSearch__glass  16×23 @10,6
           svg  16×16 @0,1
@@ -130,7 +130,7 @@ div.CalendarNav__nav
           span.Button__content
             svg
             span.Button__label  color #0e7490
-        button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        button.Button__button#2  bg #0e7490  border #0e7490
           span.Button__content
             svg#2
             span.Button__label#2  color #ffffff
@@ -167,7 +167,7 @@ div.CalendarNav__nav
           span.Button__content
             svg
             span.Button__label  color #22d3ee
-        button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+        button.Button__button#2  bg #0e7490  border #0e7490
           span.Button__content
             svg#2
             span.Button__label#2  color #ffffff

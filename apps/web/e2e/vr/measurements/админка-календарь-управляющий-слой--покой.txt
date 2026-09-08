@@ -8,11 +8,11 @@
 
 [геометрия 390]
 div.CalendarCreate__buttons  358×44 @16,16
-  button.Button__button  184×44 @0,0  r9  b1
+  button.Button__button  184×44 @0,0  r999  b1
     span.Button__content  154×16 @15,14
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  104×44 @190,0  r9  b1
+  button.Button__button#2  104×44 @190,0  r999  b1
     span.Button__content  74×20 @15,12
       svg#2  20×20 @0,0
       span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
@@ -59,11 +59,11 @@ p.CalendarStage__note  358×13 @16,240
 
 [геометрия 768]
 div.CalendarCreate__buttons  736×44 @16,16
-  button.Button__button  184×44 @0,0  r9  b1
+  button.Button__button  184×44 @0,0  r999  b1
     span.Button__content  154×16 @15,14
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  104×44 @190,0  r9  b1
+  button.Button__button#2  104×44 @190,0  r999  b1
     span.Button__content  74×20 @15,12
       svg#2  20×20 @0,0
       span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
@@ -109,21 +109,21 @@ button.EventChip__chip#6  736×24 @16,216  r100  b1 1 1 3
 p.CalendarStage__note  736×13 @16,240
 
 [геометрия 1440]
-div.CalendarCreate__buttons  1408×40 @16,16
-  button.Button__button  184×40 @0,0  r9  b1
-    span.Button__content  154×16 @15,12
+div.CalendarCreate__buttons  1408×32 @16,16
+  button.Button__button  184×32 @0,0  r999  b1
+    span.Button__content  154×16 @15,8
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  104×40 @190,0  r9  b1
-    span.Button__content  74×20 @15,10
+  button.Button__button#2  104×32 @190,0  r999  b1
+    span.Button__content  74×20 @15,6
       svg#2  20×20 @0,0
       span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
-button.EventChip__chip  1408×24 @16,62  r100  b1 1 1 3
+button.EventChip__chip  1408×24 @16,54  r100  b1 1 1 3
   span.EventChip__head  52×15 @9,5
     svg.EventChip__icon  12×12 @0,2
     span.EventChip__time  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
   span.EventChip__name  1333×15 @66,5  Manrope 600 12/15  lines=1  «Ирина»
-button.EventChip__chip#2  1408×24 @16,92  r100  b1 1 1 3
+button.EventChip__chip#2  1408×24 @16,84  r100  b1 1 1 3
   span.EventChip__head  99×15 @9,5
     svg.EventChip__icon#2  12×12 @0,2
     span.EventChip__time#2  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «10:00»
@@ -132,13 +132,13 @@ button.EventChip__chip#2  1408×24 @16,92  r100  b1 1 1 3
   span.EventChip__clashMark  95×15 @1304,5
     svg  11×11 @0,2
     span.EventChip__markWord  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
-button.EventChip__chip#3  1408×24 @16,122  r100  b1 1 1 3
+button.EventChip__chip#3  1408×24 @16,114  r100  b1 1 1 3
   span.EventChip__head  99×15 @9,5
     svg.EventChip__icon#3  12×12 @0,2
     span.EventChip__time#3  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «11:00»
     span.EventChip__number#2  43×15 @56,0  JetBrains Mono 700 12/15  lines=1  «№ 1061»
   span.EventChip__name  1286×15 @113,5  Manrope 600 12/15  lines=1  «Ольга Титова»
-button.EventChip__chip#4  1408×24 @16,152  r100  b1 1 1 3
+button.EventChip__chip#4  1408×24 @16,144  r100  b1 1 1 3
   span.EventChip__head  99×15 @9,5
     svg.EventChip__icon#4  12×12 @0,2
     span.EventChip__time#4  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «12:00»
@@ -147,17 +147,17 @@ button.EventChip__chip#4  1408×24 @16,152  r100  b1 1 1 3
   span.EventChip__clashMark  95×15 @1304,5
     svg#2  11×11 @0,2
     span.EventChip__markWord#2  81×15 @14,0  Manrope 700 12/15  lines=1  «Пересечение»
-button.EventChip__chip#5  1408×24 @16,182  r100  b1 1 1 3
+button.EventChip__chip#5  1408×24 @16,174  r100  b1 1 1 3
   span.EventChip__head  52×15 @9,5
     svg.EventChip__icon#5  12×12 @0,2
     span.EventChip__time#5  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «13:30»
   span.EventChip__name  1333×15 @66,5  Manrope 600 12/15  lines=1  «Сергей»
-button.EventChip__chip#6  1408×24 @16,212  r100  b1 1 1 3
+button.EventChip__chip#6  1408×24 @16,204  r100  b1 1 1 3
   span.EventChip__head  52×15 @9,5
     svg.EventChip__icon#6  12×12 @0,2
     span.EventChip__time#6  36×15 @16,0  JetBrains Mono 600 12/15  lines=1  «14:00»
   span.EventChip__name  1333×15 @66,5  Manrope 600 12/15  lines=1  «Моя занятость»
-p.CalendarStage__note  1408×13 @16,236
+p.CalendarStage__note  1408×13 @16,228
 
 [палитра light]
 div.CalendarCreate__buttons
@@ -165,7 +165,7 @@ div.CalendarCreate__buttons
     span.Button__content
       svg
       span.Button__label  color #0e7490
-  button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  button.Button__button#2  bg #0e7490  border #0e7490
     span.Button__content
       svg#2
       span.Button__label#2  color #ffffff
@@ -216,7 +216,7 @@ div.CalendarCreate__buttons
     span.Button__content
       svg
       span.Button__label  color #22d3ee
-  button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  button.Button__button#2  bg #0e7490  border #0e7490
     span.Button__content
       svg#2
       span.Button__label#2  color #ffffff

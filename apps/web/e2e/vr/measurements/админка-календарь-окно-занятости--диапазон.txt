@@ -8,205 +8,205 @@
 
 [геометрия 390]
 div.Modal__overlay  390×900 @0,0  fixed  portal
-  div.Modal__window  390×828 @0,72  r22 22 0 0  b1
-    div.Modal__head  388×81 @1,1  b0 0 1 0
-      h2.Modal__title  168×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая занятость»
-      button.IconButton__iconButton  40×40 @328,20  r11  b1
+  div.Modal__window  390×786 @0,114  r14 14 0 0  b1
+    div.Modal__head  388×73 @1,1  b0 0 1 0
+      h2.Modal__title  168×25 @16,16  Onest 700 21/25  ls0  lines=1  «Новая занятость»
+      button.IconButton__iconButton  40×40 @332,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  388×745 @1,82
-      form.BlockDialog__form  348×834 @20,20
-        div.BlockDialog__row  348×167 @0,0
-          div.Field__field  348×76 @0,0
-            label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Как часто»
-            span.Select__wrapper  348×49 @0,27
-              select.Select__select  348×49 @0,0  r11  b1
-                option  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Один день»
-                option#2  0×0 @-21,-201  Manrope 400 15/21  lines=0  «Каждую неделю»
-              svg.Select__chevron  14×14 @320,18
-          div.Field__field#2  348×79 @0,88
-            label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
-              span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
-            div.DateField__shell  348×52 @0,27  r11  b1
-              span.DateField__segmentBox  46×24 @15,14
-                input.DateField__segment  46×44 @0,-10
-              span.DateField__segmentBox#2  52×24 @61,14
-                span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  46×44 @6,-10
-              span.DateField__segmentBox#3  70×24 @113,14
-                span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  65×44 @6,-10
-        div.Field__field  348×106 @0,181
-          label.Field__label#2  348×20 @0,0  Manrope 600 13/20  lines=1  «По какое число»
-          div.DateField__shell  348×52 @0,27  r11  b1
-            span.DateField__segmentBox#4  46×24 @15,14
-              input.DateField__segment  46×44 @0,-10
-            span.DateField__segmentBox#5  52×24 @61,14
-              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  46×44 @6,-10
-            span.DateField__segmentBox#6  70×24 @113,14
-              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  65×44 @6,-10
-          p.Field__hint  348×19 @0,86  Manrope 400 13/19  lines=1  «Пусто — отлучка на один день»
-        div.Checkbox__root  348×44 @0,301
-          div.Checkbox__row  348×44 @0,0
+    div.Modal__body  388×711 @1,74
+      form.BlockDialog__form  356×679 @16,16
+        div.BlockDialog__row  356×116 @0,0
+          div.Field__field  356×52 @0,0
+            label.Field__label  52×13 @15,8  Manrope 600 11/13  lines=1  «Как часто»
+            span.Select__wrapper  356×52 @0,0
+              select.Select__select  356×52 @0,0  r999  b1
+                option  0×0 @-17,-204  Manrope 400 14/20  lines=0  «Один день»
+                option#2  0×0 @-17,-204  Manrope 400 14/20  lines=0  «Каждую неделю»
+              svg.Select__chevron  14×14 @328,19
+          div.Field__field#2  356×52 @0,64
+            label.Field__label  34×13 @15,8  Manrope 600 11/13  lines=1  «Дата»
+              span.Field__required  7×15 @26,-2  Manrope 600 11/13  lines=1  «*»
+            div.DateField__shell  356×52 @0,0  r999  b1
+              span.DateField__segmentBox  45×24 @15,21
+                input.DateField__segment  45×44 @0,-10
+              span.DateField__segmentBox#2  51×24 @60,21
+                span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+                input.DateField__segment  45×44 @6,-10
+              span.DateField__segmentBox#3  68×24 @111,21
+                span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+                input.DateField__segment  62×44 @6,-10
+        div.Field__field  356×78 @0,130
+          label.Field__label#2  82×13 @15,8  Manrope 600 11/13  lines=1  «По какое число»
+          div.DateField__shell  356×52 @0,0  r999  b1
+            span.DateField__segmentBox#4  45×24 @15,21
+              input.DateField__segment  45×44 @0,-10
+            span.DateField__segmentBox#5  51×24 @60,21
+              span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+              input.DateField__segment  45×44 @6,-10
+            span.DateField__segmentBox#6  68×24 @111,21
+              span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+              input.DateField__segment  62×44 @6,-10
+          p.Field__hint  356×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — отлучка на один день»
+        div.Checkbox__root  356×44 @0,222
+          div.Checkbox__row  356×44 @0,0
             input.Checkbox__input  20×20 @0,11  r6  b1
             label.Checkbox__label  112×24 @31,10  Manrope 400 15/21  lines=1  «Занят весь день»
-        div.BlockDialog__row#2  348×166 @0,359
-          div.Field__field  348×77 @0,0
-            label.Field__label#3  348×20 @0,0  Manrope 600 13/20  lines=1  «С»
-              span.Field__required  9×18 @10,1  Manrope 600 13/20  lines=1  «*»
-            input  348×50 @0,27  r11  b1
-          div.Field__field#2  348×77 @0,89
-            label.Field__label#2  348×20 @0,0  Manrope 600 13/20  lines=1  «До»
-              span.Field__required  9×18 @18,1  Manrope 600 13/20  lines=1  «*»
-            input  348×50 @0,27  r11  b1
-        div.Field__field#2  348×169 @0,539
-          label.Field__label#3  348×20 @0,0  Manrope 600 13/20  lines=1  «Причина»
-          textarea.Textarea__textarea  348×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Врач»
-          p.Field__hint  348×39 @0,130  Manrope 400 13/19  lines=2  «Её увидят рядом с днём — «день закрыт" б»
-        div.BlockDialog__actions  348×113 @0,721  b1 0 0 0
-          button.Button__button  348×44 @0,69  r11  b1
-            span.Button__content  54×17 @147,13
-              span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
-          button.Button__button#2  348×44 @0,15  r11  b1
-            span.Button__content  77×17 @135,13
-              span.Button__label#2  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+        div.BlockDialog__row#2  356×116 @0,280
+          div.Field__field  356×52 @0,0
+            label.Field__label#3  15×13 @15,8  Manrope 600 11/13  lines=1  «С»
+              span.Field__required  7×15 @8,-2  Manrope 600 11/13  lines=1  «*»
+            input  356×52 @0,0  r999  b1
+          div.Field__field#2  356×52 @0,64
+            label.Field__label#2  22×13 @15,8  Manrope 600 11/13  lines=1  «До»
+              span.Field__required  7×15 @15,-2  Manrope 600 11/13  lines=1  «*»
+            input  356×52 @0,0  r999  b1
+        div.Field__field#2  356×142 @0,410
+          label.Field__label#3  47×13 @15,8  Manrope 600 11/13  lines=1  «Причина»
+          textarea.Textarea__textarea  356×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Врач»
+          p.Field__hint  356×39 @0,103  Manrope 400 13/19  lines=2  «Её увидят рядом с днём — «день закрыт" б»
+        div.BlockDialog__actions  356×113 @0,566  b1 0 0 0
+          button.Button__button  356×44 @0,69  r999  b1
+            span.Button__content  53×17 @152,14
+              span.Button__label  53×17 @0,0  Manrope 600 14/17  lines=1  «Отмена»
+          button.Button__button#2  356×44 @0,15  r999  b1
+            span.Button__content  75×17 @141,14
+              span.Button__label#2  75×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить»
 
 [геометрия 768]
 div.Modal__overlay  768×900 @0,0  fixed  portal
-  div.Modal__window  420×726 @174,87  r22  b1
-    div.Modal__head  418×81 @1,1  b0 0 1 0
-      h2.Modal__title  168×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая занятость»
-      button.IconButton__iconButton  40×40 @358,20  r11  b1
+  div.Modal__window  420×604 @174,148  r14  b1
+    div.Modal__head  418×73 @1,1  b0 0 1 0
+      h2.Modal__title  168×25 @16,16  Onest 700 21/25  ls0  lines=1  «Новая занятость»
+      button.IconButton__iconButton  40×40 @362,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  418×643 @1,82
-      form.BlockDialog__form  378×603 @20,20
-        div.BlockDialog__row  378×79 @0,0
-          div.Field__field  183×79 @0,0
-            label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Как часто»
-            span.Select__wrapper  183×49 @0,27
-              select.Select__select  183×49 @0,0  r11  b1
-                option  0×0 @-195,-216  Manrope 400 15/21  lines=0  «Один день»
-                option#2  0×0 @-195,-216  Manrope 400 15/21  lines=0  «Каждую неделю»
-              svg.Select__chevron  14×14 @155,18
-          div.Field__field#2  183×79 @195,0
-            label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
-              span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
-            div.DateField__shell  183×52 @0,27  r11  b1
-              span.DateField__segmentBox  46×24 @15,14
-                input.DateField__segment  46×44 @0,-10
-              span.DateField__segmentBox#2  52×24 @61,14
-                span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  46×44 @6,-10
-              span.DateField__segmentBox#3  70×24 @113,14
-                span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  65×44 @6,-10
-        div.Field__field  378×106 @0,93
-          label.Field__label#2  378×20 @0,0  Manrope 600 13/20  lines=1  «По какое число»
-          div.DateField__shell  378×52 @0,27  r11  b1
-            span.DateField__segmentBox#4  46×24 @15,14
-              input.DateField__segment  46×44 @0,-10
-            span.DateField__segmentBox#5  52×24 @61,14
-              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  46×44 @6,-10
-            span.DateField__segmentBox#6  70×24 @113,14
-              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  65×44 @6,-10
-          p.Field__hint  378×19 @0,86  Manrope 400 13/19  lines=1  «Пусто — отлучка на один день»
-        div.Checkbox__root  378×44 @0,213
-          div.Checkbox__row  378×44 @0,0
+    div.Modal__body  418×529 @1,74
+      form.BlockDialog__form  386×497 @16,16
+        div.BlockDialog__row  386×52 @0,0
+          div.Field__field  187×52 @0,0
+            label.Field__label  52×13 @15,8  Manrope 600 11/13  lines=1  «Как часто»
+            span.Select__wrapper  187×52 @0,0
+              select.Select__select  187×52 @0,0  r999  b1
+                option  0×0 @-191,-238  Manrope 400 14/20  lines=0  «Один день»
+                option#2  0×0 @-191,-238  Manrope 400 14/20  lines=0  «Каждую неделю»
+              svg.Select__chevron  14×14 @159,19
+          div.Field__field#2  187×52 @199,0
+            label.Field__label  34×13 @15,8  Manrope 600 11/13  lines=1  «Дата»
+              span.Field__required  7×15 @26,-2  Manrope 600 11/13  lines=1  «*»
+            div.DateField__shell  187×52 @0,0  r999  b1
+              span.DateField__segmentBox  45×24 @15,21
+                input.DateField__segment  45×44 @0,-10
+              span.DateField__segmentBox#2  51×24 @60,21
+                span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+                input.DateField__segment  45×44 @6,-10
+              span.DateField__segmentBox#3  68×24 @111,21
+                span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+                input.DateField__segment  62×44 @6,-10
+        div.Field__field  386×78 @0,66
+          label.Field__label#2  82×13 @15,8  Manrope 600 11/13  lines=1  «По какое число»
+          div.DateField__shell  386×52 @0,0  r999  b1
+            span.DateField__segmentBox#4  45×24 @15,21
+              input.DateField__segment  45×44 @0,-10
+            span.DateField__segmentBox#5  51×24 @60,21
+              span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+              input.DateField__segment  45×44 @6,-10
+            span.DateField__segmentBox#6  68×24 @111,21
+              span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+              input.DateField__segment  62×44 @6,-10
+          p.Field__hint  386×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — отлучка на один день»
+        div.Checkbox__root  386×44 @0,158
+          div.Checkbox__row  386×44 @0,0
             input.Checkbox__input  20×20 @0,11  r6  b1
             label.Checkbox__label  112×24 @31,10  Manrope 400 15/21  lines=1  «Занят весь день»
-        div.BlockDialog__row#2  378×77 @0,271
-          div.Field__field  183×77 @0,0
-            label.Field__label#3  183×20 @0,0  Manrope 600 13/20  lines=1  «С»
-              span.Field__required  9×18 @10,1  Manrope 600 13/20  lines=1  «*»
-            input  183×50 @0,27  r11  b1
-          div.Field__field#2  183×77 @195,0
-            label.Field__label#2  183×20 @0,0  Manrope 600 13/20  lines=1  «До»
-              span.Field__required  9×18 @18,1  Manrope 600 13/20  lines=1  «*»
-            input  183×50 @0,27  r11  b1
-        div.Field__field#2  378×169 @0,362
-          label.Field__label#3  378×20 @0,0  Manrope 600 13/20  lines=1  «Причина»
-          textarea.Textarea__textarea  378×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Врач»
-          p.Field__hint  378×39 @0,130  Manrope 400 13/19  lines=2  «Её увидят рядом с днём — «день закрыт" б»
-        div.BlockDialog__actions  378×59 @0,544  b1 0 0 0
-          button.Button__button  92×44 @160,15  r11  b1
-            span.Button__content  54×17 @19,13
-              span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
-          button.Button__button#2  115×44 @263,15  r11  b1
-            span.Button__content  77×17 @19,13
-              span.Button__label#2  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+        div.BlockDialog__row#2  386×52 @0,216
+          div.Field__field  187×52 @0,0
+            label.Field__label#3  15×13 @15,8  Manrope 600 11/13  lines=1  «С»
+              span.Field__required  7×15 @8,-2  Manrope 600 11/13  lines=1  «*»
+            input  187×52 @0,0  r999  b1
+          div.Field__field#2  187×52 @199,0
+            label.Field__label#2  22×13 @15,8  Manrope 600 11/13  lines=1  «До»
+              span.Field__required  7×15 @15,-2  Manrope 600 11/13  lines=1  «*»
+            input  187×52 @0,0  r999  b1
+        div.Field__field#2  386×142 @0,282
+          label.Field__label#3  47×13 @15,8  Manrope 600 11/13  lines=1  «Причина»
+          textarea.Textarea__textarea  386×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Врач»
+          p.Field__hint  386×39 @0,103  Manrope 400 13/19  lines=2  «Её увидят рядом с днём — «день закрыт" б»
+        div.BlockDialog__actions  386×59 @0,438  b1 0 0 0
+          button.Button__button  91×44 @173,15  r999  b1
+            span.Button__content  53×17 @19,14
+              span.Button__label  53×17 @0,0  Manrope 600 14/17  lines=1  «Отмена»
+          button.Button__button#2  113×44 @273,15  r999  b1
+            span.Button__content  75×17 @19,14
+              span.Button__label#2  75×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить»
 
 [геометрия 1440]
 div.Modal__overlay  1440×900 @0,0  fixed  portal
-  div.Modal__window  420×726 @510,87  r22  b1
-    div.Modal__head  418×81 @1,1  b0 0 1 0
-      h2.Modal__title  168×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая занятость»
-      button.IconButton__iconButton  40×40 @358,20  r11  b1
+  div.Modal__window  420×597 @510,152  r14  b1
+    div.Modal__head  418×73 @1,1  b0 0 1 0
+      h2.Modal__title  168×25 @16,16  Onest 700 21/25  ls0  lines=1  «Новая занятость»
+      button.IconButton__iconButton  40×40 @362,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  418×643 @1,82
-      form.BlockDialog__form  378×603 @20,20
-        div.BlockDialog__row  378×79 @0,0
-          div.Field__field  183×79 @0,0
-            label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Как часто»
-            span.Select__wrapper  183×49 @0,27
-              select.Select__select  183×49 @0,0  r11  b1
-                option  0×0 @-531,-216  Manrope 400 15/21  lines=0  «Один день»
-                option#2  0×0 @-531,-216  Manrope 400 15/21  lines=0  «Каждую неделю»
-              svg.Select__chevron  14×14 @155,18
-          div.Field__field#2  183×79 @195,0
-            label.Field__label  183×20 @0,0  Manrope 600 13/20  lines=1  «Дата»
-              span.Field__required  9×18 @31,1  Manrope 600 13/20  lines=1  «*»
-            div.DateField__shell  183×52 @0,27  r11  b1
-              span.DateField__segmentBox  26×24 @15,14
-                input.DateField__segment  26×24 @0,0
-              span.DateField__segmentBox#2  32×24 @41,14
-                span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  26×24 @6,0
-              span.DateField__segmentBox#3  50×24 @73,14
-                span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-                input.DateField__segment  45×24 @6,0
-        div.Field__field  378×106 @0,93
-          label.Field__label#2  378×20 @0,0  Manrope 600 13/20  lines=1  «По какое число»
-          div.DateField__shell  378×52 @0,27  r11  b1
-            span.DateField__segmentBox#4  26×24 @15,14
-              input.DateField__segment  26×24 @0,0
-            span.DateField__segmentBox#5  32×24 @41,14
-              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  26×24 @6,0
-            span.DateField__segmentBox#6  50×24 @73,14
-              span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-              input.DateField__segment  45×24 @6,0
-          p.Field__hint  378×19 @0,86  Manrope 400 13/19  lines=1  «Пусто — отлучка на один день»
-        div.Checkbox__root  378×44 @0,213
-          div.Checkbox__row  378×44 @0,0
+    div.Modal__body  418×522 @1,74
+      form.BlockDialog__form  386×490 @16,16
+        div.BlockDialog__row  386×52 @0,0
+          div.Field__field  187×52 @0,0
+            label.Field__label  52×13 @15,8  Manrope 600 11/13  lines=1  «Как часто»
+            span.Select__wrapper  187×48 @0,0
+              select.Select__select  187×48 @0,0  r999  b1
+                option  0×0 @-527,-242  Manrope 400 14/20  lines=0  «Один день»
+                option#2  0×0 @-527,-242  Manrope 400 14/20  lines=0  «Каждую неделю»
+              svg.Select__chevron  14×14 @159,17
+          div.Field__field#2  187×52 @199,0
+            label.Field__label  34×13 @15,8  Manrope 600 11/13  lines=1  «Дата»
+              span.Field__required  7×15 @26,-2  Manrope 600 11/13  lines=1  «*»
+            div.DateField__shell  187×52 @0,0  r999  b1
+              span.DateField__segmentBox  25×24 @15,21
+                input.DateField__segment  25×24 @0,0
+              span.DateField__segmentBox#2  31×24 @40,21
+                span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+                input.DateField__segment  25×24 @6,0
+              span.DateField__segmentBox#3  48×24 @71,21
+                span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+                input.DateField__segment  42×24 @6,0
+        div.Field__field  386×78 @0,66
+          label.Field__label#2  82×13 @15,8  Manrope 600 11/13  lines=1  «По какое число»
+          div.DateField__shell  386×52 @0,0  r999  b1
+            span.DateField__segmentBox#4  25×24 @15,21
+              input.DateField__segment  25×24 @0,0
+            span.DateField__segmentBox#5  31×24 @40,21
+              span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+              input.DateField__segment  25×24 @6,0
+            span.DateField__segmentBox#6  48×24 @71,21
+              span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+              input.DateField__segment  42×24 @6,0
+          p.Field__hint  386×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — отлучка на один день»
+        div.Checkbox__root  386×44 @0,158
+          div.Checkbox__row  386×44 @0,0
             input.Checkbox__input  20×20 @0,11  r6  b1
             label.Checkbox__label  112×24 @31,10  Manrope 400 15/21  lines=1  «Занят весь день»
-        div.BlockDialog__row#2  378×77 @0,271
-          div.Field__field  183×77 @0,0
-            label.Field__label#3  183×20 @0,0  Manrope 600 13/20  lines=1  «С»
-              span.Field__required  9×18 @10,1  Manrope 600 13/20  lines=1  «*»
-            input  183×50 @0,27  r11  b1
-          div.Field__field#2  183×77 @195,0
-            label.Field__label#2  183×20 @0,0  Manrope 600 13/20  lines=1  «До»
-              span.Field__required  9×18 @18,1  Manrope 600 13/20  lines=1  «*»
-            input  183×50 @0,27  r11  b1
-        div.Field__field#2  378×169 @0,362
-          label.Field__label#3  378×20 @0,0  Manrope 600 13/20  lines=1  «Причина»
-          textarea.Textarea__textarea  378×96 @0,27  Manrope 400 15/21  r11  b1  lines=0  «Врач»
-          p.Field__hint  378×39 @0,130  Manrope 400 13/19  lines=2  «Её увидят рядом с днём — «день закрыт" б»
-        div.BlockDialog__actions  378×59 @0,544  b1 0 0 0
-          button.Button__button  92×44 @160,15  r11  b1
-            span.Button__content  54×17 @19,13
-              span.Button__label  54×17 @0,0  Manrope 600 15/17  lines=1  «Отмена»
-          button.Button__button#2  115×44 @263,15  r11  b1
-            span.Button__content  77×17 @19,13
-              span.Button__label#2  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
+        div.BlockDialog__row#2  386×49 @0,216
+          div.Field__field  187×49 @0,0
+            label.Field__label#3  15×13 @15,8  Manrope 600 11/13  lines=1  «С»
+              span.Field__required  7×15 @8,-2  Manrope 600 11/13  lines=1  «*»
+            input  187×49 @0,0  r999  b1
+          div.Field__field#2  187×49 @199,0
+            label.Field__label#2  22×13 @15,8  Manrope 600 11/13  lines=1  «До»
+              span.Field__required  7×15 @15,-2  Manrope 600 11/13  lines=1  «*»
+            input  187×49 @0,0  r999  b1
+        div.Field__field#2  386×142 @0,279
+          label.Field__label#3  47×13 @15,8  Manrope 600 11/13  lines=1  «Причина»
+          textarea.Textarea__textarea  386×96 @0,0  Manrope 400 14/20  r14  b1  lines=0  «Врач»
+          p.Field__hint  386×39 @0,103  Manrope 400 13/19  lines=2  «Её увидят рядом с днём — «день закрыт" б»
+        div.BlockDialog__actions  386×55 @0,435  b1 0 0 0
+          button.Button__button  91×40 @173,15  r999  b1
+            span.Button__content  53×17 @19,12
+              span.Button__label  53×17 @0,0  Manrope 600 14/17  lines=1  «Отмена»
+          button.Button__button#2  113×40 @273,15  r999  b1
+            span.Button__content  75×17 @19,12
+              span.Button__label#2  75×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить»
 
 [палитра light]
 div.Modal__overlay  bg #0f172a73
-  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
     div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
       h2.Modal__title  color #0f172a
       button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
@@ -215,16 +215,16 @@ div.Modal__overlay  bg #0f172a73
       form.BlockDialog__form
         div.BlockDialog__row
           div.Field__field
-            label.Field__label  color #334155
+            label.Field__label  color #556173
             span.Select__wrapper
-              select.Select__select  bg #ffffff  border #7e8fa6
+              select.Select__select  bg #f8fafc  border #7e8fa6
                 option  color #0f172a
                 option#2  color #0f172a
               svg.Select__chevron
           div.Field__field#2
-            label.Field__label  color #334155
+            label.Field__label  color #556173
               span.Field__required  color #0e7490
-            div.DateField__shell  bg #ffffff  border #7e8fa6
+            div.DateField__shell  bg #f8fafc  border #7e8fa6
               span.DateField__segmentBox
                 input.DateField__segment
               span.DateField__segmentBox#2
@@ -234,8 +234,8 @@ div.Modal__overlay  bg #0f172a73
                 span.DateField__separator  color #5b6a7d
                 input.DateField__segment
         div.Field__field
-          label.Field__label#2  color #334155
-          div.DateField__shell  bg #ffffff  border #7e8fa6
+          label.Field__label#2  color #556173
+          div.DateField__shell  bg #f8fafc  border #7e8fa6
             span.DateField__segmentBox#4
               input.DateField__segment
             span.DateField__segmentBox#5
@@ -251,28 +251,28 @@ div.Modal__overlay  bg #0f172a73
             label.Checkbox__label  color #475569
         div.BlockDialog__row#2
           div.Field__field
-            label.Field__label#3  color #334155
+            label.Field__label#3  color #556173
               span.Field__required  color #0e7490
-            input  bg #ffffff  border #7e8fa6
+            input  bg #f8fafc  border #7e8fa6
           div.Field__field#2
-            label.Field__label#2  color #334155
+            label.Field__label#2  color #556173
               span.Field__required  color #0e7490
-            input  bg #ffffff  border #7e8fa6
+            input  bg #f8fafc  border #7e8fa6
         div.Field__field#2
-          label.Field__label#3  color #334155
-          textarea.Textarea__textarea  color #0f172a  bg #ffffff  border #7e8fa6
+          label.Field__label#3  color #556173
+          textarea.Textarea__textarea  color #0f172a  bg #f8fafc  border #7e8fa6
           p.Field__hint  color #556173
         div.BlockDialog__actions  border #e2e8f0 #475569 #475569 #475569
           button.Button__button  border transparent
             span.Button__content
               span.Button__label  color #0e7490
-          button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          button.Button__button#2  bg #0e7490  border #0e7490
             span.Button__content
               span.Button__label#2  color #ffffff
 
 [палитра dark]
 div.Modal__overlay  bg #020610ad
-  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
     div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
       h2.Modal__title  color #eaf1f8
       button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
@@ -281,16 +281,16 @@ div.Modal__overlay  bg #020610ad
       form.BlockDialog__form
         div.BlockDialog__row
           div.Field__field
-            label.Field__label  color #c9d5e2
+            label.Field__label  color #8598ac
             span.Select__wrapper
-              select.Select__select  bg #0b1424  border #566d95
+              select.Select__select  bg #0e1729  border #566d95
                 option  color #eaf1f8
                 option#2  color #eaf1f8
               svg.Select__chevron
           div.Field__field#2
-            label.Field__label  color #c9d5e2
+            label.Field__label  color #8598ac
               span.Field__required  color #22d3ee
-            div.DateField__shell  bg #0b1424  border #566d95
+            div.DateField__shell  bg #0e1729  border #566d95
               span.DateField__segmentBox
                 input.DateField__segment
               span.DateField__segmentBox#2
@@ -300,8 +300,8 @@ div.Modal__overlay  bg #020610ad
                 span.DateField__separator  color #7e92a7
                 input.DateField__segment
         div.Field__field
-          label.Field__label#2  color #c9d5e2
-          div.DateField__shell  bg #0b1424  border #566d95
+          label.Field__label#2  color #8598ac
+          div.DateField__shell  bg #0e1729  border #566d95
             span.DateField__segmentBox#4
               input.DateField__segment
             span.DateField__segmentBox#5
@@ -317,21 +317,21 @@ div.Modal__overlay  bg #020610ad
             label.Checkbox__label  color #a8b6c6
         div.BlockDialog__row#2
           div.Field__field
-            label.Field__label#3  color #c9d5e2
+            label.Field__label#3  color #8598ac
               span.Field__required  color #22d3ee
-            input  bg #0b1424  border #566d95
+            input  bg #0e1729  border #566d95
           div.Field__field#2
-            label.Field__label#2  color #c9d5e2
+            label.Field__label#2  color #8598ac
               span.Field__required  color #22d3ee
-            input  bg #0b1424  border #566d95
+            input  bg #0e1729  border #566d95
         div.Field__field#2
-          label.Field__label#3  color #c9d5e2
-          textarea.Textarea__textarea  color #eaf1f8  bg #0b1424  border #566d95
+          label.Field__label#3  color #8598ac
+          textarea.Textarea__textarea  color #eaf1f8  bg #0e1729  border #566d95
           p.Field__hint  color #8598ac
         div.BlockDialog__actions  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
           button.Button__button  border transparent
             span.Button__content
               span.Button__label  color #22d3ee
-          button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          button.Button__button#2  bg #0e7490  border #0e7490
             span.Button__content
               span.Button__label#2  color #ffffff

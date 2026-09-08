@@ -7,147 +7,147 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×719 @16,16  r20  b1
+section.Card__card  358×616 @16,16  r14  b1
   h2.ProductSaleForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Скидка»
   p.ProductSaleForm__hint  316×101 @21,46  Manrope 400 13/20  lines=5  «Задаётся конечной ценой, процент считает»
-  form.ProductSaleForm__form  316×535 @21,162
-    div.ProductSaleForm__fields  316×477 @0,0
-      div.Field__field  316×103 @0,0
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Цена со скидкой, ₽»
-        input  316×49 @0,27  r11  b1
-        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
-      div.Field__field#2  316×106 @0,117
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Действует с»
-        div.DateField__shell  316×52 @0,27  r11  b1
-          span.DateField__segmentBox  46×24 @15,14
-            input.DateField__segment  46×44 @0,-10
-          span.DateField__segmentBox#2  52×24 @61,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  46×44 @6,-10
-          span.DateField__segmentBox#3  70×24 @113,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  65×44 @6,-10
-        p.Field__hint  316×19 @0,86  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
-      div.Field__field#3  316×125 @0,236
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Действует по»
-        div.DateField__shell  316×52 @0,27  r11  b1
-          span.DateField__segmentBox#4  46×24 @15,14
-            input.DateField__segment  46×44 @0,-10
-          span.DateField__segmentBox#5  52×24 @61,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  46×44 @6,-10
-          span.DateField__segmentBox#6  70×24 @113,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  65×44 @6,-10
-        p.Field__hint  316×39 @0,86  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
-      div.Field__field#4  316×103 @0,375
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Подпись»
-        input  316×49 @0,27  r11  b1
-        p.Field__hint  316×19 @0,83  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
-    div.ProductSaleForm__actions  316×44 @0,491
-      button.Button__button  167×44 @0,0  r11  b1
-        span.Button__content  129×17 @19,13
-          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить скидку»
+  form.ProductSaleForm__form  316×433 @21,162
+    div.ProductSaleForm__fields  316×375 @0,0
+      div.Field__field  316×78 @0,0
+        label.Field__label  101×13 @15,8  Manrope 600 11/13  lines=1  «Цена со скидкой, ₽»
+        input  316×52 @0,0  r999  b1
+        p.Field__hint  316×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
+      div.Field__field#2  316×78 @0,92
+        label.Field__label  66×13 @15,8  Manrope 600 11/13  lines=1  «Действует с»
+        div.DateField__shell  316×52 @0,0  r999  b1
+          span.DateField__segmentBox  45×24 @15,21
+            input.DateField__segment  45×44 @0,-10
+          span.DateField__segmentBox#2  51×24 @60,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  45×44 @6,-10
+          span.DateField__segmentBox#3  68×24 @111,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  62×44 @6,-10
+        p.Field__hint  316×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
+      div.Field__field#3  316×98 @0,185
+        label.Field__label  73×13 @15,8  Manrope 600 11/13  lines=1  «Действует по»
+        div.DateField__shell  316×52 @0,0  r999  b1
+          span.DateField__segmentBox#4  45×24 @15,21
+            input.DateField__segment  45×44 @0,-10
+          span.DateField__segmentBox#5  51×24 @60,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  45×44 @6,-10
+          span.DateField__segmentBox#6  68×24 @111,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  62×44 @6,-10
+        p.Field__hint  316×39 @0,59  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
+      div.Field__field#4  316×78 @0,297
+        label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Подпись»
+        input  316×52 @0,0  r999  b1
+        p.Field__hint  316×19 @0,59  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
+    div.ProductSaleForm__actions  316×44 @0,389
+      button.Button__button  163×44 @0,0  r999  b1
+        span.Button__content  125×17 @19,14
+          span.Button__label  125×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить скидку»
 
 [геометрия 768]
-section.Card__card  736×443 @16,16  r20  b1
+section.Card__card  736×392 @16,16  r14  b1
   h2.ProductSaleForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Скидка»
   p.ProductSaleForm__hint  571×60 @21,47  Manrope 400 13/20  lines=3  «Задаётся конечной ценой, процент считает»
-  form.ProductSaleForm__form  694×299 @21,123
-    div.ProductSaleForm__fields  694×241 @0,0
-      div.Field__field  221×103 @0,0
-        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Цена со скидкой, ₽»
-        input  221×49 @0,27  r11  b1
-        p.Field__hint  221×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
-      div.Field__field#2  221×106 @237,0
-        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Действует с»
-        div.DateField__shell  221×52 @0,27  r11  b1
-          span.DateField__segmentBox  46×24 @15,14
-            input.DateField__segment  46×44 @0,-10
-          span.DateField__segmentBox#2  52×24 @61,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  46×44 @6,-10
-          span.DateField__segmentBox#3  70×24 @113,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  65×44 @6,-10
-        p.Field__hint  221×19 @0,86  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
-      div.Field__field#3  221×125 @473,0
-        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Действует по»
-        div.DateField__shell  221×52 @0,27  r11  b1
-          span.DateField__segmentBox#4  46×24 @15,14
-            input.DateField__segment  46×44 @0,-10
-          span.DateField__segmentBox#5  52×24 @61,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  46×44 @6,-10
-          span.DateField__segmentBox#6  70×24 @113,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  65×44 @6,-10
-        p.Field__hint  221×39 @0,86  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
-      div.Field__field#4  221×103 @0,139
-        label.Field__label  221×20 @0,0  Manrope 600 13/20  lines=1  «Подпись»
-        input  221×49 @0,27  r11  b1
-        p.Field__hint  221×19 @0,83  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
-    div.ProductSaleForm__actions  694×44 @0,255
-      button.Button__button  167×44 @0,0  r11  b1
-        span.Button__content  129×17 @19,13
-          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить скидку»
+  form.ProductSaleForm__form  694×248 @21,123
+    div.ProductSaleForm__fields  694×190 @0,0
+      div.Field__field  221×78 @0,0
+        label.Field__label  101×13 @15,8  Manrope 600 11/13  lines=1  «Цена со скидкой, ₽»
+        input  221×52 @0,0  r999  b1
+        p.Field__hint  221×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
+      div.Field__field#2  221×78 @237,0
+        label.Field__label  66×13 @15,8  Manrope 600 11/13  lines=1  «Действует с»
+        div.DateField__shell  221×52 @0,0  r999  b1
+          span.DateField__segmentBox  45×24 @15,21
+            input.DateField__segment  45×44 @0,-10
+          span.DateField__segmentBox#2  51×24 @60,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  45×44 @6,-10
+          span.DateField__segmentBox#3  68×24 @111,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  62×44 @6,-10
+        p.Field__hint  221×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
+      div.Field__field#3  221×98 @473,0
+        label.Field__label  73×13 @15,8  Manrope 600 11/13  lines=1  «Действует по»
+        div.DateField__shell  221×52 @0,0  r999  b1
+          span.DateField__segmentBox#4  45×24 @15,21
+            input.DateField__segment  45×44 @0,-10
+          span.DateField__segmentBox#5  51×24 @60,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  45×44 @6,-10
+          span.DateField__segmentBox#6  68×24 @111,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  62×44 @6,-10
+        p.Field__hint  221×39 @0,59  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
+      div.Field__field#4  221×78 @0,112
+        label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Подпись»
+        input  221×52 @0,0  r999  b1
+        p.Field__hint  221×19 @0,59  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
+    div.ProductSaleForm__actions  694×44 @0,204
+      button.Button__button  163×44 @0,0  r999  b1
+        span.Button__content  125×17 @19,14
+          span.Button__label  125×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить скидку»
 
 [геометрия 1440]
-section.Card__card  1408×328 @16,16  r20  b1
+section.Card__card  1408×297 @16,16  r14  b1
   h2.ProductSaleForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Скидка»
   p.ProductSaleForm__hint  571×60 @21,48  Manrope 400 13/20  lines=3  «Задаётся конечной ценой, процент считает»
-  form.ProductSaleForm__form  1366×183 @21,124
-    div.ProductSaleForm__fields  1366×125 @0,0
-      div.Field__field  330×103 @0,0
-        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Цена со скидкой, ₽»
-        input  330×49 @0,27  r11  b1
-        p.Field__hint  330×19 @0,83  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
-      div.Field__field#2  330×106 @346,0
-        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Действует с»
-        div.DateField__shell  330×52 @0,27  r11  b1
-          span.DateField__segmentBox  26×24 @15,14
-            input.DateField__segment  26×24 @0,0
-          span.DateField__segmentBox#2  32×24 @41,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  26×24 @6,0
-          span.DateField__segmentBox#3  50×24 @73,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  45×24 @6,0
-        p.Field__hint  330×19 @0,86  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
-      div.Field__field#3  330×125 @691,0
-        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Действует по»
-        div.DateField__shell  330×52 @0,27  r11  b1
-          span.DateField__segmentBox#4  26×24 @15,14
-            input.DateField__segment  26×24 @0,0
-          span.DateField__segmentBox#5  32×24 @41,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  26×24 @6,0
-          span.DateField__segmentBox#6  50×24 @73,14
-            span.DateField__separator  6×21 @0,2  Manrope 400 15/21  lines=1  «.»
-            input.DateField__segment  45×24 @6,0
-        p.Field__hint  330×39 @0,86  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
-      div.Field__field#4  330×103 @1037,0
-        label.Field__label  330×20 @0,0  Manrope 600 13/20  lines=1  «Подпись»
-        input  330×49 @0,27  r11  b1
-        p.Field__hint  330×19 @0,83  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
-    div.ProductSaleForm__actions  1366×44 @0,139
-      button.Button__button  167×44 @0,0  r11  b1
-        span.Button__content  129×17 @19,13
-          span.Button__label  129×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить скидку»
+  form.ProductSaleForm__form  1366×152 @21,124
+    div.ProductSaleForm__fields  1366×98 @0,0
+      div.Field__field  330×74 @0,0
+        label.Field__label  101×13 @15,8  Manrope 600 11/13  lines=1  «Цена со скидкой, ₽»
+        input  330×48 @0,0  r999  b1
+        p.Field__hint  330×19 @0,55  Manrope 400 13/19  lines=1  «Пусто — скидки нет»
+      div.Field__field#2  330×78 @346,0
+        label.Field__label  66×13 @15,8  Manrope 600 11/13  lines=1  «Действует с»
+        div.DateField__shell  330×52 @0,0  r999  b1
+          span.DateField__segmentBox  25×24 @15,21
+            input.DateField__segment  25×24 @0,0
+          span.DateField__segmentBox#2  31×24 @40,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  25×24 @6,0
+          span.DateField__segmentBox#3  48×24 @71,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  42×24 @6,0
+        p.Field__hint  330×19 @0,59  Manrope 400 13/19  lines=1  «Пусто — с этого момента»
+      div.Field__field#3  330×98 @691,0
+        label.Field__label  73×13 @15,8  Manrope 600 11/13  lines=1  «Действует по»
+        div.DateField__shell  330×52 @0,0  r999  b1
+          span.DateField__segmentBox#4  25×24 @15,21
+            input.DateField__segment  25×24 @0,0
+          span.DateField__segmentBox#5  31×24 @40,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  25×24 @6,0
+          span.DateField__segmentBox#6  48×24 @71,21
+            span.DateField__separator  6×20 @0,2  Manrope 400 14/20  lines=1  «.»
+            input.DateField__segment  42×24 @6,0
+        p.Field__hint  330×39 @0,59  Manrope 400 13/19  lines=2  «Пусто — без ограничения. Последний день»
+      div.Field__field#4  330×74 @1037,0
+        label.Field__label  47×13 @15,8  Manrope 600 11/13  lines=1  «Подпись»
+        input  330×48 @0,0  r999  b1
+        p.Field__hint  330×19 @0,55  Manrope 400 13/19  lines=1  «Короткая: «Осенняя цена"»
+    div.ProductSaleForm__actions  1366×40 @0,112
+      button.Button__button  163×40 @0,0  r999  b1
+        span.Button__content  125×17 @19,12
+          span.Button__label  125×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить скидку»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   h2.ProductSaleForm__title  color #0f172a
   p.ProductSaleForm__hint  color #556173
   form.ProductSaleForm__form
     div.ProductSaleForm__fields
       div.Field__field
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
         p.Field__hint  color #556173
       div.Field__field#2
-        label.Field__label  color #334155
-        div.DateField__shell  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        div.DateField__shell  bg #f8fafc  border #7e8fa6
           span.DateField__segmentBox
             input.DateField__segment
           span.DateField__segmentBox#2
@@ -158,8 +158,8 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
             input.DateField__segment
         p.Field__hint  color #556173
       div.Field__field#3
-        label.Field__label  color #334155
-        div.DateField__shell  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        div.DateField__shell  bg #f8fafc  border #7e8fa6
           span.DateField__segmentBox#4
             input.DateField__segment
           span.DateField__segmentBox#5
@@ -170,27 +170,27 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
             input.DateField__segment
         p.Field__hint  color #556173
       div.Field__field#4
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
         p.Field__hint  color #556173
     div.ProductSaleForm__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content
           span.Button__label  color #ffffff
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   h2.ProductSaleForm__title  color #eaf1f8
   p.ProductSaleForm__hint  color #8598ac
   form.ProductSaleForm__form
     div.ProductSaleForm__fields
       div.Field__field
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
         p.Field__hint  color #8598ac
       div.Field__field#2
-        label.Field__label  color #c9d5e2
-        div.DateField__shell  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        div.DateField__shell  bg #0e1729  border #566d95
           span.DateField__segmentBox
             input.DateField__segment
           span.DateField__segmentBox#2
@@ -201,8 +201,8 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
             input.DateField__segment
         p.Field__hint  color #8598ac
       div.Field__field#3
-        label.Field__label  color #c9d5e2
-        div.DateField__shell  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        div.DateField__shell  bg #0e1729  border #566d95
           span.DateField__segmentBox#4
             input.DateField__segment
           span.DateField__segmentBox#5
@@ -213,10 +213,10 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
             input.DateField__segment
         p.Field__hint  color #8598ac
       div.Field__field#4
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
         p.Field__hint  color #8598ac
     div.ProductSaleForm__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content
           span.Button__label  color #ffffff

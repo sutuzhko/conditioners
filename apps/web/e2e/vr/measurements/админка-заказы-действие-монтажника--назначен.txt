@@ -8,35 +8,35 @@
 
 [геометрия 390]
 div.OrderInstallerActions__bar  358×113 @16,16  b1 0 0 0  fixed
-  button.Button__button  358×56 @0,13  r12  b1
+  button.Button__button  358×56 @0,13  r999  b1
     span.Button__content  137×19 @111,18
       span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
   p.OrderInstallerActions__hint  358×20 @0,77  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
 
 [геометрия 768]
 div.OrderInstallerActions__bar  736×113 @16,16  b1 0 0 0  fixed
-  button.Button__button  736×56 @0,13  r12  b1
+  button.Button__button  736×56 @0,13  r999  b1
     span.Button__content  137×19 @300,18
       span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
   p.OrderInstallerActions__hint  736×20 @0,77  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
 
 [геометрия 1440]
 div.OrderInstallerActions__bar  1408×113 @16,16  b1 0 0 0  fixed
-  button.Button__button  1408×56 @0,13  r12  b1
+  button.Button__button  1408×56 @0,13  r999  b1
     span.Button__content  137×19 @636,18
       span.Button__label  137×19 @0,0  Manrope 600 16/19  lines=1  «Принять в работу»
   p.OrderInstallerActions__hint  1408×20 @0,77  Manrope 400 13/20  lines=1  «Владелец увидит, что вы на объекте»
 
 [палитра light]
 div.OrderInstallerActions__bar  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
-  button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  button.Button__button  bg #0e7490  border #0e7490
     span.Button__content
       span.Button__label  color #ffffff
   p.OrderInstallerActions__hint  color #556173
 
 [палитра dark]
 div.OrderInstallerActions__bar  bg #121d31  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
-  button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  button.Button__button  bg #0e7490  border #0e7490
     span.Button__content
       span.Button__label  color #ffffff
   p.OrderInstallerActions__hint  color #8598ac

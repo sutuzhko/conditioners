@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×509 @16,16  r20  b1
+section.Card__card  358×509 @16,16  r14  b1
   h2.ArticleCover__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Обложка»
   p.ArticleCover__hint  316×60 @21,46  Manrope 400 13/20  lines=3  «Показывается в списке статей и при отпра»
   div.ArticleCover__gone  316×178 @21,120  r14  b1
@@ -16,17 +16,17 @@ section.Card__card  358×509 @16,16  r20  b1
   div.Field__field  316×120 @21,312
     label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заменить обложку»
     input.FileInput__input  1×1 @-1,-1  clipped
-    label.FileInput__dropzone  316×93 @0,27  r11  b1
+    label.FileInput__dropzone  316×93 @0,27  r14  b1
       svg.FileInput__icon  22×22 @15,36
       span.FileInput__texts  252×67 @49,13
         span.FileInput__title  252×45 @0,0  Manrope 600 15/22  lines=2  «Выберите фото или перетащите сюда»
         span  252×20 @0,47  Manrope 400 13/20  lines=1  «до 5 МБ»
-  button.Button__button  152×44 @21,444  r11  b1
-    span.Button__content  114×17 @19,13
-      span.Button__label  114×17 @0,0  Manrope 600 15/17  lines=1  «Убрать обложку»
+  button.Button__button  148×44 @21,444  r999  b1
+    span.Button__content  110×17 @19,14
+      span.Button__label  110×17 @0,0  Manrope 600 14/17  lines=1  «Убрать обложку»
 
 [геометрия 768]
-section.Card__card  736×470 @16,16  r20  b1
+section.Card__card  736×470 @16,16  r14  b1
   h2.ArticleCover__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Обложка»
   p.ArticleCover__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Показывается в списке статей и при отпра»
   div.ArticleCover__gone  320×180 @21,101  r14  b1
@@ -35,17 +35,17 @@ section.Card__card  736×470 @16,16  r20  b1
   div.Field__field  694×98 @21,295
     label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заменить обложку»
     input.FileInput__input  1×1 @-1,-1  clipped
-    label.FileInput__dropzone  694×71 @0,27  r11  b1
+    label.FileInput__dropzone  694×71 @0,27  r14  b1
       svg.FileInput__icon  22×22 @15,24
       span.FileInput__texts  267×45 @49,13
         span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
         span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
-  button.Button__button  152×44 @21,405  r11  b1
-    span.Button__content  114×17 @19,13
-      span.Button__label  114×17 @0,0  Manrope 600 15/17  lines=1  «Убрать обложку»
+  button.Button__button  148×44 @21,405  r999  b1
+    span.Button__content  110×17 @19,14
+      span.Button__label  110×17 @0,0  Manrope 600 14/17  lines=1  «Убрать обложку»
 
 [геометрия 1440]
-section.Card__card  1408×471 @16,16  r20  b1
+section.Card__card  1408×467 @16,16  r14  b1
   h2.ArticleCover__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Обложка»
   p.ArticleCover__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Показывается в списке статей и при отпра»
   div.ArticleCover__gone  320×180 @21,102  r14  b1
@@ -54,17 +54,17 @@ section.Card__card  1408×471 @16,16  r20  b1
   div.Field__field  1366×98 @21,296
     label.Field__label  1366×20 @0,0  Manrope 600 13/20  lines=1  «Заменить обложку»
     input.FileInput__input  1×1 @-1,-1  clipped
-    label.FileInput__dropzone  1366×71 @0,27  r11  b1
+    label.FileInput__dropzone  1366×71 @0,27  r14  b1
       svg.FileInput__icon  22×22 @15,24
       span.FileInput__texts  267×45 @49,13
         span.FileInput__title  267×22 @0,0  Manrope 600 15/22  lines=1  «Выберите фото или перетащите сюда»
         span  267×20 @0,24  Manrope 400 13/20  lines=1  «до 5 МБ»
-  button.Button__button  152×44 @21,406  r11  b1
-    span.Button__content  114×17 @19,13
-      span.Button__label  114×17 @0,0  Manrope 600 15/17  lines=1  «Убрать обложку»
+  button.Button__button  148×40 @21,406  r999  b1
+    span.Button__content  110×17 @19,12
+      span.Button__label  110×17 @0,0  Manrope 600 14/17  lines=1  «Убрать обложку»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   h2.ArticleCover__title  color #0f172a
   p.ArticleCover__hint  color #556173
   div.ArticleCover__gone  bg #f8fafc  border #e2e8f0
@@ -73,7 +73,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
   div.Field__field
     label.Field__label  color #334155
     input.FileInput__input
-    label.FileInput__dropzone  bg #ffffff  border #7e8fa6
+    label.FileInput__dropzone  bg #f8fafc  border #7e8fa6
       svg.FileInput__icon
       span.FileInput__texts
         span.FileInput__title  color #334155
@@ -83,7 +83,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       span.Button__label  color #be123c
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   h2.ArticleCover__title  color #eaf1f8
   p.ArticleCover__hint  color #8598ac
   div.ArticleCover__gone  bg #0e1729  border #1e2b41
@@ -92,7 +92,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
   div.Field__field
     label.Field__label  color #c9d5e2
     input.FileInput__input
-    label.FileInput__dropzone  bg #0b1424  border #566d95
+    label.FileInput__dropzone  bg #0e1729  border #566d95
       svg.FileInput__icon
       span.FileInput__texts
         span.FileInput__title  color #c9d5e2

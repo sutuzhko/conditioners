@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.Table__viewport  358×295 @16,16
-  table.Table__table  358×295 @0,0
+div.Table__viewport  358×303 @16,16
+  table.Table__table  358×303 @0,0
     tr[role=row]  1×56 @0,0
       th.OrderTable__numberCol  85×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Номер»
       th.OrderTable__clientCol  158×56 @85,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
@@ -16,7 +16,7 @@ div.Table__viewport  358×295 @16,16
       th.OrderTable__statusCol  88×56 @318,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
       th.OrderTable__actionsCol  36×56 @406,0  b0 0 1 0
         span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-    tr[role=row]#2  358×295 @0,0  r14  b1
+    tr[role=row]#2  358×303 @0,0  r14  b1
       td.OrderTable__numberCol  356×58 @1,5
         td.OrderTable__numberCol::before  41×20 @0,0
         a.OrderTable__numberLink  52×44 @290,7  JetBrains Mono 700 15/22  lines=1  «№ 1060»
@@ -34,111 +34,111 @@ div.Table__viewport  358×295 @16,16
         td.OrderTable__statusCol::before  43×20 @0,0
         span.OrderTable__statusBox  64×28 @278,7
           span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
-      td.OrderTable__actions  356×51 @1,239  b1 0 0 0
-        div.TableActions__actions  116×36 @226,8
-          span.Tooltip__wrap  36×36 @0,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              a.TableActions__action  36×36 @0,0  r100
-                span.TableActions__iconArea  36×36 @0,0
-                  svg  18×18 @9,9
-          span.Tooltip__wrap#2  36×36 @40,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              a.TableActions__action#2  36×36 @0,0  r100
-                span.TableActions__iconArea  36×36 @0,0
-                  svg#2  18×18 @9,9
-          span.Tooltip__wrap#3  36×36 @80,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              button.TableActions__action  36×36 @0,0  r100
-                span.TableActions__iconArea  24×34 @6,1
-                  svg#3  18×18 @3,8
+      td.OrderTable__actions  356×59 @1,239  b1 0 0 0
+        div.TableActions__actions  140×44 @202,8
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg  18×18 @13,13
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg#2  18×18 @13,13
+          span.Tooltip__wrap#3  44×44 @96,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#3  18×18 @7,12
 
 [геометрия 768]
 div.Table__viewport  736×147 @16,16
   table.Table__table  736×147 @0,0
     tr[role=row]  736×56 @0,0
       th.OrderTable__numberCol  88×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Номер»
-      th.OrderTable__clientCol  238×56 @88,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
-      th.OrderTable__dateCol  126×56 @326,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
-      th.OrderTable__statusCol  132×56 @452,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
-      th.OrderTable__actionsCol  152×56 @584,0  b0 0 1 0
+      th.OrderTable__clientCol  214×56 @88,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
+      th.OrderTable__dateCol  126×56 @302,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
+      th.OrderTable__statusCol  132×56 @428,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      th.OrderTable__actionsCol  176×56 @560,0  b0 0 1 0
         span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
     tr[role=row]#2  736×91 @0,56
       td.OrderTable__numberCol  88×91 @0,0
         a.OrderTable__numberLink  52×44 @18,24  JetBrains Mono 700 15/22  lines=1  «№ 1060»
-      td.OrderTable__clientCol  238×91 @88,0
-        span.OrderTable__workBox  202×63 @18,15
-          span.OrderTable__client  202×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
-          span.OrderTable__address  202×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
-          span.OrderTable__compact  202×20 @0,43  Manrope 400 13/20  lines=1  «Не назначен · 4 500 ₽»
-      td.OrderTable__dateCol  126×91 @326,0
+      td.OrderTable__clientCol  214×91 @88,0
+        span.OrderTable__workBox  178×63 @18,15
+          span.OrderTable__client  178×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+          span.OrderTable__address  178×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
+          span.OrderTable__compact  178×20 @0,43  Manrope 400 13/20  lines=1  «Не назначен · 4 500 ₽»
+      td.OrderTable__dateCol  126×91 @302,0
         time  90×38 @18,28  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
           span.OrderTable__clock  90×19 @0,19  JetBrains Mono 400 12/19  lines=1  «09:30»
-      td.OrderTable__statusCol  132×91 @452,0
+      td.OrderTable__statusCol  132×91 @428,0
         span.OrderTable__statusBox  96×28 @18,32
           span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
-      td.OrderTable__actions  152×91 @584,0
-        div.TableActions__actions  116×36 @18,28
-          span.Tooltip__wrap  36×36 @0,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              a.TableActions__action  36×36 @0,0  r100
-                span.TableActions__iconArea  36×36 @0,0
-                  svg  18×18 @9,9
-          span.Tooltip__wrap#2  36×36 @40,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              a.TableActions__action#2  36×36 @0,0  r100
-                span.TableActions__iconArea  36×36 @0,0
-                  svg#2  18×18 @9,9
-          span.Tooltip__wrap#3  36×36 @80,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              button.TableActions__action  36×36 @0,0  r100
-                span.TableActions__iconArea  24×34 @6,1
-                  svg#3  18×18 @3,8
+      td.OrderTable__actions  176×91 @560,0
+        div.TableActions__actions  140×44 @18,24
+          span.Tooltip__wrap  44×44 @0,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg  18×18 @13,13
+          span.Tooltip__wrap#2  44×44 @48,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              a.TableActions__action#2  44×44 @0,0  r100
+                span.TableActions__iconArea  44×44 @0,0
+                  svg#2  18×18 @13,13
+          span.Tooltip__wrap#3  44×44 @96,0  r100
+            span.Tooltip__anchor  44×44 @0,0
+              button.TableActions__action  44×44 @0,0  r100
+                span.TableActions__iconArea  32×42 @6,1
+                  svg#3  18×18 @7,12
 
 [геометрия 1440]
 div.Table__viewport  1408×127 @16,16
   table.Table__table  1408×127 @0,0
     tr[role=row]  1408×56 @0,0
       th.OrderTable__numberCol  88×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Номер»
-      th.OrderTable__clientCol  614×56 @88,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
-      th.OrderTable__installerCol  180×56 @702,0  Onest 600 15/22  b0 0 1 0  lines=1  «Монтажник»
-      th.OrderTable__dateCol  126×56 @882,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
-      th.OrderTable__statusCol  132×56 @1008,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
-      th.OrderTable__sumCol  116×56 @1140,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «Сумма»
-      th.OrderTable__actionsCol  152×56 @1256,0  b0 0 1 0
+      th.OrderTable__clientCol  626×56 @88,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент и объект»
+      th.OrderTable__installerCol  180×56 @714,0  Onest 600 15/22  b0 0 1 0  lines=1  «Монтажник»
+      th.OrderTable__dateCol  126×56 @894,0  JetBrains Mono 700 13/20  b0 0 1 0  lines=1  «Когда»
+      th.OrderTable__statusCol  132×56 @1020,0  Onest 700 15/23  b0 0 1 0  lines=1  «Статус»
+      th.OrderTable__sumCol  116×56 @1152,0  JetBrains Mono 700 15/22  b0 0 1 0  lines=1  «Сумма»
+      th.OrderTable__actionsCol  140×56 @1268,0  b0 0 1 0
         span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
     tr[role=row]#2  1408×71 @0,56
       td.OrderTable__numberCol  88×71 @0,0
         a.OrderTable__numberLink  52×19 @18,26  JetBrains Mono 700 15/22  lines=1  «№ 1060»
-      td.OrderTable__clientCol  614×71 @88,0
-        span.OrderTable__workBox  578×43 @18,15
-          span.OrderTable__client  578×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
-          span.OrderTable__address  578×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
-      td.OrderTable__installerCol  180×71 @702,0
+      td.OrderTable__clientCol  626×71 @88,0
+        span.OrderTable__workBox  590×43 @18,15
+          span.OrderTable__client  590×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
+          span.OrderTable__address  590×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
+      td.OrderTable__installerCol  180×71 @714,0
         span.OrderTable__none  88×19 @18,26  Manrope 500 15/22  lines=1  «Не назначен»
-      td.OrderTable__dateCol  126×71 @882,0
+      td.OrderTable__dateCol  126×71 @894,0
         time  90×38 @18,17  JetBrains Mono 400 13/20  lines=1  «29.08.2026»
           span.OrderTable__clock  90×19 @0,19  JetBrains Mono 400 12/19  lines=1  «09:30»
-      td.OrderTable__statusCol  132×71 @1008,0
+      td.OrderTable__statusCol  132×71 @1020,0
         span.OrderTable__statusBox  96×28 @18,22
           span.Badge__badge  64×28 @0,0  Manrope 600 12/16  r100  b1  lines=1  «Новый»
-      td.OrderTable__sumCol  116×71 @1140,0  JetBrains Mono 700 15/22  lines=1  «4 500 ₽»
-      td.OrderTable__actions  152×71 @1256,0
-        div.TableActions__actions  116×36 @18,18
-          span.Tooltip__wrap  36×36 @0,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              a.TableActions__action  36×36 @0,0  r100
-                span.TableActions__iconArea  36×36 @0,0
-                  svg  18×18 @9,9
-          span.Tooltip__wrap#2  36×36 @40,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              a.TableActions__action#2  36×36 @0,0  r100
-                span.TableActions__iconArea  36×36 @0,0
-                  svg#2  18×18 @9,9
-          span.Tooltip__wrap#3  36×36 @80,0  r100
-            span.Tooltip__anchor  36×36 @0,0
-              button.TableActions__action  36×36 @0,0  r100
-                span.TableActions__iconArea  24×34 @6,1
-                  svg#3  18×18 @3,8
+      td.OrderTable__sumCol  116×71 @1152,0  JetBrains Mono 700 15/22  lines=1  «4 500 ₽»
+      td.OrderTable__actions  140×71 @1268,0
+        div.TableActions__actions  104×32 @18,20
+          span.Tooltip__wrap  32×32 @0,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              a.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea  32×32 @0,0
+                  svg  18×18 @7,7
+          span.Tooltip__wrap#2  32×32 @36,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              a.TableActions__action#2  32×32 @0,0  r100
+                span.TableActions__iconArea  32×32 @0,0
+                  svg#2  18×18 @7,7
+          span.Tooltip__wrap#3  32×32 @72,0  r100
+            span.Tooltip__anchor  32×32 @0,0
+              button.TableActions__action  32×32 @0,0  r100
+                span.TableActions__iconArea  20×30 @6,1
+                  svg#3  18×18 @1,6
 
 [палитра light]
 div.Table__viewport

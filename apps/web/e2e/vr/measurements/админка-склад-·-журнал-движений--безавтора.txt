@@ -36,7 +36,7 @@ div.StockJournal__wrap  358×166 @16,16
 
 [геометрия 768]
 div.StockJournal__wrap  736×195 @16,16
-  section.Card__card  736×195 @0,0  r20  b1
+  section.Card__card  736×195 @0,0  r14  b1
     div.StockJournal__head  734×64 @1,1
       h2.StockJournal__title  698×22 @18,18  Onest 700 18/22  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  539×20 @18,44  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
@@ -65,7 +65,7 @@ div.StockJournal__wrap  736×195 @16,16
 
 [геометрия 1440]
 div.StockJournal__wrap  1408×174 @16,16
-  section.Card__card  1408×174 @0,0  r20  b1
+  section.Card__card  1408×174 @0,0  r14  b1
     div.StockJournal__head  1406×65 @1,1
       h2.StockJournal__title  1370×23 @18,18  Onest 700 19/23  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  539×20 @18,45  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
@@ -94,7 +94,7 @@ div.StockJournal__wrap  1408×174 @16,16
 
 [палитра light]
 div.StockJournal__wrap
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.StockJournal__head
       h2.StockJournal__title  color #0f172a
       p.StockJournal__hint  color #556173
@@ -131,7 +131,7 @@ div.StockJournal__wrap > section.Card__card > div.Table__viewport > table.Table_
 
 [палитра dark]
 div.StockJournal__wrap
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.StockJournal__head
       h2.StockJournal__title  color #eaf1f8
       p.StockJournal__hint  color #8598ac

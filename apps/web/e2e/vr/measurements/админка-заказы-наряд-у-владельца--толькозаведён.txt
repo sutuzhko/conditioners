@@ -2,14 +2,14 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1453
-768 → 768×1243
+390 → 390×1393
+768 → 768×1183
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderOwnerView__view  358×1421 @16,16
-  div.OrderOwnerView__main  358×905 @0,0
-    section.Card__card  358×216 @0,0  r20  b1
+div.OrderOwnerView__view  358×1361 @16,16
+  div.OrderOwnerView__main  358×845 @0,0
+    section.Card__card  358×216 @0,0  r14  b1
       h2.OrderOwnerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
       p.OrderOwnerView__address  316×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Октябрьская, 3»
       dl.OrderOwnerView__facts  316×115 @21,80
@@ -24,31 +24,31 @@ div.OrderOwnerView__view  358×1421 @16,16
         div.OrderOwnerView__fact#3  32×43 @143,72
           dt  32×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
           dd.OrderOwnerView__mono  32×22 @0,20  JetBrains Mono 600 15/22  lines=1  «—»
-    section.Card__card#2  358×108 @0,232  r20  b1
+    section.Card__card#2  358×108 @0,232  r14  b1
       div.OrderOwnerView__blockHead  316×16 @21,21
         h2.OrderOwnerView__blockTitle  120×16 @0,0  Onest 700 13/16  ls1  lines=1  «Оборудование»
       p.OrderOwnerView__quiet  316×40 @21,47  Manrope 400 13/20  lines=2  «Позиций нет. Наряд заводят по звонку, а»
-    section.Card__card#3  358×549 @0,355  r20  b1
-      form.OrderResultForm__form  316×507 @21,21
+    section.Card__card#3  358×489 @0,355  r14  b1
+      form.OrderResultForm__form  316×447 @21,21
         div.OrderResultForm__head  316×21 @0,0
           h2.OrderResultForm__title  90×21 @0,0  Onest 700 17/21  ls0  lines=1  «Итог работ»
           p.OrderResultForm__when  143×20 @173,1  Manrope 400 13/20  lines=1  «Итог ещё не заполняли»
         p.OrderResultForm__hint  316×40 @0,33  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
-        fieldset.OrderResultForm__group  316×366 @0,85
-          div.Field__field  316×169 @0,0
-            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
-            textarea.Textarea__textarea  316×96 @0,27  r11  b1
-            p.Field__hint  316×39 @0,130  Manrope 400 13/19  lines=2  «Что добавилось на объекте: лишние метры»
-          div.Field__field#2  316×185 @0,181
-            label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
-            textarea.Textarea__textarea  316×112 @0,27  r11  b1
-            p.Field__hint  316×39 @0,146  Manrope 400 13/19  lines=2  «Что сделано, что проверено, о чём предуп»
-        div.OrderResultForm__actions  316×44 @0,463
-          button.Button__button  150×44 @0,0  r11  b1
-            span.Button__content  112×17 @19,13
-              span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
-  div.OrderOwnerView__side  358×500 @0,921
-    section.Card__card  358×217 @0,0  r20  b1
+        fieldset.OrderResultForm__group  316×306 @0,85
+          div.Field__field  316×142 @0,0
+            label.Field__label  138×13 @15,8  Manrope 600 11/13  lines=1  «Доп. работы и материалы»
+            textarea.Textarea__textarea  316×96 @0,0  r14  b1
+            p.Field__hint  316×39 @0,103  Manrope 400 13/19  lines=2  «Что добавилось на объекте: лишние метры»
+          div.Field__field#2  316×152 @0,154
+            label.Field__label  83×13 @15,8  Manrope 600 11/13  lines=1  «Отчёт о выезде»
+            textarea.Textarea__textarea  316×106 @0,0  r14  b1
+            p.Field__hint  316×39 @0,113  Manrope 400 13/19  lines=2  «Что сделано, что проверено, о чём предуп»
+        div.OrderResultForm__actions  316×44 @0,403
+          button.Button__button  146×44 @0,0  r999  b1
+            span.Button__content  108×17 @19,14
+              span.Button__label  108×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить итог»
+  div.OrderOwnerView__side  358×500 @0,861
+    section.Card__card  358×217 @0,0  r14  b1
       h2.OrderOwnerView__blockTitle#2  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Когда и кто»
       dl.OrderOwnerView__facts#2  316×93 @21,47
         div.OrderOwnerView__fact  261×43 @0,0
@@ -61,7 +61,7 @@ div.OrderOwnerView__view  358×1421 @16,16
       div.OrderOwnerView__note  316×47 @21,150
         span.OrderOwnerView__noteLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Комментарий монтажнику»
         p.OrderOwnerView__noteText  316×22 @0,24  Manrope 600 15/22  lines=1  «Комментария нет»
-    section.Card__card#2  358×161 @0,233  r20  b1
+    section.Card__card#2  358×161 @0,233  r14  b1
       h2.OrderOwnerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
       dl.OrderOwnerView__facts  316×93 @21,47
         div.OrderOwnerView__fact#4  85×43 @0,0
@@ -76,14 +76,14 @@ div.OrderOwnerView__view  358×1421 @16,16
         div.OrderOwnerView__fact#7  69×43 @150,51
           dt  69×20 @0,0  Manrope 400 13/20  lines=1  «Удержание»
           dd.OrderOwnerView__money  69×22 @0,20  JetBrains Mono 600 15/22  lines=1  «нет»
-    section.Card__card#3  358×90 @0,410  r20  b1
+    section.Card__card#3  358×90 @0,410  r14  b1
       h2.OrderOwnerView__blockTitle  316×16 @21,21  Onest 700 13/16  ls1  lines=1  «Заметка владельца»
       p.OrderOwnerView__noteText  316×22 @21,47  Manrope 600 15/22  lines=1  «Заметки нет»
 
 [геометрия 768]
-div.OrderOwnerView__view  736×1211 @16,16
-  div.OrderOwnerView__main  736×796 @0,0
-    section.Card__card  736×165 @0,0  r20  b1
+div.OrderOwnerView__view  736×1151 @16,16
+  div.OrderOwnerView__main  736×736 @0,0
+    section.Card__card  736×165 @0,0  r14  b1
       h2.OrderOwnerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
       p.OrderOwnerView__address  694×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Октябрьская, 3»
       dl.OrderOwnerView__facts  694×64 @21,80
@@ -98,31 +98,31 @@ div.OrderOwnerView__view  736×1211 @16,16
         div.OrderOwnerView__fact#3  32×64 @410,0
           dt  32×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
           dd.OrderOwnerView__mono  32×22 @0,20  JetBrains Mono 600 15/22  lines=1  «—»
-    section.Card__card#2  736×88 @0,181  r20  b1
+    section.Card__card#2  736×88 @0,181  r14  b1
       div.OrderOwnerView__blockHead  694×16 @21,21
         h2.OrderOwnerView__blockTitle  120×16 @0,0  Onest 700 13/16  ls1  lines=1  «Оборудование»
       p.OrderOwnerView__quiet  694×20 @21,47  Manrope 400 13/20  lines=1  «Позиций нет. Наряд заводят по звонку, а»
-    section.Card__card#3  736×511 @0,285  r20  b1
-      form.OrderResultForm__form  694×469 @21,21
+    section.Card__card#3  736×451 @0,285  r14  b1
+      form.OrderResultForm__form  694×409 @21,21
         div.OrderResultForm__head  694×22 @0,0
           h2.OrderResultForm__title  95×22 @0,0  Onest 700 18/22  ls0  lines=1  «Итог работ»
           p.OrderResultForm__when  143×20 @551,1  Manrope 400 13/20  lines=1  «Итог ещё не заполняли»
         p.OrderResultForm__hint  539×40 @0,34  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
-        fieldset.OrderResultForm__group  694×327 @0,86
-          div.Field__field  694×150 @0,0
-            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
-            textarea.Textarea__textarea  694×96 @0,27  r11  b1
-            p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
-          div.Field__field#2  694×166 @0,162
-            label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
-            textarea.Textarea__textarea  694×112 @0,27  r11  b1
-            p.Field__hint  694×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
-        div.OrderResultForm__actions  694×44 @0,425
-          button.Button__button  150×44 @0,0  r11  b1
-            span.Button__content  112×17 @19,13
-              span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
-  div.OrderOwnerView__side  736×399 @0,812
-    section.Card__card  736×167 @0,0  r20  b1
+        fieldset.OrderResultForm__group  694×267 @0,86
+          div.Field__field  694×122 @0,0
+            label.Field__label  138×13 @15,8  Manrope 600 11/13  lines=1  «Доп. работы и материалы»
+            textarea.Textarea__textarea  694×96 @0,0  r14  b1
+            p.Field__hint  694×19 @0,103  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
+          div.Field__field#2  694×133 @0,134
+            label.Field__label  83×13 @15,8  Manrope 600 11/13  lines=1  «Отчёт о выезде»
+            textarea.Textarea__textarea  694×106 @0,0  r14  b1
+            p.Field__hint  694×19 @0,113  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
+        div.OrderResultForm__actions  694×44 @0,365
+          button.Button__button  146×44 @0,0  r999  b1
+            span.Button__content  108×17 @19,14
+              span.Button__label  108×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить итог»
+  div.OrderOwnerView__side  736×399 @0,752
+    section.Card__card  736×167 @0,0  r14  b1
       h2.OrderOwnerView__blockTitle#2  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Когда и кто»
       dl.OrderOwnerView__facts#2  694×43 @21,47
         div.OrderOwnerView__fact  261×43 @0,0
@@ -135,7 +135,7 @@ div.OrderOwnerView__view  736×1211 @16,16
       div.OrderOwnerView__note  694×47 @21,99
         span.OrderOwnerView__noteLabel  694×20 @0,0  Manrope 400 13/20  lines=1  «Комментарий монтажнику»
         p.OrderOwnerView__noteText  694×22 @0,24  Manrope 600 15/22  lines=1  «Комментария нет»
-    section.Card__card#2  736×110 @0,183  r20  b1
+    section.Card__card#2  736×110 @0,183  r14  b1
       h2.OrderOwnerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
       dl.OrderOwnerView__facts  694×43 @21,47
         div.OrderOwnerView__fact#4  85×43 @0,0
@@ -150,14 +150,14 @@ div.OrderOwnerView__view  736×1211 @16,16
         div.OrderOwnerView__fact#7  69×43 @451,0
           dt  69×20 @0,0  Manrope 400 13/20  lines=1  «Удержание»
           dd.OrderOwnerView__money  69×22 @0,20  JetBrains Mono 600 15/22  lines=1  «нет»
-    section.Card__card#3  736×90 @0,309  r20  b1
+    section.Card__card#3  736×90 @0,309  r14  b1
       h2.OrderOwnerView__blockTitle  694×16 @21,21  Onest 700 13/16  ls1  lines=1  «Заметка владельца»
       p.OrderOwnerView__noteText  694×22 @21,47  Manrope 600 15/22  lines=1  «Заметки нет»
 
 [геометрия 1440]
-div.OrderOwnerView__view  1408×777 @16,16
-  div.OrderOwnerView__main  1052×777 @0,0
-    section.Card__card  1052×145 @0,0  r20  b1
+div.OrderOwnerView__view  1408×713 @16,16
+  div.OrderOwnerView__main  1052×713 @0,0
+    section.Card__card  1052×145 @0,0  r14  b1
       h2.OrderOwnerView__blockTitle  1010×16 @21,21  Onest 700 13/16  ls1  lines=1  «Объект»
       p.OrderOwnerView__address  1010×23 @21,47  Manrope 600 15/23  lines=1  «Тула, Октябрьская, 3»
       dl.OrderOwnerView__facts  1010×44 @21,80
@@ -172,31 +172,31 @@ div.OrderOwnerView__view  1408×777 @16,16
         div.OrderOwnerView__fact#3  32×44 @410,0
           dt  32×20 @0,0  Manrope 400 13/20  lines=1  «Этаж»
           dd.OrderOwnerView__mono  32×22 @0,20  JetBrains Mono 600 15/22  lines=1  «—»
-    section.Card__card#2  1052×88 @0,161  r20  b1
+    section.Card__card#2  1052×88 @0,161  r14  b1
       div.OrderOwnerView__blockHead  1010×16 @21,21
         h2.OrderOwnerView__blockTitle  120×16 @0,0  Onest 700 13/16  ls1  lines=1  «Оборудование»
       p.OrderOwnerView__quiet  1010×20 @21,47  Manrope 400 13/20  lines=1  «Позиций нет. Наряд заводят по звонку, а»
-    section.Card__card#3  1052×512 @0,265  r20  b1
-      form.OrderResultForm__form  1010×470 @21,21
+    section.Card__card#3  1052×448 @0,265  r14  b1
+      form.OrderResultForm__form  1010×406 @21,21
         div.OrderResultForm__head  1010×23 @0,0
           h2.OrderResultForm__title  100×23 @0,0  Onest 700 19/23  ls0  lines=1  «Итог работ»
           p.OrderResultForm__when  143×20 @867,2  Manrope 400 13/20  lines=1  «Итог ещё не заполняли»
         p.OrderResultForm__hint  539×40 @0,35  Manrope 400 13/20  lines=2  «Что сделали по факту. Плановую сумму ито»
-        fieldset.OrderResultForm__group  1010×327 @0,87
-          div.Field__field  1010×150 @0,0
-            label.Field__label  1010×20 @0,0  Manrope 600 13/20  lines=1  «Доп. работы и материалы»
-            textarea.Textarea__textarea  1010×96 @0,27  r11  b1
-            p.Field__hint  1010×19 @0,130  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
-          div.Field__field#2  1010×166 @0,162
-            label.Field__label  1010×20 @0,0  Manrope 600 13/20  lines=1  «Отчёт о выезде»
-            textarea.Textarea__textarea  1010×112 @0,27  r11  b1
-            p.Field__hint  1010×19 @0,146  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
-        div.OrderResultForm__actions  1010×44 @0,426
-          button.Button__button  150×44 @0,0  r11  b1
-            span.Button__content  112×17 @19,13
-              span.Button__label  112×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить итог»
+        fieldset.OrderResultForm__group  1010×267 @0,87
+          div.Field__field  1010×122 @0,0
+            label.Field__label  138×13 @15,8  Manrope 600 11/13  lines=1  «Доп. работы и материалы»
+            textarea.Textarea__textarea  1010×96 @0,0  r14  b1
+            p.Field__hint  1010×19 @0,103  Manrope 400 13/19  lines=1  «Что добавилось на объекте: лишние метры»
+          div.Field__field#2  1010×133 @0,134
+            label.Field__label  83×13 @15,8  Manrope 600 11/13  lines=1  «Отчёт о выезде»
+            textarea.Textarea__textarea  1010×106 @0,0  r14  b1
+            p.Field__hint  1010×19 @0,113  Manrope 400 13/19  lines=1  «Что сделано, что проверено, о чём предуп»
+        div.OrderResultForm__actions  1010×40 @0,366
+          button.Button__button  146×40 @0,0  r999  b1
+            span.Button__content  108×17 @19,12
+              span.Button__label  108×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить итог»
   div.OrderOwnerView__side  340×500 @1084,28  fixed
-    section.Card__card  340×217 @0,0  r20  b1
+    section.Card__card  340×217 @0,0  r14  b1
       h2.OrderOwnerView__blockTitle#2  298×16 @21,21  Onest 700 13/16  ls1  lines=1  «Когда и кто»
       dl.OrderOwnerView__facts#2  298×93 @21,47
         div.OrderOwnerView__fact  261×43 @0,0
@@ -209,7 +209,7 @@ div.OrderOwnerView__view  1408×777 @16,16
       div.OrderOwnerView__note  298×47 @21,150
         span.OrderOwnerView__noteLabel  298×20 @0,0  Manrope 400 13/20  lines=1  «Комментарий монтажнику»
         p.OrderOwnerView__noteText  298×22 @0,24  Manrope 600 15/22  lines=1  «Комментария нет»
-    section.Card__card#2  340×161 @0,233  r20  b1
+    section.Card__card#2  340×161 @0,233  r14  b1
       h2.OrderOwnerView__blockTitle  298×16 @21,21  Onest 700 13/16  ls1  lines=1  «Деньги»
       dl.OrderOwnerView__facts  298×93 @21,47
         div.OrderOwnerView__fact#4  85×43 @0,0
@@ -224,14 +224,14 @@ div.OrderOwnerView__view  1408×777 @16,16
         div.OrderOwnerView__fact#7  69×43 @150,51
           dt  69×20 @0,0  Manrope 400 13/20  lines=1  «Удержание»
           dd.OrderOwnerView__money  69×22 @0,20  JetBrains Mono 600 15/22  lines=1  «нет»
-    section.Card__card#3  340×90 @0,410  r20  b1
+    section.Card__card#3  340×90 @0,410  r14  b1
       h2.OrderOwnerView__blockTitle  298×16 @21,21  Onest 700 13/16  ls1  lines=1  «Заметка владельца»
       p.OrderOwnerView__noteText  298×22 @21,47  Manrope 600 15/22  lines=1  «Заметки нет»
 
 [палитра light]
 div.OrderOwnerView__view
   div.OrderOwnerView__main
-    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle  color #556173
       p.OrderOwnerView__address  color #0f172a
       dl.OrderOwnerView__facts
@@ -246,11 +246,11 @@ div.OrderOwnerView__view
         div.OrderOwnerView__fact#3
           dt  color #5b6a7d
           dd.OrderOwnerView__mono  color #475569
-    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       div.OrderOwnerView__blockHead
         h2.OrderOwnerView__blockTitle  color #556173
       p.OrderOwnerView__quiet  color #556173
-    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       form.OrderResultForm__form
         div.OrderResultForm__head
           h2.OrderResultForm__title  color #0f172a
@@ -258,19 +258,19 @@ div.OrderOwnerView__view
         p.OrderResultForm__hint  color #556173
         fieldset.OrderResultForm__group
           div.Field__field
-            label.Field__label  color #334155
-            textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+            label.Field__label  color #556173
+            textarea.Textarea__textarea  bg #f8fafc  border #7e8fa6
             p.Field__hint  color #556173
           div.Field__field#2
-            label.Field__label  color #334155
-            textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+            label.Field__label  color #556173
+            textarea.Textarea__textarea  bg #f8fafc  border #7e8fa6
             p.Field__hint  color #556173
         div.OrderResultForm__actions
-          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          button.Button__button  bg #0e7490  border #0e7490
             span.Button__content
               span.Button__label  color #ffffff
   div.OrderOwnerView__side
-    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle#2  color #556173
       dl.OrderOwnerView__facts#2
         div.OrderOwnerView__fact
@@ -283,7 +283,7 @@ div.OrderOwnerView__view
       div.OrderOwnerView__note
         span.OrderOwnerView__noteLabel  color #5b6a7d
         p.OrderOwnerView__noteText  color #475569
-    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#2  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle  color #556173
       dl.OrderOwnerView__facts
         div.OrderOwnerView__fact#4
@@ -298,14 +298,14 @@ div.OrderOwnerView__view
         div.OrderOwnerView__fact#7
           dt  color #5b6a7d
           dd.OrderOwnerView__money  color #475569
-    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#3  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle  color #556173
       p.OrderOwnerView__noteText  color #475569
 
 [палитра dark]
 div.OrderOwnerView__view
   div.OrderOwnerView__main
-    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle  color #8598ac
       p.OrderOwnerView__address  color #eaf1f8
       dl.OrderOwnerView__facts
@@ -320,11 +320,11 @@ div.OrderOwnerView__view
         div.OrderOwnerView__fact#3
           dt  color #7e92a7
           dd.OrderOwnerView__mono  color #a8b6c6
-    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       div.OrderOwnerView__blockHead
         h2.OrderOwnerView__blockTitle  color #8598ac
       p.OrderOwnerView__quiet  color #8598ac
-    section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#3  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       form.OrderResultForm__form
         div.OrderResultForm__head
           h2.OrderResultForm__title  color #eaf1f8
@@ -332,19 +332,19 @@ div.OrderOwnerView__view
         p.OrderResultForm__hint  color #8598ac
         fieldset.OrderResultForm__group
           div.Field__field
-            label.Field__label  color #c9d5e2
-            textarea.Textarea__textarea  bg #0b1424  border #566d95
+            label.Field__label  color #8598ac
+            textarea.Textarea__textarea  bg #0e1729  border #566d95
             p.Field__hint  color #8598ac
           div.Field__field#2
-            label.Field__label  color #c9d5e2
-            textarea.Textarea__textarea  bg #0b1424  border #566d95
+            label.Field__label  color #8598ac
+            textarea.Textarea__textarea  bg #0e1729  border #566d95
             p.Field__hint  color #8598ac
         div.OrderResultForm__actions
-          button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+          button.Button__button  bg #0e7490  border #0e7490
             span.Button__content
               span.Button__label  color #ffffff
   div.OrderOwnerView__side
-    section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle#2  color #8598ac
       dl.OrderOwnerView__facts#2
         div.OrderOwnerView__fact
@@ -357,7 +357,7 @@ div.OrderOwnerView__view
       div.OrderOwnerView__note
         span.OrderOwnerView__noteLabel  color #7e92a7
         p.OrderOwnerView__noteText  color #a8b6c6
-    section.Card__card#2  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#2  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle  color #8598ac
       dl.OrderOwnerView__facts
         div.OrderOwnerView__fact#4
@@ -372,6 +372,6 @@ div.OrderOwnerView__view
         div.OrderOwnerView__fact#7
           dt  color #7e92a7
           dd.OrderOwnerView__money  color #a8b6c6
-    section.Card__card#3  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    section.Card__card#3  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
       h2.OrderOwnerView__blockTitle  color #8598ac
       p.OrderOwnerView__noteText  color #a8b6c6

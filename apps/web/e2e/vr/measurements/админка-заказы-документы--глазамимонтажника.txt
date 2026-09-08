@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×259 @16,16  r20  b1
+section.Card__card  358×259 @16,16  r14  b1
   h2.OrderDocs__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Документы»
   p.OrderDocs__hint  316×40 @21,46  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
   ul.OrderDocs__list  316×124 @21,100
@@ -21,7 +21,7 @@ section.Card__card  358×259 @16,16  r20  b1
       span.OrderDocs__meta  144×20 @8,34  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
 
 [геометрия 768]
-section.Card__card  736×212 @16,16  r20  b1
+section.Card__card  736×212 @16,16  r14  b1
   h2.OrderDocs__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Документы»
   p.OrderDocs__hint  539×40 @21,47  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
   ul.OrderDocs__list  694×76 @21,101
@@ -35,7 +35,7 @@ section.Card__card  736×212 @16,16  r20  b1
       span.OrderDocs__meta  144×20 @542,8  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
 
 [геометрия 1440]
-section.Card__card  1408×213 @16,16  r20  b1
+section.Card__card  1408×213 @16,16  r14  b1
   h2.OrderDocs__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Документы»
   p.OrderDocs__hint  539×40 @21,48  Manrope 400 13/20  lines=2  «Договор, акт, гарантийный талон, счёт и»
   ul.OrderDocs__list  1366×76 @21,102
@@ -49,7 +49,7 @@ section.Card__card  1408×213 @16,16  r20  b1
       span.OrderDocs__meta  144×20 @1214,8  Manrope 400 13/20  lines=1  «Замерный лист · 900 КБ»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   h2.OrderDocs__title  color #0f172a
   p.OrderDocs__hint  color #556173
   ul.OrderDocs__list
@@ -63,7 +63,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
       span.OrderDocs__meta  color #556173
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   h2.OrderDocs__title  color #eaf1f8
   p.OrderDocs__hint  color #8598ac
   ul.OrderDocs__list

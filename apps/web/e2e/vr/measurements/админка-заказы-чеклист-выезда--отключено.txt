@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×776 @16,16  r20  b1
+section.Card__card  358×752 @16,16  r14  b1
   div.OrderChecklist__head  316×22 @21,21
     h2.OrderChecklist__title  132×21 @0,0  Onest 700 17/21  ls0  lines=1  «Чеклист выезда»
     p.OrderChecklist__progress  109×20 @207,2  JetBrains Mono 400 13/20  lines=1  «Собрано 2 из 5»
@@ -41,21 +41,21 @@ section.Card__card  358×776 @16,16  r20  b1
       span.Badge__badge  84×24 @8,74  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
       button.IconButton__iconButton  44×44 @100,64  r11  b1
         svg  16×16 @14,14
-  form.OrderChecklist__add  316×147 @21,524  b1 0 0 0
-    div.Field__field  316×76 @0,15
-      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
-      input  316×49 @0,27  r11  b1
-    button.Button__button  164×44 @0,103  r9  b1
+  form.OrderChecklist__add  316×123 @21,524  b1 0 0 0
+    div.Field__field  316×52 @0,15
+      label.Field__label  76×13 @15,8  Manrope 600 11/13  lines=1  «Что ещё взять»
+      input  316×52 @0,0  r999  b1
+    button.Button__button  164×44 @0,79  r999  b1
       span.Button__content  134×16 @15,14
         span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
-  div.OrderChecklist__actions  316×72 @21,683
-    button.Button__button  181×44 @0,0  r9  b1
+  div.OrderChecklist__actions  316×72 @21,659
+    button.Button__button  181×44 @0,0  r999  b1
       span.Button__content#2  151×16 @15,14
         span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
     span.OrderChecklist__quiet  266×20 @0,52  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
 
 [геометрия 768]
-section.Card__card  736×600 @16,16  r20  b1
+section.Card__card  736×575 @16,16  r14  b1
   div.OrderChecklist__head  694×22 @21,21
     h2.OrderChecklist__title  138×22 @0,0  Onest 700 18/22  ls0  lines=1  «Чеклист выезда»
     p.OrderChecklist__progress  109×20 @585,2  JetBrains Mono 400 13/20  lines=1  «Собрано 2 из 5»
@@ -89,21 +89,21 @@ section.Card__card  736×600 @16,16  r20  b1
       span.Badge__badge  84×24 @550,18  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
       button.IconButton__iconButton  44×44 @642,8  r11  b1
         svg  16×16 @14,14
-  form.OrderChecklist__add  694×91 @21,431  b1 0 0 0
-    div.Field__field  518×76 @0,15
-      label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
-      input  518×49 @0,27  r11  b1
-    button.Button__button  164×44 @530,47  r9  b1
+  form.OrderChecklist__add  694×67 @21,431  b1 0 0 0
+    div.Field__field  518×52 @0,15
+      label.Field__label  76×13 @15,8  Manrope 600 11/13  lines=1  «Что ещё взять»
+      input  518×52 @0,0  r999  b1
+    button.Button__button  164×44 @530,23  r999  b1
       span.Button__content  134×16 @15,14
         span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
-  div.OrderChecklist__actions  694×44 @21,535
-    button.Button__button  181×44 @0,0  r9  b1
+  div.OrderChecklist__actions  694×44 @21,510
+    button.Button__button  181×44 @0,0  r999  b1
       span.Button__content#2  151×16 @15,14
         span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
     span.OrderChecklist__quiet  266×20 @193,12  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
 
 [геометрия 1440]
-section.Card__card  1408×557 @16,16  r20  b1
+section.Card__card  1408×520 @16,16  r14  b1
   div.OrderChecklist__head  1366×23 @21,21
     h2.OrderChecklist__title  146×23 @0,0  Onest 700 19/23  ls0  lines=1  «Чеклист выезда»
     p.OrderChecklist__progress  109×20 @1257,3  JetBrains Mono 400 13/20  lines=1  «Собрано 2 из 5»
@@ -137,21 +137,21 @@ section.Card__card  1408×557 @16,16  r20  b1
       span.Badge__badge  84×24 @1226,14  Manrope 600 12/16  r100  b1  lines=1  «свой пункт»
       button.IconButton__iconButton  40×40 @1318,6  r11  b1
         svg  16×16 @12,12
-  form.OrderChecklist__add  1366×91 @21,392  b1 0 0 0
-    div.Field__field  1190×76 @0,15
-      label.Field__label  1190×20 @0,0  Manrope 600 13/20  lines=1  «Что ещё взять»
-      input  1190×49 @0,27  r11  b1
-    button.Button__button  164×40 @1202,51  r9  b1
-      span.Button__content  134×16 @15,12
+  form.OrderChecklist__add  1366×63 @21,392  b1 0 0 0
+    div.Field__field  1190×48 @0,15
+      label.Field__label  76×13 @15,8  Manrope 600 11/13  lines=1  «Что ещё взять»
+      input  1190×48 @0,0  r999  b1
+    button.Button__button  164×32 @1202,31  r999  b1
+      span.Button__content  134×16 @15,8
         span.Button__label  134×16 @0,0  Manrope 600 13/16  lines=1  «Добавить свой пункт»
-  div.OrderChecklist__actions  1366×40 @21,496
-    button.Button__button  181×40 @0,0  r9  b1
-      span.Button__content#2  151×16 @15,12
+  div.OrderChecklist__actions  1366×32 @21,467
+    button.Button__button  181×32 @0,0  r999  b1
+      span.Button__content#2  151×16 @15,8
         span.Button__label  151×16 @0,0  Manrope 600 13/16  lines=1  «Пересобрать из наряда»
-    span.OrderChecklist__quiet  266×20 @193,10  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
+    span.OrderChecklist__quiet  266×20 @193,6  Manrope 400 13/20  lines=1  «Отметки и дописанные пункты сохранятся.»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   div.OrderChecklist__head
     h2.OrderChecklist__title  color #0f172a
     p.OrderChecklist__progress  color #556173
@@ -187,7 +187,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         svg
   form.OrderChecklist__add  border #e2e8f0 #475569 #475569 #475569
     div.Field__field
-      label.Field__label  color #334155
+      label.Field__label  color #556173
       input  bg #f8fafc  border #7e8fa6
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content
@@ -199,7 +199,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     span.OrderChecklist__quiet  color #556173
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   div.OrderChecklist__head
     h2.OrderChecklist__title  color #eaf1f8
     p.OrderChecklist__progress  color #8598ac
@@ -235,7 +235,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         svg
   form.OrderChecklist__add  border #1e2b41 #a8b6c6 #a8b6c6 #a8b6c6
     div.Field__field
-      label.Field__label  color #c9d5e2
+      label.Field__label  color #8598ac
       input  bg #0e1729  border #566d95
     button.Button__button  bg #121d31  border #566d95
       span.Button__content
