@@ -166,9 +166,13 @@ export function AdminArticleList({ articles, filtered = false }: AdminArticleLis
                 </Badge>
               </td>
               <td role="cell">
-                {/* 🔴 Открыть · править · убрать — один набор на все списки
-                    панели (issue #575). Удаление красное и спрашивает
-                    подтверждение диалогом кита (ADR-113). */}
+                {/* 🔴 «Править» из ряда убрано (issue #866): круг вёл по тому
+                    же адресу, что и вся строка, — «глаз делает то же самое,
+                    что и клик», слова владельца. Вторая ссылка на тот же
+                    адрес не добавляла ни одного адреса, зато удваивала список
+                    целей у читалки и занимала тап-зону на телефоне (ADR-347).
+                    Набор #575 сокращается до тех действий, у которых своя
+                    цель: посмотреть на сайте и убрать. */}
                 <TableActions
                   className={tableAboveClassName()}
                   label={texts.rowActions(article.title)}
@@ -192,13 +196,6 @@ export function AdminArticleList({ articles, filtered = false }: AdminArticleLis
                       disabled
                     />
                   )}
-
-                  <TableActionLink
-                    tone="edit"
-                    label={texts.editLabel(article.title)}
-                    icon={<Icon name="edit" size={16} />}
-                    href={{ pathname: `/admin/knowledge/${article.id}` }}
-                  />
 
                   <ArticleRowRemove id={article.id} title={article.title} />
                 </TableActions>

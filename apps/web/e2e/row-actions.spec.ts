@@ -53,10 +53,18 @@ async function createArticle(page: Page): Promise<Created> {
   return { id, title };
 }
 
-/** Строка списка по подписи её действия: одна ссылка «Править» на десять строк
-    бесполезна, поэтому подпись называет саму статью — по ней и ищем. */
-function editAction(page: Page, title: string) {
-  return page.getByRole('link', { name: `Править: ${title}` });
+/**
+ * Сама строка списка: она и есть цель, ведущая в правку (issue #743, #866).
+ *
+ * 🔴 Раньше здесь стояло действие «Править» — круг с карандашом у правого
+ * края. Круг убран (#866): он вёл ровно по тому же адресу, что и строка, —
+ * «глаз делает то же самое, что и клик», слова владельца. Сценарий проверяет
+ * то же, что и проверял: что до правки можно добраться **из строки**, по её
+ * собственной подписи. Подпись строки называет статью — по ней и ищем: одна
+ * ссылка «Статья» на десять строк бесполезна.
+ */
+function rowLink(page: Page, title: string) {
+  return page.getByRole('link', { name: `Статья ${title}` });
 }
 
 function removeAction(page: Page, title: string) {
@@ -85,11 +93,11 @@ test.describe('Действия строки списка', () => {
 
     await page.goto('/admin/knowledge');
 
-    /* Шаг 1. Правка достижима из строки: не «где-то в карточке», а действием
-       с собственной подписью, названной этой статьёй. */
-    const edit = editAction(page, title);
-    await expect(edit).toBeVisible({ timeout: 30_000 });
-    await edit.click();
+    /* Шаг 1. Правка достижима из строки: не «где-то в карточке», а нажатием
+       по самой строке, подпись которой названа этой статьёй. */
+    const row = rowLink(page, title);
+    await expect(row).toBeVisible({ timeout: 30_000 });
+    await row.click();
     await page.waitForURL(`**/admin/knowledge/${id}`);
 
     const renamed = `${title} — переименована`;
@@ -109,7 +117,11 @@ test.describe('Действия строки списка', () => {
 
     // новое имя доехало до списка
     await page.goto('/admin/knowledge');
-    await expect(editAction(page, renamed)).toBeVisible({ timeout: 30_000 });
+    await expect(rowLink(page, renamed)).toBeVisible({ timeout: 30_000 });
+
+    /* 🔴 Дубля в ряду действий не осталось (issue #866): второй ссылки на
+       адрес самой строки в списке нет ни одной. */
+    await expect(page.getByRole('link', { name: `Править: ${renamed}` })).toHaveCount(0);
 
     /* Шаг 2. Отказ от подтверждения не меняет ничего. Проверяется не только
        тем, что строка на месте, но и перезагрузкой: строка, «оставшаяся» лишь

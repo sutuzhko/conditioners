@@ -32,7 +32,14 @@ export { Tooltip } from './Tooltip/Tooltip';
 export type { TooltipPlacement, TooltipProps } from './Tooltip/Tooltip';
 
 export { RowMenu } from './RowMenu/RowMenu';
-export type { RowMenuItem, RowMenuProps } from './RowMenu/RowMenu';
+export type {
+  RowMenuAction,
+  RowMenuAnchor,
+  RowMenuGroup,
+  RowMenuItem,
+  RowMenuLink,
+  RowMenuProps,
+} from './RowMenu/RowMenu';
 
 export { CopyField } from './CopyField/CopyField';
 export type { CopyFieldProps } from './CopyField/CopyField';
@@ -154,6 +161,8 @@ export type { AccordionItem, AccordionProps } from './Accordion/Accordion';
 
 export { ConfirmDialog } from './ConfirmDialog/ConfirmDialog';
 export type { ConfirmDialogProps } from './ConfirmDialog/ConfirmDialog';
+export { useCopy } from './CopyField/useCopy';
+export type { CopyControl } from './CopyField/useCopy';
 export { useConfirm } from './ConfirmDialog/useConfirm';
 export type { ConfirmControl } from './ConfirmDialog/useConfirm';
 export type { Confirm, ConfirmRequest } from './ConfirmDialog/model';

@@ -2,6 +2,8 @@ import { render as renderDom, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
+import { rowActionTexts as rowTexts } from '@/shared/config/row-actions';
+import { phonePlain } from '@/shared/lib/format';
 import { tableAboveClassName } from '@/shared/ui';
 
 import { StaffRow, type StaffRowProps } from './StaffRow';
@@ -84,9 +86,10 @@ describe('Монтажник строкой таблицы команды', () =
       const access = screen.getByRole('switch', { name: texts.active });
       expect(access.closest(raised)).not.toBeNull();
 
-      expect(screen.getByRole('group', { name: texts.rowActions(staffTitle(staff)) })).toHaveClass(
-        tableAboveClassName(),
-      );
+      /* Меню строки поднято целиком: кнопка обязана нажиматься, а не
+         открывать карточку под собой. */
+      const menu = screen.getByRole('button', { name: texts.rowActions(staffTitle(staff)) });
+      expect(menu.closest(raised)).not.toBeNull();
 
       view.unmount();
     }
@@ -221,25 +224,82 @@ describe('Монтажник строкой таблицы команды', () =
     expect(screen.queryByLabelText(/из .* ч/)).not.toBeInTheDocument();
   });
 
-  /* 🔴 Полный набор действий над строкой (ADR-307 §4): открыть и удалить.
-     Удаление закрыто, пока за человеком закреплены наряды — иначе наряд
-     остался бы без исполнителя. */
-  it('🔴 действия строки: открыть карточку и удалить', () => {
+  /** Открыть меню строки: все действия живут в нём (issue #744, #745). */
+  async function openMenu(user: ReturnType<typeof userEvent.setup>, staff: StaffDetails) {
+    await user.click(screen.getByRole('button', { name: texts.rowActions(staffTitle(staff)) }));
+  }
+
+  /* 🔴 Набор и порядок действий тот же, что у клиентов (issue #745): открыть ·
+     позвонить · скопировать · удалить. Два списка людей в одной панели не
+     должны требовать двух разных привычек.
+
+     🔴 Дубля адреса строки в ряду больше нет (issue #866): «Открыть карточку»
+     — пункт меню, а не вторая ссылка рядом со строкой. Пункт меню не даёт
+     второй остановки табуляции и не удваивает список ссылок у читалки. */
+  it('🔴 меню строки: открыть, позвонить, скопировать и удалить', async () => {
+    const user = userEvent.setup();
+
     render({
       staff: activeInstaller,
       api: acceptingApi,
       stats: staffLoadFixture.get(activeInstaller.id),
     });
 
-    const actions = within(
-      screen.getByRole('group', { name: texts.rowActions(staffTitle(activeInstaller)) }),
-    );
+    await openMenu(user, activeInstaller);
+    const menu = within(screen.getByRole('menu'));
 
-    expect(actions.getByRole('link', { name: texts.rowOpen })).toHaveAttribute(
+    expect(menu.getByRole('menuitem', { name: rowTexts.open })).toHaveAttribute(
       'href',
       '/admin/team/u2',
     );
-    expect(actions.getByRole('button', { name: texts.remove })).toBeDisabled();
+    expect(menu.getByRole('menuitem', { name: rowTexts.call })).toHaveAttribute(
+      'href',
+      `tel:${phonePlain(activeInstaller.phone ?? '')}`,
+    );
+    expect(menu.getByRole('menuitem', { name: rowTexts.copy })).toBeInTheDocument();
+  });
+
+  /* 🔴 Копирование — вторым уровнем меню (ADR-351): полей в строке несколько,
+     и пункт на каждое растил бы первый уровень. */
+  it('🔴 «Скопировать» открывает второй уровень с полями строки', async () => {
+    const user = userEvent.setup();
+
+    render({
+      staff: activeInstaller,
+      api: acceptingApi,
+      stats: staffLoadFixture.get(activeInstaller.id),
+    });
+
+    await openMenu(user, activeInstaller);
+    await user.click(screen.getByRole('menuitem', { name: rowTexts.copy }));
+
+    const menu = within(screen.getByRole('menu'));
+    expect(menu.getByRole('menuitem', { name: rowTexts.fieldPhone })).toBeInTheDocument();
+    expect(menu.getByRole('menuitem', { name: rowTexts.fieldName })).toBeInTheDocument();
+    /* Возврат — такой же пункт, а не крестик сбоку: стрелки обязаны до него
+       доезжать. */
+    expect(menu.getByRole('menuitem', { name: 'Назад' })).toBeInTheDocument();
+  });
+
+  /* 🔴 Отключённый пункт называет причину подписью, а не подсказкой: подсказка
+     на отключённом элементе не открывается ни фокусом, ни половиной
+     указателей. */
+  it('удаление закрыто, пока за человеком есть наряды, и причина написана', async () => {
+    const user = userEvent.setup();
+    const orders = staffLoadFixture.get(activeInstaller.id)?.orders ?? 0;
+
+    render({
+      staff: activeInstaller,
+      api: acceptingApi,
+      stats: staffLoadFixture.get(activeInstaller.id),
+    });
+
+    await openMenu(user, activeInstaller);
+
+    expect(screen.getByRole('menuitem', { name: texts.rowRemoveBlocked(orders) })).toHaveAttribute(
+      'aria-disabled',
+      'true',
+    );
   });
 
   it('удаление открыто, только когда нарядов за человеком нет', async () => {
@@ -253,7 +313,8 @@ describe('Монтажник строкой таблицы команды', () =
       confirmRemove: async () => true,
     });
 
-    await user.click(screen.getByRole('button', { name: texts.remove }));
+    await openMenu(user, disabledInstaller);
+    await user.click(screen.getByRole('menuitem', { name: texts.remove }));
 
     expect(remove).toHaveBeenCalledWith(disabledInstaller.id);
   });
@@ -269,7 +330,8 @@ describe('Монтажник строкой таблицы команды', () =
       confirmRemove: async () => false,
     });
 
-    await user.click(screen.getByRole('button', { name: texts.remove }));
+    await openMenu(user, disabledInstaller);
+    await user.click(screen.getByRole('menuitem', { name: texts.remove }));
 
     expect(remove).not.toHaveBeenCalled();
   });
