@@ -2,9 +2,14 @@
  * Журнал событий — доступ к данным (ADR-345).
  *
  * 🔴 Правки события здесь нет и не будет: запись создаёт система, а меняется
- * у неё одна пометка человека (фаза 5). Функции, переписывающей автора, время
- * или состав изменений, в этом модуле не должно появиться — по тому же
+ * у неё одна пометка человека — `setNote`. Функции, переписывающей автора,
+ * время или состав изменений, в этом модуле не должно появиться — по тому же
  * доводу, по которому её нет у отзыва (инвариант 7).
+ *
+ * 🔴 Удаление здесь одно — `removeBetween`, чистка за период, и обе границы у
+ * неё обязательны (ADR-345, issue #821). Построчного удаления нет ни в
+ * модуле, ни в API: возможность убрать из журнала одну неудобную строку
+ * обесценивает весь журнал. Закрытый список экспортов держит проверка рядом.
  */
 import type {
   ActivityActorKind as ActivityActorKindDb,
@@ -12,13 +17,20 @@ import type {
   Prisma,
 } from '@prisma/client';
 
-import type {
-  ActivityAction,
-  ActivityActorKind,
-  ActivityChanges,
-  ActivityEntity,
+import {
+  activityActionsOfSection,
+  activityPeriod,
+  ACTIVITY_CLEANUP_TRAIL,
+  EMPTY_ACTIVITY_FILTER,
+  type ActivityAction,
+  type ActivityActorKind,
+  type ActivityChanges,
+  type ActivityEntity,
+  type ActivityFilter,
 } from '@/entities/activity/model';
 import { db } from '@/server/db';
+import { ApiException } from '@/server/http';
+import { roleToDb } from '@/server/repo/roles';
 import { pageWindow, type Page } from '@/shared/lib/paging';
 
 const ACTOR_KIND_FROM_DB: Record<ActivityActorKindDb, ActivityActorKind> = {
@@ -36,9 +48,10 @@ export type ActivityActor = {
  * Строка журнала для списка.
  *
  * 🔴 Ровно то, что список показывает, и ни поля сверх. Состав изменений и вид
- * события в таблице лежат и читаются фазой 4, где им есть место на экране;
- * тянуть их сюда сейчас значило бы разбирать на каждой странице JSON, который
- * никто не рисует.
+ * события в таблице лежат, но наружу не идут: рисовать «было → стало» в
+ * колонке пока негде, а разбирать ради этого JSON на каждой строке страницы
+ * незачем. Пометка человека — идёт: она и пишется ради того, чтобы её читали
+ * в списке (ADR-345, фаза 5).
  *
  * `action` и `entity` остаются строками, а не объединениями: в базе они
  * строки, и старое действие, переименованное следующей фазой, обязано
@@ -63,6 +76,13 @@ export type ActivityEventDto = {
   readonly action: string;
   readonly entity: string;
   readonly entityId: string;
+  /**
+   * Пометка человека — единственное правимое поле записи (ADR-345, фаза 5).
+   * `null` — не комментировали.
+   */
+  readonly note: string | null;
+  /** Когда пометку правили последний раз. `null` вместе с пустой пометкой. */
+  readonly noteUpdatedAt: string | null;
   readonly createdAt: string;
 };
 
@@ -78,6 +98,8 @@ const ACTIVITY_SELECT = {
   action: true,
   entity: true,
   entityId: true,
+  note: true,
+  noteUpdatedAt: true,
   createdAt: true,
 } as const satisfies Prisma.ActivityEventSelect;
 
@@ -89,6 +111,8 @@ type ActivityRow = {
   action: string;
   entity: string;
   entityId: string;
+  note: string | null;
+  noteUpdatedAt: Date | null;
   createdAt: Date;
 };
 
@@ -105,6 +129,8 @@ function toDto(row: ActivityRow): ActivityEventDto {
     action: row.action,
     entity: row.entity,
     entityId: row.entityId,
+    note: row.note,
+    noteUpdatedAt: row.noteUpdatedAt?.toISOString() ?? null,
     createdAt: row.createdAt.toISOString(),
   };
 }
@@ -140,11 +166,48 @@ export async function create(
 }
 
 /**
+ * Условия отбора в терминах базы.
+ *
+ * 🔴 Собраны в одном месте и списком, а не по ветке на вызов: список и счётчик
+ * страниц обязаны отбирать одно и то же. Разойдясь, они дают «страница 3 из 7»
+ * над пустой таблицей — то есть разбивку, которая ведёт в никуда.
+ */
+function whereOf(filter: ActivityFilter): Prisma.ActivityEventWhereInput {
+  const { since, until } = activityPeriod(filter);
+
+  return {
+    ...(filter.actor === '' ? {} : { actorId: filter.actor }),
+    /* Роль читается у самой учётной записи: своей копии роли у события нет
+       (см. `ActivityFilter`). Событие без автора в такой отбор не попадает —
+       у системы роли не бывает. */
+    ...(filter.role === undefined ? {} : { actor: { role: roleToDb(filter.role) } }),
+    ...(filter.section === undefined
+      ? {}
+      : { action: { in: [...activityActionsOfSection(filter.section)] } }),
+    ...(filter.entity === undefined ? {} : { entity: filter.entity }),
+    ...(since === undefined && until === undefined
+      ? {}
+      : {
+          createdAt: {
+            ...(since === undefined ? {} : { gte: since }),
+            /* Верхняя граница исключающая: `until` — это московская полночь
+               следующих суток, и `lte` потеряло бы события последней
+               миллисекунды дня. */
+            ...(until === undefined ? {} : { lt: until }),
+          },
+        }),
+  };
+}
+
+/**
  * Страница журнала, новые события сверху.
  *
- * 🔴 С `take`, а не «все за всё время»: событие пишется на каждое изменение,
- * это тысячи строк в месяц (PRD), и запрос без границы однажды кладёт панель
- * вместе с базой.
+ * 🔴 Другого способа прочитать журнал у панели нет, и это главное свойство
+ * функции (issue #816). Границы окна ставит `pageWindow`, а не вызывающий:
+ * параметра «сколько» здесь не существует, поэтому «отдай всё» нельзя ни
+ * попросить, ни забыть ограничить. Событие пишется на каждое изменение — это
+ * тысячи строк в месяц (PRD), и один запрос без границы кладёт панель вместе
+ * с базой.
  *
  * Порядок — по времени и по `id`: две записи одной миллисекунды иначе встают
  * в произвольном порядке, и соседние страницы показывают одну и ту же строку
@@ -152,12 +215,15 @@ export async function create(
  * листается лента уведомлений (ADR-358).
  */
 export async function list(
-  params: { page?: number | undefined } = {},
+  params: { page?: number | undefined; filter?: ActivityFilter | undefined } = {},
 ): Promise<Page<ActivityEventDto>> {
-  const total = await db.activityEvent.count();
+  const where = whereOf(params.filter ?? EMPTY_ACTIVITY_FILTER);
+
+  const total = await db.activityEvent.count({ where });
   const { page, pages, skip, take } = pageWindow(total, params.page ?? 1);
 
   const rows = await db.activityEvent.findMany({
+    where,
     orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
     skip,
     take,
@@ -165,4 +231,60 @@ export async function list(
   });
 
   return { items: rows.map(toDto), total, page, pages };
+}
+
+/**
+ * Пометка человека у записи — **единственная** правка, которую знает журнал
+ * (ADR-345, инвариант 7).
+ *
+ * 🔴 Аргументов ровно два, и второй — текст пометки. Автора, время и состав
+ * изменений сюда нечем передать: функции, которая их принимает, в модуле нет,
+ * поэтому «переписать событие» — не запрещённая операция, а несуществующая.
+ * Тот же довод, по которому у отзыва нет правки текста.
+ *
+ * Пустая пометка стирается вместе с меткой времени: `noteUpdatedAt` отвечает
+ * на вопрос «когда комментировали», и у записи без комментария ответа нет.
+ */
+export async function setNote(id: string, note: string): Promise<ActivityEventDto> {
+  const exists = await db.activityEvent.findUnique({ where: { id }, select: { id: true } });
+  if (exists === null) throw new ApiException('not_found', 'Запись журнала не найдена', 'id');
+
+  const text = note.trim();
+  const row = await db.activityEvent.update({
+    where: { id },
+    data:
+      text === '' ? { note: null, noteUpdatedAt: null } : { note: text, noteUpdatedAt: new Date() },
+    select: ACTIVITY_SELECT,
+  });
+
+  return toDto(row);
+}
+
+/**
+ * Чистка журнала за период.
+ *
+ * 🔴 Границы обязательны обе, и это подпись функции, а не проверка внутри:
+ * «удалить всё» здесь нельзя даже случайно. Построчного удаления нет вовсе —
+ * ни здесь, ни в API (ADR-345): убрать из журнала одну неудобную строку не
+ * должно быть возможно никаким сочетанием аргументов.
+ *
+ * 🔴 След чистки исключается **условием запроса**, а не порядком вызовов.
+ * Порядок «сначала удалить, потом записать» защищает ровно один раз: вторая
+ * чистка того же периода унесла бы след первой, и журнал перестал бы отвечать,
+ * кто и когда его чистил. Условие держится при любом числе повторов и при
+ * любом периоде — включая сегодняшний, внутрь которого попадает сама запись о
+ * чистке.
+ */
+export async function removeBetween(
+  period: { readonly since: Date; readonly until: Date },
+  client: Prisma.TransactionClient = db,
+): Promise<number> {
+  const { count } = await client.activityEvent.deleteMany({
+    where: {
+      createdAt: { gte: period.since, lt: period.until },
+      action: { notIn: [...ACTIVITY_CLEANUP_TRAIL] },
+    },
+  });
+
+  return count;
 }
