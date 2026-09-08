@@ -1,4 +1,11 @@
-import { activityActionTitle, activityEntityTitle } from '@/entities/activity/model';
+import {
+  activityActionTitle,
+  activityEntityTitle,
+  activityFilterOn,
+  activityFilterQuery,
+  EMPTY_ACTIVITY_FILTER,
+  type ActivityFilter,
+} from '@/entities/activity/model';
 import { formatDateTime } from '@/shared/lib/format';
 import { Card, EmptyState, Pager, Table } from '@/shared/ui';
 
@@ -8,6 +15,12 @@ import styles from './ActivityList.module.css';
 
 export interface ActivityListProps {
   readonly journal: ActivityPage;
+  /**
+   * С каким отбором собрана страница. Нужен двум вещам: разбивка несёт его за
+   * собой (иначе вторая страница найденного показывает весь журнал), а пустой
+   * результат обязан сказать, отсёк ли записи отбор.
+   */
+  readonly filter?: ActivityFilter | undefined;
 }
 
 /**
@@ -17,21 +30,22 @@ export interface ActivityListProps {
  * само устройство журнала: запись создаёт система, правится у неё одна пометка
  * человека, а удаление бывает только чисткой за период (ADR-345). Кнопка
  * «Изменить» у события означала бы журнал, в который можно дописать строку, —
- * то есть журнал, доказывающий ровно столько же, сколько пустой. Пометка
- * приходит фазой 5, чистка — фазой 5, отбор и лента в карточке сущности —
- * фазой 4; issue на «раздел без действий» заводить не нужно.
+ * то есть журнал, доказывающий ровно столько же, сколько пустой.
  *
- * Серверный компонент: журнал только показывают, а листают адресом.
+ * Серверный компонент: журнал только показывают, а листают и отбирают адресом.
  */
-export function ActivityList({ journal }: ActivityListProps) {
+export function ActivityList({ journal, filter = EMPTY_ACTIVITY_FILTER }: ActivityListProps) {
   if (journal.items.length === 0) {
+    /* 🔴 Пустой журнал и пустой результат отбора — разные новости с
+       противоположными шагами (issue #335). Журнал новой установки пуст сам
+       по себе, и «снимите фильтр» там ничего не чинит; пустой результат
+       отбора, наоборот, снимается ровно им. */
+    const filtered = activityFilterOn(filter);
+
     return (
       <Card as="section">
-        {/* Пустой журнал — это состояние новой установки, а не сбой и не
-            результат отбора: отбирать пока нечем (он приходит фазой 4), и
-            выхода из пустоты здесь нет — она проходит сама. */}
-        <EmptyState icon="overview" title={texts.emptyTitle}>
-          {texts.emptyText}
+        <EmptyState icon="overview" title={filtered ? texts.notFoundTitle : texts.emptyTitle}>
+          {filtered ? texts.notFoundText : texts.emptyText}
         </EmptyState>
       </Card>
     );
@@ -63,6 +77,7 @@ export function ActivityList({ journal }: ActivityListProps) {
           page={journal.page}
           pages={journal.pages}
           basePath={ACTIVITY_PATH}
+          query={activityFilterQuery(filter)}
           label={texts.pagerLabel}
           numbers
         />
@@ -91,6 +106,10 @@ function authorOf(event: ActivityEventView): string {
  *
  * 🔴 Прочерка в колонке «Кто» нет ни в одном случае: он читался бы как «данные
  * потеряли», хотя потеряно самое большее имя, а само действие — вот оно.
+ *
+ * Пометка человека стоит под действием, а не отдельной колонкой: она бывает у
+ * одной строки из сотни, и пустая колонка ради неё съела бы ширину у тех
+ * четырёх, которые нужны всегда.
  */
 function Row({ event }: { readonly event: ActivityEventView }) {
   return (
@@ -108,6 +127,18 @@ function Row({ event }: { readonly event: ActivityEventView }) {
       </td>
       <td data-label={texts.colAction} role="cell">
         {activityActionTitle(event.action)}
+        {event.note === null ? null : (
+          <p className={styles.note}>
+            {/* Дата пометки скрыта от глаза и звучит вслух: в строке она
+                занимала бы место, а без неё непонятно, свежая ли пометка. */}
+            <span className="srOnly">
+              {event.noteUpdatedAt === null
+                ? texts.noteLabel
+                : texts.noteAt(formatDateTime(event.noteUpdatedAt))}
+            </span>
+            {event.note}
+          </p>
+        )}
       </td>
       <td className={styles.entity} data-label={texts.colEntity} role="cell">
         {activityEntityTitle(event.entity)}

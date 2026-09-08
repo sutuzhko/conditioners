@@ -18,12 +18,16 @@ import type {
   Prisma,
 } from '@prisma/client';
 
-import type {
-  ActivityAction,
-  ActivityChanges,
-  ActivityEntity,
-  ActivityKind,
+import {
+  activityCleanupPeriod,
+  activityPeriodKey,
+  type ActivityAction,
+  type ActivityChanges,
+  type ActivityCleanupInput,
+  type ActivityEntity,
+  type ActivityKind,
 } from '@/entities/activity/model';
+import { db } from '@/server/db';
 import * as activity from '@/server/repo/activity';
 
 /**
@@ -102,4 +106,51 @@ export async function recordActivity(
     },
     tx,
   );
+}
+
+/**
+ * Чистка журнала за период (issue #821, #822).
+ *
+ * 🔴 Удаление и след неразделимы, и держит их одна транзакция — та же
+ * причина, по которой событие пишется вместе с изменением. Оборвись запись
+ * следа, и журнал остался бы короче на год без единой строки о том, куда
+ * делись записи.
+ *
+ * 🔴 След переживает чистку **условием запроса**, а не порядком вызовов
+ * (`repo.removeBetween`). Порядок «сначала удалить, потом записать» защищает
+ * ровно один раз: вторая чистка того же периода унесла бы след первой. Отсюда
+ * и то, что чистить можно сегодняшний день — запись о самой чистке попадает в
+ * него по времени и всё равно остаётся.
+ *
+ * 🔴 Событие безопасности, а не обычное: срок хранения у него 36 месяцев
+ * против 12 (ADR-345). След чистки, который сам вычищается уборкой через год,
+ * ничего не доказывает.
+ */
+export async function cleanupActivity(input: {
+  readonly period: ActivityCleanupInput;
+  /** Кто чистил. Чистка бывает только по нажатию человека — автор есть всегда. */
+  readonly actorId: string;
+}): Promise<{ readonly removed: number }> {
+  const range = activityCleanupPeriod(input.period);
+
+  return db.$transaction(async (tx) => {
+    const removed = await activity.removeBetween(range, tx);
+
+    await recordActivity(
+      {
+        actorId: input.actorId,
+        action: 'activity.cleanup',
+        entity: 'activity',
+        entityId: activityPeriodKey(input.period),
+        /* «Было → стало» здесь буквальное: столько событий за период лежало в
+           журнале, и столько осталось. Периода в составе изменений нет — он в
+           `entityId`, потому что это и есть то, над чем совершено действие. */
+        changes: { events: { from: removed, to: 0 } },
+        kind: 'security',
+      },
+      tx,
+    );
+
+    return { removed };
+  });
 }
