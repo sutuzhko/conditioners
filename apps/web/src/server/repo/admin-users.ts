@@ -10,6 +10,7 @@ import type { AdminRole, InstallerNoteCard, StaffCard, StaffDetails } from '@/en
 import { db } from '@/server/db';
 import { ApiException } from '@/server/http';
 import { employmentFromDb, employmentToDb } from '@/server/repo/employment';
+import { roleFromDb, roleToDb } from '@/server/repo/roles';
 import type { Employment } from '@/shared/lib/employment';
 
 export type AdminUserRecord = {
@@ -18,21 +19,6 @@ export type AdminUserRecord = {
   passwordHash: string;
   role: AdminRole;
   active: boolean;
-};
-
-/* 🔴 Записи, а не функции разбора: `Record` требует значения на каждую роль,
-   и новая роль в перечислении не проедет мимо перевода молча (ADR-344). */
-const ROLE_FROM_DB: Record<DbRole, AdminRole> = {
-  OWNER: 'owner',
-  ADMIN: 'admin',
-  MANAGER: 'manager',
-  INSTALLER: 'installer',
-};
-const ROLE_TO_DB: Record<AdminRole, DbRole> = {
-  owner: 'OWNER',
-  admin: 'ADMIN',
-  manager: 'MANAGER',
-  installer: 'INSTALLER',
 };
 
 type StaffRow = {
@@ -75,7 +61,7 @@ function toCard(row: StaffRow): StaffCard {
     login: row.login,
     name: row.name,
     phone: row.phone,
-    role: ROLE_FROM_DB[row.role],
+    role: roleFromDb(row.role),
     employment: employmentFromDb(row.employment),
     active: row.active,
     createdAt: row.createdAt.toISOString(),
@@ -96,7 +82,7 @@ export async function findByLogin(login: string): Promise<AdminUserRecord | null
 
   if (row === null) return null;
 
-  return { ...row, role: ROLE_FROM_DB[row.role] };
+  return { ...row, role: roleFromDb(row.role) };
 }
 
 /** Только для смены своего пароля: нужно сверить текущий. */
@@ -199,7 +185,7 @@ export async function createInstaller(input: {
       employment: employmentToDb(input.employment),
       inn: input.inn,
       passwordHash: input.passwordHash,
-      role: ROLE_TO_DB.installer,
+      role: roleToDb('installer'),
     },
     select: staffSelect,
   });
@@ -353,7 +339,7 @@ function toDeliveryTarget(row: DeliveryRow): DeliveryTarget {
     id: row.id,
     name: row.name ?? row.login,
     login: row.login,
-    role: ROLE_FROM_DB[row.role],
+    role: roleFromDb(row.role),
     active: row.active,
     telegramChatId: row.telegramChatId,
     email: row.email,

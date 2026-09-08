@@ -30,7 +30,13 @@ export function ForbiddenView({ role }: { role: AdminRole | null }) {
         <h1 className={styles.title}>{t.title}</h1>
         <p className={styles.lead}>{t.lead}</p>
 
-        <ButtonLink href={exit.href} size="lg" className={styles.action}>
+        {/* 🔴 `reload`, а не обычный переход. Отказ бросает раскладка панели, и
+            она же — общий кусок дерева у всех её разделов: переход отсюда в
+            соседний раздел переиспользует её из кеша роутера вместе с
+            брошенным отказом. Адрес менялся на «Заявки», а страница
+            оставалась «Раздел закрыт» — выход из тупика вёл в тот же тупик
+            (issue #770). */}
+        <ButtonLink href={exit.href} size="lg" className={styles.action} reload>
           {exit.label}
         </ButtonLink>
       </div>

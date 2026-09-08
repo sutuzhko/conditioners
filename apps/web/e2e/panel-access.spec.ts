@@ -305,10 +305,23 @@ test.describe('🔴 менеджер в панели', () => {
     const exit = page.getByRole('link', { name: FORBIDDEN_CONTENT.manager.label });
     await expect(exit).toHaveAttribute('href', FORBIDDEN_CONTENT.manager.href);
 
-    await exit.click();
-    await page.waitForURL((url) => url.pathname === FORBIDDEN_CONTENT.manager.href);
+    await Promise.all([
+      page.waitForURL((url) => url.pathname === FORBIDDEN_CONTENT.manager.href, {
+        timeout: 60_000,
+      }),
+      exit.click(),
+    ]);
 
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText(leadManagerContent.title);
+    /* 🔴 Сначала код ответа, потом заголовок. Отказ на этом месте обязан
+       читаться как 403, а не как «в заголовке не то слово»: первая версия
+       сценария падала именно на заголовке, и по её выводу нельзя было
+       отличить закрытый раздел от переиспользованной раскладки. */
+    const landed = await get(page, FORBIDDEN_CONTENT.manager.href);
+    expect(landed.status, 'выход со страницы отказа обязан открывать раздел').toBe(200);
+
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(leadManagerContent.title, {
+      timeout: 60_000,
+    });
   });
 });
 
