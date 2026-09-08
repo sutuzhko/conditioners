@@ -108,23 +108,23 @@ div.Table__viewport  736×279 @16,16
         span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
     tr[role=row]#2  817×132 @0,56
       td.OrderTable__numberCol  88×132 @0,0  b0 0 1 0
-        a.OrderTable__numberLink  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1041»
+        a.OrderTable__numberLink  52×44 @18,44  JetBrains Mono 700 15/22  lines=1  «№ 1041»
       td.OrderTable__clientCol  158×132 @88,0  b0 0 1 0
-        span.OrderTable__workBox  122×63 @18,15
+        span.OrderTable__workBox  122×63 @18,35
           span.OrderTable__client  122×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
           span.OrderTable__address  122×40 @0,22  Manrope 400 13/20  lines=2  «Тула, Октябрьская, 3»
       td.OrderTable__dateCol  114×132 @247,0  b0 0 1 0
-        time  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
+        time  78×17 @18,57  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
       td.OrderTable__reasonCol  129×132 @361,0  b0 0 1 0
         span.OrderTable__workBox  93×103 @18,15
           span.OrderTable__reasonTitle  93×22 @0,0  Manrope 600 15/22  lines=1  «Дорого»
           span.OrderTable__address#2  93×81 @0,22  Manrope 400 13/20  lines=4  «Нашёл дешевле, отказался на этапе замера»
       td.OrderTable__tabAction  176×132 @490,0  b0 0 1 0
-        button.Button__button  140×44 @18,15  r9  b1
+        button.Button__button  140×44 @18,44  r9  b1
           span.Button__content  110×16 @15,14
             span.Button__label  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×132 @665,0  b0 0 1 0
-        div.TableActions__actions  116×36 @18,15
+        div.TableActions__actions  116×36 @18,48
           span.Tooltip__wrap  36×36 @0,0  r100
             span.Tooltip__anchor  36×36 @0,0
               a.TableActions__action  36×36 @0,0  r100
@@ -142,22 +142,22 @@ div.Table__viewport  736×279 @16,16
                   svg#3  18×18 @3,8
     tr[role=row]#3  817×91 @0,188
       td.OrderTable__numberCol  88×91 @0,0
-        a.OrderTable__numberLink#2  52×44 @18,15  JetBrains Mono 700 15/22  lines=1  «№ 1032»
+        a.OrderTable__numberLink#2  52×44 @18,24  JetBrains Mono 700 15/22  lines=1  «№ 1032»
       td.OrderTable__clientCol  158×91 @88,0
         span.OrderTable__workBox#2  122×63 @18,15
           span.OrderTable__client  122×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
           span.OrderTable__address  122×40 @0,22  Manrope 400 13/20  lines=2  «Тула, Октябрьская, 3»
       td.OrderTable__dateCol  114×91 @247,0
-        time#2  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «09.08.2026»
+        time#2  78×17 @18,37  JetBrains Mono 400 13/20  lines=1  «09.08.2026»
       td.OrderTable__reasonCol  129×91 @361,0
-        span.OrderTable__workBox#2  93×45 @18,15
+        span.OrderTable__workBox#2  93×45 @18,23
           span.OrderTable__reasonTitle  93×45 @0,0  Manrope 600 15/22  lines=2  «Не дозвонились»
       td.OrderTable__tabAction  176×91 @490,0
-        button.Button__button#2  140×44 @18,15  r9  b1
+        button.Button__button#2  140×44 @18,24  r9  b1
           span.Button__content  110×16 @15,14
             span.Button__label#2  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×91 @665,0
-        div.TableActions__actions#2  116×36 @18,15
+        div.TableActions__actions#2  116×36 @18,28
           span.Tooltip__wrap  36×36 @0,0  r100
             span.Tooltip__anchor#2  36×36 @0,0
               a.TableActions__action  36×36 @0,0  r100
@@ -187,23 +187,23 @@ div.Table__viewport  1408×198 @16,16
         span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
     tr[role=row]#2  1408×72 @0,56
       td.OrderTable__numberCol  88×72 @0,0  b0 0 1 0
-        a.OrderTable__numberLink  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1041»
+        a.OrderTable__numberLink  52×19 @18,26  JetBrains Mono 700 15/22  lines=1  «№ 1041»
       td.OrderTable__clientCol  300×72 @88,0  b0 0 1 0
         span.OrderTable__workBox  264×43 @18,15
           span.OrderTable__client  264×22 @0,0  Manrope 600 15/22  lines=1  «Пётр Ильин»
           span.OrderTable__address  264×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
       td.OrderTable__dateCol  126×72 @388,0  b0 0 1 0
-        time  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
+        time  78×17 @18,27  JetBrains Mono 400 13/20  lines=1  «18.08.2026»
       td.OrderTable__reasonCol  566×72 @514,0  b0 0 1 0
         span.OrderTable__workBox  530×43 @18,15
           span.OrderTable__reasonTitle  530×22 @0,0  Manrope 600 15/22  lines=1  «Дорого»
           span.OrderTable__address#2  530×20 @0,22  Manrope 400 13/20  lines=1  «Нашёл дешевле, отказался на этапе замера»
       td.OrderTable__tabAction  176×72 @1080,0  b0 0 1 0
-        button.Button__button  140×40 @18,15  r9  b1
+        button.Button__button  140×40 @18,16  r9  b1
           span.Button__content  110×16 @15,12
             span.Button__label  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×72 @1256,0  b0 0 1 0
-        div.TableActions__actions  116×36 @18,15
+        div.TableActions__actions  116×36 @18,18
           span.Tooltip__wrap  36×36 @0,0  r100
             span.Tooltip__anchor  36×36 @0,0
               a.TableActions__action  36×36 @0,0  r100
@@ -221,22 +221,22 @@ div.Table__viewport  1408×198 @16,16
                   svg#3  18×18 @3,8
     tr[role=row]#3  1408×71 @0,127
       td.OrderTable__numberCol  88×71 @0,0
-        a.OrderTable__numberLink#2  52×19 @18,16  JetBrains Mono 700 15/22  lines=1  «№ 1032»
+        a.OrderTable__numberLink#2  52×19 @18,26  JetBrains Mono 700 15/22  lines=1  «№ 1032»
       td.OrderTable__clientCol  300×71 @88,0
         span.OrderTable__workBox#2  264×43 @18,15
           span.OrderTable__client  264×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
           span.OrderTable__address  264×20 @0,22  Manrope 400 13/20  lines=1  «Тула, Октябрьская, 3»
       td.OrderTable__dateCol  126×71 @388,0
-        time#2  78×17 @18,16  JetBrains Mono 400 13/20  lines=1  «09.08.2026»
+        time#2  78×17 @18,27  JetBrains Mono 400 13/20  lines=1  «09.08.2026»
       td.OrderTable__reasonCol  566×71 @514,0
-        span.OrderTable__workBox#2  530×22 @18,15
+        span.OrderTable__workBox#2  530×22 @18,25
           span.OrderTable__reasonTitle  530×22 @0,0  Manrope 600 15/22  lines=1  «Не дозвонились»
       td.OrderTable__tabAction  176×71 @1080,0
-        button.Button__button#2  140×40 @18,15  r9  b1
+        button.Button__button#2  140×40 @18,16  r9  b1
           span.Button__content  110×16 @15,12
             span.Button__label#2  110×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть в работу»
       td.OrderTable__actions  152×71 @1256,0
-        div.TableActions__actions#2  116×36 @18,15
+        div.TableActions__actions#2  116×36 @18,18
           span.Tooltip__wrap  36×36 @0,0  r100
             span.Tooltip__anchor#2  36×36 @0,0
               a.TableActions__action  36×36 @0,0  r100

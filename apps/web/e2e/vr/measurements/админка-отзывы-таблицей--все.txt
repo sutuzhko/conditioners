@@ -164,7 +164,7 @@ section.Card__card  736×523 @16,16  r20  b1
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  769×96 @0,56
         td[role=cell]  173×96 @0,0  b0 0 1 0
-          span.ReviewTable__author  137×39 @18,15
+          span.ReviewTable__author  137×39 @18,28
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
@@ -180,18 +180,18 @@ section.Card__card  736×523 @16,16  r20  b1
         td[role=cell]#2  125×96 @173,0  b0 0 1 0
           blockquote.ReviewTable__text  89×67 @18,15  Manrope 400 15/22  lines=9  clipped  «Приехали в тот же день, смету назвали за»
         td[role=cell]#3  140×96 @298,0  b0 0 1 0
-          span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+          span.Badge__badge  98×24 @18,36  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
         td.ReviewTable__cellDate  115×96 @439,0  b0 0 1 0
-          time.ReviewTable__when  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when  79×19 @18,38  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×96 @554,0  b0 0 1 0
-          div.ReviewRowActions__cell  179×44 @18,15
+          div.ReviewRowActions__cell  179×44 @18,26
             div.ReviewRowActions__actions  118×44 @0,0
               button.Button__button  118×44 @0,0  r9  b1
                 span.Button__content  88×16 @15,14
                   span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
       tr[role=row]#3  769×123 @0,152
         td[role=cell]  173×123 @0,0  b0 0 1 0
-          span.ReviewTable__author#2  137×39 @18,15
+          span.ReviewTable__author#2  137×39 @18,42
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
               span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
@@ -205,11 +205,11 @@ section.Card__card  736×523 @16,16  r20  b1
                   svg.Rating__star#9  15×15 @63,0
                   svg.Rating__star#10  15×15 @84,0
         td[role=cell]#2  125×123 @173,0  b0 0 1 0
-          blockquote.ReviewTable__text#2  89×67 @18,15  Manrope 400 15/22  lines=8  clipped  «Ставили сплит в 2019-м, работает до сих»
+          blockquote.ReviewTable__text#2  89×67 @18,28  Manrope 400 15/22  lines=8  clipped  «Ставили сплит в 2019-м, работает до сих»
         td[role=cell]#3  140×123 @298,0  b0 0 1 0
-          span.Badge__badge#2  71×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+          span.Badge__badge#2  71×24 @18,49  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
         td.ReviewTable__cellDate  115×123 @439,0  b0 0 1 0
-          time.ReviewTable__when#2  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#2  79×19 @18,51  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×123 @554,0  b0 0 1 0
           div.ReviewRowActions__cell#2  179×94 @18,15
             div.ReviewRowActions__actions  179×94 @0,0
@@ -221,7 +221,7 @@ section.Card__card  736×523 @16,16  r20  b1
                   span.Button__label#3  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
       tr[role=row]#4  769×123 @0,275
         td[role=cell]  173×123 @0,0  b0 0 1 0
-          span.ReviewTable__author#3  137×39 @18,15
+          span.ReviewTable__author#3  137×39 @18,42
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials#3  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
@@ -235,11 +235,11 @@ section.Card__card  736×523 @16,16  r20  b1
                   svg.Rating__star#14  15×15 @63,0
                   svg.Rating__star#15  15×15 @84,0
         td[role=cell]#2  125×123 @173,0  b0 0 1 0
-          blockquote.ReviewTable__text#3  89×67 @18,15  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text#3  89×67 @18,28  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  140×123 @298,0  b0 0 1 0
-          span.Badge__badge#3  78×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+          span.Badge__badge#3  78×24 @18,49  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
         td.ReviewTable__cellDate  115×123 @439,0  b0 0 1 0
-          time.ReviewTable__when#3  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#3  79×19 @18,51  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×123 @554,0  b0 0 1 0
           div.ReviewRowActions__cell#3  179×94 @18,15
             div.ReviewRowActions__actions  179×94 @0,0
@@ -251,7 +251,7 @@ section.Card__card  736×523 @16,16  r20  b1
                   span.Button__label#5  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
       tr[role=row]#5  769×123 @0,398
         td[role=cell]  173×123 @0,0
-          span.ReviewTable__author#4  137×39 @18,15
+          span.ReviewTable__author#4  137×39 @18,42
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials#4  10×11 @9,9  Onest 700 11/11  ls0  lines=1  «М»
               span#4  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Марина»
@@ -265,11 +265,11 @@ section.Card__card  736×523 @16,16  r20  b1
                   svg.Rating__star#19  15×15 @63,0
                   svg.Rating__star#20  15×15 @84,0
         td[role=cell]#2  125×123 @173,0
-          blockquote.ReviewTable__text#4  89×67 @18,15  Manrope 400 15/22  lines=7  clipped  «Приехали на два часа позже обещанного, х»
+          blockquote.ReviewTable__text#4  89×67 @18,28  Manrope 400 15/22  lines=7  clipped  «Приехали на два часа позже обещанного, х»
         td[role=cell]#3  140×123 @298,0
-          span.Badge__badge#4  104×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+          span.Badge__badge#4  104×24 @18,49  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
         td.ReviewTable__cellDate  115×123 @439,0
-          time.ReviewTable__when#4  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#4  79×19 @18,51  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×123 @554,0
           div.ReviewRowActions__cell#4  179×94 @18,15
             div.ReviewRowActions__actions  179×94 @0,0
@@ -294,14 +294,14 @@ section.Card__card  1408×476 @16,16  r20  b1
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  1406×74 @0,56
         td[role=cell]  200×74 @0,0  b0 0 1 0
-          span.ReviewTable__author  164×28 @18,15
+          span.ReviewTable__author  164×28 @18,23
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Алексей»
             span.ReviewTable__who  60×22 @38,3
               span.ReviewTable__name  60×22 @0,0  Manrope 600 15/22  lines=1  «Алексей»
         td.ReviewTable__colRating  135×74 @200,0  b0 0 1 0
-          span.Rating__stars  99×15 @18,16
+          span.Rating__stars  99×15 @18,27
             svg.Rating__star  15×15 @0,0
             svg.Rating__star#2  15×15 @21,0
             svg.Rating__star#3  15×15 @42,0
@@ -310,36 +310,36 @@ section.Card__card  1408×476 @16,16  r20  b1
         td[role=cell]#2  596×74 @335,0  b0 0 1 0
           blockquote.ReviewTable__text  560×45 @18,15  Manrope 400 15/22  lines=2  «Приехали в тот же день, смету назвали за»
         td[role=cell]#3  140×74 @931,0  b0 0 1 0
-          span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
+          span.Badge__badge  98×24 @18,25  Manrope 600 12/16  r100  b1  lines=1  «Опубликован»
         td.ReviewTable__cellDate  120×74 @1071,0  b0 0 1 0
-          time.ReviewTable__when  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when  79×19 @18,27  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×74 @1191,0  b0 0 1 0
-          div.ReviewRowActions__cell  179×40 @18,15
+          div.ReviewRowActions__cell  179×40 @18,17
             div.ReviewRowActions__actions  118×40 @0,0
               button.Button__button  118×40 @0,0  r9  b1
                 span.Button__content  88×16 @15,12
                   span.Button__label  88×16 @0,0  Manrope 600 13/16  lines=1  «Снять с сайта»
       tr[role=row]#3  1406×115 @0,130
         td[role=cell]  200×115 @0,0  b0 0 1 0
-          span.ReviewTable__author#2  164×28 @18,15
+          span.ReviewTable__author#2  164×28 @18,44
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials#2  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «С»
               span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Сергей»
             span.ReviewTable__who  52×22 @38,3
               span.ReviewTable__name#2  52×22 @0,0  Manrope 600 15/22  lines=1  «Сергей»
         td.ReviewTable__colRating  135×115 @200,0  b0 0 1 0
-          span.Rating__stars#2  99×15 @18,16
+          span.Rating__stars#2  99×15 @18,47
             svg.Rating__star  15×15 @0,0
             svg.Rating__star#2  15×15 @21,0
             svg.Rating__star#3  15×15 @42,0
             svg.Rating__star#4  15×15 @63,0
             svg.Rating__star#5  15×15 @84,0
         td[role=cell]#2  596×115 @335,0  b0 0 1 0
-          blockquote.ReviewTable__text#2  560×22 @18,15  Manrope 400 15/22  lines=1  «Ставили сплит в 2019-м, работает до сих»
+          blockquote.ReviewTable__text#2  560×22 @18,46  Manrope 400 15/22  lines=1  «Ставили сплит в 2019-м, работает до сих»
         td[role=cell]#3  140×115 @931,0  b0 0 1 0
-          span.Badge__badge#2  71×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
+          span.Badge__badge#2  71×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «В архиве»
         td.ReviewTable__cellDate  120×115 @1071,0  b0 0 1 0
-          time.ReviewTable__when#2  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#2  79×19 @18,47  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×115 @1191,0  b0 0 1 0
           div.ReviewRowActions__cell#2  179×86 @18,15
             div.ReviewRowActions__actions  179×86 @0,0
@@ -351,25 +351,25 @@ section.Card__card  1408×476 @16,16  r20  b1
                   span.Button__label#3  149×16 @0,0  Manrope 600 13/16  lines=1  «Вернуть на модерацию»
       tr[role=row]#4  1406×115 @0,245
         td[role=cell]  200×115 @0,0  b0 0 1 0
-          span.ReviewTable__author#3  164×28 @18,15
+          span.ReviewTable__author#3  164×28 @18,44
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials#3  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
             span.ReviewTable__who  55×22 @38,3
               span.ReviewTable__name#3  55×22 @0,0  Manrope 600 15/22  lines=1  «Аноним»
         td.ReviewTable__colRating  135×115 @200,0  b0 0 1 0
-          span.Rating__stars#3  99×15 @18,16
+          span.Rating__stars#3  99×15 @18,47
             svg.Rating__star  15×15 @0,0
             svg.Rating__star#2  15×15 @21,0
             svg.Rating__star#3  15×15 @42,0
             svg.Rating__star#4  15×15 @63,0
             svg.Rating__star#5  15×15 @84,0
         td[role=cell]#2  596×115 @335,0  b0 0 1 0
-          blockquote.ReviewTable__text#3  560×22 @18,15  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text#3  560×22 @18,46  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  140×115 @931,0  b0 0 1 0
-          span.Badge__badge#3  78×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
+          span.Badge__badge#3  78×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «Отклонён»
         td.ReviewTable__cellDate  120×115 @1071,0  b0 0 1 0
-          time.ReviewTable__when#3  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#3  79×19 @18,47  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×115 @1191,0  b0 0 1 0
           div.ReviewRowActions__cell#3  179×86 @18,15
             div.ReviewRowActions__actions  179×86 @0,0
@@ -381,25 +381,25 @@ section.Card__card  1408×476 @16,16  r20  b1
                   span.Button__label#5  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
       tr[role=row]#5  1406×115 @0,360
         td[role=cell]  200×115 @0,0
-          span.ReviewTable__author#4  164×28 @18,15
+          span.ReviewTable__author#4  164×28 @18,44
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials#4  10×11 @9,9  Onest 700 11/11  ls0  lines=1  «М»
               span#4  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Марина»
             span.ReviewTable__who  55×22 @38,3
               span.ReviewTable__name#4  55×22 @0,0  Manrope 600 15/22  lines=1  «Марина»
         td.ReviewTable__colRating  135×115 @200,0
-          span.Rating__stars#4  99×15 @18,16
+          span.Rating__stars#4  99×15 @18,47
             svg.Rating__star  15×15 @0,0
             svg.Rating__star#2  15×15 @21,0
             svg.Rating__star#3  15×15 @42,0
             svg.Rating__star#4  15×15 @63,0
             svg.Rating__star#5  15×15 @84,0
         td[role=cell]#2  596×115 @335,0
-          blockquote.ReviewTable__text#4  560×22 @18,15  Manrope 400 15/22  lines=1  «Приехали на два часа позже обещанного, х»
+          blockquote.ReviewTable__text#4  560×22 @18,46  Manrope 400 15/22  lines=1  «Приехали на два часа позже обещанного, х»
         td[role=cell]#3  140×115 @931,0
-          span.Badge__badge#4  104×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
+          span.Badge__badge#4  104×24 @18,45  Manrope 600 12/16  r100  b1  lines=1  «На модерации»
         td.ReviewTable__cellDate  120×115 @1071,0
-          time.ReviewTable__when#4  79×19 @18,16  Manrope 400 15/22  lines=1  «18.08.2026»
+          time.ReviewTable__when#4  79×19 @18,47  Manrope 400 15/22  lines=1  «18.08.2026»
         td[role=cell]#4  215×115 @1191,0
           div.ReviewRowActions__cell#4  179×86 @18,15
             div.ReviewRowActions__actions  179×86 @0,0

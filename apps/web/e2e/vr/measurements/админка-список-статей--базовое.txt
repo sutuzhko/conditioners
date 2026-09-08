@@ -2,14 +2,14 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1007
+390 → 390×1029
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×975 @16,16  r20  b1
-  div.Table__viewport  356×973 @1,1
-    table.Table__table  356×973 @0,0
+section.Card__card  358×997 @16,16  r20  b1
+  div.Table__viewport  356×995 @1,1
+    table.Table__table  356×995 @0,0
       tr[role=row]  1×56 @0,0
         th  114×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
         th.AdminArticleList__colCategory  99×56 @114,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
@@ -18,11 +18,11 @@ section.Card__card  358×975 @16,16  r20  b1
         th.AdminArticleList__colState  102×56 @373,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
         th.AdminArticleList__colActions  36×56 @475,0  b0 0 1 0
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  356×326 @0,0  r14  b1
+      tr.TableRow__row  356×326 @0,0  r14  b1
         td.AdminArticleList__titleCell  354×103 @1,5
           td.AdminArticleList__titleCell::before  65×20 @0,0
           span.AdminArticleList__names  247×89 @93,7
-            span.AdminArticleList__name  247×45 @0,0  Manrope 600 15/22  lines=2  «Инвертор или обычный кондиционер»
+            a.AdminArticleList__name  247×45 @0,0  Manrope 600 15/22  lines=2  «Инвертор или обычный кондиционер»
             span.AdminArticleList__sub  247×42 @0,47
               span.AdminArticleList__slug  187×38 @60,2  JetBrains Mono 400 13/20  lines=2  «/knowledge/invertor-ili-obychnyy»
               span  8×18 @159,22  Manrope 400 13/20  lines=1  «·»
@@ -39,66 +39,56 @@ section.Card__card  358×975 @16,16  r20  b1
           span.Badge__badge  123×28 @217,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
         td[role=cell]#3  354×51 @1,270  b1 0 0 0
-          div.TableActions__actions  116×36 @224,8
+          div.TableActions__actions  76×36 @264,8
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor  36×36 @0,0
                 a.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea  36×36 @0,0
                     svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor  36×36 @0,0
-                a.TableActions__action#2  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg#2  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+            span.ArticleRowRemove__root  36×36 @40,0  r100
               span.Tooltip__wrap  36×36 @0,0
                 span.Tooltip__anchor#2  36×36 @0,0
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  24×34 @6,1
-                      svg#3  16×16 @4,9
-      tr[role=row]#3  356×302 @0,336  r14  b1
-        td.AdminArticleList__titleCell  354×80 @1,5
+                      svg#2  16×16 @4,9
+      tr.TableRow__row#2  356×324 @0,336  r14  b1
+        td.AdminArticleList__titleCell  354×101 @1,5
           td.AdminArticleList__titleCell::before  65×20 @0,0
-          span.AdminArticleList__names#2  247×66 @93,7
-            span.AdminArticleList__name  247×22 @0,0  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
-            span.AdminArticleList__sub  247×41 @0,24
+          span.AdminArticleList__names#2  247×87 @93,7
+            a.AdminArticleList__name  247×44 @0,0  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
+            span.AdminArticleList__sub  247×41 @0,46
               span.AdminArticleList__slug#2  226×17 @15,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/kak-chasto-chistit»
               span#2  6×18 @242,1  Manrope 400 13/20  lines=1  «·»
               span.AdminArticleList__chars#2  80×18 @167,22  Manrope 400 13/20  lines=1  «4 380 знаков»
-        td[role=cell]  354×42 @1,85
+        td[role=cell]  354×42 @1,106
           td[role=cell]::before  51×20 @0,0
           span.Badge__badge#2  110×28 @230,7  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
-        td.AdminArticleList__date  354×36 @1,127  Manrope 400 15/22  lines=1  «14.07.2026»
+        td.AdminArticleList__date  354×36 @1,148  Manrope 400 15/22  lines=1  «14.07.2026»
           td.AdminArticleList__date::before  30×20 @0,0
-        td.AdminArticleList__minutes  354×36 @1,163  Manrope 400 15/22  lines=1  «4 мин»
+        td.AdminArticleList__minutes  354×36 @1,185  Manrope 400 15/22  lines=1  «4 мин»
           td.AdminArticleList__minutes::before  45×20 @0,0
-        td[role=cell]#2  354×42 @1,200
+        td[role=cell]#2  354×42 @1,221
           td[role=cell]#2::before  55×20 @0,0
           span.Badge__badge#2  123×28 @217,7  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  354×51 @1,246  b1 0 0 0
-          div.TableActions__actions#2  116×36 @224,8
+        td[role=cell]#3  354×51 @1,268  b1 0 0 0
+          div.TableActions__actions#2  76×36 @264,8
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#3  36×36 @0,0
                 a.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea#2  36×36 @0,0
                     svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#3  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+            span.ArticleRowRemove__root  36×36 @40,0  r100
               span.Tooltip__wrap#2  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
+                span.Tooltip__anchor  36×36 @0,0
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  24×34 @6,1
                       svg#2  16×16 @4,9
-      tr[role=row]#4  356×326 @0,648  r14  b1
+      tr.TableRow__row#3  356×326 @0,669  r14  b1
         td.AdminArticleList__titleCell  354×103 @1,5
           td.AdminArticleList__titleCell::before  65×20 @0,0
           span.AdminArticleList__names#3  247×89 @93,7
-            span.AdminArticleList__name  247×45 @0,0  Manrope 600 15/22  lines=2  «Черновик про монтаж в панельном доме»
+            a.AdminArticleList__name  247×45 @0,0  Manrope 600 15/22  lines=2  «Черновик про монтаж в панельном доме»
             span.AdminArticleList__sub  247×42 @0,47  clipped
               span.AdminArticleList__slug#3  234×38 @13,2  JetBrains Mono 400 13/20  lines=2  «/knowledge/montazh-v-panelnom-dome»
               span#3  8×18 @80,22  Manrope 400 13/20  lines=1  «·»
@@ -117,251 +107,216 @@ section.Card__card  358×975 @16,16  r20  b1
           span.Badge__badge#3  95×28 @245,7  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
             span.Badge__dot  6×6 @13,11  r100
         td[role=cell]#3  354×51 @1,270  b1 0 0 0
-          div.TableActions__actions#3  116×36 @224,8
+          div.TableActions__actions#3  76×36 @264,8
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#4  36×36 @0,0
                 button.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea#3  24×34 @6,1
-                    svg#2  16×16 @4,9
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#4  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#4  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+                    svg  16×16 @4,9
+            span.ArticleRowRemove__root  36×36 @40,0  r100
               span.Tooltip__wrap#3  36×36 @0,0
                 span.Tooltip__anchor  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea#4  24×34 @6,1
-                      svg#2  16×16 @4,9
+                  button.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  24×34 @6,1
+                      svg#3  16×16 @4,9
 
 [геометрия 768]
-section.Card__card  736×502 @16,16  r20  b1
-  div.Table__viewport  734×500 @1,1
-    table.Table__table  793×500 @0,0
-      tr[role=row]  793×56 @0,0
-        th  132×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
-        th.AdminArticleList__colCategory  146×56 @132,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
-        th.AdminArticleList__colDate  115×56 @278,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
-        th.AdminArticleList__colMinutes  89×56 @393,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
-        th.AdminArticleList__colState  159×56 @482,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
-        th.AdminArticleList__colActions  152×56 @641,0  b0 0 1 0
+section.Card__card  736×592 @16,16  r20  b1
+  div.Table__viewport  734×590 @1,1
+    table.Table__table  735×590 @0,0
+      tr[role=row]  735×56 @0,0
+        th  114×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
+        th.AdminArticleList__colCategory  146×56 @114,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
+        th.AdminArticleList__colDate  115×56 @259,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
+        th.AdminArticleList__colMinutes  89×56 @374,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
+        th.AdminArticleList__colState  159×56 @464,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
+        th.AdminArticleList__colActions  112×56 @623,0  b0 0 1 0
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  793×141 @0,56
-        td.AdminArticleList__titleCell  132×141 @0,0  b0 0 1 0
-          span.AdminArticleList__names  96×112 @18,15
-            span.AdminArticleList__name  96×67 @0,0  Manrope 600 15/22  lines=3  «Инвертор или обычный кондиционер»
-            span.AdminArticleList__sub  96×42 @0,69  clipped
-              span.AdminArticleList__slug  94×59 @0,2  JetBrains Mono 400 13/20  lines=3  «/knowledge/invertor-ili-obychnyy»
-              span  6×18 @62,43  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars  80×18 @0,64  Manrope 400 13/20  lines=1  «6 120 знаков»
-        td[role=cell]  146×141 @132,0  b0 0 1 0
-          span.Badge__badge  110×44 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Выбор техники»
-        td.AdminArticleList__date  115×141 @278,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
-        td.AdminArticleList__minutes  89×141 @393,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
-        td[role=cell]#2  159×141 @482,0  b0 0 1 0
-          span.Badge__badge  123×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+      tr.TableRow__row  735×186 @0,56
+        td.AdminArticleList__titleCell  114×186 @0,0  b0 0 1 0
+          span.AdminArticleList__names  78×157 @18,15
+            a.AdminArticleList__name  78×112 @0,0  Manrope 600 15/22  lines=5  «Инвертор или обычный кондиционер»
+            span.AdminArticleList__sub  78×42 @0,114  clipped
+              span.AdminArticleList__slug  71×80 @0,2  JetBrains Mono 400 13/20  lines=4  «/knowledge/invertor-ili-obychnyy»
+              span  6×18 @62,64  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars  42×38 @0,86  Manrope 400 13/20  lines=2  «6 120 знаков»
+        td[role=cell]  146×186 @114,0  b0 0 1 0
+          span.Badge__badge  110×44 @18,71  Manrope 600 12/16  r100  b1  lines=2  «Выбор техники»
+        td.AdminArticleList__date  115×186 @259,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
+        td.AdminArticleList__minutes  89×186 @374,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
+        td[role=cell]#2  159×186 @464,0  b0 0 1 0
+          span.Badge__badge  123×28 @18,79  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×141 @641,0  b0 0 1 0
-          div.TableActions__actions  116×36 @18,15
+        td[role=cell]#3  112×186 @623,0  b0 0 1 0
+          div.TableActions__actions  76×36 @18,75
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor  36×36 @0,0
                 a.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea  36×36 @0,0
                     svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor  36×36 @0,0
-                a.TableActions__action#2  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg#2  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+            span.ArticleRowRemove__root  36×36 @40,0  r100
               span.Tooltip__wrap  36×36 @0,0
                 span.Tooltip__anchor#2  36×36 @0,0
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  24×34 @6,1
-                      svg#3  16×16 @4,9
-      tr[role=row]#3  793×141 @0,196
-        td.AdminArticleList__titleCell  132×141 @0,0  b0 0 1 0
-          span.AdminArticleList__names#2  96×112 @18,15
-            span.AdminArticleList__name  96×67 @0,0  Manrope 600 15/22  lines=3  «Как часто чистить кондиционер»
-            span.AdminArticleList__sub  96×42 @0,69  clipped
-              span.AdminArticleList__slug#2  94×59 @0,2  JetBrains Mono 400 13/20  lines=3  «/knowledge/kak-chasto-chistit»
-              span#2  6×18 @55,43  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars#2  80×18 @0,64  Manrope 400 13/20  lines=1  «4 380 знаков»
-        td[role=cell]  146×141 @132,0  b0 0 1 0
-          span.Badge__badge#2  110×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
-        td.AdminArticleList__date  115×141 @278,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
-        td.AdminArticleList__minutes  89×141 @393,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
-        td[role=cell]#2  159×141 @482,0  b0 0 1 0
-          span.Badge__badge#2  123×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+                      svg#2  16×16 @4,9
+      tr.TableRow__row#2  735×163 @0,241
+        td.AdminArticleList__titleCell  114×163 @0,0  b0 0 1 0
+          span.AdminArticleList__names#2  78×134 @18,15
+            a.AdminArticleList__name  78×90 @0,0  Manrope 600 15/22  lines=4  «Как часто чистить кондиционер»
+            span.AdminArticleList__sub  78×42 @0,92  clipped
+              span.AdminArticleList__slug#2  70×80 @0,2  JetBrains Mono 400 13/20  lines=4  «/knowledge/kak-chasto-chistit»
+              span#2  6×18 @55,64  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars#2  42×38 @0,86  Manrope 400 13/20  lines=2  «4 380 знаков»
+        td[role=cell]  146×163 @114,0  b0 0 1 0
+          span.Badge__badge#2  110×28 @18,67  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
+        td.AdminArticleList__date  115×163 @259,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
+        td.AdminArticleList__minutes  89×163 @374,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
+        td[role=cell]#2  159×163 @464,0  b0 0 1 0
+          span.Badge__badge#2  123×28 @18,67  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×141 @641,0  b0 0 1 0
-          div.TableActions__actions#2  116×36 @18,15
+        td[role=cell]#3  112×163 @623,0  b0 0 1 0
+          div.TableActions__actions#2  76×36 @18,64
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#3  36×36 @0,0
                 a.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea#2  36×36 @0,0
                     svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#3  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+            span.ArticleRowRemove__root  36×36 @40,0  r100
               span.Tooltip__wrap#2  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
+                span.Tooltip__anchor  36×36 @0,0
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  24×34 @6,1
                       svg#2  16×16 @4,9
-      tr[role=row]#4  793×163 @0,337
-        td.AdminArticleList__titleCell  132×163 @0,0
-          span.AdminArticleList__names#3  96×134 @18,15
-            span.AdminArticleList__name  96×90 @0,0  Manrope 600 15/22  lines=4  «Черновик про монтаж в панельном доме»
-            span.AdminArticleList__sub  96×42 @0,92  clipped
-              span.AdminArticleList__slug#3  94×80 @0,2  JetBrains Mono 400 13/20  lines=4  «/knowledge/montazh-v-panelnom-dome»
-              span#3  8×18 @31,64  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__chars#3  74×39 @0,64  Manrope 400 13/20  lines=2  «1 840 знаков»
-              span#4  6×18 @42,86  Manrope 400 13/20  lines=1  «·»
-              span.AdminArticleList__warn  71×38 @0,106  Manrope 400 13/20  lines=2  «обложка не выбрана»
-        td[role=cell]  146×163 @132,0
-          span.Badge__badge#3  73×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
-        td.AdminArticleList__date  115×163 @278,0  Manrope 400 15/22  lines=1  «20.08.2026»
-        td.AdminArticleList__minutes  89×163 @393,0  Manrope 400 15/22  lines=1  «8 мин»
-        td[role=cell]#2  159×163 @482,0
-          span.Badge__badge#3  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
+      tr.TableRow__row#3  735×185 @0,405
+        td.AdminArticleList__titleCell  114×185 @0,0
+          span.AdminArticleList__names#3  78×157 @18,15
+            a.AdminArticleList__name  78×112 @0,0  Manrope 600 15/22  lines=5  «Черновик про монтаж в панельном доме»
+            span.AdminArticleList__sub  78×42 @0,114  clipped
+              span.AdminArticleList__slug#3  71×102 @0,2  JetBrains Mono 400 13/20  lines=5  «/knowledge/montazh-v-panelnom-dome»
+              span#3  8×18 @31,86  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__chars#3  74×39 @0,86  Manrope 400 13/20  lines=2  «1 840 знаков»
+              span#4  6×18 @42,107  Manrope 400 13/20  lines=1  «·»
+              span.AdminArticleList__warn  71×38 @0,127  Manrope 400 13/20  lines=2  «обложка не выбрана»
+        td[role=cell]  146×185 @114,0
+          span.Badge__badge#3  73×28 @18,79  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+        td.AdminArticleList__date  115×185 @259,0  Manrope 400 15/22  lines=1  «20.08.2026»
+        td.AdminArticleList__minutes  89×185 @374,0  Manrope 400 15/22  lines=1  «8 мин»
+        td[role=cell]#2  159×185 @464,0
+          span.Badge__badge#3  95×28 @18,79  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×163 @641,0
-          div.TableActions__actions#3  116×36 @18,15
+        td[role=cell]#3  112×185 @623,0
+          div.TableActions__actions#3  76×36 @18,75
             span.Tooltip__wrap  36×36 @0,0  r100
               span.Tooltip__anchor#4  36×36 @0,0
                 button.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea#3  24×34 @6,1
-                    svg#2  16×16 @4,9
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#4  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#4  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+                    svg  16×16 @4,9
+            span.ArticleRowRemove__root  36×36 @40,0  r100
               span.Tooltip__wrap#3  36×36 @0,0
                 span.Tooltip__anchor  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea#4  24×34 @6,1
-                      svg#2  16×16 @4,9
+                  button.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  24×34 @6,1
+                      svg#3  16×16 @4,9
 
 [геометрия 1440]
 section.Card__card  1408×281 @16,16  r20  b1
   div.Table__viewport  1406×279 @1,1
     table.Table__table  1406×279 @0,0
       tr[role=row]  1406×56 @0,0
-        th  715×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
-        th.AdminArticleList__colCategory  150×56 @715,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
-        th.AdminArticleList__colDate  120×56 @865,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
-        th.AdminArticleList__colMinutes  110×56 @985,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
-        th.AdminArticleList__colState  159×56 @1095,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
-        th.AdminArticleList__colActions  152×56 @1254,0  b0 0 1 0
+        th  741×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заголовок»
+        th.AdminArticleList__colCategory  150×56 @741,0  Onest 700 15/23  b0 0 1 0  lines=1  «Рубрика»
+        th.AdminArticleList__colDate  120×56 @891,0  Onest 700 15/23  b0 0 1 0  lines=1  «Дата»
+        th.AdminArticleList__colMinutes  110×56 @1011,0  Onest 700 15/23  b0 0 1 0  lines=1  «Чтение»
+        th.AdminArticleList__colState  159×56 @1121,0  Onest 700 15/23  b0 0 1 0  lines=1  «На сайте»
+        th.AdminArticleList__colActions  126×56 @1280,0  b0 0 1 0
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
-      tr[role=row]#2  1406×75 @0,56
-        td.AdminArticleList__titleCell  715×75 @0,0  b0 0 1 0
-          span.AdminArticleList__names  679×46 @18,15
-            span.AdminArticleList__name  679×22 @0,0  Manrope 600 15/22  lines=1  «Инвертор или обычный кондиционер»
-            span.AdminArticleList__sub  679×21 @0,24
+      tr.TableRow__row  1406×75 @0,56
+        td.AdminArticleList__titleCell  741×75 @0,0  b0 0 1 0
+          span.AdminArticleList__names  705×46 @18,15
+            a.AdminArticleList__name  705×22 @0,0  Manrope 600 15/22  lines=1  «Инвертор или обычный кондиционер»
+            span.AdminArticleList__sub  705×21 @0,24
               span.AdminArticleList__slug  250×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/invertor-ili-obychnyy»
               span  8×18 @250,1  Manrope 400 13/20  lines=1  «·»
               span.AdminArticleList__chars  80×18 @258,1  Manrope 400 13/20  lines=1  «6 120 знаков»
-        td[role=cell]  150×75 @715,0  b0 0 1 0
-          span.Badge__badge  114×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Выбор техники»
-        td.AdminArticleList__date  120×75 @865,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
-        td.AdminArticleList__minutes  110×75 @985,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
-        td[role=cell]#2  159×75 @1095,0  b0 0 1 0
-          span.Badge__badge  123×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]  150×75 @741,0  b0 0 1 0
+          span.Badge__badge  114×28 @18,23  Manrope 600 12/16  r100  b1  lines=1  «Выбор техники»
+        td.AdminArticleList__date  120×75 @891,0  Manrope 400 15/22  b0 0 1 0  lines=1  «01.08.2026»
+        td.AdminArticleList__minutes  110×75 @1011,0  Manrope 400 15/22  b0 0 1 0  lines=1  «6 мин»
+        td[role=cell]#2  159×75 @1121,0  b0 0 1 0
+          span.Badge__badge  123×28 @18,23  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×75 @1254,0  b0 0 1 0
-          div.TableActions__actions  116×36 @18,15
-            span.Tooltip__wrap  36×36 @0,0  r100
+        td[role=cell]#3  126×75 @1280,0  b0 0 1 0
+          div.TableActions__actions  90×36 @18,19
+            span.Tooltip__wrap  36×36 @14,0  r100
               span.Tooltip__anchor  36×36 @0,0
                 a.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea  36×36 @0,0
                     svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor  36×36 @0,0
-                a.TableActions__action#2  36×36 @0,0  r100
-                  span.TableActions__iconArea  36×36 @0,0
-                    svg#2  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+            span.ArticleRowRemove__root  36×36 @54,0  r100
               span.Tooltip__wrap  36×36 @0,0
                 span.Tooltip__anchor#2  36×36 @0,0
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  24×34 @6,1
-                      svg#3  16×16 @4,9
-      tr[role=row]#3  1406×75 @0,130
-        td.AdminArticleList__titleCell  715×75 @0,0  b0 0 1 0
-          span.AdminArticleList__names#2  679×46 @18,15
-            span.AdminArticleList__name  679×22 @0,0  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
-            span.AdminArticleList__sub  679×21 @0,24
+                      svg#2  16×16 @4,9
+      tr.TableRow__row#2  1406×75 @0,130
+        td.AdminArticleList__titleCell  741×75 @0,0  b0 0 1 0
+          span.AdminArticleList__names#2  705×46 @18,15
+            a.AdminArticleList__name  705×22 @0,0  Manrope 600 15/22  lines=1  «Как часто чистить кондиционер»
+            span.AdminArticleList__sub  705×21 @0,24
               span.AdminArticleList__slug#2  226×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/kak-chasto-chistit»
               span#2  8×18 @226,1  Manrope 400 13/20  lines=1  «·»
               span.AdminArticleList__chars#2  80×18 @234,1  Manrope 400 13/20  lines=1  «4 380 знаков»
-        td[role=cell]  150×75 @715,0  b0 0 1 0
-          span.Badge__badge#2  110×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
-        td.AdminArticleList__date  120×75 @865,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
-        td.AdminArticleList__minutes  110×75 @985,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
-        td[role=cell]#2  159×75 @1095,0  b0 0 1 0
-          span.Badge__badge#2  123×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
+        td[role=cell]  150×75 @741,0  b0 0 1 0
+          span.Badge__badge#2  110×28 @18,23  Manrope 600 12/16  r100  b1  lines=1  «Эксплуатация»
+        td.AdminArticleList__date  120×75 @891,0  Manrope 400 15/22  b0 0 1 0  lines=1  «14.07.2026»
+        td.AdminArticleList__minutes  110×75 @1011,0  Manrope 400 15/22  b0 0 1 0  lines=1  «4 мин»
+        td[role=cell]#2  159×75 @1121,0  b0 0 1 0
+          span.Badge__badge#2  123×28 @18,23  Manrope 600 12/16  r100  b1  lines=1  «Опубликована»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×75 @1254,0  b0 0 1 0
-          div.TableActions__actions#2  116×36 @18,15
-            span.Tooltip__wrap  36×36 @0,0  r100
+        td[role=cell]#3  126×75 @1280,0  b0 0 1 0
+          div.TableActions__actions#2  90×36 @18,19
+            span.Tooltip__wrap  36×36 @14,0  r100
               span.Tooltip__anchor#3  36×36 @0,0
                 a.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea#2  36×36 @0,0
                     svg  16×16 @10,10
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#2  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#3  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+            span.ArticleRowRemove__root  36×36 @54,0  r100
               span.Tooltip__wrap#2  36×36 @0,0
-                span.Tooltip__anchor#3  36×36 @0,0
+                span.Tooltip__anchor  36×36 @0,0
                   button.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea#2  24×34 @6,1
                       svg#2  16×16 @4,9
-      tr[role=row]#4  1406×74 @0,205
-        td.AdminArticleList__titleCell  715×74 @0,0
-          span.AdminArticleList__names#3  679×46 @18,15
-            span.AdminArticleList__name  679×22 @0,0  Manrope 600 15/22  lines=1  «Черновик про монтаж в панельном доме»
-            span.AdminArticleList__sub  679×21 @0,24
+      tr.TableRow__row#3  1406×74 @0,205
+        td.AdminArticleList__titleCell  741×74 @0,0
+          span.AdminArticleList__names#3  705×46 @18,15
+            a.AdminArticleList__name  705×22 @0,0  Manrope 600 15/22  lines=1  «Черновик про монтаж в панельном доме»
+            span.AdminArticleList__sub  705×21 @0,24
               span.AdminArticleList__slug#3  265×17 @0,2  JetBrains Mono 400 13/20  lines=1  «/knowledge/montazh-v-panelnom-dome»
               span#3  8×18 @265,1  Manrope 400 13/20  lines=1  «·»
               span.AdminArticleList__chars#3  80×18 @273,1  Manrope 400 13/20  lines=1  «1 840 знаков»
               span#4  8×18 @353,1  Manrope 400 13/20  lines=1  «·»
               span.AdminArticleList__warn  127×18 @361,1  Manrope 400 13/20  lines=1  «обложка не выбрана»
-        td[role=cell]  150×74 @715,0
-          span.Badge__badge#3  73×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
-        td.AdminArticleList__date  120×74 @865,0  Manrope 400 15/22  lines=1  «20.08.2026»
-        td.AdminArticleList__minutes  110×74 @985,0  Manrope 400 15/22  lines=1  «8 мин»
-        td[role=cell]#2  159×74 @1095,0
-          span.Badge__badge#3  95×28 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
+        td[role=cell]  150×74 @741,0
+          span.Badge__badge#3  73×28 @18,23  Manrope 600 12/16  r100  b1  lines=1  «Монтаж»
+        td.AdminArticleList__date  120×74 @891,0  Manrope 400 15/22  lines=1  «20.08.2026»
+        td.AdminArticleList__minutes  110×74 @1011,0  Manrope 400 15/22  lines=1  «8 мин»
+        td[role=cell]#2  159×74 @1121,0
+          span.Badge__badge#3  95×28 @18,23  Manrope 600 12/16  r100  b1  lines=1  «Черновик»
             span.Badge__dot  6×6 @13,11  r100
-        td[role=cell]#3  152×74 @1254,0
-          div.TableActions__actions#3  116×36 @18,15
-            span.Tooltip__wrap  36×36 @0,0  r100
+        td[role=cell]#3  126×74 @1280,0
+          div.TableActions__actions#3  90×36 @18,19
+            span.Tooltip__wrap  36×36 @14,0  r100
               span.Tooltip__anchor#4  36×36 @0,0
                 button.TableActions__action  36×36 @0,0  r100
                   span.TableActions__iconArea#3  24×34 @6,1
-                    svg#2  16×16 @4,9
-            span.Tooltip__wrap#2  36×36 @40,0  r100
-              span.Tooltip__anchor#4  36×36 @0,0
-                a.TableActions__action  36×36 @0,0  r100
-                  span.TableActions__iconArea#4  36×36 @0,0
-                    svg  16×16 @10,10
-            span.ArticleRowRemove__root  36×36 @80,0  r100
+                    svg  16×16 @4,9
+            span.ArticleRowRemove__root  36×36 @54,0  r100
               span.Tooltip__wrap#3  36×36 @0,0
                 span.Tooltip__anchor  36×36 @0,0
-                  button.TableActions__action  36×36 @0,0  r100
-                    span.TableActions__iconArea#4  24×34 @6,1
-                      svg#2  16×16 @4,9
+                  button.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  24×34 @6,1
+                      svg#3  16×16 @4,9
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
@@ -375,10 +330,10 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         th.AdminArticleList__colState  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
         th.AdminArticleList__colActions  border #0f172a #0f172a #e2e8f0 #0f172a
           span  color #0f172a
-      tr[role=row]#2
+      tr.TableRow__row
         td.AdminArticleList__titleCell  border #334155 #334155 #eef2f6 #334155
           span.AdminArticleList__names
-            span.AdminArticleList__name  color #0f172a
+            a.AdminArticleList__name  color #0f172a
             span.AdminArticleList__sub
               span.AdminArticleList__slug  color #5b6a7d
               span  color #5b6a7d
@@ -397,21 +352,16 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
                 a.TableActions__action
                   span.TableActions__iconArea
                     svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor
-                a.TableActions__action#2
-                  span.TableActions__iconArea
-                    svg#2
             span.ArticleRowRemove__root
               span.Tooltip__wrap
                 span.Tooltip__anchor#2
                   button.TableActions__action
                     span.TableActions__iconArea
-                      svg#3
-      tr[role=row]#3
+                      svg#2
+      tr.TableRow__row#2
         td.AdminArticleList__titleCell  border #334155 #334155 #eef2f6 #334155
           span.AdminArticleList__names#2
-            span.AdminArticleList__name  color #0f172a
+            a.AdminArticleList__name  color #0f172a
             span.AdminArticleList__sub
               span.AdminArticleList__slug#2  color #5b6a7d
               span#2  color #5b6a7d
@@ -430,21 +380,16 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
                 a.TableActions__action
                   span.TableActions__iconArea#2
                     svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#2
-                a.TableActions__action
-                  span.TableActions__iconArea#3
-                    svg
             span.ArticleRowRemove__root
               span.Tooltip__wrap#2
-                span.Tooltip__anchor#3
+                span.Tooltip__anchor
                   button.TableActions__action
                     span.TableActions__iconArea#2
                       svg#2
-      tr[role=row]#4
+      tr.TableRow__row#3
         td.AdminArticleList__titleCell
           span.AdminArticleList__names#3
-            span.AdminArticleList__name  color #0f172a
+            a.AdminArticleList__name  color #0f172a
             span.AdminArticleList__sub
               span.AdminArticleList__slug#3  color #5b6a7d
               span#3  color #5b6a7d
@@ -464,50 +409,45 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
               span.Tooltip__anchor#4
                 button.TableActions__action
                   span.TableActions__iconArea#3
-                    svg#2
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#4
-                a.TableActions__action
-                  span.TableActions__iconArea#4
                     svg
             span.ArticleRowRemove__root
               span.Tooltip__wrap#3
                 span.Tooltip__anchor
-                  button.TableActions__action
-                    span.TableActions__iconArea#4
-                      svg#2
+                  button.TableActions__action#2
+                    span.TableActions__iconArea
+                      svg#3
 [палитра light @390]
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__titleCell
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date  color #334155
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date > td.AdminArticleList__date::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes  color #334155
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__titleCell
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date  color #334155
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date > td.AdminArticleList__date::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes  color #334155
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__date > td.AdminArticleList__date::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__titleCell
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__date  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__minutes  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__titleCell
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__date  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__minutes  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#3  border #eef2f6 #334155 #334155 #334155
 
 [палитра dark]
 section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
@@ -521,10 +461,10 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         th.AdminArticleList__colState  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
         th.AdminArticleList__colActions  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
           span  color #eaf1f8
-      tr[role=row]#2
+      tr.TableRow__row
         td.AdminArticleList__titleCell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           span.AdminArticleList__names
-            span.AdminArticleList__name  color #eaf1f8
+            a.AdminArticleList__name  color #eaf1f8
             span.AdminArticleList__sub
               span.AdminArticleList__slug  color #7e92a7
               span  color #7e92a7
@@ -543,21 +483,16 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
                 a.TableActions__action
                   span.TableActions__iconArea
                     svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor
-                a.TableActions__action#2
-                  span.TableActions__iconArea
-                    svg#2
             span.ArticleRowRemove__root
               span.Tooltip__wrap
                 span.Tooltip__anchor#2
                   button.TableActions__action
                     span.TableActions__iconArea
-                      svg#3
-      tr[role=row]#3
+                      svg#2
+      tr.TableRow__row#2
         td.AdminArticleList__titleCell  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
           span.AdminArticleList__names#2
-            span.AdminArticleList__name  color #eaf1f8
+            a.AdminArticleList__name  color #eaf1f8
             span.AdminArticleList__sub
               span.AdminArticleList__slug#2  color #7e92a7
               span#2  color #7e92a7
@@ -576,21 +511,16 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
                 a.TableActions__action
                   span.TableActions__iconArea#2
                     svg
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#2
-                a.TableActions__action
-                  span.TableActions__iconArea#3
-                    svg
             span.ArticleRowRemove__root
               span.Tooltip__wrap#2
-                span.Tooltip__anchor#3
+                span.Tooltip__anchor
                   button.TableActions__action
                     span.TableActions__iconArea#2
                       svg#2
-      tr[role=row]#4
+      tr.TableRow__row#3
         td.AdminArticleList__titleCell
           span.AdminArticleList__names#3
-            span.AdminArticleList__name  color #eaf1f8
+            a.AdminArticleList__name  color #eaf1f8
             span.AdminArticleList__sub
               span.AdminArticleList__slug#3  color #7e92a7
               span#3  color #7e92a7
@@ -610,47 +540,42 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
               span.Tooltip__anchor#4
                 button.TableActions__action
                   span.TableActions__iconArea#3
-                    svg#2
-            span.Tooltip__wrap#2
-              span.Tooltip__anchor#4
-                a.TableActions__action
-                  span.TableActions__iconArea#4
                     svg
             span.ArticleRowRemove__root
               span.Tooltip__wrap#3
                 span.Tooltip__anchor
-                  button.TableActions__action
-                    span.TableActions__iconArea#4
-                      svg#2
+                  button.TableActions__action#2
+                    span.TableActions__iconArea
+                      svg#3
 [палитра dark @390]
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__titleCell
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date  color #c9d5e2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__date > td.AdminArticleList__date::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes  color #c9d5e2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#2 > td[role=cell]#2::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__titleCell
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date  color #c9d5e2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__date > td.AdminArticleList__date::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes  color #c9d5e2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#2 > td[role=cell]#2::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__date > td.AdminArticleList__date::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#2 > td[role=cell]#2::before
-section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__titleCell
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__date  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__minutes  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__titleCell
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__date  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__minutes  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#2 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td.AdminArticleList__titleCell > td.AdminArticleList__titleCell::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td.AdminArticleList__date > td.AdminArticleList__date::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td.AdminArticleList__minutes > td.AdminArticleList__minutes::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#2 > td[role=cell]#2::before
+section.Card__card > div.Table__viewport > table.Table__table > tr.TableRow__row#3 > td[role=cell]#3  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

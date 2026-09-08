@@ -13,6 +13,8 @@ button.IconButton__iconButton#2  44×44 @72,16  r11  b1
   svg  20×20 @12,12
 button.IconButton__iconButton#3  44×44 @128,16  r11  b1
   svg  20×20 @12,12
+button.IconButton__iconButton#4  44×44 @184,16  r11  b1
+  svg  16×16 @14,14
 
 [геометрия 768]
 button.IconButton__iconButton  44×44 @16,16  r11  b1
@@ -21,6 +23,8 @@ button.IconButton__iconButton#2  44×44 @72,16  r11  b1
   svg  20×20 @12,12
 button.IconButton__iconButton#3  44×44 @128,16  r11  b1
   svg  20×20 @12,12
+button.IconButton__iconButton#4  44×44 @184,16  r11  b1
+  svg  16×16 @14,14
 
 [геометрия 1440]
 button.IconButton__iconButton  44×44 @16,16  r11  b1
@@ -29,6 +33,8 @@ button.IconButton__iconButton#2  44×44 @72,16  r11  b1
   svg  20×20 @12,12
 button.IconButton__iconButton#3  44×44 @128,16  r11  b1
   svg  20×20 @12,12
+button.IconButton__iconButton#4  44×44 @184,16  r11  b1
+  svg  16×16 @14,14
 
 [палитра light]
 button.IconButton__iconButton  bg #0e7490  border #0e7490
@@ -37,6 +43,8 @@ button.IconButton__iconButton#2  bg #ffffff  border #e2e8f0
   svg
 button.IconButton__iconButton#3  border transparent
   svg
+button.IconButton__iconButton#4  border transparent
+  svg
 
 [палитра dark]
 button.IconButton__iconButton  bg #0e7490  border #0e7490
@@ -44,4 +52,6 @@ button.IconButton__iconButton  bg #0e7490  border #0e7490
 button.IconButton__iconButton#2  bg #121d31  border #1e2b41
   svg
 button.IconButton__iconButton#3  border transparent
+  svg
+button.IconButton__iconButton#4  border transparent
   svg

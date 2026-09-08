@@ -7,14 +7,14 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×220 @16,16  r20  b1
-  form.LeadSearch__form  316×178 @21,21
+section.Card__card  358×247 @16,16  r20  b1
+  form.LeadSearch__form  316×205 @21,21
     div.Field__field  316×122 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
       input  316×49 @0,27  r11  b1
       p.Field__hint  316×39 @0,83  Manrope 400 13/19  lines=2  «Ищем по имени, телефону, адресу, теме и»
-    div.LeadSearch__actions  69×44 @0,134
-      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+    div.LeadSearch__actions  69×71 @0,134
+      button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
 
 [геометрия 768]
 section.Card__card  736×145 @16,16  r20  b1
@@ -23,8 +23,8 @@ section.Card__card  736×145 @16,16  r20  b1
       label.Field__label  613×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
       input  613×49 @0,27  r11  b1
       p.Field__hint  613×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, телефону, адресу, теме и»
-    div.LeadSearch__actions  69×44 @625,59
-      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+    div.LeadSearch__actions  69×71 @625,0
+      button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
 
 [геометрия 1440]
 section.Card__card  1408×145 @16,16  r20  b1
@@ -33,8 +33,8 @@ section.Card__card  1408×145 @16,16  r20  b1
       label.Field__label  1285×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по обращениям»
       input  1285×49 @0,27  r11  b1
       p.Field__hint  1285×19 @0,83  Manrope 400 13/19  lines=1  «Ищем по имени, телефону, адресу, теме и»
-    div.LeadSearch__actions  69×40 @1297,63
-      button.Button__button  69×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+    div.LeadSearch__actions  69×67 @1297,0
+      button.Button__button  69×40 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px

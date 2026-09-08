@@ -18,10 +18,10 @@ div.Table__viewport  326×499 @32,32
         a.TableRow__link  75×45 @18,15  Manrope 600 15/22  r11  lines=2  «Жуков Кирилл»
         span.TableRow__above  75×81 @18,59  Manrope 400 13/20  lines=4  «Щёкино, Пионерская 4 · гостиная 32 м²»
       td[role=cell]#2  144×155 @111,0  b0 0 1 0
-        span.Badge__badge  108×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
+        span.Badge__badge  108×40 @18,57  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
       td[role=cell]#3  79×155 @255,0  Manrope 400 15/22  b0 0 1 0  lines=3  «2 часа назад»
       td[role=cell]#4  128×155 @333,0  b0 0 1 0
-        div.TableActions__actions  92×44 @18,15
+        div.TableActions__actions  92×44 @18,55
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -37,10 +37,10 @@ div.Table__viewport  326×499 @32,32
         a.TableRow__link#2  75×45 @18,15  Manrope 600 15/22  lines=2  «Белова Ирина»
         span.TableRow__above#2  75×81 @18,59  Manrope 400 13/20  lines=4  «Тула, Кирова 18 · нужен замер»
       td[role=cell]#2  144×155 @111,0  b0 0 1 0
-        span.Badge__badge#2  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+        span.Badge__badge#2  103×24 @18,65  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
       td[role=cell]#3  79×155 @255,0  Manrope 400 15/22  b0 0 1 0  lines=1  «вчера»
       td[role=cell]#4  128×155 @333,0  b0 0 1 0
-        div.TableActions__actions#2  92×44 @18,15
+        div.TableActions__actions#2  92×44 @18,55
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#2  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -56,10 +56,10 @@ div.Table__viewport  326×499 @32,32
         a.TableRow__link#3  75×45 @18,15  Manrope 600 15/22  lines=2  «Соколов Пётр»
         span.TableRow__above#3  75×60 @18,59  Manrope 400 13/20  lines=3  «Тула, Оборонная 12, кв. 34»
       td[role=cell]#2  144×134 @111,0
-        span.Badge__badge#3  108×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
+        span.Badge__badge#3  108×24 @18,55  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
       td[role=cell]#3  79×134 @255,0  Manrope 400 15/22  lines=2  «3 дня назад»
       td[role=cell]#4  128×134 @333,0
-        div.TableActions__actions#3  92×44 @18,15
+        div.TableActions__actions#3  92×44 @18,45
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#3  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -83,10 +83,10 @@ div.Table__viewport  704×355 @32,32
         a.TableRow__link  223×44 @18,15  Manrope 600 15/22  r11  lines=1  «Жуков Кирилл»
         span.TableRow__above  223×40 @18,59  Manrope 400 13/20  lines=2  «Щёкино, Пионерская 4 · гостиная 32 м²»
       td[role=cell]#2  199×113 @259,0  b0 0 1 0
-        span.Badge__badge  163×40 @18,15  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
+        span.Badge__badge  163×40 @18,36  Manrope 600 12/16  r100  b1  lines=2  «Установка кондиционера»
       td[role=cell]#3  118×113 @458,0  Manrope 400 15/22  b0 0 1 0  lines=2  «2 часа назад»
       td[role=cell]#4  128×113 @576,0  b0 0 1 0
-        div.TableActions__actions  92×44 @18,15
+        div.TableActions__actions  92×44 @18,35
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -102,10 +102,10 @@ div.Table__viewport  704×355 @32,32
         a.TableRow__link#2  223×44 @18,15  Manrope 600 15/22  lines=1  «Белова Ирина»
         span.TableRow__above#2  223×20 @18,59  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
       td[role=cell]#2  199×93 @259,0  b0 0 1 0
-        span.Badge__badge#2  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+        span.Badge__badge#2  103×24 @18,34  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
       td[role=cell]#3  118×93 @458,0  Manrope 400 15/22  b0 0 1 0  lines=1  «вчера»
       td[role=cell]#4  128×93 @576,0  b0 0 1 0
-        div.TableActions__actions#2  92×44 @18,15
+        div.TableActions__actions#2  92×44 @18,25
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#2  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -121,10 +121,10 @@ div.Table__viewport  704×355 @32,32
         a.TableRow__link#3  223×44 @18,15  Manrope 600 15/22  lines=1  «Соколов Пётр»
         span.TableRow__above#3  223×20 @18,59  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
       td[role=cell]#2  199×93 @259,0
-        span.Badge__badge#3  108×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
+        span.Badge__badge#3  108×24 @18,34  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
       td[role=cell]#3  118×93 @458,0  Manrope 400 15/22  lines=1  «3 дня назад»
       td[role=cell]#4  128×93 @576,0
-        div.TableActions__actions#3  92×44 @18,15
+        div.TableActions__actions#3  92×44 @18,25
           span.Tooltip__wrap  44×44 @0,0  r100
             span.Tooltip__anchor#3  44×44 @0,0
               a.TableActions__action  44×44 @0,0  r100
@@ -148,10 +148,10 @@ div.Table__viewport  1376×270 @32,32
         a.TableRow__link  499×22 @18,15  Manrope 600 15/22  r11  lines=1  «Жуков Кирилл»
         span.TableRow__above  499×20 @18,37  Manrope 400 13/20  lines=1  «Щёкино, Пионерская 4 · гостиная 32 м²»
       td[role=cell]#2  400×72 @535,0  b0 0 1 0
-        span.Badge__badge  169×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
+        span.Badge__badge  169×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Установка кондиционера»
       td[role=cell]#3  239×72 @935,0  Manrope 400 15/22  b0 0 1 0  lines=1  «2 часа назад»
       td[role=cell]#4  202×72 @1174,0  b0 0 1 0
-        div.TableActions__actions  166×32 @18,15
+        div.TableActions__actions  166×32 @18,20
           span.Tooltip__wrap  32×32 @98,0  r100
             span.Tooltip__anchor  32×32 @0,0
               a.TableActions__action  32×32 @0,0  r100
@@ -167,10 +167,10 @@ div.Table__viewport  1376×270 @32,32
         a.TableRow__link#2  499×22 @18,15  Manrope 600 15/22  lines=1  «Белова Ирина»
         span.TableRow__above#2  499×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Кирова 18 · нужен замер»
       td[role=cell]#2  400×72 @535,0  b0 0 1 0
-        span.Badge__badge#2  103×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
+        span.Badge__badge#2  103×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Консультация»
       td[role=cell]#3  239×72 @935,0  Manrope 400 15/22  b0 0 1 0  lines=1  «вчера»
       td[role=cell]#4  202×72 @1174,0  b0 0 1 0
-        div.TableActions__actions#2  166×32 @18,15
+        div.TableActions__actions#2  166×32 @18,20
           span.Tooltip__wrap  32×32 @98,0  r100
             span.Tooltip__anchor#2  32×32 @0,0
               a.TableActions__action  32×32 @0,0  r100
@@ -186,10 +186,10 @@ div.Table__viewport  1376×270 @32,32
         a.TableRow__link#3  499×22 @18,15  Manrope 600 15/22  lines=1  «Соколов Пётр»
         span.TableRow__above#3  499×20 @18,37  Manrope 400 13/20  lines=1  «Тула, Оборонная 12, кв. 34»
       td[role=cell]#2  400×71 @535,0
-        span.Badge__badge#3  108×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
+        span.Badge__badge#3  108×24 @18,24  Manrope 600 12/16  r100  b1  lines=1  «Обслуживание»
       td[role=cell]#3  239×71 @935,0  Manrope 400 15/22  lines=1  «3 дня назад»
       td[role=cell]#4  202×71 @1174,0
-        div.TableActions__actions#3  166×32 @18,15
+        div.TableActions__actions#3  166×32 @18,20
           span.Tooltip__wrap  32×32 @98,0  r100
             span.Tooltip__anchor#3  32×32 @0,0
               a.TableActions__action  32×32 @0,0  r100

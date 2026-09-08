@@ -166,17 +166,17 @@ div.StockTable__wrap  736×797 @16,16
             a.StockTable__move  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  b0 0 1 0  lines=1  «м»
           td.StockCell__cell  138×143 @330,0  b0 0 1 0
-            button.StockCell__button  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «43,5»
+            button.StockCell__button  138×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «43,5»
           td.StockCell__cell#2  130×143 @468,0  b0 0 1 0
-            button.StockCell__button  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12»
+            button.StockCell__button  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «12»
           td.StockCell__cell#3  130×143 @598,0  b0 0 1 0
-            button.StockCell__button  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  130×143 @728,0  b0 0 1 0
-            span.Badge__badge  46×24 @66,15  Manrope 600 12/16  r100  b1  lines=1  «55,5»
+            span.Badge__badge  46×24 @66,59  Manrope 600 12/16  r100  b1  lines=1  «55,5»
           td.StockTable__number#2  130×143 @858,0  b0 0 1 0
-            span.StockTable__minValue  18×19 @94,16  Manrope 400 15/22  lines=1  «30»
+            span.StockTable__minValue  18×19 @94,61  Manrope 400 15/22  lines=1  «30»
           td.StockTable__menuCell  130×143 @988,0  b0 0 1 0
-            span.StockRowMenu__root  44×44 @18,15
+            span.StockRowMenu__root  44×44 @18,50
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -188,18 +188,18 @@ div.StockTable__wrap  736×797 @16,16
             a.StockTable__move#2  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  b0 0 1 0  lines=1  «пар.»
           td.StockCell__cell  138×143 @330,0  b0 0 1 0
-            button.StockCell__button#2  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+            button.StockCell__button#2  138×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «2»
           td.StockCell__cell#2  130×143 @468,0  b0 0 1 0
-            button.StockCell__button#2  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1»
+            button.StockCell__button#2  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «1»
           td.StockCell__cell#3  130×143 @598,0  b0 0 1 0
-            button.StockCell__button#2  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#2  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  130×143 @728,0  b0 0 1 0
-            span.Badge__badge#2  27×24 @85,15  Manrope 600 12/16  r100  b1  lines=1  «3»
+            span.Badge__badge#2  27×24 @85,59  Manrope 600 12/16  r100  b1  lines=1  «3»
               span  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «К заказу»
           td.StockTable__number#2  130×143 @858,0  b0 0 1 0
-            span.StockTable__minValue#2  9×19 @103,16  Manrope 400 15/22  lines=1  «6»
+            span.StockTable__minValue#2  9×19 @103,61  Manrope 400 15/22  lines=1  «6»
           td.StockTable__menuCell  130×143 @988,0  b0 0 1 0
-            span.StockRowMenu__root#2  44×44 @18,15
+            span.StockRowMenu__root#2  44×44 @18,50
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#2  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -211,18 +211,18 @@ div.StockTable__wrap  736×797 @16,16
             a.StockTable__move#3  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  b0 0 1 0  lines=1  «кг»
           td.StockCell__cell  138×143 @330,0  b0 0 1 0
-            button.StockCell__button#3  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «6,2»
+            button.StockCell__button#3  138×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «6,2»
           td.StockCell__cell#2  130×143 @468,0  b0 0 1 0
-            button.StockCell__button#3  130×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5»
+            button.StockCell__button#3  130×52 @0,45  Manrope 600 15/22  r11  b1  lines=1  «−1,5»
           td.StockCell__cell#3  130×143 @598,0  b0 0 1 0
-            button.StockCell__button#3  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#3  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  130×143 @728,0  b0 0 1 0
-            span.Badge__badge#3  38×24 @74,15  Manrope 600 12/16  r100  b1  lines=1  «4,7»
+            span.Badge__badge#3  38×24 @74,59  Manrope 600 12/16  r100  b1  lines=1  «4,7»
               span  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «Остаток подходит к порогу заказа»
           td.StockTable__number#2  130×143 @858,0  b0 0 1 0
-            span.StockTable__minValue#3  9×19 @103,16  Manrope 400 15/22  lines=1  «4»
+            span.StockTable__minValue#3  9×19 @103,61  Manrope 400 15/22  lines=1  «4»
           td.StockTable__menuCell  130×143 @988,0  b0 0 1 0
-            span.StockRowMenu__root#3  44×44 @18,15
+            span.StockRowMenu__root#3  44×44 @18,50
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -234,16 +234,16 @@ div.StockTable__wrap  736×797 @16,16
             a.StockTable__move#4  85×44 @18,85  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  90×143 @240,0  Manrope 400 15/22  lines=1  «шт.»
           td.StockCell__cell  138×143 @330,0
-            button.StockCell__button#4  138×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+            button.StockCell__button#4  138×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «2»
           td.StockCell__cell#2  130×143 @468,0
-            button.StockCell__button#4  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#4  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockCell__cell#3  130×143 @598,0
-            button.StockCell__button#4  130×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#4  130×52 @0,45  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  130×143 @728,0
-            span.Badge__badge#4  27×24 @85,15  Manrope 600 12/16  r100  b1  lines=1  «2»
+            span.Badge__badge#4  27×24 @85,59  Manrope 600 12/16  r100  b1  lines=1  «2»
           td.StockTable__number#2  130×143 @858,0  Manrope 400 15/22  lines=1  «—»
           td.StockTable__menuCell  130×143 @988,0
-            span.StockRowMenu__root#4  44×44 @18,15
+            span.StockRowMenu__root#4  44×44 @18,50
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -279,17 +279,17 @@ div.StockTable__wrap  1408×601 @16,16
             a.StockTable__move  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  106×102 @282,0  Manrope 400 15/22  b0 0 1 0  lines=1  «м»
           td.StockCell__cell  246×102 @387,0  b0 0 1 0
-            button.StockCell__button  246×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «43,5»
+            button.StockCell__button  246×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «43,5»
           td.StockCell__cell#2  237×102 @633,0  b0 0 1 0
-            button.StockCell__button  237×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «12»
+            button.StockCell__button  237×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «12»
           td.StockCell__cell#3  210×102 @870,0  b0 0 1 0
-            button.StockCell__button  209×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button  209×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  141×102 @1096,93  b0 0 1 1  fixed
-            span.Badge__badge  46×24 @77,15  Manrope 600 12/16  r100  b1  lines=1  «55,5»
+            span.Badge__badge  46×24 @77,39  Manrope 600 12/16  r100  b1  lines=1  «55,5»
           td.StockTable__number#2  130×102 @1237,93  b0 0 1 0  fixed
-            span.StockTable__minValue  18×19 @94,16  Manrope 400 15/22  lines=1  «30»
+            span.StockTable__minValue  18×19 @94,41  Manrope 400 15/22  lines=1  «30»
           td.StockTable__menuCell  56×102 @1367,93  b0 0 1 0  fixed
-            span.StockRowMenu__root  44×44 @6,15
+            span.StockRowMenu__root  44×44 @6,29
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -301,18 +301,18 @@ div.StockTable__wrap  1408×601 @16,16
             a.StockTable__move#2  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  106×102 @282,0  Manrope 400 15/22  b0 0 1 0  lines=1  «пар.»
           td.StockCell__cell  246×102 @387,0  b0 0 1 0
-            button.StockCell__button#2  246×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+            button.StockCell__button#2  246×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «2»
           td.StockCell__cell#2  237×102 @633,0  b0 0 1 0
-            button.StockCell__button#2  237×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «1»
+            button.StockCell__button#2  237×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «1»
           td.StockCell__cell#3  210×102 @870,0  b0 0 1 0
-            button.StockCell__button#2  209×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#2  209×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  141×102 @1096,195  b0 0 1 1  fixed
-            span.Badge__badge#2  27×24 @95,15  Manrope 600 12/16  r100  b1  lines=1  «3»
+            span.Badge__badge#2  27×24 @95,39  Manrope 600 12/16  r100  b1  lines=1  «3»
               span  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «К заказу»
           td.StockTable__number#2  130×102 @1237,195  b0 0 1 0  fixed
-            span.StockTable__minValue#2  9×19 @103,16  Manrope 400 15/22  lines=1  «6»
+            span.StockTable__minValue#2  9×19 @103,41  Manrope 400 15/22  lines=1  «6»
           td.StockTable__menuCell  56×102 @1367,195  b0 0 1 0  fixed
-            span.StockRowMenu__root#2  44×44 @6,15
+            span.StockRowMenu__root#2  44×44 @6,29
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#2  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -324,18 +324,18 @@ div.StockTable__wrap  1408×601 @16,16
             a.StockTable__move#3  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  106×102 @282,0  Manrope 400 15/22  b0 0 1 0  lines=1  «кг»
           td.StockCell__cell  246×102 @387,0  b0 0 1 0
-            button.StockCell__button#3  246×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «6,2»
+            button.StockCell__button#3  246×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «6,2»
           td.StockCell__cell#2  237×102 @633,0  b0 0 1 0
-            button.StockCell__button#3  237×52 @0,1  Manrope 600 15/22  r11  b1  lines=1  «−1,5»
+            button.StockCell__button#3  237×52 @0,25  Manrope 600 15/22  r11  b1  lines=1  «−1,5»
           td.StockCell__cell#3  210×102 @870,0  b0 0 1 0
-            button.StockCell__button#3  209×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#3  209×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  141×102 @1096,296  b0 0 1 1  fixed
-            span.Badge__badge#3  38×24 @84,15  Manrope 600 12/16  r100  b1  lines=1  «4,7»
+            span.Badge__badge#3  38×24 @84,39  Manrope 600 12/16  r100  b1  lines=1  «4,7»
               span  1×1 @9,12  Manrope 600 12/16  lines=1  clipped  «Остаток подходит к порогу заказа»
           td.StockTable__number#2  130×102 @1237,296  b0 0 1 0  fixed
-            span.StockTable__minValue#3  9×19 @103,16  Manrope 400 15/22  lines=1  «4»
+            span.StockTable__minValue#3  9×19 @103,41  Manrope 400 15/22  lines=1  «4»
           td.StockTable__menuCell  56×102 @1367,296  b0 0 1 0  fixed
-            span.StockRowMenu__root#3  44×44 @6,15
+            span.StockRowMenu__root#3  44×44 @6,29
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#3  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14
@@ -347,16 +347,16 @@ div.StockTable__wrap  1408×601 @16,16
             a.StockTable__move#4  85×24 @18,63  Manrope 600 13/20  lines=1  «Переместить»
           td.StockTable__unitCell  106×101 @282,0  Manrope 400 15/22  lines=1  «шт.»
           td.StockCell__cell  246×101 @387,0
-            button.StockCell__button#4  246×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «2»
+            button.StockCell__button#4  246×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «2»
           td.StockCell__cell#2  237×101 @633,0
-            button.StockCell__button#4  237×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#4  237×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockCell__cell#3  210×101 @870,0
-            button.StockCell__button#4  209×52 @0,1  Manrope 400 15/22  r11  b1  lines=1  «0»
+            button.StockCell__button#4  209×52 @0,25  Manrope 400 15/22  r11  b1  lines=1  «0»
           td.StockTable__number  141×101 @1096,398  b0 0 0 1  fixed
-            span.Badge__badge#4  27×24 @95,15  Manrope 600 12/16  r100  b1  lines=1  «2»
+            span.Badge__badge#4  27×24 @95,39  Manrope 600 12/16  r100  b1  lines=1  «2»
           td.StockTable__number#2  130×101 @1237,398  Manrope 400 15/22  lines=1  fixed  «—»
           td.StockTable__menuCell  56×101 @1367,398  fixed
-            span.StockRowMenu__root#4  44×44 @6,15
+            span.StockRowMenu__root#4  44×44 @6,29
               div.RowMenu__root  44×44 @0,0
                 button.RowMenu__trigger#4  44×44 @0,0  r100  b1
                   span.RowMenu__dots  16×16 @14,14

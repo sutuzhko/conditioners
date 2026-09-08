@@ -126,7 +126,7 @@ section.Card__card  736×426 @16,16  r20  b1
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  734×123 @0,56
         td[role=cell]  188×123 @0,0  b0 0 1 0
-          span.ReviewTable__author  152×39 @18,15
+          span.ReviewTable__author  152×39 @18,42
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
@@ -140,9 +140,9 @@ section.Card__card  736×426 @16,16  r20  b1
                   svg.Rating__star#4  15×15 @63,0
                   svg.Rating__star#5  15×15 @84,0
         td[role=cell]#2  118×123 @188,0  b0 0 1 0
-          blockquote.ReviewTable__text  82×67 @18,15  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text  82×67 @18,28  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  214×123 @306,0  b0 0 1 0
-          span.ReviewTable__reason  178×90 @18,15
+          span.ReviewTable__reason  178×90 @18,17
             span.ReviewTable__reasonText  178×67 @0,0  Manrope 400 15/22  lines=3  «Реклама стороннего магазина со ссылкой —»
             span.ReviewTable__reasonBy  178×20 @0,69  Manrope 400 13/20  lines=1  «Богдан, 19.08.2026»
         td[role=cell]#4  215×123 @519,0  b0 0 1 0
@@ -156,7 +156,7 @@ section.Card__card  736×426 @16,16  r20  b1
                   span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
       tr[role=row]#3  734×123 @0,179
         td[role=cell]  188×123 @0,0  b0 0 1 0
-          span.ReviewTable__author#2  152×39 @18,15
+          span.ReviewTable__author#2  152×39 @18,42
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials#2  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИЧ»
               span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Из чата»
@@ -170,9 +170,9 @@ section.Card__card  736×426 @16,16  r20  b1
                   svg.Rating__star#9  15×15 @63,0
                   svg.Rating__star#10  15×15 @84,0
         td[role=cell]#2  118×123 @188,0  b0 0 1 0
-          blockquote.ReviewTable__text#2  82×67 @18,15  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text#2  82×67 @18,28  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  214×123 @306,0  b0 0 1 0
-          span.ReviewTable__reason#2  178×90 @18,15
+          span.ReviewTable__reason#2  178×90 @18,17
             span.ReviewTable__reasonText  178×67 @0,0  Manrope 400 15/22  lines=3  «Отклонено кнопкой в Telegram — Богдан. П»
             span.ReviewTable__reasonBy  178×20 @0,69  Manrope 400 13/20  lines=1  «19.08.2026»
         td[role=cell]#4  215×123 @519,0  b0 0 1 0
@@ -186,7 +186,7 @@ section.Card__card  736×426 @16,16  r20  b1
                   span.Button__label#4  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
       tr[role=row]#4  734×123 @0,302
         td[role=cell]  188×123 @0,0
-          span.ReviewTable__author#3  152×39 @18,15
+          span.ReviewTable__author#3  152×39 @18,42
             span.Avatar__avatar  28×28 @0,6  r100  b1
               span.Avatar__initials#3  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «БП»
               span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Без причины»
@@ -200,9 +200,9 @@ section.Card__card  736×426 @16,16  r20  b1
                   svg.Rating__star#14  15×15 @63,0
                   svg.Rating__star#15  15×15 @84,0
         td[role=cell]#2  118×123 @188,0
-          blockquote.ReviewTable__text#3  82×67 @18,15  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text#3  82×67 @18,28  Manrope 400 15/22  lines=5  clipped  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  214×123 @306,0
-          span.ReviewTable__reasonMissing  145×63 @18,17  Manrope 400 13/20  lines=3  «Причина не записана — отзыв отклонили до»
+          span.ReviewTable__reasonMissing  145×63 @18,30  Manrope 400 13/20  lines=3  «Причина не записана — отзыв отклонили до»
         td[role=cell]#4  215×123 @519,0
           div.ReviewRowActions__cell#3  179×94 @18,15
             div.ReviewRowActions__actions  179×94 @0,0
@@ -225,20 +225,20 @@ section.Card__card  1408×406 @16,16  r20  b1
           span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
       tr[role=row]#2  1406×119 @0,56
         td[role=cell]  200×119 @0,0  b0 0 1 0
-          span.ReviewTable__author  164×28 @18,15
+          span.ReviewTable__author  164×28 @18,45
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials  8×11 @10,9  Onest 700 11/11  ls0  lines=1  «А»
               span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Аноним»
             span.ReviewTable__who  55×22 @38,3
               span.ReviewTable__name  55×22 @0,0  Manrope 600 15/22  lines=1  «Аноним»
         td[role=cell]#2  731×119 @200,0  b0 0 1 0
-          blockquote.ReviewTable__text  695×22 @18,15  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text  695×22 @18,48  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  260×119 @931,0  b0 0 1 0
           span.ReviewTable__reason  224×90 @18,15
             span.ReviewTable__reasonText  224×67 @0,0  Manrope 400 15/22  lines=3  «Реклама стороннего магазина со ссылкой —»
             span.ReviewTable__reasonBy  224×20 @0,69  Manrope 400 13/20  lines=1  «Богдан, 19.08.2026»
         td[role=cell]#4  215×119 @1191,0  b0 0 1 0
-          div.ReviewRowActions__cell  179×86 @18,15
+          div.ReviewRowActions__cell  179×86 @18,16
             div.ReviewRowActions__actions  179×86 @0,0
               button.Button__button  179×40 @0,0  r9  b1
                 span.Button__content  149×16 @15,12
@@ -248,16 +248,16 @@ section.Card__card  1408×406 @16,16  r20  b1
                   span.Button__label#2  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
       tr[role=row]#3  1406×115 @0,174
         td[role=cell]  200×115 @0,0  b0 0 1 0
-          span.ReviewTable__author#2  164×28 @18,15
+          span.ReviewTable__author#2  164×28 @18,44
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials#2  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИЧ»
               span#2  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Из чата»
             span.ReviewTable__who  53×22 @38,3
               span.ReviewTable__name#2  53×22 @0,0  Manrope 600 15/22  lines=1  «Из чата»
         td[role=cell]#2  731×115 @200,0  b0 0 1 0
-          blockquote.ReviewTable__text#2  695×22 @18,15  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text#2  695×22 @18,46  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  260×115 @931,0  b0 0 1 0
-          span.ReviewTable__reason#2  224×67 @18,15
+          span.ReviewTable__reason#2  224×67 @18,24
             span.ReviewTable__reasonText  224×45 @0,0  Manrope 400 15/22  lines=2  «Отклонено кнопкой в Telegram — Богдан. П»
             span.ReviewTable__reasonBy  224×20 @0,47  Manrope 400 13/20  lines=1  «19.08.2026»
         td[role=cell]#4  215×115 @1191,0  b0 0 1 0
@@ -271,16 +271,16 @@ section.Card__card  1408×406 @16,16  r20  b1
                   span.Button__label#4  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
       tr[role=row]#4  1406×115 @0,289
         td[role=cell]  200×115 @0,0
-          span.ReviewTable__author#3  164×28 @18,15
+          span.ReviewTable__author#3  164×28 @18,44
             span.Avatar__avatar  28×28 @0,0  r100  b1
               span.Avatar__initials#3  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «БП»
               span#3  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Без причины»
             span.ReviewTable__who  90×22 @38,3
               span.ReviewTable__name#3  90×22 @0,0  Manrope 600 15/22  lines=1  «Без причины»
         td[role=cell]#2  731×115 @200,0
-          blockquote.ReviewTable__text#3  695×22 @18,15  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
+          blockquote.ReviewTable__text#3  695×22 @18,46  Manrope 400 15/22  lines=1  «Текст рекламы стороннего магазина со ссы»
         td[role=cell]#3  260×115 @931,0
-          span.ReviewTable__reasonMissing  185×40 @18,17  Manrope 400 13/20  lines=2  «Причина не записана — отзыв отклонили до»
+          span.ReviewTable__reasonMissing  185×40 @18,37  Manrope 400 13/20  lines=2  «Причина не записана — отзыв отклонили до»
         td[role=cell]#4  215×115 @1191,0
           div.ReviewRowActions__cell#3  179×86 @18,15
             div.ReviewRowActions__actions  179×86 @0,0

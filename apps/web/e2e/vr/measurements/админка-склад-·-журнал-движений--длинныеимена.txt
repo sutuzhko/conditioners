@@ -71,7 +71,7 @@ div.StockJournal__wrap  736×426 @16,16
             th#9  118×56 @992,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
           tr.StockJournal__row  1110×141 @0,56
             td.StockJournal__when  116×141 @0,0  b0 0 1 0
-              time  79×41 @18,16  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
+              time  79×41 @18,49  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
             td.StockJournal__kind  135×141 @116,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Перемещение»
             td.StockJournal__itemCell  125×141 @251,0  b0 0 1 0
               a.StockJournal__item  89×112 @18,15  Manrope 600 15/22  lines=5  «Труба медная отожжённая в бухте 1/4 дюйм»
@@ -83,15 +83,15 @@ div.StockJournal__wrap  736×426 @16,16
             td.StockJournal__reason  118×141 @992,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
           tr.StockJournal__row#2  1110×163 @0,197
             td.StockJournal__when  116×163 @0,0
-              time#2  80×41 @18,16  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
+              time#2  80×41 @18,60  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
             td.StockJournal__kind  135×163 @116,0  Manrope 400 15/22  lines=2  «Списание в наряд»
             td.StockJournal__itemCell  125×163 @251,0
-              a.StockJournal__item#2  89×112 @18,15  Manrope 600 15/22  lines=5  «Труба медная отожжённая в бухте 1/4 дюйм»
+              a.StockJournal__item#2  89×112 @18,26  Manrope 600 15/22  lines=5  «Труба медная отожжённая в бухте 1/4 дюйм»
             td.StockJournal__qty  98×163 @376,0  Manrope 600 15/22  lines=1  «−4 м»
             td.StockJournal__from  158×163 @474,0  Manrope 400 15/22  lines=3  «Газель Зверева, государственный номер»
             td.StockJournal__to  158×163 @632,0  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__orderCell  83×163 @790,0
-              a.StockJournal__order  47×67 @18,15  Manrope 600 15/22  lines=3  «Наряд № 1059»
+              a.StockJournal__order  47×67 @18,48  Manrope 600 15/22  lines=3  «Наряд № 1059»
             td.StockJournal__author  118×163 @873,0  Manrope 400 15/22  lines=3  «Константин Иванов-Петровский»
             td.StockJournal__reason  118×163 @992,0  Manrope 400 15/22  lines=6  «Накладная 4517 от поставщика с очень дли»
 
@@ -116,7 +116,7 @@ div.StockJournal__wrap  1408×315 @16,16
             th#9  203×56 @1203,0  Onest 700 15/23  b0 0 1 0  lines=1  «Основание»
           tr.StockJournal__row  1406×96 @0,56
             td.StockJournal__when  127×96 @0,0  b0 0 1 0
-              time  79×41 @18,16  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
+              time  79×41 @18,27  Manrope 400 15/22  lines=2  «24.08.2026, 08:40»
             td.StockJournal__kind  141×96 @127,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Перемещение»
             td.StockJournal__itemCell  185×96 @268,0  b0 0 1 0
               a.StockJournal__item  149×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная отожжённая в бухте 1/4 дюйм»
@@ -128,7 +128,7 @@ div.StockJournal__wrap  1408×315 @16,16
             td.StockJournal__reason  203×96 @1203,0  Manrope 400 15/22  b0 0 1 0  lines=1  «—»
           tr.StockJournal__row#2  1406×96 @0,152
             td.StockJournal__when  127×96 @0,0
-              time#2  80×41 @18,16  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
+              time#2  80×41 @18,27  Manrope 400 15/22  lines=2  «26.08.2026, 12:12»
             td.StockJournal__kind  141×96 @127,0  Manrope 400 15/22  lines=2  «Списание в наряд»
             td.StockJournal__itemCell  185×96 @268,0
               a.StockJournal__item#2  149×67 @18,15  Manrope 600 15/22  lines=3  «Труба медная отожжённая в бухте 1/4 дюйм»
@@ -136,7 +136,7 @@ div.StockJournal__wrap  1408×315 @16,16
             td.StockJournal__from  200×96 @551,0  Manrope 400 15/22  lines=3  «Газель Зверева, государственный номер»
             td.StockJournal__to  200×96 @751,0  Manrope 400 15/22  lines=1  «—»
             td.StockJournal__orderCell  97×96 @951,0
-              a.StockJournal__order  61×45 @18,15  Manrope 600 15/22  lines=2  «Наряд № 1059»
+              a.StockJournal__order  61×45 @18,26  Manrope 600 15/22  lines=2  «Наряд № 1059»
             td.StockJournal__author  155×96 @1048,0  Manrope 400 15/22  lines=3  «Константин Иванов-Петровский»
             td.StockJournal__reason  203×96 @1203,0  Manrope 400 15/22  lines=3  «Накладная 4517 от поставщика с очень дли»
 

@@ -16,7 +16,7 @@ div.Table__viewport  358×393 @16,16
     th#5  86×56 @368,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
     th#6  118×56 @453,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
     span  1×1 @588,38  Onest 700 15/23  lines=1  clipped  «Действия»
-    tr[role=row]  358×393 @0,0  r14  b1
+    tr.TableRow__row  358×393 @0,0  r14  b1
       td.ClientRow__who  356×120 @1,5
         td.ClientRow__who::before  328×20 @0,0
         div.ClientRow__person  328×84 @14,29
@@ -28,7 +28,7 @@ div.Table__viewport  358×393 @16,16
             span.ClientRow__note  292×40 @0,44  Manrope 400 13/20  lines=2  «Домофон не работает, звонить на телефон.»
       td.ClientRow__phone  356×58 @1,125
         td.ClientRow__phone::before  55×20 @0,0
-        a  140×44 @202,7  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+        a.TableRow__above  140×44 @202,7  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
       td.ClientRow__address  356×34 @1,183  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
         td.ClientRow__address::before  39×20 @0,0
       td.ClientRow__number  356×36 @1,218  JetBrains Mono 400 15/22  lines=1  «3»
@@ -54,9 +54,9 @@ div.Table__viewport  736×185 @16,16
     th#5  106×56 @697,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
     th#6  118×56 @803,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
     span  1×1 @938,38  Onest 700 15/23  lines=1  clipped  «Действия»
-    tr[role=row]  1001×129 @0,56
+    tr.TableRow__row  1001×129 @0,56
       td.ClientRow__who  342×129 @0,0
-        div.ClientRow__person  306×64 @18,15
+        div.ClientRow__person  306×64 @18,33
           span.Avatar__avatar  28×28 @0,18  r100  b1
             span.Avatar__initials  17×11 @6,9  Onest 700 11/11  ls0  lines=1  «ИС»
             span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Ирина Соколова»
@@ -64,14 +64,14 @@ div.Table__viewport  736×185 @16,16
             a.ClientRow__name  270×44 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
             span.ClientRow__note  270×20 @0,44  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
       td.ClientRow__phone  176×129 @342,0
-        a  140×44 @18,15  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+        a.TableRow__above  140×44 @18,43  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
       td.ClientRow__address  83×129 @518,0  Manrope 400 13/20  lines=5  «Тула, Первомайская, 12, кв. 4»
       td.ClientRow__number  97×129 @601,0  JetBrains Mono 400 15/22  lines=1  «3»
       td.ClientRow__number#2  106×129 @697,0  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
       td.ClientRow__when  118×129 @803,0
-        time  68×18 @18,16  Manrope 400 13/20  lines=1  «29.08.2026»
+        time  68×18 @18,56  Manrope 400 13/20  lines=1  «29.08.2026»
       td.ClientRow__actions  80×129 @921,0
-        div.RowMenu__root  44×44 @18,15
+        div.RowMenu__root  44×44 @18,43
           button.RowMenu__trigger  44×44 @0,0  r100  b1
             span.RowMenu__dots  16×16 @14,14
               svg  16×16 @0,0
@@ -86,7 +86,7 @@ div.Table__viewport  1408×128 @16,16
     th#5  133×56 @1045,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
     th#6  149×56 @1179,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
     span  1×1 @1345,38  Onest 700 15/23  lines=1  clipped  «Действия»
-    tr[role=row]  1408×73 @0,56
+    tr.TableRow__row  1408×73 @0,56
       td.ClientRow__who  432×73 @0,0
         div.ClientRow__person  396×43 @18,15
           span.Avatar__avatar  28×28 @0,7  r100  b1
@@ -96,12 +96,12 @@ div.Table__viewport  1408×128 @16,16
             a.ClientRow__name  270×22 @0,0  Manrope 600 15/22  lines=1  «Ирина Соколова»
             span.ClientRow__note  270×20 @0,22  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
       td.ClientRow__phone  223×73 @432,0
-        a  140×17 @18,16  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
+        a.TableRow__above  140×17 @18,27  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
       td.ClientRow__address  268×73 @655,0  Manrope 400 13/20  lines=1  «Тула, Первомайская, 12, кв. 4»
       td.ClientRow__number  122×73 @923,0  JetBrains Mono 400 15/22  lines=1  «3»
       td.ClientRow__number#2  133×73 @1045,0  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
       td.ClientRow__when  149×73 @1179,0
-        time  68×18 @18,16  Manrope 400 13/20  lines=1  «29.08.2026»
+        time  68×18 @18,27  Manrope 400 13/20  lines=1  «29.08.2026»
       td.ClientRow__actions  80×73 @1328,0
         div.RowMenu__root  44×44 @18,15
           button.RowMenu__trigger  44×44 @0,0  r100  b1
@@ -118,7 +118,7 @@ div.Table__viewport
     th#5  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
     th#6  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
     span  color #0f172a
-    tr[role=row]
+    tr.TableRow__row
       td.ClientRow__who
         div.ClientRow__person
           span.Avatar__avatar  bg #ecfeff  border #ffffff
@@ -128,7 +128,7 @@ div.Table__viewport
             a.ClientRow__name  color #0f172a
             span.ClientRow__note  color #556173
       td.ClientRow__phone
-        a  color #334155
+        a.TableRow__above  color #334155
       td.ClientRow__address  color #475569
       td.ClientRow__number  color #334155
       td.ClientRow__number#2  color #334155
@@ -140,14 +140,14 @@ div.Table__viewport
             span.RowMenu__dots
               svg
 [палитра light @390]
-div.Table__viewport > table.Table__table > tr[role=row]  bg #ffffff  border #e2e8f0
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who > td.ClientRow__who::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__phone > td.ClientRow__phone::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__address > td.ClientRow__address::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number > td.ClientRow__number::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number#2 > td.ClientRow__number#2::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__when > td.ClientRow__when::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__actions  border #eef2f6 #334155 #334155 #334155
+div.Table__viewport > table.Table__table > tr.TableRow__row  bg #ffffff  border #e2e8f0
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__who > td.ClientRow__who::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__phone > td.ClientRow__phone::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__address > td.ClientRow__address::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__number > td.ClientRow__number::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__number#2 > td.ClientRow__number#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__when > td.ClientRow__when::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__actions  border #eef2f6 #334155 #334155 #334155
 
 [палитра dark]
 div.Table__viewport
@@ -159,7 +159,7 @@ div.Table__viewport
     th#5  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     th#6  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
     span  color #eaf1f8
-    tr[role=row]
+    tr.TableRow__row
       td.ClientRow__who
         div.ClientRow__person
           span.Avatar__avatar  bg #22d3ee1a  border #121d31
@@ -169,7 +169,7 @@ div.Table__viewport
             a.ClientRow__name  color #eaf1f8
             span.ClientRow__note  color #8598ac
       td.ClientRow__phone
-        a  color #c9d5e2
+        a.TableRow__above  color #c9d5e2
       td.ClientRow__address  color #a8b6c6
       td.ClientRow__number  color #c9d5e2
       td.ClientRow__number#2  color #c9d5e2
@@ -181,11 +181,11 @@ div.Table__viewport
             span.RowMenu__dots
               svg
 [палитра dark @390]
-div.Table__viewport > table.Table__table > tr[role=row]  bg #121d31  border #1e2b41
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__who > td.ClientRow__who::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__phone > td.ClientRow__phone::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__address > td.ClientRow__address::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number > td.ClientRow__number::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__number#2 > td.ClientRow__number#2::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__when > td.ClientRow__when::before
-div.Table__viewport > table.Table__table > tr[role=row] > td.ClientRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2
+div.Table__viewport > table.Table__table > tr.TableRow__row  bg #121d31  border #1e2b41
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__who > td.ClientRow__who::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__phone > td.ClientRow__phone::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__address > td.ClientRow__address::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__number > td.ClientRow__number::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__number#2 > td.ClientRow__number#2::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__when > td.ClientRow__when::before
+div.Table__viewport > table.Table__table > tr.TableRow__row > td.ClientRow__actions  border #182338 #c9d5e2 #c9d5e2 #c9d5e2

@@ -1,0 +1,147 @@
+# ui-kit-routemodal--правкакнопкой · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+div.Modal__overlay  390×900 @0,0  fixed  portal
+  div.Modal__window  390×445 @0,455  r22 22 0 0  b1
+    div.Modal__head  388×81 @1,1  b0 0 1 0
+      h2.Modal__title  151×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая позиция»
+      button.IconButton__iconButton  40×40 @328,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  388×236 @1,82
+      div.Field__field  348×76 @20,20
+        label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Строка 1»
+        input  348×49 @0,27  r11  b1
+      div.Field__field#2  348×76 @20,96
+        label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Строка 2»
+        input  348×49 @0,27  r11  b1
+      button.Button__button  138×44 @20,172  r9  b1
+        span.Button__content  108×16 @15,14
+          span.Button__label  108×16 @0,0  Manrope 600 13/16  lines=1  «Добавить строку»
+    div.Modal__footer  388×126 @1,318  b1 0 0 0
+      div.RouteModal__confirm  348×97 @20,15
+        p.RouteModal__question  348×45 @0,0  Manrope 400 15/22  lines=2  «Введённое не сохранено. Закрыть и потеря»
+        div.RouteModal__answers  326×44 @0,53
+          button.Button__button  105×44 @0,0  r11  b1
+            span.Button__content#2  67×17 @19,13
+              span.Button__label  67×17 @0,0  Manrope 600 15/17  lines=1  «Остаться»
+          button.Button__button#2  213×44 @113,0  r11  b1
+            span.Button__content  175×17 @19,13
+              span.Button__label#2  175×17 @0,0  Manrope 600 15/17  lines=1  «Закрыть без сохранения»
+
+[геометрия 768]
+div.Modal__overlay  768×900 @0,0  fixed  portal
+  div.Modal__window  560×423 @104,239  r22  b1
+    div.Modal__head  558×81 @1,1  b0 0 1 0
+      h2.Modal__title  151×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая позиция»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×236 @1,82
+      div.Field__field  518×76 @20,20
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Строка 1»
+        input  518×49 @0,27  r11  b1
+      div.Field__field#2  518×76 @20,96
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Строка 2»
+        input  518×49 @0,27  r11  b1
+      button.Button__button  138×44 @20,172  r9  b1
+        span.Button__content  108×16 @15,14
+          span.Button__label  108×16 @0,0  Manrope 600 13/16  lines=1  «Добавить строку»
+    div.Modal__footer  558×103 @1,318  b1 0 0 0
+      div.RouteModal__confirm  518×74 @20,15
+        p.RouteModal__question  350×22 @0,0  Manrope 400 15/22  lines=1  «Введённое не сохранено. Закрыть и потеря»
+        div.RouteModal__answers  326×44 @0,30
+          button.Button__button  105×44 @0,0  r11  b1
+            span.Button__content#2  67×17 @19,13
+              span.Button__label  67×17 @0,0  Manrope 600 15/17  lines=1  «Остаться»
+          button.Button__button#2  213×44 @113,0  r11  b1
+            span.Button__content  175×17 @19,13
+              span.Button__label#2  175×17 @0,0  Manrope 600 15/17  lines=1  «Закрыть без сохранения»
+
+[геометрия 1440]
+div.Modal__overlay  1440×900 @0,0  fixed  portal
+  div.Modal__window  560×419 @440,241  r22  b1
+    div.Modal__head  558×81 @1,1  b0 0 1 0
+      h2.Modal__title  151×25 @20,20  Onest 700 21/25  ls0  lines=1  «Новая позиция»
+      button.IconButton__iconButton  40×40 @498,20  r11  b1
+        svg  18×18 @11,11
+    div.Modal__body  558×232 @1,82
+      div.Field__field  518×76 @20,20
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Строка 1»
+        input  518×49 @0,27  r11  b1
+      div.Field__field#2  518×76 @20,96
+        label.Field__label  518×20 @0,0  Manrope 600 13/20  lines=1  «Строка 2»
+        input  518×49 @0,27  r11  b1
+      button.Button__button  138×40 @20,172  r9  b1
+        span.Button__content  108×16 @15,12
+          span.Button__label  108×16 @0,0  Manrope 600 13/16  lines=1  «Добавить строку»
+    div.Modal__footer  558×103 @1,314  b1 0 0 0
+      div.RouteModal__confirm  518×74 @20,15
+        p.RouteModal__question  350×22 @0,0  Manrope 400 15/22  lines=1  «Введённое не сохранено. Закрыть и потеря»
+        div.RouteModal__answers  326×44 @0,30
+          button.Button__button  105×44 @0,0  r11  b1
+            span.Button__content#2  67×17 @19,13
+              span.Button__label  67×17 @0,0  Manrope 600 15/17  lines=1  «Остаться»
+          button.Button__button#2  213×44 @113,0  r11  b1
+            span.Button__content  175×17 @19,13
+              span.Button__label#2  175×17 @0,0  Manrope 600 15/17  lines=1  «Закрыть без сохранения»
+
+[палитра light]
+div.Modal__overlay  bg #0f172a73
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
+      h2.Modal__title  color #0f172a
+      button.IconButton__iconButton  border transparent  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        svg
+    div.Modal__body
+      div.Field__field
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      div.Field__field#2
+        label.Field__label  color #334155
+        input  bg #ffffff  border #7e8fa6
+      button.Button__button  bg #ffffff  border #7e8fa6
+        span.Button__content
+          span.Button__label  color #0f172a
+    div.Modal__footer  border #e2e8f0 #0f172a #0f172a #0f172a
+      div.RouteModal__confirm
+        p.RouteModal__question  color #334155
+        div.RouteModal__answers
+          button.Button__button  border transparent
+            span.Button__content#2
+              span.Button__label  color #0e7490
+          button.Button__button#2  bg #be123c14  border #be123cb3
+            span.Button__content
+              span.Button__label#2  color #be123c
+
+[палитра dark]
+div.Modal__overlay  bg #020610ad
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+    div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      h2.Modal__title  color #eaf1f8
+      button.IconButton__iconButton  border transparent  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        svg
+    div.Modal__body
+      div.Field__field
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      div.Field__field#2
+        label.Field__label  color #c9d5e2
+        input  bg #0b1424  border #566d95
+      button.Button__button  bg #121d31  border #566d95
+        span.Button__content
+          span.Button__label  color #eaf1f8
+    div.Modal__footer  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+      div.RouteModal__confirm
+        p.RouteModal__question  color #c9d5e2
+        div.RouteModal__answers
+          button.Button__button  border transparent
+            span.Button__content#2
+              span.Button__label  color #22d3ee
+          button.Button__button#2  bg #fb71851f  border #fb7185b3
+            span.Button__content
+              span.Button__label#2  color #fb7185
