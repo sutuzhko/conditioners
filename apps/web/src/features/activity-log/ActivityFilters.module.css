@@ -1,0 +1,47 @@
+/* Отбор журнала событий: человек, роль, раздел, сущность и период. */
+
+.card {
+  min-width: 0;
+}
+
+/* Чем ряд равняется — правило кита (`fieldRowClassName`, issue #742): низ
+   кнопки садится на строку ввода, а не на низ подсказки поля. Здесь остаётся
+   раскладка раздела. */
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Шесть условий в ряд не помещаются нигде, кроме широкого экрана, и это
+   нормально: ряд переносится, а не сжимает поля до нечитаемых. Основание
+   выбрано по самой длинной подписи роли — «Администратор». */
+.select {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+/* Дата уже селекта: в поле стоит `дд.мм.гггг`, и растягивать его не за чем. */
+.field {
+  flex: 0 1 160px;
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reset {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-text);
+  font-size: var(--fs-dense);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reset:hover {
+  text-decoration: underline;
+}

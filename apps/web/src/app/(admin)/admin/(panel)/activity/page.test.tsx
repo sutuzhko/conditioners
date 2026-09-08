@@ -18,7 +18,14 @@ const activityEvent = vi.hoisted(() => ({
   count: vi.fn<(args?: unknown) => Promise<number>>(),
 }));
 
-vi.mock('@/server/db', () => ({ db: { activityEvent } }));
+/* Отбор «Кто» читает учётные записи панели — это второй запрос раздела и
+   второй кусок потока. Подменяется тем же способом: настоящий репозиторий,
+   подменённая база. */
+const adminUser = vi.hoisted(() => ({
+  findMany: vi.fn<(args?: unknown) => Promise<unknown>>(),
+}));
+
+vi.mock('@/server/db', () => ({ db: { activityEvent, adminUser } }));
 
 /* Страж возвращает сессию, как настоящий: страница ей не пользуется, но
    подмена, отдающая не тот тип, — это второй такой же шов. Через `vi.hoisted`,
@@ -47,13 +54,33 @@ const row = {
   action: 'review.unpublish',
   entity: 'review',
   entityId: 'r5',
+  note: null,
+  noteUpdatedAt: null,
   createdAt: new Date('2026-09-08T06:12:00Z'),
+};
+
+/* Сотрудник в том виде, в каком его читает `repo/admin-users`: раздел берёт из
+   него только `id` и подпись — телефон и ИНН в клиентский `Select` не едут. */
+const person = {
+  id: 'u1',
+  login: 'owner',
+  name: 'Богдан',
+  role: 'OWNER' as const,
+  phone: null,
+  active: true,
+  employment: 'STAFF' as const,
+  inn: null,
+  telegramChatId: null,
+  notifyEmail: null,
+  createdAt: new Date('2026-01-01T00:00:00Z'),
+  lastLoginAt: null,
 };
 
 beforeEach(() => {
   vi.clearAllMocks();
   activityEvent.findMany.mockResolvedValue([row]);
   activityEvent.count.mockResolvedValue(1);
+  adminUser.findMany.mockResolvedValue([person]);
 });
 
 /**
@@ -114,6 +141,46 @@ describe('🔴 репозиторий и список сходятся форм�
     render(block);
 
     expect(screen.getByText('Богдан')).toBeInTheDocument();
+  });
+});
+
+describe('отбор доезжает из адреса до запроса', () => {
+  /** Условия последнего запроса к журналу. */
+  function lastWhere(): Record<string, unknown> {
+    const call: unknown = activityEvent.findMany.mock.calls.at(-1)?.[0];
+    if (typeof call !== 'object' || call === null || !('where' in call)) return {};
+
+    const where: unknown = call.where;
+    return typeof where === 'object' && where !== null ? { ...where } : {};
+  }
+
+  it('человек и период из адреса становятся условиями выборки', async () => {
+    await open({ actor: 'u2', from: '2026-09-01', to: '2026-09-07' });
+
+    expect(lastWhere()).toEqual({
+      actorId: 'u2',
+      createdAt: {
+        gte: new Date('2026-08-31T21:00:00.000Z'),
+        lt: new Date('2026-09-07T21:00:00.000Z'),
+      },
+    });
+  });
+
+  /* Адрес правят руками: мусор снимает условие, а не роняет раздел. */
+  it('мусор в условии снимает его, а не роняет раздел', async () => {
+    await open({ role: 'директор', from: '31 февраля' });
+
+    expect(lastWhere()).toEqual({});
+  });
+
+  /* 🔴 Ряд отбора рисуется вне куска потока (issue #581): упавший журнал не
+     должен уносить с экрана набранные условия. Отсюда и то, что список
+     сотрудников читается до потока, а сам журнал — внутри него. */
+  it('список сотрудников читается до потока, а журнал — внутри него', async () => {
+    await AdminActivityPage({ searchParams: Promise.resolve({}) });
+
+    expect(adminUser.findMany).toHaveBeenCalled();
+    expect(activityEvent.findMany).not.toHaveBeenCalled();
   });
 });
 
