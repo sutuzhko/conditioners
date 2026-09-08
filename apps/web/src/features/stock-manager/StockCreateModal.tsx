@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import { RouteModal, useRouteClose, type RouteClose } from '@/shared/ui';
+import { RouteModal, useRouteClose, useUnsavedInput, type RouteClose } from '@/shared/ui';
 
 import { stockManagerContent as texts } from './content';
 import { StockItemForm } from './StockItemForm';
@@ -52,13 +50,13 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
   const closeZones = useRouteClose(STOCK_ZONES_PATH);
 
   /**
-   * 🔴 Несохранённый ввод — это любое нажатие в форме. Признак снимается
-   * событием, а не полями каждой формы: их три, и три копии «чем считать
-   * заполненным» разошлись бы на первой правке. Ложное срабатывание здесь
-   * дешевле пропуска: лишний вопрос стоит одного клика, потерянная форма —
-   * звонка клиента (ADR-117).
+   * 🔴 Несохранённый ввод — это и правка поля, и нажатие кнопки. Признак
+   * снимается китом, а не полями каждой формы: их три, и три копии «чем
+   * считать заполненным» разошлись бы на первой правке. Ложное срабатывание
+   * здесь дешевле пропуска: лишний вопрос стоит одного клика, потерянная
+   * форма — звонка клиента (ADR-117, ADR-141).
    */
-  const [dirty, setDirty] = useState(false);
+  const unsaved = useUnsavedInput();
 
   /**
    * Сохранили — окно уходит само, а список под ним обновляется.
@@ -68,7 +66,7 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
    * Так здесь и было — позиция заводилась, а строк в таблице не прибавлялось.
    */
   const done = (close: RouteClose): void => {
-    setDirty(false);
+    unsaved.markSaved();
     close({ refresh: true });
   };
 
@@ -79,9 +77,9 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
         description={texts.itemAddHint}
         size="lg"
         fallbackHref={STOCK_PATH}
-        dirty={dirty}
+        dirty={unsaved.dirty}
       >
-        <div onChange={() => setDirty(true)}>
+        <div {...unsaved.scope}>
           <StockItemForm
             api={api}
             products={creation.products}
@@ -99,9 +97,9 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
         title={texts.zoneAddTitle}
         description={texts.zoneAddHint}
         fallbackHref={STOCK_ZONES_PATH}
-        dirty={dirty}
+        dirty={unsaved.dirty}
       >
-        <div onChange={() => setDirty(true)}>
+        <div {...unsaved.scope}>
           <StockZoneForm
             api={api}
             people={creation.people}
@@ -119,9 +117,9 @@ export function StockCreateModal({ creation, api }: StockCreateModalProps) {
       description={texts.moveHint}
       size="lg"
       fallbackHref={STOCK_PATH}
-      dirty={dirty}
+      dirty={unsaved.dirty}
     >
-      <div onChange={() => setDirty(true)}>
+      <div {...unsaved.scope}>
         <StockMoveForm
           api={api}
           items={creation.items}

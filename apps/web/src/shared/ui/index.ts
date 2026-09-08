@@ -162,6 +162,8 @@ export { Modal } from './Modal/Modal';
 export type { ModalProps, ModalSize } from './Modal/Modal';
 export { RouteModal, useRouteClose } from './RouteModal/RouteModal';
 export type { RouteModalProps, RouteClose, RouteCloseOptions } from './RouteModal/RouteModal';
+export { useUnsavedInput } from './RouteModal/useUnsavedInput';
+export type { UnsavedInput, UnsavedInputScope } from './RouteModal/useUnsavedInput';
 
 export { Drawer } from './Drawer/Drawer';
 export type { DrawerProps } from './Drawer/Drawer';
@@ -170,6 +172,8 @@ export { ThemeToggle } from './ThemeToggle/ThemeToggle';
 export type { ThemeToggleProps } from './ThemeToggle/ThemeToggle';
 export { ThemeSwitch } from './ThemeSwitch/ThemeSwitch';
 export type { ThemeSwitchProps } from './ThemeSwitch/ThemeSwitch';
+export { useLeaveGuard } from './lib/useLeaveGuard';
+export type { LeaveGuardOptions } from './lib/useLeaveGuard';
 export { useTheme } from './lib/useTheme';
 export type { Theme, ThemeControl } from './lib/useTheme';
 
