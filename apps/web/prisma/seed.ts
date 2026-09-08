@@ -11,6 +11,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PrismaClient, type Prisma } from '@prisma/client';
 
+import { SEED_WORK_TYPES } from './work-types';
+
 const prisma = new PrismaClient();
 
 const TODO = 'ЗАПОЛНИТЕ В АДМИНКЕ';
@@ -147,6 +149,19 @@ const settings: Record<string, Prisma.InputJsonValue> = {
 const slugFor = (badge: string) => `split-sistema-${badge}`;
 
 async function main() {
+  /* 🔴 Справочник видов работ (ADR-343, issue #830). `update: {}` — сид
+     заполняет пустой справочник, но не выравнивает существующий: цвет,
+     подпись и порядок владелец правит сам, и повторный запуск сида не имеет
+     права возвращать их к заводским. Ту же семёрку заводит миграция — здесь
+     она на случай базы, в которой справочник очистили. */
+  for (const type of SEED_WORK_TYPES) {
+    await prisma.workType.upsert({
+      where: { code: type.code },
+      update: {},
+      create: type,
+    });
+  }
+
   for (const [key, value] of Object.entries(settings)) {
     await prisma.setting.upsert({
       where: { key },
@@ -237,6 +252,7 @@ async function main() {
   }
 
   const counts = {
+    'виды работ': await prisma.workType.count(),
     настройки: await prisma.setting.count(),
     цены: await prisma.priceRow.count(),
     товары: await prisma.product.count(),

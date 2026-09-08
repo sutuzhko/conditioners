@@ -1753,7 +1753,8 @@ const orders: readonly DemoOrder[] = [
 // ---------- Календарь работ ----------
 
 type DemoEvent = {
-  readonly kind: 'CALL' | 'MEASURE' | 'INSTALL' | 'SERVICE' | 'MEETING' | 'NOTE';
+  /** Код вида работ в справочнике (ADR-343), а не значение перечисления. */
+  readonly workTypeCode: 'call' | 'measure' | 'install' | 'service' | 'meeting' | 'note';
   readonly status: 'PLANNED' | 'DONE' | 'CANCELLED';
   readonly dayDelta: number;
   readonly time: string;
@@ -1776,7 +1777,7 @@ type DemoEvent = {
  */
 const events: readonly DemoEvent[] = [
   {
-    kind: 'CALL',
+    workTypeCode: 'call',
     status: 'PLANNED',
     dayDelta: -2,
     time: '11:00',
@@ -1787,7 +1788,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 2,
   },
   {
-    kind: 'CALL',
+    workTypeCode: 'call',
     status: 'DONE',
     dayDelta: -1,
     time: '18:30',
@@ -1798,7 +1799,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 3,
   },
   {
-    kind: 'SERVICE',
+    workTypeCode: 'service',
     status: 'PLANNED',
     dayDelta: 0,
     time: '13:00',
@@ -1810,7 +1811,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 1,
   },
   {
-    kind: 'CALL',
+    workTypeCode: 'call',
     status: 'PLANNED',
     dayDelta: 0,
     time: '19:00',
@@ -1821,7 +1822,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 0,
   },
   {
-    kind: 'MEASURE',
+    workTypeCode: 'measure',
     status: 'PLANNED',
     dayDelta: 1,
     time: '10:00',
@@ -1833,7 +1834,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 3,
   },
   {
-    kind: 'INSTALL',
+    workTypeCode: 'install',
     status: 'PLANNED',
     dayDelta: 1,
     time: '09:00',
@@ -1843,7 +1844,7 @@ const events: readonly DemoEvent[] = [
     note: 'Монтаж сразу после замера, если всё сойдётся.',
   },
   {
-    kind: 'MEETING',
+    workTypeCode: 'meeting',
     status: 'PLANNED',
     dayDelta: 2,
     time: '15:00',
@@ -1854,7 +1855,7 @@ const events: readonly DemoEvent[] = [
     note: 'Забрать четыре внутренних блока и кронштейны.',
   },
   {
-    kind: 'INSTALL',
+    workTypeCode: 'install',
     status: 'PLANNED',
     dayDelta: 3,
     time: '10:00',
@@ -1865,7 +1866,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 0,
   },
   {
-    kind: 'NOTE',
+    workTypeCode: 'note',
     status: 'PLANNED',
     dayDelta: 4,
     time: '09:00',
@@ -1874,7 +1875,7 @@ const events: readonly DemoEvent[] = [
     note: 'Заказать фреон R32, остался один баллон.',
   },
   {
-    kind: 'INSTALL',
+    workTypeCode: 'install',
     status: 'PLANNED',
     dayDelta: 5,
     time: '11:00',
@@ -1886,7 +1887,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 4,
   },
   {
-    kind: 'SERVICE',
+    workTypeCode: 'service',
     status: 'PLANNED',
     dayDelta: 8,
     time: '12:00',
@@ -1897,7 +1898,7 @@ const events: readonly DemoEvent[] = [
     note: 'Плановое ТО по договору, второй раз за год.',
   },
   {
-    kind: 'CALL',
+    workTypeCode: 'call',
     status: 'PLANNED',
     dayDelta: 12,
     time: '10:00',
@@ -1907,7 +1908,7 @@ const events: readonly DemoEvent[] = [
     note: 'Напомнить про ТО следующей весной — договаривались заранее.',
   },
   {
-    kind: 'INSTALL',
+    workTypeCode: 'install',
     status: 'DONE',
     dayDelta: -12,
     time: '09:00',
@@ -1918,7 +1919,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 5,
   },
   {
-    kind: 'MEASURE',
+    workTypeCode: 'measure',
     status: 'CANCELLED',
     dayDelta: -4,
     time: '16:00',
@@ -1930,7 +1931,7 @@ const events: readonly DemoEvent[] = [
     leadIndex: 8,
   },
   {
-    kind: 'SERVICE',
+    workTypeCode: 'service',
     status: 'DONE',
     dayDelta: -6,
     time: '15:00',
@@ -3407,10 +3408,27 @@ async function main(): Promise<void> {
   }
 
   console.error('Календарь…');
+  /* Виды работ заводит миграция и базовый сид: демонстрационный их не
+     перезаписывает, а находит по коду. Пустой справочник здесь — не «нечего
+     показать», а несделанная миграция, и молчать об этом нельзя. */
+  const workTypeIds = new Map(
+    (await prisma.workType.findMany({ select: { id: true, code: true } })).map((type) => [
+      type.code,
+      type.id,
+    ]),
+  );
+
   for (const event of events) {
+    const workTypeId = workTypeIds.get(event.workTypeCode);
+    if (workTypeId === undefined) {
+      throw new Error(
+        `В справочнике нет вида работ «${event.workTypeCode}»: накатите миграции и базовый сид`,
+      );
+    }
+
     await prisma.crmEvent.create({
       data: {
-        kind: event.kind,
+        workTypeId,
         status: event.status,
         at: at(event.dayDelta, event.time),
         durationMin: event.durationMin,
