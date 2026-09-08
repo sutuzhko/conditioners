@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
+import { CLIENT_CYCLE } from '@/entities/staff/access';
 import { ADMIN_ROLES } from '@/entities/staff/model';
 import { settingKeySchema } from '@/entities/settings/model';
 
 import {
   ADMIN_COUNTER_TITLES,
-  ADMIN_LEADS_ROLES,
   ADMIN_ROLE_TITLES,
   ADMIN_SECTIONS,
   ADMIN_TABS,
@@ -159,8 +159,8 @@ describe('🔴 допуск по адресу', () => {
      мягкий станет настоящим правилом: страница отдаёт данные до того, как
      раскладка успевает что-то решить. */
   it('🔴 «Заявки» стоят в колонке по тому же перечню, которым закрыта страница', () => {
-    expect(sectionOf('/admin/leads')?.roles).toBe(ADMIN_LEADS_ROLES);
-    expect([...ADMIN_LEADS_ROLES]).toEqual(['owner', 'admin', 'manager']);
+    expect(sectionOf('/admin/leads')?.roles).toBe(CLIENT_CYCLE);
+    expect([...CLIENT_CYCLE]).toEqual(['owner', 'admin', 'manager']);
   });
 
   it('менеджера пускает в заявки и не пускает в разделы про сайт', () => {
