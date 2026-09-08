@@ -4,23 +4,28 @@
   min-width: 0;
 }
 
-/* Шапка: аватар, автор с оценкой и действия. До 1200px действия уходят под
-   автора и делят ширину пополам (issue #356). */
-.header {
+/* 🔴 Композиция карточки — с артборда «Отзывы» (issue #752). Цитата ведёт,
+   автор стоит под ней подписью, снимок и решения — колонкой справа. До этого
+   строку открывали аватар 48px и имя кеглем `--fs-h3`: карточка читалась как
+   профиль человека, а не как отзыв, о котором принимают решение. От 1200px
+   колонка решений отделяется; ниже всё встаёт в один столбец — справа от
+   абзаца кнопкам не хватает ширины (девкап макета на 768). */
+.main {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 10px 12px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px 16px;
   align-items: start;
-  margin-bottom: 12px;
 }
 
-.who {
+.lead {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
   min-width: 0;
 }
 
+/* Оценка, статус и время: время прижато к правому краю строки — так его
+   находят глазами в списке из восьми карточек, не читая остального. */
 .line {
   display: flex;
   flex-wrap: wrap;
@@ -28,19 +33,38 @@
   align-items: center;
 }
 
-.name {
-  margin: 0;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: 700;
-}
-
 .when {
+  margin-left: auto;
   color: var(--faint);
   font-family: var(--font-mono);
   font-size: var(--fs-caption);
   font-variant-numeric: tabular-nums;
+}
+
+/* Подпись автора под цитатой. Имя остаётся заголовком в разметке — по нему
+   читалка перечисляет очередь модерации, — но кегль у него подписи, а не
+   заголовка: главное в карточке сказал автор, а не его имя. */
+.author {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  font-size: var(--fs-dense);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
 }
 
 /* 🔴 Две кнопки в строке по половине ширины: на узком экране это даёт цель
@@ -48,7 +72,6 @@
 .actions {
   display: flex;
   gap: 8px;
-  grid-column: 1 / -1;
 }
 
 .actions > * {
@@ -57,32 +80,18 @@
 }
 
 @media (width >= 1200px) {
-  .header {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+  .main {
+    grid-template-columns: minmax(0, 1fr) 220px;
   }
 
+  /* Колонка решений — столбик во всю свою ширину: три кнопки в ряд по 70px
+     обрезали бы «Опубликовать» многоточием. */
   .actions {
-    grid-column: 3;
-    grid-row: 1;
+    flex-direction: column;
   }
 
   .actions > * {
     flex: 0 0 auto;
-  }
-}
-
-/* Текст и фото рядом от 900px: снимок прижатый влево оставлял пустой
-   половину карточки (BUGS, «Фото к отзыву нельзя рассмотреть»). */
-.body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
-  align-items: start;
-}
-
-@media (width >= 900px) {
-  .body {
-    grid-template-columns: minmax(0, 1fr) 220px;
   }
 }
 

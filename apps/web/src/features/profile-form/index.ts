@@ -1,6 +1,5 @@
 /** Публичный API раздела профиля. */
 export { ProfileForm, type ProfileFormProps } from './ProfileForm';
-export { ProfileExit, type ProfileExitProps } from './ProfileExit';
 export { ThemeChoice } from './ThemeChoice';
 export { profileFormContent } from './content';
 export { profileApi } from './lib';

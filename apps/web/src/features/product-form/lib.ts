@@ -3,7 +3,12 @@ import type { Product } from '@/entities/product/model';
 import { adminRequest, createdSchema, jsonInit } from '@/shared/lib/api';
 
 import { productFormContent as texts } from './content';
-import { emptyProductValues, type ProductFormValues, type ProductSaveResult } from './model';
+import {
+  emptyProductValues,
+  type ProductFlag,
+  type ProductFormValues,
+  type ProductSaveResult,
+} from './model';
 
 /** Строка из значения, которого может не быть: в поле ввода попадает текст, а не `null`. */
 function text(value: string | number | null): string {
@@ -108,20 +113,25 @@ export async function deleteProduct(id: string): Promise<{ ok: boolean; message?
 export { emptyProductValues };
 
 /**
- * Видимость модели из списка каталога — `PATCH`, а не `PUT`.
+ * Признак модели из списка каталога — `PATCH`, а не `PUT`.
  *
  * 🔴 Частичное тело намеренно: полное обновление отправило бы вместе с флагом
  * весь снимок модели, каким его знает список, — а список знает восемь полей из
  * тридцати. Скидка, характеристики и фотографии, которых в нём нет, ушли бы на
  * сервер пустыми.
+ *
+ * 🔴 Правило витрины остаётся на сервере (issue #751): сколько моделей стоит на
+ * главной и можно ли снять последнюю — решает он, а строка таблицы только
+ * показывает его отказ.
  */
-export async function setProductVisible(
+export async function setProductFlag(
   id: string,
-  visible: boolean,
+  flag: ProductFlag,
+  on: boolean,
 ): Promise<{ ok: boolean; message?: string }> {
   const result = await adminRequest(
     `/api/admin/models/${id}`,
-    jsonInit('PATCH', { visible }),
+    jsonInit('PATCH', { [flag]: on }),
     FORM_TEXTS,
   );
 

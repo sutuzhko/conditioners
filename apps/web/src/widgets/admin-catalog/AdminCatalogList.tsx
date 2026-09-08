@@ -1,9 +1,8 @@
 import Image from 'next/image';
 
-import { ProductRowRemove, VisibilitySwitch } from '@/features/product-form';
+import { ProductFlagSwitch, ProductRowRemove } from '@/features/product-form';
 import { formatMoney } from '@/shared/lib/format';
 import {
-  Badge,
   ButtonLink,
   Card,
   EmptyState,
@@ -142,7 +141,7 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
         <tbody>
           {products.map((product) => (
             <TableRow key={product.id}>
-              <td className={styles.modelCell} role="cell" data-label={texts.colName}>
+              <td role="cell" data-label={texts.colName}>
                 <span className={styles.model}>
                   {/* Снимок 52×38 — размер из макета. Размеры заданы явно:
                       без них строка прыгает по мере загрузки (инвариант 13). */}
@@ -217,28 +216,31 @@ export function AdminCatalogList({ products, filtered = false }: AdminCatalogLis
               </td>
 
               <td role="cell" data-label={texts.colFeatured}>
-                {product.featured ? (
-                  <Badge variant="accent">{texts.featured}</Badge>
-                ) : (
-                  /* Прочерк вместо слов: колонка узкая, а «нет» здесь —
-                     обычное состояние большинства строк. Диктору при этом
-                     читается полная формулировка. */
-                  <span className={styles.muted}>
-                    <span className="srOnly">{texts.notFeatured}</span>
-                    <span aria-hidden="true">—</span>
-                  </span>
-                )}
+                {/* 🔴 Переключатель, а не плашка (issue #751). Плашка с
+                    прочерком только показывала состояние, и снять модель с
+                    главной можно было лишь из карточки — при том, что соседняя
+                    колонка той же природы переключалась на месте. Элемент тот
+                    же, что у видимости: расходиться двум колонкам одной
+                    природы не с чего. */}
+                <ProductFlagSwitch
+                  className={tableAboveClassName()}
+                  id={product.id}
+                  name={product.name}
+                  flag="featured"
+                  on={product.featured}
+                />
               </td>
 
               <td role="cell" data-label={texts.colVisible}>
                 {/* Поднят сам переключатель, а не его ячейка: ниже 600px
                     ячейка идёт полосой во всю ширину карточки и отняла бы у
                     строки заметный кусок площади (ADR-347). */}
-                <VisibilitySwitch
+                <ProductFlagSwitch
                   className={tableAboveClassName()}
                   id={product.id}
                   name={product.name}
-                  visible={product.visible}
+                  flag="visible"
+                  on={product.visible}
                 />
               </td>
 
