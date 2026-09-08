@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.OrderFilters__bar  358×156 @16,16
+div.OrderFilters__bar  358×132 @16,16
   div.OrderFilters__pills  358×44 @0,0
     details.OrderFilters__filter  77×44 @0,0
       summary.OrderFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -45,14 +45,14 @@ div.OrderFilters__bar  358×156 @16,16
             span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
           a.OrderFilters__item#5  81×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
             span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
-  form.OrderFilters__form  358×76 @0,52
-    div.Field__field  358×76 @0,0
-      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
-      input  358×49 @0,27  r11  b1
-  p.OrderFilters__total  358×20 @0,136  Manrope 400 13/20  lines=1  «Всего: 12 нарядов»
+  form.OrderFilters__form  358×52 @0,52
+    div.Field__field  358×52 @0,0
+      label.Field__label  71×13 @15,8  Manrope 600 11/13  lines=1  «Поиск заказа»
+      input  358×52 @0,0  r999  b1
+  p.OrderFilters__total  358×20 @0,112  Manrope 400 13/20  lines=1  «Всего: 12 нарядов»
 
 [геометрия 768]
-div.OrderFilters__bar  736×156 @16,16
+div.OrderFilters__bar  736×132 @16,16
   div.OrderFilters__pills  736×44 @0,0
     details.OrderFilters__filter  77×44 @0,0
       summary.OrderFilters__pill  77×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
@@ -90,15 +90,15 @@ div.OrderFilters__bar  736×156 @16,16
             span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
           a.OrderFilters__item#5  81×44 @0,100  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
             span.OrderFilters__mark  12×20 @13,12  Manrope 700 13/20  lines=1  «✓»
-  form.OrderFilters__form  736×76 @0,52
-    div.Field__field  736×76 @0,0
-      label.Field__label  736×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
-      input  736×49 @0,27  r11  b1
-  p.OrderFilters__total  736×20 @0,136  Manrope 400 13/20  lines=1  «Всего: 12 нарядов»
+  form.OrderFilters__form  736×52 @0,52
+    div.Field__field  736×52 @0,0
+      label.Field__label  71×13 @15,8  Manrope 600 11/13  lines=1  «Поиск заказа»
+      input  736×52 @0,0  r999  b1
+  p.OrderFilters__total  736×20 @0,112  Manrope 400 13/20  lines=1  «Всего: 12 нарядов»
 
 [геометрия 1440]
-div.OrderFilters__bar  1408×104 @16,16
-  div.OrderFilters__pills  1182×34 @0,0
+div.OrderFilters__bar  1408×76 @16,16
+  div.OrderFilters__pills  1194×34 @0,0
     details.OrderFilters__filter  77×34 @0,0
       summary.OrderFilters__pill  77×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Фильтр»
       div.OrderFilters__sheet  220×316 @0,40  r14  b1
@@ -135,18 +135,18 @@ div.OrderFilters__bar  1408×104 @16,16
             span.OrderFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
           a.OrderFilters__item#5  81×34 @0,80  Manrope 600 13/20  r100  b1  lines=1  «Сумма»
             span.OrderFilters__mark  12×20 @13,7  Manrope 700 13/20  lines=1  «✓»
-  form.OrderFilters__form  214×76 @1194,0
-    div.Field__field  214×76 @0,0
-      label.Field__label  214×20 @0,0  Manrope 600 13/20  lines=1  «Поиск заказа»
-      input  214×49 @0,27  r11  b1
-  p.OrderFilters__total  1408×20 @0,84  Manrope 400 13/20  lines=1  «Всего: 12 нарядов»
+  form.OrderFilters__form  202×48 @1206,0
+    div.Field__field  202×48 @0,0
+      label.Field__label  71×13 @15,8  Manrope 600 11/13  lines=1  «Поиск заказа»
+      input  202×48 @0,0  r999  b1
+  p.OrderFilters__total  1408×20 @0,56  Manrope 400 13/20  lines=1  «Всего: 12 нарядов»
 
 [палитра light]
 div.OrderFilters__bar
   div.OrderFilters__pills
     details.OrderFilters__filter
       summary.OrderFilters__pill  color #475569  border #e2e8f0
-      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.OrderFilters__group
           span.OrderFilters__groupTitle  color #5b6a7d
           a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
@@ -161,14 +161,14 @@ div.OrderFilters__bar
           a.OrderFilters__item#5  color #475569  bg #f8fafc  border transparent
     details.OrderFilters__filter#2
       summary.OrderFilters__pill  color #475569  border #e2e8f0
-      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.OrderFilters__group#3
           a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
           a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
           a.OrderFilters__item#3  color #475569  bg #f8fafc  border transparent
     details.OrderFilters__filter#3
       summary.OrderFilters__pill  color #475569  border #e2e8f0
-      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.OrderFilters__group#4
           a.OrderFilters__item  color #475569  bg #f8fafc  border transparent
             span.OrderFilters__mark
@@ -182,8 +182,8 @@ div.OrderFilters__bar
             span.OrderFilters__mark  color #0e7490
   form.OrderFilters__form
     div.Field__field
-      label.Field__label  color #334155
-      input  bg #ffffff  border #7e8fa6
+      label.Field__label  color #556173
+      input  bg #f8fafc  border #7e8fa6
   p.OrderFilters__total  color #5b6a7d
 
 [палитра dark]
@@ -191,7 +191,7 @@ div.OrderFilters__bar
   div.OrderFilters__pills
     details.OrderFilters__filter
       summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
-      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.OrderFilters__group
           span.OrderFilters__groupTitle  color #5b6a7d
           a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
@@ -206,14 +206,14 @@ div.OrderFilters__bar
           a.OrderFilters__item#5  color #475569  bg #f8fafc  border transparent
     details.OrderFilters__filter#2
       summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
-      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.OrderFilters__group#3
           a.OrderFilters__item  color #0e7490  bg #ecfeff  border #0891b2
           a.OrderFilters__item#2  color #475569  bg #f8fafc  border transparent
           a.OrderFilters__item#3  color #475569  bg #f8fafc  border transparent
     details.OrderFilters__filter#3
       summary.OrderFilters__pill  color #a8b6c6  border #1e2b41
-      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0
+      div.OrderFilters__sheet  bg #ffffff  border #e2e8f0  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
         nav.OrderFilters__group#4
           a.OrderFilters__item  color #475569  bg #f8fafc  border transparent
             span.OrderFilters__mark
@@ -227,6 +227,6 @@ div.OrderFilters__bar
             span.OrderFilters__mark  color #0e7490
   form.OrderFilters__form
     div.Field__field
-      label.Field__label  color #c9d5e2
-      input  bg #0b1424  border #566d95
+      label.Field__label  color #8598ac
+      input  bg #0e1729  border #566d95
   p.OrderFilters__total  color #7e92a7

@@ -9,7 +9,7 @@
 [геометрия 390]
 span.Skeleton__skeleton  390×95 @0,0  r11
 span.Skeleton__skeleton#2  390×100 @0,95  r14
-section.Card__card  390×1053 @0,195  r20  b1
+section.Card__card  390×1053 @0,195  r14  b1
   span.Skeleton__skeleton  388×56 @1,1
   span.Skeleton__skeleton#2  388×240 @1,57
   span.Skeleton__skeleton#3  388×240 @1,309
@@ -19,7 +19,7 @@ section.Card__card  390×1053 @0,195  r20  b1
 [геометрия 768]
 span.Skeleton__skeleton  768×47 @0,0  r11
 span.Skeleton__skeleton#2  768×95 @0,47  r14
-section.Card__card  768×653 @0,142  r20  b1
+section.Card__card  768×653 @0,142  r14  b1
   span.Skeleton__skeleton  766×56 @1,1
   span.Skeleton__skeleton#2  766×140 @1,57
   span.Skeleton__skeleton#3  766×140 @1,209
@@ -29,7 +29,7 @@ section.Card__card  768×653 @0,142  r20  b1
 [геометрия 1440]
 span.Skeleton__skeleton  1440×44 @0,0  r11
 span.Skeleton__skeleton#2  1440×70 @0,44  r14
-section.Card__card  1440×493 @0,114  r20  b1
+section.Card__card  1440×493 @0,114  r14  b1
   span.Skeleton__skeleton  1438×56 @1,1
   span.Skeleton__skeleton#2  1438×100 @1,57
   span.Skeleton__skeleton#3  1438×100 @1,169
@@ -39,7 +39,7 @@ section.Card__card  1440×493 @0,114  r20  b1
 [палитра light]
 span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
 span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   span.Skeleton__skeleton  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
   span.Skeleton__skeleton#2  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
   span.Skeleton__skeleton#3  bg #eef2f6  gradient linear-gradient(90deg, #eef2f6 0%, #e2e8f0 50%, #eef2f6 100%)
@@ -49,7 +49,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
 [палитра dark]
 span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
 span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   span.Skeleton__skeleton  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
   span.Skeleton__skeleton#2  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)
   span.Skeleton__skeleton#3  bg #182338  gradient linear-gradient(90deg, #182338 0%, #1e2b41 50%, #182338 100%)

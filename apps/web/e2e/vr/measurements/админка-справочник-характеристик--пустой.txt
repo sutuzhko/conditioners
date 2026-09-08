@@ -10,53 +10,53 @@
 form.SpecsDictionaryForm__form  358×184 @16,16
   p.SpecsDictionaryForm__empty  358×45 @0,0  Manrope 400 15/22  lines=2  «Справочник пуст — характеристики моделей»
   div.SpecsDictionaryForm__actions  358×125 @16,75  b1 0 0 0  fixed
-    button.Button__button  158×44 @0,13  r11  b1
-      span.Button__content  120×17 @19,13
-        span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @0,69  r11  b1
-      span.Button__content  164×17 @19,13
-        span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
+    button.Button__button  154×44 @0,13  r999  b1
+      span.Button__content  116×17 @19,14
+        span.Button__label  116×17 @0,0  Manrope 600 14/17  lines=1  «Добавить группу»
+    button.Button__button#2  197×44 @0,69  r999  b1
+      span.Button__content  159×17 @19,14
+        span.Button__label#2  159×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить справочник»
 
 [геометрия 768]
 form.SpecsDictionaryForm__form  736×105 @16,16
   p.SpecsDictionaryForm__empty  736×22 @0,0  Manrope 400 15/22  lines=1  «Справочник пуст — характеристики моделей»
   div.SpecsDictionaryForm__actions  736×69 @16,52  b1 0 0 0  fixed
-    button.Button__button  158×44 @0,13  r11  b1
-      span.Button__content  120×17 @19,13
-        span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @170,13  r11  b1
-      span.Button__content  164×17 @19,13
-        span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
+    button.Button__button  154×44 @0,13  r999  b1
+      span.Button__content  116×17 @19,14
+        span.Button__label  116×17 @0,0  Manrope 600 14/17  lines=1  «Добавить группу»
+    button.Button__button#2  197×44 @166,13  r999  b1
+      span.Button__content  159×17 @19,14
+        span.Button__label#2  159×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить справочник»
 
 [геометрия 1440]
-form.SpecsDictionaryForm__form  1408×105 @16,16
+form.SpecsDictionaryForm__form  1408×101 @16,16
   p.SpecsDictionaryForm__empty  1408×22 @0,0  Manrope 400 15/22  lines=1  «Справочник пуст — характеристики моделей»
-  div.SpecsDictionaryForm__actions  1408×69 @16,52  b1 0 0 0  fixed
-    button.Button__button  158×44 @0,13  r11  b1
-      span.Button__content  120×17 @19,13
-        span.Button__label  120×17 @0,0  Manrope 600 15/17  lines=1  «Добавить группу»
-    button.Button__button#2  202×44 @170,13  r11  b1
-      span.Button__content  164×17 @19,13
-        span.Button__label#2  164×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить справочник»
+  div.SpecsDictionaryForm__actions  1408×65 @16,52  b1 0 0 0  fixed
+    button.Button__button  154×40 @0,13  r999  b1
+      span.Button__content  116×17 @19,12
+        span.Button__label  116×17 @0,0  Manrope 600 14/17  lines=1  «Добавить группу»
+    button.Button__button#2  197×40 @166,13  r999  b1
+      span.Button__content  159×17 @19,12
+        span.Button__label#2  159×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить справочник»
 
 [палитра light]
 form.SpecsDictionaryForm__form
   p.SpecsDictionaryForm__empty  color #92400e
-  div.SpecsDictionaryForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a
+  div.SpecsDictionaryForm__actions  bg #ffffff  border #e2e8f0 #0f172a #0f172a #0f172a  shadow #0f172a0a 0px 0px 15px 0px, #0f172a14 0px 2px 30px 0px
     button.Button__button  bg #ffffff  border #7e8fa6
       span.Button__content
         span.Button__label  color #0f172a
-    button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button#2  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label#2  color #ffffff
 
 [палитра dark]
 form.SpecsDictionaryForm__form
   p.SpecsDictionaryForm__empty  color #fbbf24
-  div.SpecsDictionaryForm__actions  bg #0b1220  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8
+  div.SpecsDictionaryForm__actions  bg #0b1220  border #1e2b41 #eaf1f8 #eaf1f8 #eaf1f8  shadow #0000003d 0px 0px 15px 0px, #00000057 0px 2px 30px 0px
     button.Button__button  bg #121d31  border #566d95
       span.Button__content
         span.Button__label  color #eaf1f8
-    button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button#2  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label#2  color #ffffff

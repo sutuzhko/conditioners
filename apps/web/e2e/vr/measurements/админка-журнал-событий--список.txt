@@ -68,7 +68,7 @@ section.Card__card  358×819 @16,16
   div.ActivityList__foot  358×0 @0,819
 
 [геометрия 768]
-section.Card__card  736×333 @16,16  r20  b1
+section.Card__card  736×333 @16,16  r14  b1
   div.Table__viewport  734×313 @1,1
     table.Table__table  734×313 @0,0
       tr[role=row]  734×56 @0,0
@@ -109,7 +109,7 @@ section.Card__card  736×333 @16,16  r20  b1
   div.ActivityList__foot  734×18 @1,314
 
 [геометрия 1440]
-section.Card__card  1408×333 @16,16  r20  b1
+section.Card__card  1408×333 @16,16  r14  b1
   div.Table__viewport  1406×313 @1,1
     table.Table__table  1406×313 @0,0
       tr[role=row]  1406×56 @0,0
@@ -150,7 +150,7 @@ section.Card__card  1408×333 @16,16  r20  b1
   div.ActivityList__foot  1406×18 @1,314
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   div.Table__viewport
     table.Table__table
       tr[role=row]
@@ -234,7 +234,7 @@ section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 >
 section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__entity > td.ActivityList__entity::before
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   div.Table__viewport
     table.Table__table
       tr[role=row]

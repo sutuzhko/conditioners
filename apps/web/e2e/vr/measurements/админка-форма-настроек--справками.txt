@@ -7,100 +7,100 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×547 @16,16  r20  b1
+section.Card__card  358×502 @16,16  r14  b1
   h2.SettingsForm__title  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Телефон и почта»
   p.SettingsForm__description  316×45 @21,46  Manrope 400 15/22  lines=2  «Стоят в шапке, в футере и в разметке орг»
-  form.SettingsForm__form  316×418 @21,109
-    div.SettingsForm__fields  316×356 @0,0
-      fieldset.SettingsForm__list  316×175 @0,0
+  form.SettingsForm__form  316×372 @21,109
+    div.SettingsForm__fields  316×310 @0,0
+      fieldset.SettingsForm__list  316×178 @0,0
         legend.SettingsForm__listLabel  73×22 @0,0  Manrope 600 15/22  lines=1  «Телефоны»
-        div.SettingsForm__listRow  316×101 @0,22
-          div.Field__field  316×49 @0,0
-            input  316×49 @0,0  r11  b1
-          button.Button__button  82×44 @0,57  r9  b1
+        div.SettingsForm__listRow  316×104 @0,22
+          div.Field__field  316×52 @0,0
+            input  316×52 @0,0  r999  b1
+          button.Button__button  82×44 @0,60  r999  b1
             span.Button__content  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        button.Button__button  154×44 @0,131  r9  b1
+        button.Button__button  154×44 @0,134  r999  b1
           span.Button__content#2  124×16 @15,14
             span.Button__label  124×16 @0,0  Manrope 600 13/16  lines=1  «Добавить: телефон»
-      div.Field__field  316×76 @0,189
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Почта»
-        input#2  316×49 @0,27  r11  b1
-      div.Field__field#2  316×76 @0,280
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Часы работы»
-        input  316×49 @0,27  r11  b1
-    div.SettingsForm__actions  316×44 @0,374
-      button.Button__button  115×44 @0,0  r11  b1
-        span.Button__content#3  77×17 @19,13
-          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-      button.Button__button#2  161×44 @129,0  r11  b1
-        span.Button__content  123×17 @19,13
-          span.Button__label#2  123×17 @0,0  Manrope 600 15/17  lines=1  «Отменить правки»
+      div.Field__field  316×52 @0,192
+        label.Field__label  33×13 @15,8  Manrope 600 11/13  lines=1  «Почта»
+        input#2  316×52 @0,0  r999  b1
+      div.Field__field#2  316×52 @0,258
+        label.Field__label  70×13 @15,8  Manrope 600 11/13  lines=1  «Часы работы»
+        input  316×52 @0,0  r999  b1
+    div.SettingsForm__actions  316×44 @0,328
+      button.Button__button  113×44 @0,0  r999  b1
+        span.Button__content#3  75×17 @19,14
+          span.Button__label  75×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить»
+      button.Button__button#2  157×44 @127,0  r999  b1
+        span.Button__content  119×17 @19,14
+          span.Button__label#2  119×17 @0,0  Manrope 600 14/17  lines=1  «Отменить правки»
 
 [геометрия 768]
-section.Card__card  736×384 @16,16  r20  b1
+section.Card__card  736×363 @16,16  r14  b1
   h2.SettingsForm__title  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Телефон и почта»
   p.SettingsForm__description  694×22 @21,47  Manrope 400 15/22  lines=1  «Стоят в шапке, в футере и в разметке орг»
-  form.SettingsForm__form  694×276 @21,87
-    div.SettingsForm__fields  694×214 @0,0
-      fieldset.SettingsForm__list  694×123 @0,0
+  form.SettingsForm__form  694×254 @21,87
+    div.SettingsForm__fields  694×192 @0,0
+      fieldset.SettingsForm__list  694×126 @0,0
         legend.SettingsForm__listLabel  73×22 @0,0  Manrope 600 15/22  lines=1  «Телефоны»
-        div.SettingsForm__listRow  520×49 @0,22
-          div.Field__field  430×49 @0,0
-            input  430×49 @0,0  r11  b1
-          button.Button__button  82×44 @438,0  r9  b1
+        div.SettingsForm__listRow  520×52 @0,22
+          div.Field__field  430×52 @0,0
+            input  430×52 @0,0  r999  b1
+          button.Button__button  82×44 @438,0  r999  b1
             span.Button__content  52×16 @15,14
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        button.Button__button  154×44 @0,79  r9  b1
+        button.Button__button  154×44 @0,82  r999  b1
           span.Button__content#2  124×16 @15,14
             span.Button__label  124×16 @0,0  Manrope 600 13/16  lines=1  «Добавить: телефон»
-      div.Field__field  339×76 @0,137
-        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Почта»
-        input#2  339×49 @0,27  r11  b1
-      div.Field__field#2  339×76 @355,137
-        label.Field__label  339×20 @0,0  Manrope 600 13/20  lines=1  «Часы работы»
-        input  339×49 @0,27  r11  b1
-    div.SettingsForm__actions  694×44 @0,232
-      button.Button__button  115×44 @0,0  r11  b1
-        span.Button__content#3  77×17 @19,13
-          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-      button.Button__button#2  161×44 @129,0  r11  b1
-        span.Button__content  123×17 @19,13
-          span.Button__label#2  123×17 @0,0  Manrope 600 15/17  lines=1  «Отменить правки»
+      div.Field__field  339×52 @0,140
+        label.Field__label  33×13 @15,8  Manrope 600 11/13  lines=1  «Почта»
+        input#2  339×52 @0,0  r999  b1
+      div.Field__field#2  339×52 @355,140
+        label.Field__label  70×13 @15,8  Manrope 600 11/13  lines=1  «Часы работы»
+        input  339×52 @0,0  r999  b1
+    div.SettingsForm__actions  694×44 @0,210
+      button.Button__button  113×44 @0,0  r999  b1
+        span.Button__content#3  75×17 @19,14
+          span.Button__label  75×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить»
+      button.Button__button#2  157×44 @127,0  r999  b1
+        span.Button__content  119×17 @19,14
+          span.Button__label#2  119×17 @0,0  Manrope 600 14/17  lines=1  «Отменить правки»
 
 [геометрия 1440]
-section.Card__card  1408×381 @16,16  r20  b1
+section.Card__card  1408×340 @16,16  r14  b1
   h2.SettingsForm__title  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Телефон и почта»
   p.SettingsForm__description  1366×22 @21,48  Manrope 400 15/22  lines=1  «Стоят в шапке, в футере и в разметке орг»
-  form.SettingsForm__form  1366×272 @21,88
-    div.SettingsForm__fields  1366×210 @0,0
-      fieldset.SettingsForm__list  1366×119 @0,0
+  form.SettingsForm__form  1366×230 @21,88
+    div.SettingsForm__fields  1366×172 @0,0
+      fieldset.SettingsForm__list  1366×110 @0,0
         legend.SettingsForm__listLabel  73×22 @0,0  Manrope 600 15/22  lines=1  «Телефоны»
-        div.SettingsForm__listRow  520×49 @0,22
-          div.Field__field  430×49 @0,0
-            input  430×49 @0,0  r11  b1
-          button.Button__button  82×40 @438,0  r9  b1
-            span.Button__content  52×16 @15,12
+        div.SettingsForm__listRow  520×48 @0,22
+          div.Field__field  430×48 @0,0
+            input  430×48 @0,0  r999  b1
+          button.Button__button  82×32 @438,0  r999  b1
+            span.Button__content  52×16 @15,8
               span.Button__label  52×16 @0,0  Manrope 600 13/16  lines=1  «Удалить»
-        button.Button__button  154×40 @0,79  r9  b1
-          span.Button__content#2  124×16 @15,12
+        button.Button__button  154×32 @0,78  r999  b1
+          span.Button__content#2  124×16 @15,8
             span.Button__label  124×16 @0,0  Manrope 600 13/16  lines=1  «Добавить: телефон»
-      div.Field__field  260×76 @0,133
-        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Почта»
-        input#2  260×49 @0,27  r11  b1
-      div.Field__field#2  260×76 @276,133
-        label.Field__label  260×20 @0,0  Manrope 600 13/20  lines=1  «Часы работы»
-        input  260×49 @0,27  r11  b1
-    div.SettingsForm__actions  1366×44 @0,228
-      button.Button__button  115×44 @0,0  r11  b1
-        span.Button__content#3  77×17 @19,13
-          span.Button__label  77×17 @0,0  Manrope 600 15/17  lines=1  «Сохранить»
-      button.Button__button#2  161×44 @129,0  r11  b1
-        span.Button__content  123×17 @19,13
-          span.Button__label#2  123×17 @0,0  Manrope 600 15/17  lines=1  «Отменить правки»
+      div.Field__field  260×48 @0,124
+        label.Field__label  33×13 @15,8  Manrope 600 11/13  lines=1  «Почта»
+        input#2  260×48 @0,0  r999  b1
+      div.Field__field#2  260×48 @276,124
+        label.Field__label  70×13 @15,8  Manrope 600 11/13  lines=1  «Часы работы»
+        input  260×48 @0,0  r999  b1
+    div.SettingsForm__actions  1366×40 @0,190
+      button.Button__button  113×40 @0,0  r999  b1
+        span.Button__content#3  75×17 @19,12
+          span.Button__label  75×17 @0,0  Manrope 600 14/17  lines=1  «Сохранить»
+      button.Button__button#2  157×40 @127,0  r999  b1
+        span.Button__content  119×17 @19,12
+          span.Button__label#2  119×17 @0,0  Manrope 600 14/17  lines=1  «Отменить правки»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   h2.SettingsForm__title  color #0f172a
   p.SettingsForm__description  color #556173
   form.SettingsForm__form
@@ -109,7 +109,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
         legend.SettingsForm__listLabel  color #0f172a
         div.SettingsForm__listRow
           div.Field__field
-            input  bg #ffffff  border #7e8fa6
+            input  bg #f8fafc  border #7e8fa6
           button.Button__button  border transparent
             span.Button__content
               span.Button__label  color #0e7490
@@ -117,13 +117,13 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           span.Button__content#2
             span.Button__label  color #0f172a
       div.Field__field
-        label.Field__label  color #334155
-        input#2  bg #ffffff  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        label.Field__label  color #556173
+        input#2  bg #f8fafc  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
       div.Field__field#2
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
     div.SettingsForm__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content#3
           span.Button__label  color #ffffff
       button.Button__button#2  border transparent
@@ -131,7 +131,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
           span.Button__label#2  color #0e7490
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   h2.SettingsForm__title  color #eaf1f8
   p.SettingsForm__description  color #8598ac
   form.SettingsForm__form
@@ -140,7 +140,7 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
         legend.SettingsForm__listLabel  color #eaf1f8
         div.SettingsForm__listRow
           div.Field__field
-            input  bg #0b1424  border #566d95
+            input  bg #0e1729  border #566d95
           button.Button__button  border transparent
             span.Button__content
               span.Button__label  color #22d3ee
@@ -148,13 +148,13 @@ section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
           span.Button__content#2
             span.Button__label  color #eaf1f8
       div.Field__field
-        label.Field__label  color #c9d5e2
-        input#2  bg #0b1424  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        label.Field__label  color #8598ac
+        input#2  bg #0e1729  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
       div.Field__field#2
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
     div.SettingsForm__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content#3
           span.Button__label  color #ffffff
       button.Button__button#2  border transparent

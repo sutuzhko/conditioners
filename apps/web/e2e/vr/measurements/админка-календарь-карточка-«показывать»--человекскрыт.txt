@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.TeamFilter__card  358×276 @16,16  b1
+section.TeamFilter__card  358×276 @16,16  r14  b1
   p.TeamFilter__cap  82×19 @11,9  Manrope 600 12/19  ls0  lines=1  «Показывать»
   ul.TeamFilter__list  336×90 @11,32
     li.TeamFilter__row  140×44 @0,0
@@ -45,7 +45,7 @@ section.TeamFilter__card  358×276 @16,16  b1
   p.TeamFilter__note  164×25 @183,242  Manrope 400 12/19  r100  b1  lines=1  «Переработка отмечается»
 
 [геометрия 768]
-section.TeamFilter__card  736×110 @16,16  b1
+section.TeamFilter__card  736×110 @16,16  r14  b1
   p.TeamFilter__cap  82×19 @11,22  Manrope 600 12/19  ls0  lines=1  «Показывать»
   ul.TeamFilter__list  376×44 @105,9
     li.TeamFilter__row  140×44 @0,0
@@ -83,7 +83,7 @@ section.TeamFilter__card  736×110 @16,16  b1
   p.TeamFilter__note  164×25 @561,57  Manrope 400 12/19  r100  b1  lines=1  «Переработка отмечается»
 
 [геометрия 1440]
-section.TeamFilter__card  1408×314 @16,16  b1
+section.TeamFilter__card  1408×314 @16,16  r14  b1
   p.TeamFilter__cap  1382×19 @13,13  Manrope 600 12/19  ls0  lines=1  «Показывать»
   ul.TeamFilter__list  1382×58 @13,38
     li.TeamFilter__row  1382×28 @0,0
@@ -134,7 +134,7 @@ section.TeamFilter__card  bg #ffffff  border #cbd5e1
         span.TeamFilter__hours  color #5b6a7d
     li.TeamFilter__row#2
       a.TeamFilter__line
-        span.TeamFilter__box#2  border #7e8fa6
+        span.TeamFilter__box#2  bg #f8fafc  border #7e8fa6
         span.TeamFilter__name#2  color #556173
         span.TeamFilter__hours#2  color #5b6a7d
       a.TeamFilter__only  color #556173
@@ -174,7 +174,7 @@ section.TeamFilter__card  bg #121d31  border #2c3d59
         span.TeamFilter__hours  color #7e92a7
     li.TeamFilter__row#2
       a.TeamFilter__line
-        span.TeamFilter__box#2  border #566d95
+        span.TeamFilter__box#2  bg #0e1729  border #566d95
         span.TeamFilter__name#2  color #8598ac
         span.TeamFilter__hours#2  color #7e92a7
       a.TeamFilter__only  color #8598ac

@@ -63,26 +63,26 @@ div.StockJournal__wrap  358×731 @16,16
           td.StockJournal__reason  328×40 @15,90  Manrope 400 13/20  lines=2  «Пересчёт после инвентаризации: обрезки н»
     div.StockPager__pager  358×129 @0,602  b1 0 0 0
       div.StockPager__nav  326×52 @16,13
-        nav.Pager__pager  144×52 @91,0
-          a.Pager__step  44×44 @0,4  r100  b1
-            span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
-          span.Pager__count  40×22 @52,15  Manrope 600 15/22  lines=1  «2 из 3»
-          a.Pager__step#2  44×44 @100,4  r100  b1
-            span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
-          p[role=status]  1×1 @71,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
+        nav.Pager__pager  140×52 @93,0
+          a.Pager__step  44×44 @0,4  r8  b1
+            span  8×16 @18,14  Manrope 600 13/16  lines=1  «‹»
+          span.Pager__count  36×20 @52,16  Manrope 600 13/20  lines=1  «2 из 3»
+          a.Pager__step#2  44×44 @96,4  r8  b1
+            span  8×16 @18,14  Manrope 600 13/16  lines=1  «›»
+          p[role=status]  1×1 @69,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
       span.PageSize__root  326×44 @16,73
         span.PageSize__title  1×1 @163,22  Manrope 400 13/20  lines=1  clipped  «Строк на странице»
-        div.Field__field  75×44 @126,0
-          span.Select__wrapper  75×44 @0,0
-            select.Select__select  75×44 @0,0  r100  b1
-              option  0×0 @-157,-691  Manrope 400 15/21  lines=0  «8»
-              option#2  0×0 @-157,-691  Manrope 400 15/21  lines=0  «20»
-              option#3  0×0 @-157,-691  Manrope 400 15/21  lines=0  «50»
-            svg.Select__chevron  14×14 @47,15
+        div.Field__field  74×44 @126,0
+          span.Select__wrapper  74×44 @0,0
+            select.Select__select  74×44 @0,0  r8  b1
+              option  0×0 @-158,-691  Manrope 400 14/20  lines=0  «8»
+              option#2  0×0 @-158,-691  Manrope 400 14/20  lines=0  «20»
+              option#3  0×0 @-158,-691  Manrope 400 14/20  lines=0  «50»
+            svg.Select__chevron  14×14 @46,15
 
 [геометрия 768]
 div.StockJournal__wrap  736×561 @16,16
-  section.Card__card  736×561 @0,0  r20  b1
+  section.Card__card  736×561 @0,0  r14  b1
     div.StockJournal__head  734×64 @1,1
       h2.StockJournal__title  698×22 @18,18  Onest 700 18/22  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  539×20 @18,44  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
@@ -143,28 +143,28 @@ div.StockJournal__wrap  736×561 @16,16
       span.StockPager__count  169×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 19 движений»
       div.StockPager__nav  0×0 @-17,-499
         nav.Pager__pager  252×52 @243,512
-          a.Pager__step  44×44 @0,4  r100  b1
-            span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
+          a.Pager__step  44×44 @0,4  r8  b1
+            span  8×16 @18,14  Manrope 600 13/16  lines=1  «‹»
           ol.Pager__numbers  140×44 @56,4
-            a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-            span.Pager__current  44×44 @48,0  Manrope 700 15/17  r100  b1  lines=1  «2»
-            a.Pager__number#2  44×44 @96,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-          a.Pager__step#2  44×44 @208,4  r100  b1
-            span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
+            a.Pager__number  44×44 @0,0  Manrope 600 13/16  r8  b1  lines=1  «1»
+            span.Pager__current  44×44 @48,0  Manrope 700 13/16  r8  b1  lines=1  «2»
+            a.Pager__number#2  44×44 @96,0  Manrope 600 13/16  r8  b1  lines=1  «3»
+          a.Pager__step#2  44×44 @208,4  r8  b1
+            span  8×16 @18,14  Manrope 600 13/16  lines=1  «›»
           p[role=status]  1×1 @126,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
-      span.PageSize__root  200×44 @518,17
+      span.PageSize__root  199×44 @519,17
         span.PageSize__title  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
-        div.Field__field  75×44 @125,0
-          span.Select__wrapper  75×44 @0,0
-            select.Select__select  75×44 @0,0  r100  b1
-              option  0×0 @-660,-516  Manrope 400 15/21  lines=0  «8»
-              option#2  0×0 @-660,-516  Manrope 400 15/21  lines=0  «20»
-              option#3  0×0 @-660,-516  Manrope 400 15/21  lines=0  «50»
-            svg.Select__chevron  14×14 @47,15
+        div.Field__field  74×44 @125,0
+          span.Select__wrapper  74×44 @0,0
+            select.Select__select  74×44 @0,0  r8  b1
+              option  0×0 @-661,-516  Manrope 400 14/20  lines=0  «8»
+              option#2  0×0 @-661,-516  Manrope 400 14/20  lines=0  «20»
+              option#3  0×0 @-661,-516  Manrope 400 14/20  lines=0  «50»
+            svg.Select__chevron  14×14 @46,15
 
 [геометрия 1440]
-div.StockJournal__wrap  1408×495 @16,16
-  section.Card__card  1408×495 @0,0  r20  b1
+div.StockJournal__wrap  1408×483 @16,16
+  section.Card__card  1408×483 @0,0  r14  b1
     div.StockJournal__head  1406×65 @1,1
       h2.StockJournal__title  1370×23 @18,18  Onest 700 19/23  ls0  lines=1  «Журнал движений»
       p.StockJournal__hint  539×20 @18,45  Manrope 400 13/20  lines=1  «Что, куда, сколько, кто и когда. Без жур»
@@ -221,32 +221,32 @@ div.StockJournal__wrap  1408×495 @16,16
           td.StockJournal__author  146×73 @890,0
             span.StockJournal__gone  93×19 @18,27  Manrope 400 15/22  lines=1  «автор удалён»
           td.StockJournal__reason  369×73 @1037,0  Manrope 400 15/22  lines=2  «Пересчёт после инвентаризации: обрезки н»
-    div.StockPager__pager  1406×77 @1,417  b1 0 0 0
-      span.StockPager__count  169×20 @16,29  Manrope 400 13/20  lines=1  «Показано 4 из 19 движений»
+    div.StockPager__pager  1406×65 @1,417  b1 0 0 0
+      span.StockPager__count  169×20 @16,23  Manrope 400 13/20  lines=1  «Показано 4 из 19 движений»
       div.StockPager__nav  0×0 @-17,-433
-        nav.Pager__pager  252×52 @579,446
-          a.Pager__step  44×44 @0,4  r100  b1
-            span  9×17 @17,13  Manrope 600 15/17  lines=1  «‹»
-          ol.Pager__numbers  140×44 @56,4
-            a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
-            span.Pager__current  44×44 @48,0  Manrope 700 15/17  r100  b1  lines=1  «2»
-            a.Pager__number#2  44×44 @96,0  Manrope 600 15/17  r100  b1  lines=1  «3»
-          a.Pager__step#2  44×44 @208,4  r100  b1
-            span  9×17 @17,13  Manrope 600 15/17  lines=1  «›»
-          p[role=status]  1×1 @126,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
-      span.PageSize__root  200×44 @1190,17
-        span.PageSize__title  117×20 @0,12  Manrope 400 13/20  lines=1  «Строк на странице»
-        div.Field__field  75×44 @125,0
-          span.Select__wrapper  75×44 @0,0
-            select.Select__select  75×44 @0,0  r100  b1
-              option  0×0 @-1332,-450  Manrope 400 15/21  lines=0  «8»
-              option#2  0×0 @-1332,-450  Manrope 400 15/21  lines=0  «20»
-              option#3  0×0 @-1332,-450  Manrope 400 15/21  lines=0  «50»
-            svg.Select__chevron  14×14 @47,15
+        nav.Pager__pager  192×40 @609,446
+          a.Pager__step  32×32 @0,4  r8  b1
+            span  8×16 @12,8  Manrope 600 13/16  lines=1  «‹»
+          ol.Pager__numbers  104×32 @44,4
+            a.Pager__number  32×32 @0,0  Manrope 600 13/16  r8  b1  lines=1  «1»
+            span.Pager__current  32×32 @36,0  Manrope 700 13/16  r8  b1  lines=1  «2»
+            a.Pager__number#2  32×32 @72,0  Manrope 600 13/16  r8  b1  lines=1  «3»
+          a.Pager__step#2  32×32 @160,4  r8  b1
+            span  8×16 @12,8  Manrope 600 13/16  lines=1  «›»
+          p[role=status]  1×1 @96,20  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 3»
+      span.PageSize__root  199×32 @1191,17
+        span.PageSize__title  117×20 @0,6  Manrope 400 13/20  lines=1  «Строк на странице»
+        div.Field__field  74×32 @125,0
+          span.Select__wrapper  74×32 @0,0
+            select.Select__select  74×32 @0,0  r8  b1
+              option  0×0 @-1333,-450  Manrope 400 14/20  lines=0  «8»
+              option#2  0×0 @-1333,-450  Manrope 400 14/20  lines=0  «20»
+              option#3  0×0 @-1333,-450  Manrope 400 14/20  lines=0  «50»
+            svg.Select__chevron  14×14 @46,9
 
 [палитра light]
 div.StockJournal__wrap
-  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
     div.StockJournal__head
       h2.StockJournal__title  color #0f172a
       p.StockJournal__hint  color #556173
@@ -363,7 +363,7 @@ div.StockJournal__wrap > section.Card__card > div.StockPager__pager > div.StockP
 
 [палитра dark]
 div.StockJournal__wrap
-  section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
     div.StockJournal__head
       h2.StockJournal__title  color #eaf1f8
       p.StockJournal__hint  color #8598ac

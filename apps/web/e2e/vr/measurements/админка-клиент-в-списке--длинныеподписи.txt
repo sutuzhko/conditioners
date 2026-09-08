@@ -79,33 +79,33 @@ div.Table__viewport  736×366 @16,16
 [геометрия 1440]
 div.Table__viewport  1408×149 @16,16
   table.Table__table  1408×149 @0,0
-    th  465×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
-    th#2  176×56 @465,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
-    th#3  366×56 @641,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
-    th#4  97×56 @1008,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
-    th#5  106×56 @1104,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
-    th#6  118×56 @1210,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
-    span  1×1 @1345,38  Onest 700 15/23  lines=1  clipped  «Действия»
+    th  468×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Клиент»
+    th#2  176×56 @468,0  Onest 700 15/23  b0 0 1 0  lines=1  «Телефон»
+    th#3  375×56 @645,0  Onest 700 15/23  b0 0 1 0  lines=1  «Адрес»
+    th#4  97×56 @1020,0  Onest 700 15/23  b0 0 1 0  lines=1  «Заказов»
+    th#5  106×56 @1116,0  Onest 700 15/23  b0 0 1 0  lines=1  «Сумма»
+    th#6  118×56 @1222,0  Onest 700 15/23  b0 0 1 0  lines=1  «Последний»
+    span  1×1 @1357,38  Onest 700 15/23  lines=1  clipped  «Действия»
     tr.TableRow__row  1408×94 @0,56
-      td.ClientRow__who  465×94 @0,0
-        div.ClientRow__person  429×65 @18,15
+      td.ClientRow__who  468×94 @0,0
+        div.ClientRow__person  432×65 @18,15
           span.Avatar__avatar  28×28 @0,19  r100  b1
             span.Avatar__initials  16×11 @6,9  Onest 700 11/11  ls0  lines=1  «КА»
             span  1×1 @14,14  Onest 700 11/11  lines=1  clipped  «Константинопольская-Твердолобова Аполлин»
-          div.ClientRow__names  393×65 @36,0
-            a.ClientRow__name  393×45 @0,0  Manrope 600 15/22  lines=2  «Константинопольская-Твердолобова Аполлин»
+          div.ClientRow__names  396×65 @36,0
+            a.ClientRow__name  396×45 @0,0  Manrope 600 15/22  lines=2  «Константинопольская-Твердолобова Аполлин»
             span.ClientRow__note  270×20 @0,45  Manrope 400 13/20  lines=1  clipped  «Домофон не работает, звонить на телефон.»
-      td.ClientRow__phone  176×94 @465,0
+      td.ClientRow__phone  176×94 @468,0
         a.TableRow__above  140×17 @18,38  JetBrains Mono 400 13/20  lines=1  «+7 (910) 155-24-68»
-      td.ClientRow__address  366×94 @641,0  Manrope 400 13/20  lines=2  «Новомосковск, микрорайон Урванский, Комс»
-      td.ClientRow__number  97×94 @1008,0  JetBrains Mono 400 15/22  lines=1  «3»
-      td.ClientRow__number#2  106×94 @1104,0  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
-      td.ClientRow__when  118×94 @1210,0
+      td.ClientRow__address  375×94 @645,0  Manrope 400 13/20  lines=2  «Новомосковск, микрорайон Урванский, Комс»
+      td.ClientRow__number  97×94 @1020,0  JetBrains Mono 400 15/22  lines=1  «3»
+      td.ClientRow__number#2  106×94 @1116,0  JetBrains Mono 400 15/22  lines=1  «98 700 ₽»
+      td.ClientRow__when  118×94 @1222,0
         time  68×18 @18,38  Manrope 400 13/20  lines=1  «29.08.2026»
-      td.ClientRow__actions  80×94 @1328,0
-        div.RowMenu__root  44×44 @18,25
-          button.RowMenu__trigger  44×44 @0,0  r100  b1
-            span.RowMenu__dots  16×16 @14,14
+      td.ClientRow__actions  68×94 @1340,0
+        div.RowMenu__root  32×32 @18,31
+          button.RowMenu__trigger  32×32 @0,0  r100  b1
+            span.RowMenu__dots  16×16 @8,8
               svg  16×16 @0,0
 
 [палитра light]

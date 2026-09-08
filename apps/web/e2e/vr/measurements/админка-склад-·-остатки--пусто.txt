@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×272 @16,16  r20  b1
+section.Card__card  358×272 @16,16  r14  b1
   div.EmptyState__box  316×230 @21,21
     span.EmptyState__badge  48×48 @134,28  r100
       svg  20×20 @14,14
@@ -15,7 +15,7 @@ section.Card__card  358×272 @16,16  r20  b1
     p.EmptyState__text  284×90 @16,113  Manrope 400 15/22  lines=4  «Заведите позиции, которые считаете: трас»
 
 [геометрия 768]
-section.Card__card  736×251 @16,16  r20  b1
+section.Card__card  736×251 @16,16  r14  b1
   div.EmptyState__box  694×209 @21,21
     span.EmptyState__badge  48×48 @323,28  r100
       svg  20×20 @14,14
@@ -23,7 +23,7 @@ section.Card__card  736×251 @16,16  r20  b1
     p.EmptyState__text  371×67 @161,114  Manrope 400 15/22  lines=3  «Заведите позиции, которые считаете: трас»
 
 [геометрия 1440]
-section.Card__card  1408×252 @16,16  r20  b1
+section.Card__card  1408×252 @16,16  r14  b1
   div.EmptyState__box  1366×210 @21,21
     span.EmptyState__badge  48×48 @659,28  r100
       svg  20×20 @14,14
@@ -31,7 +31,7 @@ section.Card__card  1408×252 @16,16  r20  b1
     p.EmptyState__text  371×67 @497,115  Manrope 400 15/22  lines=3  «Заведите позиции, которые считаете: трас»
 
 [палитра light]
-section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   div.EmptyState__box
     span.EmptyState__badge  bg #ecfeff
       svg
@@ -39,7 +39,7 @@ section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
     p.EmptyState__text  color #556173
 
 [палитра dark]
-section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+section.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   div.EmptyState__box
     span.EmptyState__badge  bg #22d3ee1a
       svg

@@ -8,169 +8,169 @@
 
 [геометрия 390]
 div.Modal__overlay  390×900 @0,0  fixed  portal
-  div.Modal__window  390×828 @0,72  r22 22 0 0  b1
-    div.Modal__head  388×171 @1,1  b0 0 1 0
-      h2.Modal__title  292×25 @20,20  Onest 700 21/25  ls0  lines=1  «Провести движение»
-      p.Modal__description  292×101 @20,49  Manrope 400 13/20  lines=5  «Остаток — сумма движений, а не поле: зап»
-      button.IconButton__iconButton  40×40 @328,20  r11  b1
+  div.Modal__window  390×697 @0,203  r14 14 0 0  b1
+    div.Modal__head  388×143 @1,1  b0 0 1 0
+      h2.Modal__title  300×25 @16,16  Onest 700 21/25  ls0  lines=1  «Провести движение»
+      p.Modal__description  300×81 @16,45  Manrope 400 13/20  lines=4  «Остаток — сумма движений, а не поле: зап»
+      button.IconButton__iconButton  40×40 @332,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  388×655 @1,172
-      section.FormSection__section  348×644 @20,20
-        form.StockMoveForm__form  348×644 @0,0
-          div.StockMoveForm__grid  348×588 @0,0
-            div.Field__field  348×76 @0,0
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Что делаем»
-              span.Select__wrapper  348×49 @0,27
-                select.Select__select  348×49 @0,0  r11  b1
-                  option  0×0 @-21,-291  Manrope 400 15/21  lines=0  «Приход»
-                  option#2  0×0 @-21,-291  Manrope 400 15/21  lines=0  «Перемещение»
-                  option#3  0×0 @-21,-291  Manrope 400 15/21  lines=0  «Инвентаризация»
-                svg.Select__chevron  14×14 @320,18
-            p.StockMoveForm__fixed  348×47 @0,88
-              span.StockMoveForm__fixedLabel  348×20 @0,0  Manrope 400 13/20  lines=1  «Позиция»
-              span.StockMoveForm__fixedValue  348×23 @0,24  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
-            div.Field__field#2  348×103 @0,148
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Количество, м»
-              input  348×49 @0,27  r11  b1
-              p.Field__hint  348×19 @0,83  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
-            div.Field__field#3  348×76 @0,262
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Откуда»
-              span.Select__wrapper  348×49 @0,27
-                select.Select__select#2  348×49 @0,0  r11  b1
-                  option  0×0 @-21,-553  Manrope 400 15/21  lines=0  «Выберите зону»
-                  option#2  0×0 @-21,-553  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
-                  option#3  0×0 @-21,-553  Manrope 400 15/21  lines=0  «Газель»
-                  option#4  0×0 @-21,-553  Manrope 400 15/21  lines=0  «Ларгус»
-                svg.Select__chevron#2  14×14 @320,18
-            div.Field__field#4  348×76 @0,350
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Куда»
-              span.Select__wrapper  348×49 @0,27
-                select.Select__select#3  348×49 @0,0  r11  b1
-                  option  0×0 @-21,-641  Manrope 400 15/21  lines=0  «Выберите зону»
-                  option#2  0×0 @-21,-641  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
-                  option#3  0×0 @-21,-641  Manrope 400 15/21  lines=0  «Газель»
-                  option#4  0×0 @-21,-641  Manrope 400 15/21  lines=0  «Ларгус»
-                svg.Select__chevron#3  14×14 @320,18
-            div.Field__field#5  348×150 @0,438
-              label.Field__label  348×20 @0,0  Manrope 600 13/20  lines=1  «Основание»
-              textarea.Textarea__textarea  348×96 @0,27  r11  b1
-              p.Field__hint  348×19 @0,130  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
-          div.StockMoveForm__actions  348×44 @0,600
-            button.Button__button  107×44 @0,0  r11  b1
-              span.Button__content  69×17 @19,13
-                span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Провести»
+    div.Modal__body  388×552 @1,144
+      section.FormSection__section  356×520 @16,16
+        form.StockMoveForm__form  356×520 @0,0
+          div.StockMoveForm__grid  356×464 @0,0
+            div.Field__field  356×52 @0,0
+              label.Field__label  62×13 @15,8  Manrope 600 11/13  lines=1  «Что делаем»
+              span.Select__wrapper  356×52 @0,0
+                select.Select__select  356×52 @0,0  r999  b1
+                  option  0×0 @-17,-363  Manrope 400 14/20  lines=0  «Приход»
+                  option#2  0×0 @-17,-363  Manrope 400 14/20  lines=0  «Перемещение»
+                  option#3  0×0 @-17,-363  Manrope 400 14/20  lines=0  «Инвентаризация»
+                svg.Select__chevron  14×14 @328,19
+            p.StockMoveForm__fixed  356×47 @0,64
+              span.StockMoveForm__fixedLabel  356×20 @0,0  Manrope 400 13/20  lines=1  «Позиция»
+              span.StockMoveForm__fixedValue  356×23 @0,24  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
+            div.Field__field#2  356×78 @0,123
+              label.Field__label  77×13 @15,8  Manrope 600 11/13  lines=1  «Количество, м»
+              input  356×52 @0,0  r999  b1
+              p.Field__hint  356×19 @0,59  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
+            div.Field__field#3  356×52 @0,214
+              label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Откуда»
+              span.Select__wrapper  356×52 @0,0
+                select.Select__select#2  356×52 @0,0  r999  b1
+                  option  0×0 @-17,-577  Manrope 400 14/20  lines=0  «Выберите зону»
+                  option#2  0×0 @-17,-577  Manrope 400 14/20  lines=0  «Гараж на Демидовской»
+                  option#3  0×0 @-17,-577  Manrope 400 14/20  lines=0  «Газель»
+                  option#4  0×0 @-17,-577  Manrope 400 14/20  lines=0  «Ларгус»
+                svg.Select__chevron#2  14×14 @328,19
+            div.Field__field#4  356×52 @0,278
+              label.Field__label  25×13 @15,8  Manrope 600 11/13  lines=1  «Куда»
+              span.Select__wrapper  356×52 @0,0
+                select.Select__select#3  356×52 @0,0  r999  b1
+                  option  0×0 @-17,-641  Manrope 400 14/20  lines=0  «Выберите зону»
+                  option#2  0×0 @-17,-641  Manrope 400 14/20  lines=0  «Гараж на Демидовской»
+                  option#3  0×0 @-17,-641  Manrope 400 14/20  lines=0  «Газель»
+                  option#4  0×0 @-17,-641  Manrope 400 14/20  lines=0  «Ларгус»
+                svg.Select__chevron#3  14×14 @328,19
+            div.Field__field#5  356×122 @0,342
+              label.Field__label  60×13 @15,8  Manrope 600 11/13  lines=1  «Основание»
+              textarea.Textarea__textarea  356×96 @0,0  r14  b1
+              p.Field__hint  356×19 @0,103  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
+          div.StockMoveForm__actions  356×44 @0,476
+            button.Button__button  105×44 @0,0  r999  b1
+              span.Button__content  67×17 @19,14
+                span.Button__label  67×17 @0,0  Manrope 600 14/17  lines=1  «Провести»
 
 [геометрия 768]
 div.Modal__overlay  768×900 @0,0  fixed  portal
-  div.Modal__window  720×561 @24,170  r22  b1
-    div.Modal__head  718×110 @1,1  b0 0 1 0
-      h2.Modal__title  622×25 @20,20  Onest 700 21/25  ls0  lines=1  «Провести движение»
-      p.Modal__description  622×40 @20,49  Manrope 400 13/20  lines=2  «Остаток — сумма движений, а не поле: зап»
-      button.IconButton__iconButton  40×40 @658,20  r11  b1
+  div.Modal__window  720×469 @24,215  r14  b1
+    div.Modal__head  718×102 @1,1  b0 0 1 0
+      h2.Modal__title  630×25 @16,16  Onest 700 21/25  ls0  lines=1  «Провести движение»
+      p.Modal__description  630×40 @16,45  Manrope 400 13/20  lines=2  «Остаток — сумма движений, а не поле: зап»
+      button.IconButton__iconButton  40×40 @662,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  718×448 @1,111
-      section.FormSection__section  678×408 @20,20
-        form.StockMoveForm__form  678×408 @0,0
-          div.StockMoveForm__grid  678×352 @0,0
-            div.Field__field  218×76 @0,0
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Что делаем»
-              span.Select__wrapper  218×49 @0,27
-                select.Select__select  218×49 @0,0  r11  b1
-                  option  0×0 @-45,-328  Manrope 400 15/21  lines=0  «Приход»
-                  option#2  0×0 @-45,-328  Manrope 400 15/21  lines=0  «Перемещение»
-                  option#3  0×0 @-45,-328  Manrope 400 15/21  lines=0  «Инвентаризация»
-                svg.Select__chevron  14×14 @190,18
-            p.StockMoveForm__fixed  218×47 @230,0
-              span.StockMoveForm__fixedLabel  218×20 @0,0  Manrope 400 13/20  lines=1  «Позиция»
-              span.StockMoveForm__fixedValue  218×23 @0,24  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
-            div.Field__field#2  218×103 @460,0
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Количество, м»
-              input  218×49 @0,27  r11  b1
-              p.Field__hint  218×19 @0,83  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
-            div.Field__field#3  218×76 @0,115
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Откуда»
-              span.Select__wrapper  218×49 @0,27
-                select.Select__select#2  218×49 @0,0  r11  b1
-                  option  0×0 @-45,-443  Manrope 400 15/21  lines=0  «Выберите зону»
-                  option#2  0×0 @-45,-443  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
-                  option#3  0×0 @-45,-443  Manrope 400 15/21  lines=0  «Газель»
-                  option#4  0×0 @-45,-443  Manrope 400 15/21  lines=0  «Ларгус»
-                svg.Select__chevron#2  14×14 @190,18
-            div.Field__field#4  218×76 @230,115
-              label.Field__label  218×20 @0,0  Manrope 600 13/20  lines=1  «Куда»
-              span.Select__wrapper  218×49 @0,27
-                select.Select__select#3  218×49 @0,0  r11  b1
-                  option  0×0 @-275,-443  Manrope 400 15/21  lines=0  «Выберите зону»
-                  option#2  0×0 @-275,-443  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
-                  option#3  0×0 @-275,-443  Manrope 400 15/21  lines=0  «Газель»
-                  option#4  0×0 @-275,-443  Manrope 400 15/21  lines=0  «Ларгус»
-                svg.Select__chevron#3  14×14 @190,18
-            div.Field__field#5  678×150 @0,203
-              label.Field__label  678×20 @0,0  Manrope 600 13/20  lines=1  «Основание»
-              textarea.Textarea__textarea  678×96 @0,27  r11  b1
-              p.Field__hint  678×19 @0,130  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
-          div.StockMoveForm__actions  678×44 @0,364
-            button.Button__button  107×44 @0,0  r11  b1
-              span.Button__content  69×17 @19,13
-                span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Провести»
+    div.Modal__body  718×365 @1,103
+      section.FormSection__section  686×333 @16,16
+        form.StockMoveForm__form  686×333 @0,0
+          div.StockMoveForm__grid  686×277 @0,0
+            div.Field__field  221×52 @0,0
+              label.Field__label  62×13 @15,8  Manrope 600 11/13  lines=1  «Что делаем»
+              span.Select__wrapper  221×52 @0,0
+                select.Select__select  221×52 @0,0  r999  b1
+                  option  0×0 @-41,-335  Manrope 400 14/20  lines=0  «Приход»
+                  option#2  0×0 @-41,-335  Manrope 400 14/20  lines=0  «Перемещение»
+                  option#3  0×0 @-41,-335  Manrope 400 14/20  lines=0  «Инвентаризация»
+                svg.Select__chevron  14×14 @193,19
+            p.StockMoveForm__fixed  221×47 @233,0
+              span.StockMoveForm__fixedLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Позиция»
+              span.StockMoveForm__fixedValue  221×23 @0,24  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
+            div.Field__field#2  221×78 @465,0
+              label.Field__label  77×13 @15,8  Manrope 600 11/13  lines=1  «Количество, м»
+              input  221×52 @0,0  r999  b1
+              p.Field__hint  221×19 @0,59  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
+            div.Field__field#3  221×52 @0,90
+              label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Откуда»
+              span.Select__wrapper  221×52 @0,0
+                select.Select__select#2  221×52 @0,0  r999  b1
+                  option  0×0 @-41,-425  Manrope 400 14/20  lines=0  «Выберите зону»
+                  option#2  0×0 @-41,-425  Manrope 400 14/20  lines=0  «Гараж на Демидовской»
+                  option#3  0×0 @-41,-425  Manrope 400 14/20  lines=0  «Газель»
+                  option#4  0×0 @-41,-425  Manrope 400 14/20  lines=0  «Ларгус»
+                svg.Select__chevron#2  14×14 @193,19
+            div.Field__field#4  221×52 @233,90
+              label.Field__label  25×13 @15,8  Manrope 600 11/13  lines=1  «Куда»
+              span.Select__wrapper  221×52 @0,0
+                select.Select__select#3  221×52 @0,0  r999  b1
+                  option  0×0 @-274,-425  Manrope 400 14/20  lines=0  «Выберите зону»
+                  option#2  0×0 @-274,-425  Manrope 400 14/20  lines=0  «Гараж на Демидовской»
+                  option#3  0×0 @-274,-425  Manrope 400 14/20  lines=0  «Газель»
+                  option#4  0×0 @-274,-425  Manrope 400 14/20  lines=0  «Ларгус»
+                svg.Select__chevron#3  14×14 @193,19
+            div.Field__field#5  686×122 @0,154
+              label.Field__label  60×13 @15,8  Manrope 600 11/13  lines=1  «Основание»
+              textarea.Textarea__textarea  686×96 @0,0  r14  b1
+              p.Field__hint  686×19 @0,103  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
+          div.StockMoveForm__actions  686×44 @0,289
+            button.Button__button  105×44 @0,0  r999  b1
+              span.Button__content  67×17 @19,14
+                span.Button__label  67×17 @0,0  Manrope 600 14/17  lines=1  «Провести»
 
 [геометрия 1440]
 div.Modal__overlay  1440×900 @0,0  fixed  portal
-  div.Modal__window  820×561 @310,170  r22  b1
-    div.Modal__head  818×110 @1,1  b0 0 1 0
-      h2.Modal__title  722×25 @20,20  Onest 700 21/25  ls0  lines=1  «Провести движение»
-      p.Modal__description  722×40 @20,49  Manrope 400 13/20  lines=2  «Остаток — сумма движений, а не поле: зап»
-      button.IconButton__iconButton  40×40 @758,20  r11  b1
+  div.Modal__window  820×457 @310,221  r14  b1
+    div.Modal__head  818×102 @1,1  b0 0 1 0
+      h2.Modal__title  730×25 @16,16  Onest 700 21/25  ls0  lines=1  «Провести движение»
+      p.Modal__description  730×40 @16,45  Manrope 400 13/20  lines=2  «Остаток — сумма движений, а не поле: зап»
+      button.IconButton__iconButton  40×40 @762,16  r11  b1
         svg  18×18 @11,11
-    div.Modal__body  818×448 @1,111
-      section.FormSection__section  778×408 @20,20
-        form.StockMoveForm__form  778×408 @0,0
-          div.StockMoveForm__grid  778×352 @0,0
-            div.Field__field  251×76 @0,0
-              label.Field__label  251×20 @0,0  Manrope 600 13/20  lines=1  «Что делаем»
-              span.Select__wrapper  251×49 @0,27
-                select.Select__select  251×49 @0,0  r11  b1
-                  option  0×0 @-331,-328  Manrope 400 15/21  lines=0  «Приход»
-                  option#2  0×0 @-331,-328  Manrope 400 15/21  lines=0  «Перемещение»
-                  option#3  0×0 @-331,-328  Manrope 400 15/21  lines=0  «Инвентаризация»
-                svg.Select__chevron  14×14 @223,18
-            p.StockMoveForm__fixed  251×47 @263,0
-              span.StockMoveForm__fixedLabel  251×20 @0,0  Manrope 400 13/20  lines=1  «Позиция»
-              span.StockMoveForm__fixedValue  251×23 @0,24  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
-            div.Field__field#2  251×103 @527,0
-              label.Field__label  251×20 @0,0  Manrope 600 13/20  lines=1  «Количество, м»
-              input  251×49 @0,27  r11  b1
-              p.Field__hint  251×19 @0,83  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
-            div.Field__field#3  251×76 @0,115
-              label.Field__label  251×20 @0,0  Manrope 600 13/20  lines=1  «Откуда»
-              span.Select__wrapper  251×49 @0,27
-                select.Select__select#2  251×49 @0,0  r11  b1
-                  option  0×0 @-331,-443  Manrope 400 15/21  lines=0  «Выберите зону»
-                  option#2  0×0 @-331,-443  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
-                  option#3  0×0 @-331,-443  Manrope 400 15/21  lines=0  «Газель»
-                  option#4  0×0 @-331,-443  Manrope 400 15/21  lines=0  «Ларгус»
-                svg.Select__chevron#2  14×14 @223,18
-            div.Field__field#4  251×76 @263,115
-              label.Field__label  251×20 @0,0  Manrope 600 13/20  lines=1  «Куда»
-              span.Select__wrapper  251×49 @0,27
-                select.Select__select#3  251×49 @0,0  r11  b1
-                  option  0×0 @-594,-443  Manrope 400 15/21  lines=0  «Выберите зону»
-                  option#2  0×0 @-594,-443  Manrope 400 15/21  lines=0  «Гараж на Демидовской»
-                  option#3  0×0 @-594,-443  Manrope 400 15/21  lines=0  «Газель»
-                  option#4  0×0 @-594,-443  Manrope 400 15/21  lines=0  «Ларгус»
-                svg.Select__chevron#3  14×14 @223,18
-            div.Field__field#5  778×150 @0,203
-              label.Field__label  778×20 @0,0  Manrope 600 13/20  lines=1  «Основание»
-              textarea.Textarea__textarea  778×96 @0,27  r11  b1
-              p.Field__hint  778×19 @0,130  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
-          div.StockMoveForm__actions  778×44 @0,364
-            button.Button__button  107×44 @0,0  r11  b1
-              span.Button__content  69×17 @19,13
-                span.Button__label  69×17 @0,0  Manrope 600 15/17  lines=1  «Провести»
+    div.Modal__body  818×353 @1,103
+      section.FormSection__section  786×321 @16,16
+        form.StockMoveForm__form  786×321 @0,0
+          div.StockMoveForm__grid  786×269 @0,0
+            div.Field__field  254×48 @0,0
+              label.Field__label  62×13 @15,8  Manrope 600 11/13  lines=1  «Что делаем»
+              span.Select__wrapper  254×48 @0,0
+                select.Select__select  254×48 @0,0  r999  b1
+                  option  0×0 @-327,-341  Manrope 400 14/20  lines=0  «Приход»
+                  option#2  0×0 @-327,-341  Manrope 400 14/20  lines=0  «Перемещение»
+                  option#3  0×0 @-327,-341  Manrope 400 14/20  lines=0  «Инвентаризация»
+                svg.Select__chevron  14×14 @226,17
+            p.StockMoveForm__fixed  254×47 @266,0
+              span.StockMoveForm__fixedLabel  254×20 @0,0  Manrope 400 13/20  lines=1  «Позиция»
+              span.StockMoveForm__fixedValue  254×23 @0,24  Manrope 600 15/23  lines=1  «Труба медная 1/4″»
+            div.Field__field#2  254×74 @532,0
+              label.Field__label  77×13 @15,8  Manrope 600 11/13  lines=1  «Количество, м»
+              input  254×48 @0,0  r999  b1
+              p.Field__hint  254×19 @0,55  Manrope 400 13/19  lines=1  «Дробное — через запятую: 12,5»
+            div.Field__field#3  254×48 @0,86
+              label.Field__label  39×13 @15,8  Manrope 600 11/13  lines=1  «Откуда»
+              span.Select__wrapper  254×48 @0,0
+                select.Select__select#2  254×48 @0,0  r999  b1
+                  option  0×0 @-327,-427  Manrope 400 14/20  lines=0  «Выберите зону»
+                  option#2  0×0 @-327,-427  Manrope 400 14/20  lines=0  «Гараж на Демидовской»
+                  option#3  0×0 @-327,-427  Manrope 400 14/20  lines=0  «Газель»
+                  option#4  0×0 @-327,-427  Manrope 400 14/20  lines=0  «Ларгус»
+                svg.Select__chevron#2  14×14 @226,17
+            div.Field__field#4  254×48 @266,86
+              label.Field__label  25×13 @15,8  Manrope 600 11/13  lines=1  «Куда»
+              span.Select__wrapper  254×48 @0,0
+                select.Select__select#3  254×48 @0,0  r999  b1
+                  option  0×0 @-593,-427  Manrope 400 14/20  lines=0  «Выберите зону»
+                  option#2  0×0 @-593,-427  Manrope 400 14/20  lines=0  «Гараж на Демидовской»
+                  option#3  0×0 @-593,-427  Manrope 400 14/20  lines=0  «Газель»
+                  option#4  0×0 @-593,-427  Manrope 400 14/20  lines=0  «Ларгус»
+                svg.Select__chevron#3  14×14 @226,17
+            div.Field__field#5  786×122 @0,146
+              label.Field__label  60×13 @15,8  Manrope 600 11/13  lines=1  «Основание»
+              textarea.Textarea__textarea  786×96 @0,0  r14  b1
+              p.Field__hint  786×19 @0,103  Manrope 400 13/19  lines=1  «Откуда пришло, зачем перемещаем. Необяза»
+          div.StockMoveForm__actions  786×40 @0,281
+            button.Button__button  105×40 @0,0  r999  b1
+              span.Button__content  67×17 @19,12
+                span.Button__label  67×17 @0,0  Manrope 600 14/17  lines=1  «Провести»
 
 [палитра light]
 div.Modal__overlay  bg #0f172a73
-  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #ffffff  border #e2e8f0  shadow #0f172a0f 0px 0px 30px 0px, #0f172a1f 0px 30px 60px 0px
     div.Modal__head  border #0f172a #0f172a #e2e8f0 #0f172a
       h2.Modal__title  color #0f172a
       p.Modal__description  color #556173
@@ -181,9 +181,9 @@ div.Modal__overlay  bg #0f172a73
         form.StockMoveForm__form
           div.StockMoveForm__grid
             div.Field__field
-              label.Field__label  color #334155
+              label.Field__label  color #556173
               span.Select__wrapper
-                select.Select__select  bg #ffffff  border #7e8fa6
+                select.Select__select  bg #f8fafc  border #7e8fa6
                   option  color #0f172a
                   option#2  color #0f172a
                   option#3  color #0f172a
@@ -192,39 +192,39 @@ div.Modal__overlay  bg #0f172a73
               span.StockMoveForm__fixedLabel  color #556173
               span.StockMoveForm__fixedValue  color #0f172a
             div.Field__field#2
-              label.Field__label  color #334155
-              input  bg #ffffff  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+              label.Field__label  color #556173
+              input  bg #f8fafc  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
               p.Field__hint  color #556173
             div.Field__field#3
-              label.Field__label  color #334155
+              label.Field__label  color #556173
               span.Select__wrapper
-                select.Select__select#2  bg #ffffff  border #7e8fa6
+                select.Select__select#2  bg #f8fafc  border #7e8fa6
                   option  color #0f172a
                   option#2  color #0f172a
                   option#3  color #0f172a
                   option#4  color #0f172a
                 svg.Select__chevron#2
             div.Field__field#4
-              label.Field__label  color #334155
+              label.Field__label  color #556173
               span.Select__wrapper
-                select.Select__select#3  bg #ffffff  border #7e8fa6
+                select.Select__select#3  bg #f8fafc  border #7e8fa6
                   option  color #0f172a
                   option#2  color #0f172a
                   option#3  color #0f172a
                   option#4  color #0f172a
                 svg.Select__chevron#3
             div.Field__field#5
-              label.Field__label  color #334155
-              textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+              label.Field__label  color #556173
+              textarea.Textarea__textarea  bg #f8fafc  border #7e8fa6
               p.Field__hint  color #556173
           div.StockMoveForm__actions
-            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            button.Button__button  bg #0e7490  border #0e7490
               span.Button__content
                 span.Button__label  color #ffffff
 
 [палитра dark]
 div.Modal__overlay  bg #020610ad
-  div.Modal__window  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Modal__window  bg #121d31  border #1e2b41  shadow #00000057 0px 0px 30px 0px, #00000075 0px 30px 60px 0px
     div.Modal__head  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
       h2.Modal__title  color #eaf1f8
       p.Modal__description  color #8598ac
@@ -235,9 +235,9 @@ div.Modal__overlay  bg #020610ad
         form.StockMoveForm__form
           div.StockMoveForm__grid
             div.Field__field
-              label.Field__label  color #c9d5e2
+              label.Field__label  color #8598ac
               span.Select__wrapper
-                select.Select__select  bg #0b1424  border #566d95
+                select.Select__select  bg #0e1729  border #566d95
                   option  color #eaf1f8
                   option#2  color #eaf1f8
                   option#3  color #eaf1f8
@@ -246,32 +246,32 @@ div.Modal__overlay  bg #020610ad
               span.StockMoveForm__fixedLabel  color #8598ac
               span.StockMoveForm__fixedValue  color #eaf1f8
             div.Field__field#2
-              label.Field__label  color #c9d5e2
-              input  bg #0b1424  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+              label.Field__label  color #8598ac
+              input  bg #0e1729  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
               p.Field__hint  color #8598ac
             div.Field__field#3
-              label.Field__label  color #c9d5e2
+              label.Field__label  color #8598ac
               span.Select__wrapper
-                select.Select__select#2  bg #0b1424  border #566d95
+                select.Select__select#2  bg #0e1729  border #566d95
                   option  color #eaf1f8
                   option#2  color #eaf1f8
                   option#3  color #eaf1f8
                   option#4  color #eaf1f8
                 svg.Select__chevron#2
             div.Field__field#4
-              label.Field__label  color #c9d5e2
+              label.Field__label  color #8598ac
               span.Select__wrapper
-                select.Select__select#3  bg #0b1424  border #566d95
+                select.Select__select#3  bg #0e1729  border #566d95
                   option  color #eaf1f8
                   option#2  color #eaf1f8
                   option#3  color #eaf1f8
                   option#4  color #eaf1f8
                 svg.Select__chevron#3
             div.Field__field#5
-              label.Field__label  color #c9d5e2
-              textarea.Textarea__textarea  bg #0b1424  border #566d95
+              label.Field__label  color #8598ac
+              textarea.Textarea__textarea  bg #0e1729  border #566d95
               p.Field__hint  color #8598ac
           div.StockMoveForm__actions
-            button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+            button.Button__button  bg #0e7490  border #0e7490
               span.Button__content
                 span.Button__label  color #ffffff

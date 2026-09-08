@@ -10,24 +10,24 @@
 h2.DeliveryAddresses__title  358×21 @16,16  Onest 700 17/21  ls0  lines=1  «Адреса доставки»
 p.DeliveryAddresses__hint  358×90 @16,43  Manrope 400 15/22  lines=4  «Наряд, изменение вводных и отмена уходят»
 p.DeliveryAddresses__hint#2  358×67 @16,142  Manrope 400 15/22  lines=3  «Код привязки диктуют человеку: он отправ»
-ul.DeliveryAddresses__list  358×286 @16,220
-  div.Card__card  358×286 @0,0  r20  b1
+ul.DeliveryAddresses__list  358×270 @16,220
+  div.Card__card  358×270 @0,0  r14  b1
     div.DeliveryAddresses__head  315×24 @21,21
       span.DeliveryAddresses__name  85×23 @0,0  Manrope 600 15/23  lines=1  «Пётр Ильин»
       span.DeliveryAddresses__role  63×19 @93,3  Manrope 400 12/19  lines=1  «монтажник»
       span.Badge__badge  151×24 @164,0  Manrope 600 12/16  r100  b1  lines=1  «телеграм не привязан»
-    div.CopyField__root  316×72 @21,55
+    div.CopyField__root  316×80 @21,55
       span.CopyField__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Код привязки»
-      div.CopyField__row  316×46 @0,26  r11  b1
-        span.CopyField__value  256×19 @15,14  JetBrains Mono 400 12/19  lines=1  «W9XY42BC»
-        button.CopyField__button  36×36 @275,5  r100
-          svg  16×16 @10,8
+      div.CopyField__row  316×54 @0,26  r999  b1
+        span.CopyField__value  248×19 @15,18  JetBrains Mono 400 12/19  lines=1  «W9XY42BC»
+        button.CopyField__button  44×44 @267,5  r100
+          svg  16×16 @14,12
       span[role=status]  1×1 @-1,-1
-    form.DeliveryAddresses__row  316×128 @21,137
-      div.Field__field  316×76 @0,0
-        label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Почта для уведомлений»
-        input  316×49 @0,27  r11  b1
-      button.Button__button  99×44 @0,84  r9  b1
+    form.DeliveryAddresses__row  316×104 @21,145
+      div.Field__field  316×52 @0,0
+        label.Field__label  130×13 @15,8  Manrope 600 11/13  lines=1  «Почта для уведомлений»
+        input  316×52 @0,0  r999  b1
+      button.Button__button  99×44 @0,60  r999  b1
         span.Button__content  69×16 @15,14
           span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
 
@@ -35,24 +35,24 @@ ul.DeliveryAddresses__list  358×286 @16,220
 h2.DeliveryAddresses__title  736×22 @16,16  Onest 700 18/22  ls0  lines=1  «Адреса доставки»
 p.DeliveryAddresses__hint  637×67 @16,44  Manrope 400 15/22  lines=3  «Наряд, изменение вводных и отмена уходят»
 p.DeliveryAddresses__hint#2  637×45 @16,121  Manrope 400 15/22  lines=2  «Код привязки диктуют человеку: он отправ»
-ul.DeliveryAddresses__list  736×234 @16,176
-  div.Card__card  736×234 @0,0  r20  b1
+ul.DeliveryAddresses__list  736×218 @16,176
+  div.Card__card  736×218 @0,0  r14  b1
     div.DeliveryAddresses__head  315×24 @21,21
       span.DeliveryAddresses__name  85×23 @0,0  Manrope 600 15/23  lines=1  «Пётр Ильин»
       span.DeliveryAddresses__role  63×19 @93,3  Manrope 400 12/19  lines=1  «монтажник»
       span.Badge__badge  151×24 @164,0  Manrope 600 12/16  r100  b1  lines=1  «телеграм не привязан»
-    div.CopyField__root  320×72 @21,55
+    div.CopyField__root  320×80 @21,55
       span.CopyField__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Код привязки»
-      div.CopyField__row  320×46 @0,26  r11  b1
-        span.CopyField__value  260×19 @15,14  JetBrains Mono 400 12/19  lines=1  «W9XY42BC»
-        button.CopyField__button  36×36 @279,5  r100
-          svg  16×16 @10,8
+      div.CopyField__row  320×54 @0,26  r999  b1
+        span.CopyField__value  252×19 @15,18  JetBrains Mono 400 12/19  lines=1  «W9XY42BC»
+        button.CopyField__button  44×44 @271,5  r100
+          svg  16×16 @14,12
       span[role=status]  1×1 @-1,-1
-    form.DeliveryAddresses__row  694×76 @21,137
-      div.Field__field  587×76 @0,0
-        label.Field__label  587×20 @0,0  Manrope 600 13/20  lines=1  «Почта для уведомлений»
-        input  587×49 @0,27  r11  b1
-      button.Button__button  99×44 @595,32  r9  b1
+    form.DeliveryAddresses__row  694×52 @21,145
+      div.Field__field  587×52 @0,0
+        label.Field__label  130×13 @15,8  Manrope 600 11/13  lines=1  «Почта для уведомлений»
+        input  587×52 @0,0  r999  b1
+      button.Button__button  99×44 @595,8  r999  b1
         span.Button__content  69×16 @15,14
           span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
 
@@ -60,25 +60,25 @@ ul.DeliveryAddresses__list  736×234 @16,176
 h2.DeliveryAddresses__title  1408×23 @16,16  Onest 700 19/23  ls0  lines=1  «Адреса доставки»
 p.DeliveryAddresses__hint  637×67 @16,45  Manrope 400 15/22  lines=3  «Наряд, изменение вводных и отмена уходят»
 p.DeliveryAddresses__hint#2  637×45 @16,122  Manrope 400 15/22  lines=2  «Код привязки диктуют человеку: он отправ»
-ul.DeliveryAddresses__list  1408×234 @16,177
-  div.Card__card  1408×234 @0,0  r20  b1
+ul.DeliveryAddresses__list  1408×208 @16,177
+  div.Card__card  1408×208 @0,0  r14  b1
     div.DeliveryAddresses__head  315×24 @21,21
       span.DeliveryAddresses__name  85×23 @0,0  Manrope 600 15/23  lines=1  «Пётр Ильин»
       span.DeliveryAddresses__role  63×19 @93,3  Manrope 400 12/19  lines=1  «монтажник»
       span.Badge__badge  151×24 @164,0  Manrope 600 12/16  r100  b1  lines=1  «телеграм не привязан»
-    div.CopyField__root  320×72 @21,55
+    div.CopyField__root  320×74 @21,55
       span.CopyField__label  320×20 @0,0  Manrope 600 13/20  lines=1  «Код привязки»
-      div.CopyField__row  320×46 @0,26  r11  b1
-        span.CopyField__value  260×19 @15,14  JetBrains Mono 400 12/19  lines=1  «W9XY42BC»
-        button.CopyField__button  36×36 @279,5  r100
-          svg  16×16 @10,8
+      div.CopyField__row  320×48 @0,26  r999  b1
+        span.CopyField__value  264×19 @15,15  JetBrains Mono 400 12/19  lines=1  «W9XY42BC»
+        button.CopyField__button  32×32 @283,8  r100
+          svg  16×16 @8,6
       span[role=status]  1×1 @-1,-1
-    form.DeliveryAddresses__row  1366×76 @21,137
-      div.Field__field  1259×76 @0,0
-        label.Field__label  1259×20 @0,0  Manrope 600 13/20  lines=1  «Почта для уведомлений»
-        input  1259×49 @0,27  r11  b1
-      button.Button__button  99×40 @1267,36  r9  b1
-        span.Button__content  69×16 @15,12
+    form.DeliveryAddresses__row  1366×48 @21,139
+      div.Field__field  1259×48 @0,0
+        label.Field__label  130×13 @15,8  Manrope 600 11/13  lines=1  «Почта для уведомлений»
+        input  1259×48 @0,0  r999  b1
+      button.Button__button  99×32 @1267,16  r999  b1
+        span.Button__content  69×16 @15,8
           span.Button__label  69×16 @0,0  Manrope 600 13/16  lines=1  «Сохранить»
 
 [палитра light]
@@ -93,15 +93,15 @@ ul.DeliveryAddresses__list
       span.Badge__badge  color #92400e  bg #b4530914  border #b4530947
     div.CopyField__root
       span.CopyField__label  color #334155
-      div.CopyField__row  bg #ffffff  border #7e8fa6
+      div.CopyField__row  bg #f8fafc  border #7e8fa6
         span.CopyField__value  color #0f172a
         button.CopyField__button
           svg
       span[role=status]
     form.DeliveryAddresses__row
       div.Field__field
-        label.Field__label  color #334155
-        input  bg #ffffff  border #7e8fa6
+        label.Field__label  color #556173
+        input  bg #f8fafc  border #7e8fa6
       button.Button__button  bg #ffffff  border #7e8fa6
         span.Button__content
           span.Button__label  color #0f172a
@@ -118,15 +118,15 @@ ul.DeliveryAddresses__list
       span.Badge__badge  color #fbbf24  bg #fbbf241f  border #fbbf2452
     div.CopyField__root
       span.CopyField__label  color #c9d5e2
-      div.CopyField__row  bg #0b1424  border #566d95
+      div.CopyField__row  bg #0e1729  border #566d95
         span.CopyField__value  color #eaf1f8
         button.CopyField__button
           svg
       span[role=status]
     form.DeliveryAddresses__row
       div.Field__field
-        label.Field__label  color #c9d5e2
-        input  bg #0b1424  border #566d95
+        label.Field__label  color #8598ac
+        input  bg #0e1729  border #566d95
       button.Button__button  bg #121d31  border #566d95
         span.Button__content
           span.Button__label  color #eaf1f8

@@ -8,34 +8,34 @@
 
 [геометрия 390]
 div.CalendarCreate__buttons  358×44 @16,16
-  button.Button__button  184×44 @0,0  r9  b1
+  button.Button__button  184×44 @0,0  r999  b1
     span.Button__content  154×16 @15,14
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  104×44 @190,0  r9  b1
+  button.Button__button#2  104×44 @190,0  r999  b1
     span.Button__content  74×20 @15,12
       svg#2  20×20 @0,0
       span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
 
 [геометрия 768]
 div.CalendarCreate__buttons  736×44 @16,16
-  button.Button__button  184×44 @0,0  r9  b1
+  button.Button__button  184×44 @0,0  r999  b1
     span.Button__content  154×16 @15,14
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  104×44 @190,0  r9  b1
+  button.Button__button#2  104×44 @190,0  r999  b1
     span.Button__content  74×20 @15,12
       svg#2  20×20 @0,0
       span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
 
 [геометрия 1440]
-div.CalendarCreate__buttons  1408×40 @16,16
-  button.Button__button  184×40 @0,0  r9  b1
-    span.Button__content  154×16 @15,12
+div.CalendarCreate__buttons  1408×32 @16,16
+  button.Button__button  184×32 @0,0  r999  b1
+    span.Button__content  154×16 @15,8
       svg  16×16 @0,0
       span.Button__label  130×16 @24,0  Manrope 600 13/16  lines=1  «Отметить занятость»
-  button.Button__button#2  104×40 @190,0  r9  b1
-    span.Button__content  74×20 @15,10
+  button.Button__button#2  104×32 @190,0  r999  b1
+    span.Button__content  74×20 @15,6
       svg#2  20×20 @0,0
       span.Button__label#2  46×16 @28,2  Manrope 600 13/16  lines=1  «Запись»
 
@@ -45,7 +45,7 @@ div.CalendarCreate__buttons
     span.Button__content
       svg
       span.Button__label  color #0e7490
-  button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  button.Button__button#2  bg #0e7490  border #0e7490
     span.Button__content
       svg#2
       span.Button__label#2  color #ffffff
@@ -56,7 +56,7 @@ div.CalendarCreate__buttons
     span.Button__content
       svg
       span.Button__label  color #22d3ee
-  button.Button__button#2  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+  button.Button__button#2  bg #0e7490  border #0e7490
     span.Button__content
       svg#2
       span.Button__label#2  color #ffffff

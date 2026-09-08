@@ -2,12 +2,12 @@
 шрифты: JetBrains Mono 400, Manrope 400, Manrope 600, Onest 700
 
 [документ]
-390 → 390×1109
+390 → 390×1057
 768 → 768×900
 1440 → 1440×900
 
 [геометрия 390]
-article.Card__card  358×1077 @16,16  r20  b1
+article.Card__card  358×1025 @16,16  r14  b1
   header.LeadCardView__header  316×155 @21,21
     p.LeadCardView__number  255×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 41»
     h2.LeadCardView__name  255×21 @0,22  Onest 700 17/21  ls0  lines=1  «Ирина»
@@ -36,38 +36,38 @@ article.Card__card  358×1077 @16,16  r20  b1
       dt.LeadCardView__detailLabel  316×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  316×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
   p.LeadCardView__comment  316×65 @21,500  Manrope 400 15/22  b0 0 0 3  lines=2  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  316×238 @21,579
-    div.Field__field  316×76 @0,0
-      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
-      span.Select__wrapper  316×49 @0,27
-        select.Select__select  316×49 @0,0  r11  b1
-          option  0×0 @-37,-622  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-622  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-622  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-622  Manrope 400 15/21  lines=0  «Отказ»
-        svg.Select__chevron  14×14 @288,18
-    div.Field__field#2  316×150 @0,88
-      label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
-      textarea.Textarea__textarea  316×96 @0,27  r11  b1
-      p.Field__hint  316×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  316×98 @21,828
-    button.Button__button  121×44 @0,0  r9  b1
+  div.LeadCardView__actions  316×186 @21,579
+    div.Field__field  316×52 @0,0
+      label.Field__label  38×13 @15,8  Manrope 600 11/13  lines=1  «Статус»
+      span.Select__wrapper  316×52 @0,0
+        select.Select__select  316×52 @0,0  r999  b1
+          option  0×0 @-37,-595  Manrope 400 14/20  lines=0  «Новая»
+          option#2  0×0 @-37,-595  Manrope 400 14/20  lines=0  «В работе»
+          option#3  0×0 @-37,-595  Manrope 400 14/20  lines=0  «Завершена»
+          option#4  0×0 @-37,-595  Manrope 400 14/20  lines=0  «Отказ»
+        svg.Select__chevron  14×14 @288,19
+    div.Field__field#2  316×122 @0,64
+      label.Field__label  109×13 @15,8  Manrope 600 11/13  lines=1  «Заметка менеджера»
+      textarea.Textarea__textarea  316×96 @0,0  r14  b1
+      p.Field__hint  316×19 @0,103  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
+  div.LeadCardView__footer  316×98 @21,777
+    button.Button__button  121×44 @0,0  r999  b1
       span.Button__content  91×16 @15,14
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
     a.LeadCardView__plan  105×44 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
-    button.Button__button#2  95×44 @0,54  r9  b1
+    button.Button__button#2  95×44 @0,54  r999  b1
       span.Button__content  65×16 @15,14
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
     p.LeadCardView__savedNote  169×22 @109,65  Manrope 400 15/22  lines=1  «Заявка принята в работу»
     p[role=status]  1×1 @-1,49  Manrope 400 15/23  lines=1  clipped  «Заявка принята в работу»
-  div.LeadCardView__danger  316×125 @21,930  b1 0 0 0
+  div.LeadCardView__danger  316×125 @21,879  b1 0 0 0
     p.LeadCardView__dangerHint  316×60 @0,13  Manrope 400 13/20  lines=3  «Уничтожение персональных данных по требо»
-    button.Button__button  157×44 @0,81  r9  b1
+    button.Button__button  157×44 @0,81  r999  b1
       span.Button__content#2  127×16 @15,14
         span.Button__label  127×16 @0,0  Manrope 600 13/16  lines=1  «Удалить обращение»
 
 [геометрия 768]
-article.Card__card  736×664 @16,16  r20  b1
+article.Card__card  736×613 @16,16  r14  b1
   header.LeadCardView__header  694×90 @21,21
     p.LeadCardView__number  136×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 41»
     h2.LeadCardView__name  136×22 @0,22  Onest 700 18/22  ls0  lines=1  «Ирина»
@@ -95,38 +95,38 @@ article.Card__card  736×664 @16,16  r20  b1
       dt.LeadCardView__detailLabel  221×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  221×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
   p.LeadCardView__comment  694×42 @21,232  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  694×238 @21,288
-    div.Field__field  694×76 @0,0
-      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
-      span.Select__wrapper  694×49 @0,27
-        select.Select__select  694×49 @0,0  r11  b1
-          option  0×0 @-37,-332  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-332  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-332  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-332  Manrope 400 15/21  lines=0  «Отказ»
-        svg.Select__chevron  14×14 @666,18
-    div.Field__field#2  694×150 @0,88
-      label.Field__label  694×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
-      textarea.Textarea__textarea  694×96 @0,27  r11  b1
-      p.Field__hint  694×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  694×44 @21,538
-    button.Button__button  121×44 @0,0  r9  b1
+  div.LeadCardView__actions  694×186 @21,288
+    div.Field__field  694×52 @0,0
+      label.Field__label  38×13 @15,8  Manrope 600 11/13  lines=1  «Статус»
+      span.Select__wrapper  694×52 @0,0
+        select.Select__select  694×52 @0,0  r999  b1
+          option  0×0 @-37,-304  Manrope 400 14/20  lines=0  «Новая»
+          option#2  0×0 @-37,-304  Manrope 400 14/20  lines=0  «В работе»
+          option#3  0×0 @-37,-304  Manrope 400 14/20  lines=0  «Завершена»
+          option#4  0×0 @-37,-304  Manrope 400 14/20  lines=0  «Отказ»
+        svg.Select__chevron  14×14 @666,19
+    div.Field__field#2  694×122 @0,64
+      label.Field__label  109×13 @15,8  Manrope 600 11/13  lines=1  «Заметка менеджера»
+      textarea.Textarea__textarea  694×96 @0,0  r14  b1
+      p.Field__hint  694×19 @0,103  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
+  div.LeadCardView__footer  694×44 @21,487
+    button.Button__button  121×44 @0,0  r999  b1
       span.Button__content  91×16 @15,14
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
     a.LeadCardView__plan  105×44 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
-    button.Button__button#2  95×44 @254,0  r9  b1
+    button.Button__button#2  95×44 @254,0  r999  b1
       span.Button__content  65×16 @15,14
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
     p.LeadCardView__savedNote  169×22 @363,11  Manrope 400 15/22  lines=1  «Заявка принята в работу»
     p[role=status]  1×1 @-1,22  Manrope 400 15/23  lines=1  clipped  «Заявка принята в работу»
-  div.LeadCardView__danger  694×57 @21,586  b1 0 0 0
+  div.LeadCardView__danger  694×57 @21,535  b1 0 0 0
     p.LeadCardView__dangerHint  521×40 @0,15  Manrope 400 13/20  lines=2  «Уничтожение персональных данных по требо»
-    button.Button__button  157×44 @537,13  r9  b1
+    button.Button__button  157×44 @537,13  r999  b1
       span.Button__content#2  127×16 @15,14
         span.Button__label  127×16 @0,0  Manrope 600 13/16  lines=1  «Удалить обращение»
 
 [геометрия 1440]
-article.Card__card  1408×498 @16,16  r20  b1
+article.Card__card  1408×455 @16,16  r14  b1
   header.LeadCardView__header  1366×70 @21,21
     p.LeadCardView__number  136×20 @0,0  JetBrains Mono 400 13/20  lines=1  «Обращение № 41»
     h2.LeadCardView__name  136×23 @0,22  Onest 700 19/23  ls0  lines=1  «Ирина»
@@ -154,38 +154,38 @@ article.Card__card  1408×498 @16,16  r20  b1
       dt.LeadCardView__detailLabel  214×20 @0,0  Manrope 400 13/20  lines=1  «Согласие на обработку данных»
       dd.LeadCardView__detailValue  214×22 @0,20  Manrope 400 15/22  lines=1  «дано 20.08.2026, 12:15»
   p.LeadCardView__comment  1366×42 @21,162  Manrope 400 15/22  b0 0 0 3  lines=1  «Второй этаж, окна во двор. Нужен тихий в»
-  div.LeadCardView__actions  1366×150 @21,218
-    div.Field__field  220×76 @0,0
-      label.Field__label  220×20 @0,0  Manrope 600 13/20  lines=1  «Статус»
-      span.Select__wrapper  220×49 @0,27
-        select.Select__select  220×49 @0,0  r11  b1
-          option  0×0 @-37,-261  Manrope 400 15/21  lines=0  «Новая»
-          option#2  0×0 @-37,-261  Manrope 400 15/21  lines=0  «В работе»
-          option#3  0×0 @-37,-261  Manrope 400 15/21  lines=0  «Завершена»
-          option#4  0×0 @-37,-261  Manrope 400 15/21  lines=0  «Отказ»
-        svg.Select__chevron  14×14 @192,18
-    div.Field__field#2  1130×150 @236,0
-      label.Field__label  1130×20 @0,0  Manrope 600 13/20  lines=1  «Заметка менеджера»
-      textarea.Textarea__textarea  1130×96 @0,27  r11  b1
-      p.Field__hint  1130×19 @0,130  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
-  div.LeadCardView__footer  1366×40 @21,380
-    button.Button__button  121×40 @0,0  r9  b1
-      span.Button__content  91×16 @15,12
+  div.LeadCardView__actions  1366×122 @21,218
+    div.Field__field  220×48 @0,0
+      label.Field__label  38×13 @15,8  Manrope 600 11/13  lines=1  «Статус»
+      span.Select__wrapper  220×48 @0,0
+        select.Select__select  220×48 @0,0  r999  b1
+          option  0×0 @-37,-234  Manrope 400 14/20  lines=0  «Новая»
+          option#2  0×0 @-37,-234  Manrope 400 14/20  lines=0  «В работе»
+          option#3  0×0 @-37,-234  Manrope 400 14/20  lines=0  «Завершена»
+          option#4  0×0 @-37,-234  Manrope 400 14/20  lines=0  «Отказ»
+        svg.Select__chevron  14×14 @192,17
+    div.Field__field#2  1130×122 @236,0
+      label.Field__label  109×13 @15,8  Manrope 600 11/13  lines=1  «Заметка менеджера»
+      textarea.Textarea__textarea  1130×96 @0,0  r14  b1
+      p.Field__hint  1130×19 @0,103  Manrope 400 13/19  lines=1  «Видна только в админке. Клиенту не показ»
+  div.LeadCardView__footer  1366×32 @21,353
+    button.Button__button  121×32 @0,0  r999  b1
+      span.Button__content  91×16 @15,8
         span.Button__label  91×16 @0,0  Manrope 600 13/16  lines=1  «Создать заказ»
-    a.LeadCardView__plan  105×32 @135,4  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
-    button.Button__button#2  95×40 @254,0  r9  b1
-      span.Button__content  65×16 @15,12
+    a.LeadCardView__plan  105×32 @135,0  Manrope 600 13/20  r100  b1  lines=1  «В календарь»
+    button.Button__button#2  95×32 @254,0  r999  b1
+      span.Button__content  65×16 @15,8
         span.Button__label#2  65×16 @0,0  Manrope 600 13/16  lines=1  «В клиенты»
-    p.LeadCardView__savedNote  169×22 @363,9  Manrope 400 15/22  lines=1  «Заявка принята в работу»
-    p[role=status]  1×1 @-1,20  Manrope 400 15/23  lines=1  clipped  «Заявка принята в работу»
-  div.LeadCardView__danger  1366×53 @21,424  b1 0 0 0
-    p.LeadCardView__dangerHint  1193×20 @0,23  Manrope 400 13/20  lines=1  «Уничтожение персональных данных по требо»
-    button.Button__button  157×40 @1209,13  r9  b1
-      span.Button__content#2  127×16 @15,12
+    p.LeadCardView__savedNote  169×22 @363,5  Manrope 400 15/22  lines=1  «Заявка принята в работу»
+    p[role=status]  1×1 @-1,16  Manrope 400 15/23  lines=1  clipped  «Заявка принята в работу»
+  div.LeadCardView__danger  1366×45 @21,389  b1 0 0 0
+    p.LeadCardView__dangerHint  1193×20 @0,19  Manrope 400 13/20  lines=1  «Уничтожение персональных данных по требо»
+    button.Button__button  157×32 @1209,13  r999  b1
+      span.Button__content#2  127×16 @15,8
         span.Button__label  127×16 @0,0  Manrope 600 13/16  lines=1  «Удалить обращение»
 
 [палитра light]
-article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a08 0px 0px 5px 0px, #0f172a0f 0px 2px 10px 0px
   header.LeadCardView__header
     p.LeadCardView__number  color #556173
     h2.LeadCardView__name  color #0f172a
@@ -215,20 +215,20 @@ article.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -
   p.LeadCardView__comment  color #475569  bg #f8fafc  border #475569 #475569 #475569 #cbd5e1
   div.LeadCardView__actions
     div.Field__field
-      label.Field__label  color #334155
+      label.Field__label  color #556173
       span.Select__wrapper
-        select.Select__select  bg #ffffff  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
+        select.Select__select  bg #f8fafc  border #0891b2  shadow #ffffff 0px 0px 0px 2px, #0891b2 0px 0px 0px 4px  outline #0891b2
           option  color #0f172a
           option#2  color #0f172a
           option#3  color #0f172a
           option#4  color #0f172a
         svg.Select__chevron
     div.Field__field#2
-      label.Field__label  color #334155
-      textarea.Textarea__textarea  bg #ffffff  border #7e8fa6
+      label.Field__label  color #556173
+      textarea.Textarea__textarea  bg #f8fafc  border #7e8fa6
       p.Field__hint  color #556173
   div.LeadCardView__footer
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label  color #ffffff
     a.LeadCardView__plan  color #0e7490  border #e2e8f0
@@ -247,7 +247,7 @@ article.Card__card > header.LeadCardView__header > a.LeadCardView__phone  color 
 article.Card__card > header.LeadCardView__header > a.LeadCardView__phone > span.LeadCardView__callWord  color #0e7490
 
 [палитра dark]
-article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+article.Card__card  bg #121d31  border #1e2b41  shadow #00000033 0px 0px 5px 0px, #00000047 0px 2px 10px 0px
   header.LeadCardView__header
     p.LeadCardView__number  color #8598ac
     h2.LeadCardView__name  color #eaf1f8
@@ -277,20 +277,20 @@ article.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -
   p.LeadCardView__comment  color #a8b6c6  bg #0e1729  border #a8b6c6 #a8b6c6 #a8b6c6 #2c3d59
   div.LeadCardView__actions
     div.Field__field
-      label.Field__label  color #c9d5e2
+      label.Field__label  color #8598ac
       span.Select__wrapper
-        select.Select__select  bg #0b1424  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
+        select.Select__select  bg #0e1729  border #22d3ee  shadow #0b1220 0px 0px 0px 2px, #22d3ee 0px 0px 0px 4px  outline #22d3ee
           option  color #eaf1f8
           option#2  color #eaf1f8
           option#3  color #eaf1f8
           option#4  color #eaf1f8
         svg.Select__chevron
     div.Field__field#2
-      label.Field__label  color #c9d5e2
-      textarea.Textarea__textarea  bg #0b1424  border #566d95
+      label.Field__label  color #8598ac
+      textarea.Textarea__textarea  bg #0e1729  border #566d95
       p.Field__hint  color #8598ac
   div.LeadCardView__footer
-    button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+    button.Button__button  bg #0e7490  border #0e7490
       span.Button__content
         span.Button__label  color #ffffff
     a.LeadCardView__plan  color #22d3ee  border #1e2b41

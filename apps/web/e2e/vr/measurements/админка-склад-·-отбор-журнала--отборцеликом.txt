@@ -7,7 +7,7 @@
 1440 → 1440×900
 
 [геометрия 390]
-div.StockJournalFilters__filters  358×450 @16,26
+div.StockJournalFilters__filters  358×398 @16,26
   nav.StockJournalFilters__row  358×148 @0,0
     a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
     a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
@@ -19,19 +19,19 @@ div.StockJournalFilters__filters  358×450 @16,26
     a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
     a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
     a.StockJournalFilters__chip#3  131×44 @0,52  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.StockJournalFilters__form  358×186 @0,264
-    div.Field__field  358×103 @0,0
-      label.Field__label  358×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
-      input  358×49 @0,27  r11  b1
-      p.Field__hint  358×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-    div.StockJournalFilters__actions  193×71 @0,115
-      button.Button__button  69×44 @0,27  r9  b1
+  form.StockJournalFilters__form  358×134 @0,264
+    div.Field__field  358×78 @0,0
+      label.Field__label  97×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по журналу»
+      input  358×52 @0,0  r999  b1
+      p.Field__hint  358×19 @0,59  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
+    div.StockJournalFilters__actions  193×44 @0,90
+      button.Button__button  69×44 @0,0  r999  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 768]
-div.StockJournalFilters__filters  736×263 @16,26
+div.StockJournalFilters__filters  736×238 @16,26
   nav.StockJournalFilters__row  736×96 @0,0
     a.StockJournalFilters__chip  119×44 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
     a.StockJournalFilters__chip#2  78×44 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
@@ -43,19 +43,19 @@ div.StockJournalFilters__filters  736×263 @16,26
     a.StockJournalFilters__chip  111×44 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
     a.StockJournalFilters__chip#2  102×44 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
     a.StockJournalFilters__chip#3  131×44 @230,0  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.StockJournalFilters__form  736×103 @0,160
-    div.Field__field  531×103 @0,0
-      label.Field__label  531×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
-      input  531×49 @0,27  r11  b1
-      p.Field__hint  531×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-    div.StockJournalFilters__actions  193×71 @543,0
-      button.Button__button  69×44 @0,27  r9  b1
+  form.StockJournalFilters__form  736×78 @0,160
+    div.Field__field  531×78 @0,0
+      label.Field__label  97×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по журналу»
+      input  531×52 @0,0  r999  b1
+      p.Field__hint  531×19 @0,59  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
+    div.StockJournalFilters__actions  193×44 @543,0
+      button.Button__button  69×44 @0,0  r999  b1
         span.Button__content  39×16 @15,14
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.StockJournalFilters__reset  112×24 @81,37  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      a.StockJournalFilters__reset  112×24 @81,10  Manrope 400 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 1440]
-div.StockJournalFilters__filters  1408×191 @16,26
+div.StockJournalFilters__filters  1408×163 @16,26
   nav.StockJournalFilters__row  1408×34 @0,0
     a.StockJournalFilters__chip  119×34 @0,0  Manrope 600 13/20  r100  b1  lines=1  «Все движения»
     a.StockJournalFilters__chip#2  78×34 @127,0  Manrope 600 13/20  r100  b1  lines=1  «Приход»
@@ -67,16 +67,16 @@ div.StockJournalFilters__filters  1408×191 @16,26
     a.StockJournalFilters__chip  111×34 @0,0  Manrope 500 13/20  r100  b1  lines=1  «За всё время»
     a.StockJournalFilters__chip#2  102×34 @119,0  Manrope 500 13/20  r100  b1  lines=1  «Этот месяц»
     a.StockJournalFilters__chip#3  131×34 @230,0  Manrope 500 13/20  r100  b1  lines=1  «Прошлый месяц»
-  form.StockJournalFilters__form  1408×103 @0,88
-    div.Field__field  1203×103 @0,0
-      label.Field__label  1203×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по журналу»
-      input  1203×49 @0,27  r11  b1
-      p.Field__hint  1203×19 @0,83  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
-    div.StockJournalFilters__actions  193×67 @1215,0
-      button.Button__button  69×40 @0,27  r9  b1
-        span.Button__content  39×16 @15,12
+  form.StockJournalFilters__form  1408×74 @0,88
+    div.Field__field  1203×74 @0,0
+      label.Field__label  97×13 @15,8  Manrope 600 11/13  lines=1  «Поиск по журналу»
+      input  1203×48 @0,0  r999  b1
+      p.Field__hint  1203×19 @0,55  Manrope 400 13/19  lines=1  «Позиция, основание или номер наряда»
+    div.StockJournalFilters__actions  193×32 @1215,0
+      button.Button__button  69×32 @0,0  r999  b1
+        span.Button__content  39×16 @15,8
           span.Button__label  39×16 @0,0  Manrope 600 13/16  lines=1  «Найти»
-      a.StockJournalFilters__reset  112×24 @81,35  Manrope 400 15/22  lines=1  «Сбросить отбор»
+      a.StockJournalFilters__reset  112×24 @81,4  Manrope 400 15/22  lines=1  «Сбросить отбор»
 
 [палитра light]
 div.StockJournalFilters__filters
@@ -93,11 +93,11 @@ div.StockJournalFilters__filters
     a.StockJournalFilters__chip#3  color #0e7490  bg #ecfeff  border #a5f3fc
   form.StockJournalFilters__form
     div.Field__field
-      label.Field__label  color #334155
-      input  bg #ffffff  border #7e8fa6
+      label.Field__label  color #556173
+      input  bg #f8fafc  border #7e8fa6
       p.Field__hint  color #556173
     div.StockJournalFilters__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content
           span.Button__label  color #ffffff
       a.StockJournalFilters__reset  color #556173
@@ -117,11 +117,11 @@ div.StockJournalFilters__filters
     a.StockJournalFilters__chip#3  color #22d3ee  bg #22d3ee1a  border #22d3ee59
   form.StockJournalFilters__form
     div.Field__field
-      label.Field__label  color #c9d5e2
-      input  bg #0b1424  border #566d95
+      label.Field__label  color #8598ac
+      input  bg #0e1729  border #566d95
       p.Field__hint  color #8598ac
     div.StockJournalFilters__actions
-      button.Button__button  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+      button.Button__button  bg #0e7490  border #0e7490
         span.Button__content
           span.Button__label  color #ffffff
       a.StockJournalFilters__reset  color #8598ac
