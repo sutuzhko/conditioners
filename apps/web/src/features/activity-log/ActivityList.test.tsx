@@ -3,7 +3,12 @@ import { describe, expect, it } from 'vitest';
 
 import { ActivityList } from './ActivityList';
 import { activityLogContent as texts } from './content';
-import { activityJournal, activityJournalEmpty, activityJournalPaged } from './fixtures';
+import {
+  activityFilterApplied,
+  activityJournal,
+  activityJournalEmpty,
+  activityJournalPaged,
+} from './fixtures';
 
 describe('журнал событий списком', () => {
   it('строка называет автора, действие и сущность', () => {
@@ -74,6 +79,39 @@ describe('журнал событий списком', () => {
 
     expect(screen.getByText(texts.emptyTitle)).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
+  });
+
+  /**
+   * 🔴 Пустой журнал и пустой результат отбора выглядят одинаково пустыми, а
+   * шаги у них противоположные: в первом случае ждать первого изменения, во
+   * втором — снять условия (issue #335). Один текст на оба случая заводит
+   * владельца в тупик, поэтому проверяются оба и по отдельности.
+   */
+  it('пустой результат отбора говорит про отбор, а не про пустой журнал', () => {
+    render(<ActivityList journal={activityJournalEmpty} filter={activityFilterApplied} />);
+
+    expect(screen.getByText(texts.notFoundTitle)).toBeInTheDocument();
+    expect(screen.queryByText(texts.emptyTitle)).not.toBeInTheDocument();
+  });
+
+  /* 🔴 Разбивка обязана нести отбор за собой: без этого вторая страница
+     найденного показывает весь журнал (issue #816). */
+  it('шаги разбивки несут условия отбора', () => {
+    render(<ActivityList journal={activityJournalPaged} filter={activityFilterApplied} />);
+
+    const pager = screen.getByRole('navigation', { name: texts.pagerLabel });
+    const links = [...pager.querySelectorAll('a')].map((link) => link.getAttribute('href') ?? '');
+
+    expect(links.length).toBeGreaterThan(0);
+    expect(links.every((href) => href.includes('actor=u2'))).toBe(true);
+  });
+
+  /* Пометка человека — единственное правимое поле записи (issue #820). В
+     списке она видна: её и пишут ради того, чтобы читать в строке. */
+  it('пометка человека показана рядом с событием', () => {
+    render(<ActivityList journal={activityJournal} />);
+
+    expect(screen.getByText('Разобрались: отзыв вернули по просьбе автора')).toBeInTheDocument();
   });
 
   /**
