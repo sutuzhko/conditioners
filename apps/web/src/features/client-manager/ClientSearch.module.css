@@ -6,11 +6,12 @@
   gap: 10px;
 }
 
+/* Чем ряд равняется — правило кита (`fieldRowClassName`, issue #742). Здесь
+   остаётся раскладка раздела: одно поле, кнопка и сброс. */
 .form {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  align-items: flex-start;
 }
 
 .field {
@@ -18,13 +19,13 @@
   min-width: 0;
 }
 
-/* Кнопка встаёт на строку поля, а не под подпись: подписи и подсказки у поля
-   занимают две строки над самим вводом. */
+/* На строку ввода кнопку ставит кит (`fieldRowActionsClassName`, issue #742):
+   26px под подпись компенсировали строку, которая с ADR-307 уехала внутрь
+   контрола, — и держались числом в модуле раздела. */
 .actions {
   display: flex;
   gap: 12px;
   align-items: center;
-  padding-top: 26px;
 }
 
 .reset {
@@ -48,10 +49,4 @@
   margin: 0;
   color: var(--faint);
   font-size: var(--fs-caption);
-}
-
-@media (width < 600px) {
-  .actions {
-    padding-top: 0;
-  }
 }

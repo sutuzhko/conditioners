@@ -1,6 +1,12 @@
 import Link from 'next/link';
 
-import { Card, Input, buttonClassName } from '@/shared/ui';
+import {
+  Card,
+  Input,
+  buttonClassName,
+  fieldRowActionsClassName,
+  fieldRowClassName,
+} from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
 import { TEAM_PATH } from './model';
@@ -22,7 +28,7 @@ export interface StaffSearchProps {
 export function StaffSearch({ query }: StaffSearchProps) {
   return (
     <Card as="section" className={styles.card}>
-      <form className={styles.form} action={TEAM_PATH} method="get">
+      <form className={fieldRowClassName(styles.form)} action={TEAM_PATH} method="get">
         <Input
           label={texts.searchLabel}
           hint={texts.searchHint}
@@ -34,7 +40,7 @@ export function StaffSearch({ query }: StaffSearchProps) {
           wrapperClassName={styles.field}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <button className={buttonClassName({ size: 'sm' })} type="submit">
             {texts.searchSubmit}
           </button>

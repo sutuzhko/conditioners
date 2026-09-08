@@ -82,6 +82,9 @@ export type { MediaGoneProps } from './MediaGone/MediaGone';
 export { Input } from './Input/Input';
 export type { InputProps } from './Input/Input';
 export type { FieldVariant } from './internal/Field';
+/* Ряд отбора (issue #742): наружу отдаются только классы — сама обвязка поля
+   остаётся внутренней, снаружи зовут готовые Input, Select и Textarea. */
+export { fieldRowActionsClassName, fieldRowClassName } from './internal/Field';
 export { PhoneInput } from './Input/PhoneInput';
 export type { PhoneInputProps } from './Input/PhoneInput';
 export { PasswordInput } from './Input/PasswordInput';

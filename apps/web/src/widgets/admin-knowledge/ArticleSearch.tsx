@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-import { Card, Input, Select, buttonClassName } from '@/shared/ui';
+import {
+  Card,
+  Input,
+  Select,
+  buttonClassName,
+  fieldRowActionsClassName,
+  fieldRowClassName,
+} from '@/shared/ui';
 
 import { adminKnowledgeContent as texts } from './content';
 import {
@@ -48,7 +55,12 @@ const ORDER_LABELS: Record<(typeof ARTICLE_ORDERS)[number], string> = {
 export function ArticleSearch({ filter, categories }: ArticleSearchProps) {
   return (
     <Card as="section" className={styles.card}>
-      <form className={styles.form} action={KNOWLEDGE_PATH} method="get" role="search">
+      <form
+        className={fieldRowClassName(styles.form)}
+        action={KNOWLEDGE_PATH}
+        method="get"
+        role="search"
+      >
         <Input
           label={texts.searchLabel}
           hint={texts.searchHint}
@@ -94,7 +106,7 @@ export function ArticleSearch({ filter, categories }: ArticleSearchProps) {
           options={ARTICLE_ORDERS.map((order) => ({ value: order, label: ORDER_LABELS[order] }))}
         />
 
-        <div className={styles.actions}>
+        <div className={fieldRowActionsClassName(styles.actions)}>
           <button className={buttonClassName({ size: 'sm' })} type="submit">
             {texts.searchSubmit}
           </button>

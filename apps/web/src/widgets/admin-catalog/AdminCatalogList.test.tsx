@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { productFormContent } from '@/features/product-form';
 import { formatMoney } from '@/shared/lib/format';
+import { tableAboveClassName } from '@/shared/ui';
 
 import { AdminCatalogList } from './AdminCatalogList';
 import { adminCatalogContent as texts } from './content';
@@ -32,6 +33,41 @@ describe('Список каталога в админке', () => {
     expect(
       screen.getByRole('link', { name: texts.editLabel(discounted?.name ?? '') }),
     ).toHaveAttribute('href', '/admin/catalog/2');
+  });
+
+  /**
+   * 🔴 Нажимается вся строка, а не круг 32×32 у правого края (issue #743).
+   * Название до этой правки было обычным текстом: в строке высотой под сто
+   * пикселей открыть модель можно было единственным карандашом.
+   */
+  it('🔴 название строки — ссылка в правку, и подпись называет модель целиком', () => {
+    render(<AdminCatalogList products={catalogRowsFixture} />);
+
+    expect(
+      screen.getByRole('link', { name: texts.rowLabel(discounted?.name ?? '') }),
+    ).toHaveAttribute('href', '/admin/catalog/2');
+  });
+
+  /**
+   * 🔴 Раздел решает ровно одно: что поднято над перекрытием строки. Сам приём
+   * живёт в ките (`TableRow`), и его сторожит китовый тест; здесь проверяется
+   * выбор каталога — переключатель видимости и колонка действий. Без этого
+   * нажатие по дорожке открывало бы карточку вместо того, чтобы снять модель
+   * с продажи.
+   */
+  it('🔴 над перекрытием строки подняты переключатель видимости и действия', () => {
+    render(<AdminCatalogList products={catalogRowsFixture} />);
+
+    const name = discounted?.name ?? '';
+    const row = screen.getByRole('row', { name: new RegExp(name) });
+
+    const toggle = within(row).getByRole('switch', {
+      name: productFormContent.visibleLabel(name),
+    });
+    expect(toggle.closest(`.${tableAboveClassName()}`)).not.toBeNull();
+
+    const actions = within(row).getByRole('group', { name: texts.rowActions(name) });
+    expect(actions).toHaveClass(tableAboveClassName());
   });
 
   /**

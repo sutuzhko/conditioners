@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { articleFormContent } from '@/features/article-form';
+import { tableAboveClassName } from '@/shared/ui';
 
 import { AdminArticleList } from './AdminArticleList';
 import { adminKnowledgeContent as texts } from './content';
@@ -27,6 +28,37 @@ describe('Список статей в админке', () => {
     expect(
       screen.getByRole('link', { name: texts.editLabel('Как часто чистить кондиционер') }),
     ).toHaveAttribute('href', '/admin/knowledge/2');
+  });
+
+  /**
+   * 🔴 Нажимается вся строка, а не круг 32×32 у правого края (issue #743).
+   * Заголовок до этой правки был обычным текстом.
+   */
+  it('🔴 заголовок строки — ссылка в правку, и подпись называет статью целиком', () => {
+    render(<AdminArticleList articles={articleRowsFixture} />);
+
+    const title = published?.title ?? '';
+
+    expect(screen.getByRole('link', { name: texts.rowLabel(title) })).toHaveAttribute(
+      'href',
+      `/admin/knowledge/${published?.id ?? ''}`,
+    );
+  });
+
+  /**
+   * 🔴 Раздел решает ровно одно: что поднято над перекрытием строки. Приём
+   * живёт в ките (`TableRow`), здесь проверяется выбор базы знаний — колонка
+   * действий: «смотреть на сайте» и «убрать» обязаны делать своё, а не
+   * открывать правку.
+   */
+  it('🔴 над перекрытием строки поднята колонка действий', () => {
+    render(<AdminArticleList articles={articleRowsFixture} />);
+
+    const title = published?.title ?? '';
+
+    expect(screen.getByRole('group', { name: texts.rowActions(title) })).toHaveClass(
+      tableAboveClassName(),
+    );
   });
 
   /* 🔴 Набор действий строки повторяет набор карточки (issue #575): до этого
