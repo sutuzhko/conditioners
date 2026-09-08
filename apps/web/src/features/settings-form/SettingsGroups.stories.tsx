@@ -78,3 +78,40 @@ export const ОтказСервера: Story = {
     await editAndSave(canvasElement);
   },
 };
+
+/**
+ * 🔴 Уход со страницы с несохранёнными правками (issue #32). Ссылка рядом с
+ * формой изображает пункт бокового меню — в приложении вопрос встаёт ровно на
+ * нём. Закрытие вкладки спрашивает так же по смыслу, но окном браузера: его
+ * вида в витрине быть не может.
+ */
+export const УходСПравками: Story = {
+  /* Поля даёт обрамление истории; здесь только ссылка рядом с формой.
+     Размер цели задан прямо тут: в приложении его держит оболочка панели, а
+     голая ссылка в витрине вышла бы ниже нормы 24×24 — и инварианты назвали
+     бы дефектом историю, а не раздел. */
+  decorators: [
+    (Story: () => ReactElement) => (
+      <>
+        <a
+          href="/admin/leads"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            minInlineSize: 'var(--tap)',
+            minBlockSize: 'var(--tap)',
+          }}
+        >
+          Заявки
+        </a>
+        <Story />
+      </>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.type(canvas.getByLabelText(/Почта/), 'x');
+    await userEvent.click(canvas.getByRole('link', { name: 'Заявки' }));
+  },
+};

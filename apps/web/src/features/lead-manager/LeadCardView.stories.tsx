@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { userEvent, within } from 'storybook/test';
 
 import { LeadCardView } from './LeadCardView';
+import { leadManagerContent as texts } from './content';
 import {
   acceptingRemove,
   acceptingToClient,
@@ -92,4 +94,20 @@ export const Отказ: Story = {
 /** Удаление не прошло: сообщение остаётся в карточке, обращение на месте. */
 export const УдалениеНеУдалось: Story = {
   args: { remove: failingRemove },
+};
+
+/**
+ * 🔴 Статус приняли — карточка называет результат, а не действие (issue #33):
+ * «Заявка принята в работу», а не «Сохранено». Ту же строку произносит живая
+ * область карточки — на экране её не видно, она для тех, кто экрана не видит.
+ */
+export const СтатусПринят: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await userEvent.selectOptions(
+      canvas.getByLabelText(texts.status),
+      texts.statusTitle('in_progress'),
+    );
+  },
 };

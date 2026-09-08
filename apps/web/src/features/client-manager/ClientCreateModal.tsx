@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import { RouteModal, useRouteClose } from '@/shared/ui';
+import { RouteModal, useRouteClose, useUnsavedInput } from '@/shared/ui';
 
 import { ClientForm } from './ClientForm';
 import { clientManagerContent as texts } from './content';
@@ -32,11 +30,11 @@ export function ClientCreateModal({ api }: ClientCreateModalProps) {
    * (ADR-141). Ложное срабатывание здесь дешевле пропуска: лишний вопрос стоит
    * одного клика, потерянная форма — звонка клиента.
    */
-  const [dirty, setDirty] = useState(false);
+  const unsaved = useUnsavedInput();
 
   /** Сохранили — окно уходит само, а список под ним обновляется. */
   const done = (): void => {
-    setDirty(false);
+    unsaved.markSaved();
     close({ refresh: true });
   };
 
@@ -45,20 +43,13 @@ export function ClientCreateModal({ api }: ClientCreateModalProps) {
       title={texts.addTitle}
       description={texts.addHint}
       fallbackHref={CLIENTS_PATH}
-      dirty={dirty}
+      dirty={unsaved.dirty}
     >
-      {/* 🔴 Изменённость снимается событием на обёртке, а не полями формы:
+      {/* 🔴 Изменённость снимается китом на обёртке, а не полями формы:
           копия правила «чем считать заполненным» разошлась бы с китом на
-          первой правке (ADR-141).
-
-          Слушаем `change`, а не `input`. У React `onChange` текстового поля —
-          это и есть `input` (событие на каждый символ), а вот у `<select>`
-          события разные и приходят по очереди: `input`, затем `change`.
-          Пометка изменённости на `input` успевает перерисовать управляемый
-          список до `change`, и он возвращается к прежнему значению — первый
-          выбор человека пропадал молча. Проверено в браузере на выборе
-          оформления монтажника (ADR-144). */}
-      <div onChange={() => setDirty(true)}>
+          первой правке (ADR-141). Что именно считается правкой — от какого
+          события и почему не от `input` — знает `useUnsavedInput`. */}
+      <div {...unsaved.scope}>
         <ClientForm api={api} surface="bare" onSaved={done} />
       </div>
     </RouteModal>

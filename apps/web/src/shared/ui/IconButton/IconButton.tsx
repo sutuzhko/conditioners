@@ -1,7 +1,15 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import styles from './IconButton.module.css';
 
-export type IconButtonVariant = 'solid' | 'outline' | 'ghost';
+/**
+ * Заливки кнопки-значка. `danger` — удаление: строка прайса, характеристика,
+ * поле справочника (issue #35).
+ *
+ * 🔴 Опасный вид — вариант кита, а не класс раздела. Разделов с удалением
+ * строки три, и три собственных красных «✕» разошлись бы на первой правке
+ * токена: у одного остался бы прежний оттенок, у другого — прежняя рамка.
+ */
+export type IconButtonVariant = 'solid' | 'outline' | 'ghost' | 'danger';
 export type IconButtonSize = 'sm' | 'md' | 'lg';
 
 export interface IconButtonProps extends Omit<

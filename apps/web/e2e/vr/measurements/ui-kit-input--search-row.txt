@@ -1,0 +1,87 @@
+# ui-kit-input--search-row · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600
+
+[документ]
+390 → 390×900
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+form.Field__row  326×191 @32,32
+  div.Field__field  240×103 @0,0
+    label.Field__label  240×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
+    input  240×49 @0,27  r11  b1
+    p.Field__hint  240×19 @0,83  Manrope 400 13/19  lines=1  «Название, марка, артикул или категория»
+  div.Field__field#2  158×76 @0,115
+    label.Field__label  158×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
+    span.Select__wrapper  158×49 @0,27
+      select.Select__select  158×49 @0,0  r11  b1
+        option  0×0 @-32,-174  Manrope 400 15/21  lines=0  «Любая»
+        option#2  0×0 @-32,-174  Manrope 400 15/21  lines=0  «Показывается»
+      svg.Select__chevron  14×14 @130,18
+  div.Field__rowActions  69×71 @170,115
+    button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+
+[геометрия 768]
+form.Field__row  704×103 @32,32
+  div.Field__field  240×103 @0,0
+    label.Field__label  240×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
+    input  240×49 @0,27  r11  b1
+    p.Field__hint  240×19 @0,83  Manrope 400 13/19  lines=1  «Название, марка, артикул или категория»
+  div.Field__field#2  158×76 @252,0
+    label.Field__label  158×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
+    span.Select__wrapper  158×49 @0,27
+      select.Select__select  158×49 @0,0  r11  b1
+        option  0×0 @-284,-59  Manrope 400 15/21  lines=0  «Любая»
+        option#2  0×0 @-284,-59  Manrope 400 15/21  lines=0  «Показывается»
+      svg.Select__chevron  14×14 @130,18
+  div.Field__rowActions  69×71 @422,0
+    button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+
+[геометрия 1440]
+form.Field__row  1376×103 @32,32
+  div.Field__field  240×103 @0,0
+    label.Field__label  240×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по каталогу»
+    input  240×49 @0,27  r11  b1
+    p.Field__hint  240×19 @0,83  Manrope 400 13/19  lines=1  «Название, марка, артикул или категория»
+  div.Field__field#2  158×76 @252,0
+    label.Field__label  158×20 @0,0  Manrope 600 13/20  lines=1  «Видимость»
+    span.Select__wrapper  158×49 @0,27
+      select.Select__select  158×49 @0,0  r11  b1
+        option  0×0 @-284,-59  Manrope 400 15/21  lines=0  «Любая»
+        option#2  0×0 @-284,-59  Manrope 400 15/21  lines=0  «Показывается»
+      svg.Select__chevron  14×14 @130,18
+  div.Field__rowActions  69×67 @422,0
+    button.Button__button  69×40 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+
+[палитра light]
+form.Field__row
+  div.Field__field
+    label.Field__label  color #334155
+    input  bg #ffffff  border #7e8fa6
+    p.Field__hint  color #556173
+  div.Field__field#2
+    label.Field__label  color #334155
+    span.Select__wrapper
+      select.Select__select  bg #ffffff  border #7e8fa6
+        option  color #0f172a
+        option#2  color #0f172a
+      svg.Select__chevron
+  div.Field__rowActions
+    button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px
+
+[палитра dark]
+form.Field__row
+  div.Field__field
+    label.Field__label  color #c9d5e2
+    input  bg #0b1424  border #566d95
+    p.Field__hint  color #8598ac
+  div.Field__field#2
+    label.Field__label  color #c9d5e2
+    span.Select__wrapper
+      select.Select__select  bg #0b1424  border #566d95
+        option  color #eaf1f8
+        option#2  color #eaf1f8
+      svg.Select__chevron
+  div.Field__rowActions
+    button.Button__button  color #ffffff  bg #0e7490  border #0e7490  shadow #0e74904d 0px 10px 24px 0px

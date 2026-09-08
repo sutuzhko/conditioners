@@ -121,8 +121,11 @@ div.AdminSummary__summary  358×1153 @16,16
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @40,0  r100
-                svg  18×18 @9,6
+              span.Tooltip__wrap#2  36×36 @40,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#2  18×18 @9,9
     a.AdminSummary__link  316×44 @21,607  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  358×116 @0,1038  r20  b1
     h2.AdminSummary__cardTitle  316×21 @21,21  Onest 700 17/21  ls0  lines=1  «Готовность к запуску»
@@ -239,7 +242,7 @@ div.AdminSummary__summary  736×1348 @16,16
             span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
         tr[role=row]#2  720×94 @0,56
           td.SummaryTable__whenCol  116×94 @0,0
-            time.SummaryTable__when  80×41 @18,15
+            time.SummaryTable__when  80×41 @18,27
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
           td.SummaryTable__workCol  220×94 @116,0
@@ -249,18 +252,21 @@ div.AdminSummary__summary  736×1348 @16,16
                 span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
               span.SummaryTable__place  184×37 @0,28  Manrope 400 12/19  lines=2  «Сергей Данилов · Тула, Первомайская 12»
           td.SummaryTable__statusCol  140×94 @336,0
-            span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+            span.Badge__badge  98×24 @18,36  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×94 @476,0  Manrope 400 13/20  lines=1  «—»
           td.SummaryTable__actions  126×94 @594,0
-            div.TableActions__actions  90×36 @18,15
+            div.TableActions__actions  90×36 @18,29
               span.Tooltip__wrap  36×36 @14,0  r100
                 span.Tooltip__anchor  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @54,0  r100
-                svg  18×18 @9,6
+              span.Tooltip__wrap#2  36×36 @54,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#2  18×18 @9,9
     a.AdminSummary__link  694×44 @21,428  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  736×94 @0,1254  r20  b1
     h2.AdminSummary__cardTitle  694×22 @21,21  Onest 700 18/22  ls0  lines=1  «Готовность к запуску»
@@ -389,7 +395,7 @@ div.AdminSummary__summary  1408×1149 @16,16
             span  1×1 @17,38  Onest 700 15/23  lines=1  clipped  «Действия»
         tr[role=row]#2  1366×75 @0,56
           td.SummaryTable__whenCol  116×75 @0,0
-            time.SummaryTable__when  80×41 @18,15
+            time.SummaryTable__when  80×41 @18,18
               span.SummaryTable__day  80×20 @0,0  JetBrains Mono 700 13/20  lines=1  «чт, 28»
               span.SummaryTable__clock  80×19 @0,22  JetBrains Mono 400 12/19  lines=1  «14:00 · 1 ч»
           td.SummaryTable__workCol  686×75 @116,0
@@ -399,20 +405,23 @@ div.AdminSummary__summary  1408×1149 @16,16
                 span.Badge__badge  51×24 @59,0  Manrope 600 12/16  r100  b1  lines=1  «Дело»
               span.SummaryTable__place  650×19 @0,28  Manrope 400 12/19  lines=1  «Сергей Данилов · Тула, Первомайская 12»
           td.SummaryTable__installerCol  180×75 @802,0
-            span.SummaryTable__none  102×18 @18,17  Manrope 400 13/20  lines=1  «дело без выезда»
+            span.SummaryTable__none  102×18 @18,29  Manrope 400 13/20  lines=1  «дело без выезда»
           td.SummaryTable__statusCol  140×75 @982,0
-            span.Badge__badge  98×24 @18,15  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
+            span.Badge__badge  98×24 @18,26  Manrope 600 12/16  r100  b1  lines=1  «Просрочен»
               span.Badge__dot  6×6 @10,9  r100
           td.SummaryTable__sumCol  118×75 @1122,0  Manrope 400 13/20  lines=1  «—»
           td.SummaryTable__actions  126×75 @1240,0
-            div.TableActions__actions  90×36 @18,15
+            div.TableActions__actions  90×36 @18,20
               span.Tooltip__wrap  36×36 @14,0  r100
                 span.Tooltip__anchor  36×36 @0,0
                   a.TableActions__action  36×36 @0,0  r100
                     span.TableActions__iconArea  36×36 @0,0
                       svg  18×18 @9,9
-              a.SummaryTable__phone  36×36 @54,0  r100
-                svg  18×18 @9,6
+              span.Tooltip__wrap#2  36×36 @54,0  r100
+                span.Tooltip__anchor  36×36 @0,0
+                  a.TableActions__action#2  36×36 @0,0  r100
+                    span.TableActions__iconArea  36×36 @0,0
+                      svg#2  18×18 @9,9
     a.AdminSummary__link  1366×24 @21,357  Manrope 600 15/22  lines=1  «Открыть календарь →»
   section.Card__card#2  1408×95 @0,1054  r20  b1
     h2.AdminSummary__cardTitle  1366×23 @21,21  Onest 700 19/23  ls0  lines=1  «Готовность к запуску»
@@ -563,8 +572,11 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea
                       svg
-              a.SummaryTable__phone
-                svg
+              span.Tooltip__wrap#2
+                span.Tooltip__anchor
+                  a.TableActions__action#2
+                    span.TableActions__iconArea
+                      svg#2
     a.AdminSummary__link  color #0e7490
   section.Card__card#2  bg #f8fafc  border #eef2f6
     h2.AdminSummary__cardTitle  color #0f172a
@@ -723,8 +735,11 @@ div.AdminSummary__summary
                   a.TableActions__action
                     span.TableActions__iconArea
                       svg
-              a.SummaryTable__phone
-                svg
+              span.Tooltip__wrap#2
+                span.Tooltip__anchor
+                  a.TableActions__action#2
+                    span.TableActions__iconArea
+                      svg#2
     a.AdminSummary__link  color #22d3ee
   section.Card__card#2  bg #0e1729  border #182338
     h2.AdminSummary__cardTitle  color #eaf1f8

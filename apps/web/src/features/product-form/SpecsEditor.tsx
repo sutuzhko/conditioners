@@ -3,7 +3,15 @@
 import { useId } from 'react';
 
 import { EMPTY_SPEC_DICTIONARY, type SpecDictionary } from '@/entities/product/lib/groupSpecs';
-import { Button, Input, Select, type FormSectionLevel } from '@/shared/ui';
+import {
+  Button,
+  Icon,
+  IconButton,
+  Input,
+  Select,
+  useConfirm,
+  type FormSectionLevel,
+} from '@/shared/ui';
 
 import { productFormContent as texts } from './content';
 import type { SpecPair } from './model';
@@ -45,9 +53,42 @@ export function SpecsEditor({
   titleLevel = 2,
 }: SpecsEditorProps) {
   const listId = useId();
+  /* Подтверждение необратимой правки — общий диалог кита, а не окно
+     браузера: системное окно нельзя объяснить (ADR-113). */
+  const { confirm, dialog } = useConfirm();
 
   const replace = (index: number, patch: Partial<SpecPair>): void => {
     onChange(specs.map((spec, at) => (at === index ? { ...spec, ...patch } : spec)));
+  };
+
+  /**
+   * Удаление характеристики.
+   *
+   * 🔴 Спрашивает, когда в паре что-то набрано: набранное исчезает
+   * безвозвратно — форма прежних значений не хранит, «Отменить» у неё нет.
+   * Пустая строка, только что добавленная нажатием «Добавить
+   * характеристику», не спрашивает: терять нечего, а вопрос на каждый «✕»
+   * учит отвечать «Да» не читая (issue #35, тот же порог, что у строки
+   * прайса).
+   */
+  const remove = async (index: number): Promise<void> => {
+    const spec = specs[index];
+    if (spec === undefined) return;
+
+    const filled = spec.k.trim() !== '' || spec.v.trim() !== '';
+
+    if (filled) {
+      const confirmed = await confirm({
+        title: texts.specRemoveTitle(spec.k.trim()),
+        description: texts.specRemoveText,
+        confirmLabel: texts.specRemoveConfirm,
+        cancelLabel: texts.specRemoveCancel,
+      });
+
+      if (!confirmed) return;
+    }
+
+    onChange(specs.filter((_, at) => at !== index));
   };
 
   /* Уже заполненные названия не предлагаем второй раз: дубль ключа в таблице
@@ -102,15 +143,17 @@ export function SpecsEditor({
             wrapperClassName={styles.specValue}
             onChange={(event) => replace(index, { v: event.target.value })}
           />
-          <Button
-            type="button"
-            variant="light"
-            size="sm"
-            aria-label={texts.specRemove(index + 1)}
-            onClick={() => onChange(specs.filter((_, at) => at !== index))}
-          >
-            ✕
-          </Button>
+          {/* 🔴 Кнопка кита, а не глиф «✕» подписью (issue #35): у той цель
+              была 40px по ширине при норме 44 на пальце, и красноты у неё не
+              было — удаление выглядело как соседняя служебная кнопка. */}
+          <IconButton
+            variant="danger"
+            label={texts.specRemove(index + 1)}
+            icon={<Icon name="close" size={16} />}
+            onClick={() => {
+              void remove(index);
+            }}
+          />
         </div>
       ))}
 
@@ -125,6 +168,9 @@ export function SpecsEditor({
           ))}
         </datalist>
       )}
+
+      {/* Окно живёт вне строк: подтверждение не принадлежит характеристике. */}
+      {dialog}
 
       <div className={styles.specActions}>
         <Button

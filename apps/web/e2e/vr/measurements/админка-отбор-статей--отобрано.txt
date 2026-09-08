@@ -7,8 +7,8 @@
 1440 → 1440×900
 
 [геометрия 390]
-section.Card__card  358×465 @16,16  r20  b1
-  form.ArticleSearch__form  316×423 @21,21
+section.Card__card  358×492 @16,16  r20  b1
+  form.ArticleSearch__form  316×450 @21,21
     div.Field__field  316×103 @0,0
       label.Field__label  316×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по статьям»
       input  316×49 @0,27  r11  b1
@@ -37,9 +37,9 @@ section.Card__card  358×465 @16,16  r20  b1
           option  0×0 @-37,-355  Manrope 400 15/21  lines=0  «Сначала новые»
           option#2  0×0 @-37,-355  Manrope 400 15/21  lines=0  «Сначала старые»
         svg.Select__chevron#3  14×14 @152,18
-    div.ArticleSearch__actions  196×44 @0,379
-      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-      a.ArticleSearch__reset  115×44 @81,0  Manrope 600 15/22  lines=1  «Сбросить отбор»
+    div.ArticleSearch__actions  196×71 @0,379
+      button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.ArticleSearch__reset  115×44 @81,27  Manrope 600 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 768]
 section.Card__card  736×233 @16,16  r20  b1
@@ -48,22 +48,22 @@ section.Card__card  736×233 @16,16  r20  b1
       label.Field__label  310×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по статьям»
       input  310×49 @0,27  r11  b1
       p.Field__hint  310×19 @0,83  Manrope 400 13/19  lines=1  «Заголовок, текст, тизер или адрес»
-    div.Field__field#2  180×76 @322,26
+    div.Field__field#2  180×76 @322,0
       label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
       span.Select__wrapper  180×49 @0,27
         select.Select__select  180×49 @0,0  r11  b1
-          option  0×0 @-359,-91  Manrope 400 15/21  lines=0  «Все рубрики»
-          option#2  0×0 @-359,-91  Manrope 400 15/21  lines=0  «Выбор техники»
-          option#3  0×0 @-359,-91  Manrope 400 15/21  lines=0  «Монтаж»
-          option#4  0×0 @-359,-91  Manrope 400 15/21  lines=0  «Эксплуатация»
+          option  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Все рубрики»
+          option#2  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Выбор техники»
+          option#3  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Монтаж»
+          option#4  0×0 @-359,-64  Manrope 400 15/21  lines=0  «Эксплуатация»
         svg.Select__chevron  14×14 @152,18
-    div.Field__field#3  180×76 @514,26
+    div.Field__field#3  180×76 @514,0
       label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Состояние»
       span.Select__wrapper  180×49 @0,27
         select.Select__select#2  180×49 @0,0  r11  b1
-          option  0×0 @-551,-91  Manrope 400 15/21  lines=0  «Любое»
-          option#2  0×0 @-551,-91  Manrope 400 15/21  lines=0  «Опубликованные»
-          option#3  0×0 @-551,-91  Manrope 400 15/21  lines=0  «Черновики»
+          option  0×0 @-551,-64  Manrope 400 15/21  lines=0  «Любое»
+          option#2  0×0 @-551,-64  Manrope 400 15/21  lines=0  «Опубликованные»
+          option#3  0×0 @-551,-64  Manrope 400 15/21  lines=0  «Черновики»
         svg.Select__chevron#2  14×14 @152,18
     div.Field__field#4  180×76 @0,115
       label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
@@ -72,9 +72,9 @@ section.Card__card  736×233 @16,16  r20  b1
           option  0×0 @-37,-179  Manrope 400 15/21  lines=0  «Сначала новые»
           option#2  0×0 @-37,-179  Manrope 400 15/21  lines=0  «Сначала старые»
         svg.Select__chevron#3  14×14 @152,18
-    div.ArticleSearch__actions  196×44 @192,147
-      button.Button__button  69×44 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-      a.ArticleSearch__reset  115×44 @81,0  Manrope 600 15/22  lines=1  «Сбросить отбор»
+    div.ArticleSearch__actions  196×71 @192,115
+      button.Button__button  69×44 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.ArticleSearch__reset  115×44 @81,27  Manrope 600 15/22  lines=1  «Сбросить отбор»
 
 [геометрия 1440]
 section.Card__card  1408×145 @16,16  r20  b1
@@ -83,33 +83,33 @@ section.Card__card  1408×145 @16,16  r20  b1
       label.Field__label  582×20 @0,0  Manrope 600 13/20  lines=1  «Поиск по статьям»
       input  582×49 @0,27  r11  b1
       p.Field__hint  582×19 @0,83  Manrope 400 13/19  lines=1  «Заголовок, текст, тизер или адрес»
-    div.Field__field#2  180×76 @594,26
+    div.Field__field#2  180×76 @594,0
       label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Рубрика»
       span.Select__wrapper  180×49 @0,27
         select.Select__select  180×49 @0,0  r11  b1
-          option  0×0 @-631,-91  Manrope 400 15/21  lines=0  «Все рубрики»
-          option#2  0×0 @-631,-91  Manrope 400 15/21  lines=0  «Выбор техники»
-          option#3  0×0 @-631,-91  Manrope 400 15/21  lines=0  «Монтаж»
-          option#4  0×0 @-631,-91  Manrope 400 15/21  lines=0  «Эксплуатация»
+          option  0×0 @-631,-64  Manrope 400 15/21  lines=0  «Все рубрики»
+          option#2  0×0 @-631,-64  Manrope 400 15/21  lines=0  «Выбор техники»
+          option#3  0×0 @-631,-64  Manrope 400 15/21  lines=0  «Монтаж»
+          option#4  0×0 @-631,-64  Manrope 400 15/21  lines=0  «Эксплуатация»
         svg.Select__chevron  14×14 @152,18
-    div.Field__field#3  180×76 @786,26
+    div.Field__field#3  180×76 @786,0
       label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Состояние»
       span.Select__wrapper  180×49 @0,27
         select.Select__select#2  180×49 @0,0  r11  b1
-          option  0×0 @-823,-91  Manrope 400 15/21  lines=0  «Любое»
-          option#2  0×0 @-823,-91  Manrope 400 15/21  lines=0  «Опубликованные»
-          option#3  0×0 @-823,-91  Manrope 400 15/21  lines=0  «Черновики»
+          option  0×0 @-823,-64  Manrope 400 15/21  lines=0  «Любое»
+          option#2  0×0 @-823,-64  Manrope 400 15/21  lines=0  «Опубликованные»
+          option#3  0×0 @-823,-64  Manrope 400 15/21  lines=0  «Черновики»
         svg.Select__chevron#2  14×14 @152,18
-    div.Field__field#4  180×76 @978,26
+    div.Field__field#4  180×76 @978,0
       label.Field__label  180×20 @0,0  Manrope 600 13/20  lines=1  «Порядок»
       span.Select__wrapper  180×49 @0,27
         select.Select__select#3  180×49 @0,0  r11  b1
-          option  0×0 @-1015,-91  Manrope 400 15/21  lines=0  «Сначала новые»
-          option#2  0×0 @-1015,-91  Manrope 400 15/21  lines=0  «Сначала старые»
+          option  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «Сначала новые»
+          option#2  0×0 @-1015,-64  Manrope 400 15/21  lines=0  «Сначала старые»
         svg.Select__chevron#3  14×14 @152,18
-    div.ArticleSearch__actions  196×40 @1170,63
-      button.Button__button  69×40 @0,0  Manrope 600 13/16  r9  b1  lines=1  «Найти»
-      a.ArticleSearch__reset  115×22 @81,9  Manrope 600 15/22  lines=1  «Сбросить отбор»
+    div.ArticleSearch__actions  196×67 @1170,0
+      button.Button__button  69×40 @0,27  Manrope 600 13/16  r9  b1  lines=1  «Найти»
+      a.ArticleSearch__reset  115×22 @81,36  Manrope 600 15/22  lines=1  «Сбросить отбор»
 
 [палитра light]
 section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px

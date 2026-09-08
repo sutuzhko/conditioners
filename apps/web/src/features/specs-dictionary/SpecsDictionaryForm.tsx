@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, Textarea } from '@/shared/ui';
+import { Button, Card, Icon, IconButton, Input, Textarea, useConfirm } from '@/shared/ui';
 
 import { specsDictionaryContent as texts } from './content';
 import { putSpecs } from './lib';
@@ -35,6 +35,10 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
   const [status, setStatus] = useState<SpecsStatus>('idle');
   const [message, setMessage] = useState('');
 
+  /* Подтверждение необратимой правки — общий диалог кита, а не окно
+     браузера: системное окно нельзя объяснить (ADR-113). */
+  const { confirm, dialog } = useConfirm();
+
   const sending = status === 'sending';
 
   const setGroups = (groups: readonly SpecGroupDraft[]): void => {
@@ -56,6 +60,62 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
 
     patchGroup(groupIndex, {
       fields: group.fields.map((field, at) => (at === fieldIndex ? { ...field, ...patch } : field)),
+    });
+  };
+
+  /**
+   * Удаление группы вместе с её характеристиками.
+   *
+   * 🔴 Спрашивает, когда в группе что-то есть: название или хотя бы одно
+   * заполненное поле. Пустая группа, только что добавленная нажатием, не
+   * спрашивает — терять нечего, а вопрос на каждое нажатие учит отвечать «Да»
+   * не читая (issue #35, тот же порог, что у строки прайса).
+   */
+  const removeGroup = async (index: number): Promise<void> => {
+    const group = value.groups[index];
+    if (group === undefined) return;
+
+    const filled =
+      group.title.trim() !== '' ||
+      group.fields.some(
+        (field) => field.k.trim() !== '' || field.unit.trim() !== '' || field.hint.trim() !== '',
+      );
+
+    if (filled) {
+      const confirmed = await confirm({
+        title: texts.groupRemoveTitle(group.title.trim()),
+        description: texts.groupRemoveText(group.fields.length),
+        confirmLabel: texts.groupRemoveConfirm,
+        cancelLabel: texts.groupRemoveCancel,
+      });
+
+      if (!confirmed) return;
+    }
+
+    setGroups(value.groups.filter((_, at) => at !== index));
+  };
+
+  /** Удаление характеристики — с тем же порогом, что и группа. */
+  const removeField = async (groupIndex: number, fieldIndex: number): Promise<void> => {
+    const group = value.groups[groupIndex];
+    const field = group?.fields[fieldIndex];
+    if (group === undefined || field === undefined) return;
+
+    const filled = field.k.trim() !== '' || field.unit.trim() !== '' || field.hint.trim() !== '';
+
+    if (filled) {
+      const confirmed = await confirm({
+        title: texts.fieldRemoveTitle(field.k.trim()),
+        description: texts.fieldRemoveText,
+        confirmLabel: texts.fieldRemoveConfirm,
+        cancelLabel: texts.fieldRemoveCancel,
+      });
+
+      if (!confirmed) return;
+    }
+
+    patchGroup(groupIndex, {
+      fields: group.fields.filter((_, at) => at !== fieldIndex),
     });
   };
 
@@ -93,16 +153,18 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
               disabled={sending}
               onChange={(event) => patchGroup(groupIndex, { title: event.target.value })}
             />
-            <Button
-              type="button"
-              variant="light"
-              size="sm"
+            {/* 🔴 Кнопка кита, а не глиф «✕» подписью (issue #35): у той цель
+                была 40px по ширине при норме 44 на пальце, и красноты у неё
+                не было — удаление выглядело как служебная кнопка. */}
+            <IconButton
+              variant="danger"
+              label={texts.groupRemove(groupIndex + 1)}
+              icon={<Icon name="close" size={16} />}
               disabled={sending}
-              aria-label={texts.groupRemove(groupIndex + 1)}
-              onClick={() => setGroups(value.groups.filter((_, at) => at !== groupIndex))}
-            >
-              ✕
-            </Button>
+              onClick={() => {
+                void removeGroup(groupIndex);
+              }}
+            />
           </div>
 
           <div className={styles.fields}>
@@ -145,20 +207,15 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
                     patchField(groupIndex, fieldIndex, { hint: event.target.value })
                   }
                 />
-                <Button
-                  type="button"
-                  variant="light"
-                  size="sm"
+                <IconButton
+                  variant="danger"
+                  label={texts.fieldRemove(fieldIndex + 1)}
+                  icon={<Icon name="close" size={16} />}
                   disabled={sending}
-                  aria-label={texts.fieldRemove(fieldIndex + 1)}
-                  onClick={() =>
-                    patchGroup(groupIndex, {
-                      fields: group.fields.filter((_, at) => at !== fieldIndex),
-                    })
-                  }
-                >
-                  ✕
-                </Button>
+                  onClick={() => {
+                    void removeField(groupIndex, fieldIndex);
+                  }}
+                />
               </div>
             ))}
           </div>
@@ -197,6 +254,9 @@ export function SpecsDictionaryForm({ value: initial, save = putSpecs }: SpecsDi
           {message}
         </p>
       ) : null}
+
+      {/* Окно живёт вне карточек: подтверждение не принадлежит группе. */}
+      {dialog}
     </form>
   );
 }

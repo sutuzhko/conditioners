@@ -31,7 +31,7 @@ describe('Список каталога в админке', () => {
     render(<AdminCatalogList products={catalogRowsFixture} />);
 
     expect(
-      screen.getByRole('link', { name: texts.editLabel(discounted?.name ?? '') }),
+      screen.getByRole('link', { name: texts.rowLabel(discounted?.name ?? '') }),
     ).toHaveAttribute('href', '/admin/catalog/2');
   });
 
@@ -107,8 +107,11 @@ describe('Список каталога в админке', () => {
 
   /* 🔴 Набор действий строки повторяет набор карточки (issue #575): до этого
      список давал только «Править», и об удалении узнавал лишь тот, кто открыл
-     карточку и долистал форму до низа. */
-  it('строка даёт открыть, править и убрать, не открывая карточку', () => {
+     карточку и долистал форму до низа.
+
+     🔴 «Править» из ряда убрано (issue #866): круг вёл по тому же адресу, что
+     и вся строка. В ряду остаются действия со своей целью. */
+  it('строка даёт посмотреть на сайте и убрать, не открывая карточку', () => {
     render(<AdminCatalogList products={catalogRowsFixture} />);
 
     const name = plain?.name ?? '';
@@ -118,13 +121,24 @@ describe('Список каталога в админке', () => {
       'href',
       `/catalog/${plain?.slug ?? ''}`,
     );
-    expect(within(actions).getByRole('link', { name: texts.editLabel(name) })).toHaveAttribute(
-      'href',
-      `/admin/catalog/${plain?.id ?? ''}`,
-    );
     expect(
       within(actions).getByRole('button', { name: productFormContent.removeLabel(name) }),
     ).toBeInTheDocument();
+  });
+
+  /* 🔴 Дубля адреса строки в ряду действий нет (issue #866): читалка иначе
+     проходит по строке дважды и оба раза приходит в одно место, а на телефоне
+     дубль занимает тап-зону, которая ничего не добавляет (ADR-347). */
+  it('🔴 в ряду действий нет второй ссылки на адрес самой строки', () => {
+    render(<AdminCatalogList products={catalogRowsFixture} />);
+
+    const name = plain?.name ?? '';
+    const actions = screen.getByRole('group', { name: texts.rowActions(name) });
+    const rowHref = `/admin/catalog/${plain?.id ?? ''}`;
+
+    for (const link of within(actions).queryAllByRole('link')) {
+      expect(link).not.toHaveAttribute('href', rowHref);
+    }
   });
 
   /* 🔴 Страницы скрытой модели на сайте нет — она отдаёт 404 (ADR-109).

@@ -204,8 +204,12 @@ export function PricesForm({ values: initial, save = putPrices, onSaved }: Price
                   onChange={(event) => setRow(index, { term: event.target.value })}
                 />
                 {/* Подпись кнопки полная и уникальная («Удалить строку 2»):
-                    диктор читает список одинаковых «Удалить» без пользы. */}
+                    диктор читает список одинаковых «Удалить» без пользы.
+
+                    🔴 Красная — удаление отличается от остальных кнопок ряда
+                    видом, а не только подписью (issue #35). */}
                 <IconButton
+                  variant="danger"
                   label={texts.rowRemove(index + 1)}
                   icon={<Icon name="close" size={16} />}
                   disabled={sending}

@@ -1,0 +1,375 @@
+# админка-журнал-событий--сразбивкой · ширины 390 768 1440 · темы light dark
+шрифты: Manrope 400, Manrope 600, Onest 700
+
+[документ]
+390 → 390×903
+768 → 768×900
+1440 → 1440×900
+
+[геометрия 390]
+section.Card__card  358×871 @16,16
+  div.Table__viewport  358×819 @0,0
+    table.Table__table  358×819 @0,0
+      tr[role=row]  1×56 @0,0
+        th  79×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+        th#2  63×56 @79,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
+        th#3  107×56 @141,0  Onest 700 15/23  b0 0 1 0  lines=1  «Действие»
+        th#4  97×56 @248,0  Onest 700 15/23  b0 0 1 0  lines=1  «Над чем»
+      tr[role=row]#2  358×156 @0,0  r14  b1
+        td.ActivityList__when  356×36 @1,5
+          td.ActivityList__when::before  36×20 @0,0
+          time  119×22 @223,7  Manrope 400 15/22  lines=1  «08.09.2026, 09:12»
+        td.ActivityList__who  356×36 @1,41  Manrope 600 15/22  lines=1  «Богдан»
+          td.ActivityList__who::before  23×20 @0,0
+        td[role=cell]  356×36 @1,78  Manrope 400 15/22  lines=1  «Снятие отзыва с публикации»
+          td[role=cell]::before  60×20 @0,0
+        td.ActivityList__entity  356×36 @1,114  Manrope 400 15/22  lines=1  «Отзыв»
+          td.ActivityList__entity::before  50×20 @0,0
+      tr[role=row]#3  358×156 @0,166  r14  b1
+        td.ActivityList__when  356×36 @1,5
+          td.ActivityList__when::before  36×20 @0,0
+          time#2  113×22 @229,7  Manrope 400 15/22  lines=1  «07.09.2026, 17:41»
+        td.ActivityList__who  356×36 @1,41  Manrope 600 15/22  lines=1  «Ирина»
+          td.ActivityList__who::before  23×20 @0,0
+        td[role=cell]  356×36 @1,78  Manrope 400 15/22  lines=1  «Публикация отзыва»
+          td[role=cell]::before  60×20 @0,0
+        td.ActivityList__entity  356×36 @1,114  Manrope 400 15/22  lines=1  «Отзыв»
+          td.ActivityList__entity::before  50×20 @0,0
+      tr[role=row]#4  358×156 @0,332  r14  b1
+        td.ActivityList__when  356×36 @1,5
+          td.ActivityList__when::before  36×20 @0,0
+          time#3  115×22 @227,7  Manrope 400 15/22  lines=1  «07.09.2026, 17:38»
+        td.ActivityList__who  356×36 @1,41  Manrope 600 15/22  lines=1  «Ирина»
+          td.ActivityList__who::before  23×20 @0,0
+        td[role=cell]  356×36 @1,78  Manrope 400 15/22  lines=1  «Отклонение отзыва»
+          td[role=cell]::before  60×20 @0,0
+        td.ActivityList__entity  356×36 @1,114  Manrope 400 15/22  lines=1  «Отзыв»
+          td.ActivityList__entity::before  50×20 @0,0
+      tr[role=row]#5  358×156 @0,498  r14  b1
+        td.ActivityList__when  356×36 @1,5
+          td.ActivityList__when::before  36×20 @0,0
+          time#4  121×22 @221,7  Manrope 400 15/22  lines=1  «06.09.2026, 23:03»
+        td.ActivityList__who  356×36 @1,41  Manrope 400 15/22  lines=1  «Система»
+          td.ActivityList__who::before  22×20 @0,0
+        td[role=cell]  356×36 @1,78  Manrope 400 15/22  lines=1  «Отправка отзыва в архив»
+          td[role=cell]::before  60×20 @0,0
+        td.ActivityList__entity  356×36 @1,114  Manrope 400 15/22  lines=1  «Отзыв»
+          td.ActivityList__entity::before  50×20 @0,0
+      tr[role=row]#6  358×156 @0,664  r14  b1
+        td.ActivityList__when  356×36 @1,5
+          td.ActivityList__when::before  36×20 @0,0
+          time#5  118×22 @224,7  Manrope 400 15/22  lines=1  «06.09.2026, 14:27»
+        td.ActivityList__who  356×36 @1,41  Manrope 400 15/22  lines=1  «Учётная запись удалена»
+          td.ActivityList__who::before  22×20 @0,0
+        td[role=cell]  356×36 @1,78  Manrope 400 15/22  lines=1  «Публикация отзыва»
+          td[role=cell]::before  60×20 @0,0
+        td.ActivityList__entity  356×36 @1,114  Manrope 400 15/22  lines=1  «Отзыв»
+          td.ActivityList__entity::before  50×20 @0,0
+  div.ActivityList__foot  358×52 @0,819
+    nav.Pager__pager  358×52 @0,0
+      a.Pager__step  44×44 @94,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Назад»
+      span.Pager__position  66×44 @146,4  Manrope 600 15/17  r100  b1  lines=1  «2 из 5»
+      a.Pager__step#2  44×44 @220,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  1×1 @22,22  Manrope 600 15/17  lines=1  clipped  «Дальше»
+      p[role=status]  1×1 @179,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 5»
+
+[геометрия 768]
+section.Card__card  736×385 @16,16  r20  b1
+  div.Table__viewport  734×313 @1,1
+    table.Table__table  734×313 @0,0
+      tr[role=row]  734×56 @0,0
+        th  167×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+        th#2  216×56 @167,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
+        th#3  248×56 @383,0  Onest 700 15/23  b0 0 1 0  lines=1  «Действие»
+        th#4  103×56 @631,0  Onest 700 15/23  b0 0 1 0  lines=1  «Над чем»
+      tr[role=row]#2  734×51 @0,56
+        td.ActivityList__when  167×51 @0,0  b0 0 1 0
+          time  119×19 @18,16  Manrope 400 15/22  lines=1  «08.09.2026, 09:12»
+        td.ActivityList__who  216×51 @167,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Богдан»
+        td[role=cell]  248×51 @383,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Снятие отзыва с публикации»
+        td.ActivityList__entity  103×51 @631,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#3  734×51 @0,107
+        td.ActivityList__when  167×51 @0,0  b0 0 1 0
+          time#2  113×19 @18,16  Manrope 400 15/22  lines=1  «07.09.2026, 17:41»
+        td.ActivityList__who  216×51 @167,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Ирина»
+        td[role=cell]  248×51 @383,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Публикация отзыва»
+        td.ActivityList__entity  103×51 @631,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#4  734×51 @0,159
+        td.ActivityList__when  167×51 @0,0  b0 0 1 0
+          time#3  115×19 @18,16  Manrope 400 15/22  lines=1  «07.09.2026, 17:38»
+        td.ActivityList__who  216×51 @167,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Ирина»
+        td[role=cell]  248×51 @383,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отклонение отзыва»
+        td.ActivityList__entity  103×51 @631,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#5  734×51 @0,210
+        td.ActivityList__when  167×51 @0,0  b0 0 1 0
+          time#4  121×19 @18,16  Manrope 400 15/22  lines=1  «06.09.2026, 23:03»
+        td.ActivityList__who  216×51 @167,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Система»
+        td[role=cell]  248×51 @383,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отправка отзыва в архив»
+        td.ActivityList__entity  103×51 @631,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#6  734×51 @0,262
+        td.ActivityList__when  167×51 @0,0
+          time#5  118×19 @18,16  Manrope 400 15/22  lines=1  «06.09.2026, 14:27»
+        td.ActivityList__who  216×51 @167,0  Manrope 400 15/22  lines=1  «Учётная запись удалена»
+        td[role=cell]  248×51 @383,0  Manrope 400 15/22  lines=1  «Публикация отзыва»
+        td.ActivityList__entity  103×51 @631,0  Manrope 400 15/22  lines=1  «Отзыв»
+  div.ActivityList__foot  734×70 @1,314
+    nav.Pager__pager  698×52 @18,0
+      a.Pager__step  88×44 @143,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
+      ol.Pager__numbers  200×44 @243,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+        li.Pager__gap  13×22 @139,11  Manrope 400 15/22  lines=1  «…»
+        a.Pager__number#3  44×44 @156,0  Manrope 600 15/17  r100  b1  lines=1  «5»
+      a.Pager__step#2  100×44 @455,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+      p[role=status]  1×1 @349,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 5»
+
+[геометрия 1440]
+section.Card__card  1408×385 @16,16  r20  b1
+  div.Table__viewport  1406×313 @1,1
+    table.Table__table  1406×313 @0,0
+      tr[role=row]  1406×56 @0,0
+        th  320×56 @0,0  Onest 700 15/23  b0 0 1 0  lines=1  «Когда»
+        th#2  414×56 @320,0  Onest 700 15/23  b0 0 1 0  lines=1  «Кто»
+        th#3  475×56 @734,0  Onest 700 15/23  b0 0 1 0  lines=1  «Действие»
+        th#4  197×56 @1209,0  Onest 700 15/23  b0 0 1 0  lines=1  «Над чем»
+      tr[role=row]#2  1406×51 @0,56
+        td.ActivityList__when  320×51 @0,0  b0 0 1 0
+          time  119×19 @18,16  Manrope 400 15/22  lines=1  «08.09.2026, 09:12»
+        td.ActivityList__who  414×51 @320,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Богдан»
+        td[role=cell]  475×51 @734,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Снятие отзыва с публикации»
+        td.ActivityList__entity  197×51 @1209,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#3  1406×51 @0,107
+        td.ActivityList__when  320×51 @0,0  b0 0 1 0
+          time#2  113×19 @18,16  Manrope 400 15/22  lines=1  «07.09.2026, 17:41»
+        td.ActivityList__who  414×51 @320,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Ирина»
+        td[role=cell]  475×51 @734,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Публикация отзыва»
+        td.ActivityList__entity  197×51 @1209,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#4  1406×51 @0,159
+        td.ActivityList__when  320×51 @0,0  b0 0 1 0
+          time#3  115×19 @18,16  Manrope 400 15/22  lines=1  «07.09.2026, 17:38»
+        td.ActivityList__who  414×51 @320,0  Manrope 600 15/22  b0 0 1 0  lines=1  «Ирина»
+        td[role=cell]  475×51 @734,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отклонение отзыва»
+        td.ActivityList__entity  197×51 @1209,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#5  1406×51 @0,210
+        td.ActivityList__when  320×51 @0,0  b0 0 1 0
+          time#4  121×19 @18,16  Manrope 400 15/22  lines=1  «06.09.2026, 23:03»
+        td.ActivityList__who  414×51 @320,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Система»
+        td[role=cell]  475×51 @734,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отправка отзыва в архив»
+        td.ActivityList__entity  197×51 @1209,0  Manrope 400 15/22  b0 0 1 0  lines=1  «Отзыв»
+      tr[role=row]#6  1406×51 @0,262
+        td.ActivityList__when  320×51 @0,0
+          time#5  118×19 @18,16  Manrope 400 15/22  lines=1  «06.09.2026, 14:27»
+        td.ActivityList__who  414×51 @320,0  Manrope 400 15/22  lines=1  «Учётная запись удалена»
+        td[role=cell]  475×51 @734,0  Manrope 400 15/22  lines=1  «Публикация отзыва»
+        td.ActivityList__entity  197×51 @1209,0  Manrope 400 15/22  lines=1  «Отзыв»
+  div.ActivityList__foot  1406×70 @1,314
+    nav.Pager__pager  1370×52 @18,0
+      a.Pager__step  88×44 @479,4  Manrope 600 15/17  r100  b1  lines=1  «←»
+        span.Pager__stepText  43×17 @30,13  Manrope 600 15/17  lines=1  «Назад»
+      ol.Pager__numbers  200×44 @579,4
+        a.Pager__number  44×44 @0,0  Manrope 600 15/17  r100  b1  lines=1  «1»
+        span.Pager__position  39×44 @48,0  Manrope 600 15/17  r100  b1  lines=1  «2»
+        a.Pager__number#2  44×44 @91,0  Manrope 600 15/17  r100  b1  lines=1  «3»
+        li.Pager__gap  13×22 @139,11  Manrope 400 15/22  lines=1  «…»
+        a.Pager__number#3  44×44 @156,0  Manrope 600 15/17  r100  b1  lines=1  «5»
+      a.Pager__step#2  100×44 @791,4  Manrope 600 15/17  r100  b1  lines=1  «→»
+        span.Pager__stepText  56×17 @15,13  Manrope 600 15/17  lines=1  «Дальше»
+      p[role=status]  1×1 @685,26  Manrope 400 15/23  lines=1  clipped  «Показана страница 2 из 5»
+
+[палитра light]
+section.Card__card  bg #ffffff  border #e2e8f0  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#2  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#3  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+        th#4  color #0f172a  border #0f172a #0f172a #e2e8f0 #0f172a
+      tr[role=row]#2
+        td.ActivityList__when  border #334155 #334155 #eef2f6 #334155
+          time  color #334155
+        td.ActivityList__who  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.ActivityList__entity  color #556173  border #556173 #556173 #eef2f6 #556173
+      tr[role=row]#3
+        td.ActivityList__when  border #334155 #334155 #eef2f6 #334155
+          time#2  color #334155
+        td.ActivityList__who  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.ActivityList__entity  color #556173  border #556173 #556173 #eef2f6 #556173
+      tr[role=row]#4
+        td.ActivityList__when  border #334155 #334155 #eef2f6 #334155
+          time#3  color #334155
+        td.ActivityList__who  color #334155  border #334155 #334155 #eef2f6 #334155
+        td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.ActivityList__entity  color #556173  border #556173 #556173 #eef2f6 #556173
+      tr[role=row]#5
+        td.ActivityList__when  border #334155 #334155 #eef2f6 #334155
+          time#4  color #334155
+        td.ActivityList__who  color #556173  border #556173 #556173 #eef2f6 #556173
+        td[role=cell]  color #334155  border #334155 #334155 #eef2f6 #334155
+        td.ActivityList__entity  color #556173  border #556173 #556173 #eef2f6 #556173
+      tr[role=row]#6
+        td.ActivityList__when
+          time#5  color #334155
+        td.ActivityList__who  color #556173
+        td[role=cell]  color #334155
+        td.ActivityList__entity  color #556173
+  div.ActivityList__foot
+    nav.Pager__pager
+      a.Pager__step  color #0e7490  border #7e8fa6
+        span.Pager__stepText  color #0e7490
+      ol.Pager__numbers
+        a.Pager__number  color #0e7490  border transparent
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        a.Pager__number#2  color #0e7490  border transparent
+        li.Pager__gap  color #5b6a7d
+        a.Pager__number#3  color #0e7490  border transparent
+      a.Pager__step#2  color #0e7490  border #7e8fa6
+        span.Pager__stepText  color #0e7490
+      p[role=status]  color #475569
+[палитра light @390]
+section.Card__card
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__who  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__entity  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__who  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__entity  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__who  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__entity  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__who  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]  color #334155
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__entity  color #556173
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6  bg #ffffff  border #e2e8f0
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.ActivityList__foot > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+
+[палитра dark]
+section.Card__card  bg #121d31  border #1e2b41  shadow #0f172a33 0px 20px 44px -28px
+  div.Table__viewport
+    table.Table__table
+      tr[role=row]
+        th  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#2  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#3  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+        th#4  color #eaf1f8  border #eaf1f8 #eaf1f8 #1e2b41 #eaf1f8
+      tr[role=row]#2
+        td.ActivityList__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time  color #c9d5e2
+        td.ActivityList__who  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.ActivityList__entity  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      tr[role=row]#3
+        td.ActivityList__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time#2  color #c9d5e2
+        td.ActivityList__who  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.ActivityList__entity  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      tr[role=row]#4
+        td.ActivityList__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time#3  color #c9d5e2
+        td.ActivityList__who  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.ActivityList__entity  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      tr[role=row]#5
+        td.ActivityList__when  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+          time#4  color #c9d5e2
+        td.ActivityList__who  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+        td[role=cell]  color #c9d5e2  border #c9d5e2 #c9d5e2 #182338 #c9d5e2
+        td.ActivityList__entity  color #8598ac  border #8598ac #8598ac #182338 #8598ac
+      tr[role=row]#6
+        td.ActivityList__when
+          time#5  color #c9d5e2
+        td.ActivityList__who  color #8598ac
+        td[role=cell]  color #c9d5e2
+        td.ActivityList__entity  color #8598ac
+  div.ActivityList__foot
+    nav.Pager__pager
+      a.Pager__step  color #22d3ee  border #566d95
+        span.Pager__stepText  color #22d3ee
+      ol.Pager__numbers
+        a.Pager__number  color #22d3ee  border transparent
+        span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
+        a.Pager__number#2  color #22d3ee  border transparent
+        li.Pager__gap  color #7e92a7
+        a.Pager__number#3  color #22d3ee  border transparent
+      a.Pager__step#2  color #22d3ee  border #566d95
+        span.Pager__stepText  color #22d3ee
+      p[role=status]  color #a8b6c6
+[палитра dark @390]
+section.Card__card
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__who  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell]  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__entity  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#2 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__who  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell]  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__entity  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#3 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__who  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell]  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__entity  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#4 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__when
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__who  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell]  color #c9d5e2
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__entity  color #8598ac
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#5 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6  bg #121d31  border #1e2b41
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__when > td.ActivityList__when::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__who > td.ActivityList__who::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td[role=cell] > td[role=cell]::before
+section.Card__card > div.Table__viewport > table.Table__table > tr[role=row]#6 > td.ActivityList__entity > td.ActivityList__entity::before
+section.Card__card > div.ActivityList__foot > nav.Pager__pager > span.Pager__position  color #ffffff  bg #0e7490  border #0e7490
