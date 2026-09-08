@@ -11,5 +11,9 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  // 🔴 Копия контракта маршрутов исключена намеренно (issue #883): она
+  // объявляет модуль `next` так же, как `.next/types/link.d.ts`, и в одной
+  // программе с ним даёт удвоенное объявление. Копию компилирует отдельная
+  // проверка — `tsconfig.routes.json`.
+  "exclude": ["node_modules", "types/routes-contract.d.ts"]
 }

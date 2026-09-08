@@ -83,6 +83,14 @@ jobs:
       - run: pnpm lint
       - run: pnpm lint:css
       - run: pnpm typecheck
+
+      # 🔴 Вторая проверка типов — по копии контракта маршрутов (issue #883).
+      # Типы `typedRoutes` живут в `.next/types`, которого здесь нет: без них
+      # `Route` вырождается в `string`, и `router.push(строка)` проходит
+      # молча, чтобы упасть через десять минут на сборке образа. Копия
+      # подставляется вместо `.next/types` и ловит это за секунды.
+      - run: pnpm typecheck:routes
+
       - run: pnpm test
 
       # 🔴 Витрина компонентов обязана собираться. Историй больше сотни, и до
@@ -119,6 +127,13 @@ jobs:
           docker cp "$id:/app/apps/web/.next" ./next-build
           docker rm "$id"
           node scripts/js-budget.mjs ./next-build --strict
+
+      # 🔴 Единственное место, где копия контракта маршрутов сверяется не с
+      # собой, а с Next (issue #883): сборка только что написала свой список
+      # адресов. Тест в `pnpm test` держит копию в ногу с деревом `app/`, но
+      # общую ошибку в правилах обхода он бы повторил — а этот шаг нет.
+      - name: Копия контракта маршрутов против сборки
+        run: node scripts/routes-contract.mjs --witness ./next-build/types/link.d.ts
 
   # 🔴 Снимки историй — отдельными работами, а не шагом в `check`.
   #
