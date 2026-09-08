@@ -1,4 +1,9 @@
-/* Подвал таблицы нарядов: счёт, номера страниц, число строк (макет «Заказы»). */
+/* Подвал таблицы нарядов: счёт, номера страниц, число строк (макет «Заказы»).
+
+   🔴 Своей геометрии у разбивки здесь не осталось (issue #748): номера рисует
+   `shared/ui/Pager`, ступень шага — `shared/ui/PageSize`. Раздел отвечает
+   только за раскладку подвала — тем же составом правил, что и подвал
+   склада. */
 
 .pager {
   display: flex;
@@ -16,126 +21,40 @@
   font-variant-numeric: tabular-nums;
 }
 
-.pages {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-/* Номер, шаг и текущая страница — одна геометрия: ряд не дёргается, когда
-   двузначный номер сменяет однозначный. */
-.number,
-.current,
-.step,
-.stepOff {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 1px solid transparent;
-  border-radius: var(--r-sm);
-  min-width: var(--h-sm, 32px);
-  min-height: var(--h-sm, 32px);
-  color: var(--body);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  text-decoration: none;
-}
-
-.number:hover,
-.step:hover {
-  border-color: var(--accent-ink);
-  color: var(--accent-text);
-}
-
-.number:focus-visible,
-.step:focus-visible {
-  box-shadow: var(--ring-focus-ring);
-  outline: none;
-}
-
-/* Текущая страница залита: между двумя соседними номерами её иначе не
-   отличить, а рамка на этой плотности читается как наведение. */
-.current {
-  border-color: var(--brand);
-  background: var(--brand);
-  color: var(--on-brand);
-}
-
-/* Край списка: шаг остаётся на месте, чтобы номера не прыгали вбок при
-   переходе на первую и последнюю страницы. */
-.stepOff {
-  color: var(--faint);
-  opacity: 0.6;
+/* Обёртка разбивки существует только ради телефонной строки: на широком
+   экране её как будто нет, и подвал остаётся рядом из трёх частей. */
+.nav {
+  display: contents;
 }
 
 .size {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  color: var(--faint);
-  font-size: var(--fs-caption);
+  flex-shrink: 0;
 }
 
-.sizeTitle {
-  margin-right: 4px;
-}
-
-.sizeItem,
-.sizeOn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border: 1px solid var(--line-ui);
-  border-radius: var(--r-sm);
-  min-width: var(--h-sm, 32px);
-  min-height: var(--h-sm, 32px);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  text-decoration: none;
-}
-
-.sizeItem {
-  color: var(--body);
-}
-
-.sizeItem:hover {
-  border-color: var(--accent-ink);
-  color: var(--accent-text);
-}
-
-.sizeItem:focus-visible {
-  box-shadow: var(--ring-focus-ring);
-  outline: none;
-}
-
-.sizeOn {
-  border-color: var(--accent-ink);
-  background: var(--accent-bg);
-  color: var(--accent-text);
-}
-
-/* 🔴 Пол цели на сенсорной раскладке (ADR-183): до 900px по номеру страницы
-   целятся пальцем, и 32px там мимо нормы. */
-@media (width < 900px) {
-  .number,
-  .current,
-  .step,
-  .stepOff,
-  .sizeItem,
-  .sizeOn {
-    min-width: var(--tap);
-    min-height: var(--tap);
-  }
-}
-
-/* На телефоне подвал становится столбиком: три зоны в строку не помещаются
-   даже без номеров, и «Строк на странице» уезжала бы за правый край. */
+/* На телефоне подвал становится столбиком: три зоны в строку не помещаются,
+   и «Строк на странице» уезжала бы за правый край. */
 @media (width < 600px) {
   .pager {
-    flex-direction: column;
-    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* 🔴 Счёт снят с телефона: разбивка на этой ширине сама показывает «2 из 6»,
+     и две пары чисел рядом читаются повтором — то самое замечание владельца
+     про одни и те же цифры по четыре раза на экране. */
+  .count {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    flex: 1 1 100%;
+    order: 1;
+    justify-content: center;
+  }
+
+  .size {
+    flex: 1 1 100%;
+    order: 2;
+    justify-content: center;
   }
 }

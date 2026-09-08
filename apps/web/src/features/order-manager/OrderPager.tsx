@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { PageSize, Pager } from '@/shared/ui';
 
 import { orderManagerContent as texts } from './content';
 import {
@@ -7,6 +7,7 @@ import {
   ordersQuery,
   type OrderFilterState,
   type OrderPage,
+  type OrderPageSize,
 } from './model';
 import styles from './OrderPager.module.css';
 
@@ -16,150 +17,67 @@ export interface OrderPagerProps {
 }
 
 /**
- * Сколько номеров страниц показывать подряд.
+ * Адрес списка с заданным шагом. Номера страницы в нём нет: шаг сбрасывает её.
  *
- * Пять — окно, в котором текущая страница стоит посередине и видны обе
- * соседние пары. Больше номеров не помогает: по девятой странице списка
- * никто не целится, туда добираются поиском.
+ * 🔴 Только запрос, без пути — так же, как в подвале склада: шаг листания
+ * меняет запрос текущей страницы, а не уводит с неё, и относительный адрес
+ * этим и является. При `typedRoutes` он к тому же единственный, который
+ * система типов принимает без оглядки на конкретный маршрут.
  */
-const WINDOW = 5;
-
-/** Номера страниц вокруг текущей — окно, прижатое к краям списка. */
-function pageWindow(page: number, pages: number): readonly number[] {
-  const from = Math.max(1, Math.min(page - Math.floor(WINDOW / 2), pages - WINDOW + 1));
-  const to = Math.min(pages, from + WINDOW - 1);
-
-  return Array.from({ length: to - from + 1 }, (_, index) => from + index);
+function sizeHref(filters: OrderFilterState, size: OrderPageSize): `?${string}` {
+  return `?${new URLSearchParams(ordersQuery({ ...filters, size })).toString()}`;
 }
 
 /**
  * Подвал таблицы нарядов: счёт слева, номера страниц по центру, «Строк на
  * странице» справа (issue #595, макет «Заказы»).
  *
- * 🔴 Свой компонент, а не `shared/ui/Pager`: у кита разбивка — отдельный ряд
- * из трёх пилюль по центру, сознательно без полосы номеров (см. `Pager.tsx`).
- * Здесь макет требует другого: подвал внутри карточки таблицы, три зоны, шаг
- * листания страницами и переключатель числа строк. Это другой компонент, а не
- * настройка того же, и сводить их к одному значило бы дать китовому все
- * пропсы разом ради одного раздела.
+ * 🔴 Своей разбивки здесь больше нет (issue #748). До этой правки компонент
+ * рисовал собственные номера, собственные шаги и собственные ступени шага — с
+ * третьим в панели радиусом (`--r-sm` против `--r-pill` у кита и 8px в
+ * макете) и своим окном из пяти номеров подряд без многоточий. Владелец
+ * посмотрел на сводку и сказал: «почини всю пагинацию, чтобы была просто
+ * одинаковой, а не на каждой странице своя». Разбивка и ступень шага
+ * приходят из кита; здесь остаётся то, что принадлежит разделу, — счёт
+ * показанного, правила адреса и раскладка подвала.
  *
  * 🔴 Ссылками, а не состоянием: страница и число строк остаются в адресе,
- * ссылку можно прислать, а список рисует сервер.
- *
- * 🔴 Переход не двигает прокрутку (issue #735). Подвал таблицы стоит внизу
- * списка, и умолчание Next — бросить документ в начало — уносило из-под глаз
- * то, ради чего нажали номер. Разбивка кита ведёт себя так же.
+ * ссылку можно прислать, а список рисует сервер. Смена шага возвращает на
+ * первую страницу: седьмая страница по восемь строк и седьмая по тридцать
+ * две — разные места списка.
  */
 export function OrderPager({ page, filters }: OrderPagerProps) {
-  const href = (
-    target: number,
-    size = filters.size,
-  ): { pathname: string; query: Record<string, string> } => ({
-    pathname: ORDERS_PATH,
-    /* Первая страница живёт по чистому адресу: `?page=1` в ссылке, которую
-       владелец кому-то пришлёт, — лишний параметр без смысла. */
-    query: {
-      ...ordersQuery({ ...filters, size }),
-      ...(target > 1 ? { page: String(target) } : {}),
-    },
-  });
-
-  const numbers = pageWindow(page.page, page.pages);
-
   return (
     <div className={styles.pager}>
       <span className={styles.count}>{texts.rangeOf(page.items.length, page.total)}</span>
 
-      {page.pages <= 1 ? null : (
-        <nav className={styles.pages} aria-label={texts.pagesLabel}>
-          {page.page > 1 ? (
-            <Link
-              className={styles.step}
-              href={href(page.page - 1)}
-              rel="prev"
-              aria-label={texts.pagePrev}
-              scroll={false}
-            >
-              <span aria-hidden="true">‹</span>
-            </Link>
-          ) : (
-            <span className={styles.stepOff} aria-hidden="true">
-              ‹
-            </span>
-          )}
+      {/* 🔴 Подписей разбивки раздел не задаёт: все четыре, что он держал у
+          себя, дословно совпадали с умолчаниями кита (issue #748). Копия,
+          совпадающая сегодня, — это расхождение, отложенное до первой правки
+          кита, и ровно от таких копий эта задача и избавляется.
 
-          {numbers.map((number) =>
-            number === page.page ? (
-              /* Текущая страница — не ссылка: переход на самого себя ничего не
-                 делает, а читалка объявила бы его как обычную цель. */
-              <span className={styles.current} key={number} aria-current="page">
-                <span aria-hidden="true">{number}</span>
-                {/* 🔴 Здесь же объявляется и смена страницы (issue #735).
-                    Переход перестал двигать прокрутку, то есть видимого
-                    события больше нет: подпись текущей страницы — то
-                    единственное, что при переходе меняется, и живой областью
-                    она становится одним атрибутом, без второго узла с тем же
-                    текстом. */}
-                <span className="srOnly" aria-live="polite" aria-atomic="true">
-                  {texts.pageCurrent(number)}
-                </span>
-              </span>
-            ) : (
-              <Link
-                className={styles.number}
-                key={number}
-                href={href(number)}
-                aria-label={texts.pageGo(number)}
-                scroll={false}
-              >
-                <span aria-hidden="true">{number}</span>
-              </Link>
-            ),
-          )}
+          🔴 Обёртка нужна ради телефона: ниже 600px разбивка уходит на свою
+          строку, а счёт и ступень остаются на своих. Выше 600px она
+          `display: contents` и геометрию подвала не меняет вовсе. */}
+      <div className={styles.nav}>
+        <Pager
+          page={page.page}
+          pages={page.pages}
+          basePath={ORDERS_PATH}
+          query={ordersQuery(filters)}
+          numbers
+        />
+      </div>
 
-          {page.page < page.pages ? (
-            <Link
-              className={styles.step}
-              href={href(page.page + 1)}
-              rel="next"
-              aria-label={texts.pageNext}
-              scroll={false}
-            >
-              <span aria-hidden="true">›</span>
-            </Link>
-          ) : (
-            <span className={styles.stepOff} aria-hidden="true">
-              ›
-            </span>
-          )}
-        </nav>
-      )}
-
-      {/* Число строк — три ступени ссылками: выбор из трёх значений не стоит
-          ни выпадающего списка, ни его клиентского кода. Смена шага
-          возвращает на первую страницу: седьмая страница по восемь строк и
-          седьмая по тридцать две — разные места списка. */}
-      <span className={styles.size}>
-        <span className={styles.sizeTitle}>{texts.perPage}</span>
-
-        {ORDER_PAGE_SIZES.map((size) =>
-          size === filters.size ? (
-            <span className={styles.sizeOn} key={size} aria-current="true">
-              {size}
-            </span>
-          ) : (
-            <Link
-              className={styles.sizeItem}
-              key={size}
-              href={href(1, size)}
-              aria-label={texts.perPageSet(size)}
-              scroll={false}
-            >
-              <span aria-hidden="true">{size}</span>
-            </Link>
-          ),
-        )}
-      </span>
+      <PageSize
+        className={styles.size}
+        title={texts.perPage}
+        value={sizeHref(filters, filters.size)}
+        options={ORDER_PAGE_SIZES.map((size) => ({
+          label: String(size),
+          href: sizeHref(filters, size),
+        }))}
+      />
     </div>
   );
 }

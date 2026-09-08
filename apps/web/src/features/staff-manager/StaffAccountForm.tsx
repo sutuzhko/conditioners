@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 
-import { Button, Card, Input, PhoneInput, Select, useConfirm } from '@/shared/ui';
+import { Button, Card, Input, PasswordInput, PhoneInput, Select, useConfirm } from '@/shared/ui';
 import type { Confirm } from '@/shared/ui';
 
 import { staffManagerContent as texts } from './content';
@@ -165,10 +165,9 @@ export function StaffAccountForm({
             autoComplete="off"
             onChange={(event) => set({ login: event.target.value })}
           />
-          <Input
+          <PasswordInput
             label={texts.passwordNew}
             hint={texts.passwordKeepHint}
-            type="password"
             value={draft.password}
             disabled={sending}
             error={errorFor('password')}

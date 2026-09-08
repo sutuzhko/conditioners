@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 /* 🔴 Строка зовёт `useRouter().refresh()` после удаления и возврата в работу:
@@ -7,6 +7,8 @@ import { describe, expect, it, vi } from 'vitest';
    числе. В тесте роутера нет — подменяем его, как в опасной зоне монтажника. */
 const refresh = vi.fn();
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh }) }));
+
+import { pagerLabels } from '@/shared/ui/Pager/labels';
 
 import { OrderList } from './OrderList';
 import { orderManagerContent as texts } from './content';
@@ -65,19 +67,20 @@ describe('Список нарядов', () => {
   it('🔴 разбивка даёт номера страниц и выбор числа строк', () => {
     render(<OrderList page={longPage} filters={listFilters({ tab: 'all' })} now={NOW} />);
 
-    /* Текущая страница — не ссылка: переход на самого себя ничего не делает. */
-    expect(screen.getByText(texts.pageCurrent(longPage.page))).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: texts.pageGo(1) }).getAttribute('href')).toContain(
+    /* Текущая страница — не ссылка: переход на самого себя ничего не делает,
+       и в разметке она помечена, а не только залита (issue #748). */
+    expect(screen.getByText(String(longPage.page))).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: pagerLabels.page(1) }).getAttribute('href')).toContain(
       '/admin/orders',
     );
-    expect(screen.getByText(texts.perPage)).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: texts.perPage })).toBeInTheDocument();
   });
 
   it('🔴 смена числа строк возвращает на первую страницу', () => {
     render(<OrderList page={longPage} filters={listFilters()} now={NOW} />);
 
-    const href =
-      screen.getByRole('link', { name: texts.perPageSet(16) }).getAttribute('href') ?? '';
+    const steps = screen.getByRole('combobox', { name: texts.perPage });
+    const href = within(steps).getByRole('option', { name: '16' }).getAttribute('value') ?? '';
 
     expect(href).toContain('size=16');
     expect(href).not.toContain('page=');
