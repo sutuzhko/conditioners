@@ -6,6 +6,14 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import { ROLE_LISTS, ROLE_LIST_NAMES, type RoleListName } from '@/entities/staff/access';
+import {
+  ADMIN_PERMISSIONS,
+  DANGEROUS_PERMISSIONS,
+  PANEL_SECTION_PERMISSIONS,
+  type AdminPermission,
+} from '@/entities/staff/permissions';
+import { apiPermissionRule, pagePermissionRule, type PermissionRule } from '@/server/permissions';
+import { ADMIN_SECTIONS } from '@/widgets/admin-shell';
 
 /**
  * Контракт ролей: каким перечнем закрыт каждый метод каждого маршрута панели.
@@ -115,6 +123,11 @@ const EXPECTED: Readonly<Record<string, RoleListName>> = {
   'staff/[id]/notes GET': 'OWNER',
   'staff/[id]/notes POST': 'OWNER',
   'staff/[id]/notes/[noteId] DELETE': 'OWNER',
+  /* 🔴 Роли и разрешения раздаёт только владелец, и никакой переключатель
+     этого не открывает (ADR-344, issue #784). Карточку сотрудника при этом
+     правит и администратор с «Управлением людьми» — потому раздача прав и
+     живёт отдельным адресом, а не полем в общем теле. */
+  'staff/[id]/access PATCH': 'OWNER',
 
   /* Уведомления: адресация — владельческая, повтор отказа тоже (он шлёт
      клиенту письмо от имени компании). */
@@ -332,5 +345,302 @@ describe('контракт ролей: /api/admin/**', () => {
     const stale = Object.keys(EXPECTED).filter((route) => !(route in actual));
 
     expect(stale).toEqual([]);
+  });
+});
+
+/* ---------- Контракт разрешений: чего маршрут требует от администратора ----------
+
+   🔴 Вторая половина контракта доступа (ADR-344, issue #783). Перечень ролей
+   отвечает на вопрос «какая роль проходит», и для администратора он не
+   отвечает ни на что: ADR-344 даёт ему права владельца **под
+   переключателями**, то есть решает за него центральная карта
+   `server/permissions.ts`. Карта закрыта: адрес, которого в ней нет,
+   администратору не открывается — и эта проверка ловит такой адрес прогоном,
+   а не отказом у владельца. */
+
+/** Адрес-образец маршрута: `staff/[id]/notes` → `/api/admin/staff/x/notes`. */
+function sampleUrlOf(route: string): string {
+  const path = route
+    .split('/')
+    .map((segment) => (segment.startsWith('[') ? 'x' : segment))
+    .join('/');
+
+  return `/api/admin/${path}`;
+}
+
+function ruleOf(key: string): PermissionRule | null {
+  const [route = '', method = ''] = key.split(' ');
+  return apiPermissionRule(sampleUrlOf(route), method);
+}
+
+/** Как правило читается в таблице: «раздел + опасные действия» или слово. */
+function ruleTitleOf(rule: PermissionRule | null): string {
+  if (rule === null) return 'нет в карте разрешений';
+  if (rule.kind === 'always') return 'открыт всегда';
+  if (rule.kind === 'owner') return 'только владелец';
+
+  return rule.required.join(' + ');
+}
+
+/**
+ * Что требуется администратору у каждого метода панели — полная таблица.
+ *
+ * 🔴 Полная, а не «только особые случаи», и это не педантизм. Карта разрешений
+ * выдаёт правило по первому сегменту адреса, поэтому **новый раздел** без
+ * строки в ней она закрывает сама, а **новый метод внутри известного раздела**
+ * — нет: `DELETE /api/admin/prices` или `POST /api/admin/staff/{id}/impersonate`
+ * молча получили бы разрешение раздела, и ни одна проверка бы не покраснела.
+ * Ровно этим механизмом и появился первый дефект фазы: карта открыла
+ * администратору `PATCH /staff/{id}`, а защита учётной записи владельца за ней
+ * не поехала.
+ *
+ * Поэтому таблица собрана тем же приёмом, что таблица ролей выше: перечислен
+ * каждый метод, и новый обязан быть **назван человеком**, а не унаследовать
+ * правило соседа по инерции.
+ *
+ * Читается так: список разрешений — все нужны разом; «открыт всегда» —
+ * переключателем не закрывается; «только владелец» — не открывается никаким
+ * переключателем.
+ */
+const EXPECTED_PERMISSIONS: Readonly<Record<string, string>> = {
+  /* Сайт: витрина, статьи, отзывы. Удаление записи требует «Удаления данных»;
+     всё, что задаёт цену на витрине, — «Денег». */
+  'articles GET': 'knowledge',
+  'articles POST': 'knowledge',
+  'articles/[id] GET': 'knowledge',
+  'articles/[id] PUT': 'knowledge',
+  'articles/[id] PATCH': 'knowledge',
+  'articles/[id] DELETE': 'knowledge + data_delete',
+  'articles/[id]/cover POST': 'knowledge',
+  'articles/[id]/cover DELETE': 'knowledge',
+  'models GET': 'catalog',
+  /* 🔴 Заведение и правка модели везут `priceNum` — цену на публичной
+     витрине, ту самую, которую перечёркивает скидка. Закрыть скидку и
+     оставить открытой исходную цену значит закрыть половину замка. */
+  'models POST': 'catalog + money',
+  'models/[id] GET': 'catalog',
+  'models/[id] PUT': 'catalog + money',
+  'models/[id] PATCH': 'catalog + money',
+  'models/[id] DELETE': 'catalog + data_delete',
+  'models/[id]/sale PATCH': 'catalog + money',
+  'models/[id]/photos POST': 'catalog',
+  'models/[id]/photos/[photoId] PATCH': 'catalog',
+  'models/[id]/photos/[photoId] DELETE': 'catalog',
+  'prices GET': 'prices',
+  'prices PUT': 'prices + money',
+  'reviews GET': 'reviews',
+  'reviews/[id]/status PATCH': 'reviews',
+  'reviews/[id] DELETE': 'reviews + data_delete',
+  /* Ручная ревалидация принимает произвольный список адресов сайта, а не
+     адреса одного раздела: привязать её к разделу нечем. */
+  'revalidate POST': 'только владелец',
+
+  /* Настройки. Чтение — раздел «Компания», запись — плюс опасное действие;
+     готовность сайта считается для «Обзора» и лежит под его разрешением. */
+  'settings GET': 'company',
+  'settings/[key] GET': 'company',
+  'settings/[key] PUT': 'company + company_settings',
+  'settings/readiness GET': 'overview',
+
+  /* Клиенты и обращения. */
+  'clients GET': 'clients',
+  'clients POST': 'clients',
+  'clients/[id] GET': 'clients',
+  'clients/[id] PATCH': 'clients',
+  'clients/[id] DELETE': 'clients + data_delete',
+  'clients/[id]/units POST': 'clients',
+  'clients/[id]/units/[unitId] PATCH': 'clients',
+  'clients/[id]/units/[unitId] DELETE': 'clients',
+  'clients/[id]/units/[unitId]/photo GET': 'clients',
+  'leads GET': 'leads',
+  'leads/[id] GET': 'leads',
+  'leads/[id] PATCH': 'leads',
+  'leads/[id]/photo GET': 'leads',
+  'leads/[id] DELETE': 'leads + data_delete',
+  /* 🔴 Обе ручки заводят записи чужого раздела, и «Заявок» им мало: заведение
+     клиента при совпадении телефона возвращает уже заведённую карточку со всей
+     историей, то есть отдаёт содержимое закрытого раздела. */
+  'leads/[id]/client POST': 'leads + clients',
+  'leads/[id]/order POST': 'leads + clients + orders',
+
+  /* Сотрудники. Читает список тот, кому открыт раздел; заводит, правит и
+     удаляет — тот, кому открыто «Управление людьми». */
+  'staff GET': 'team',
+  'staff POST': 'team + people',
+  'staff/[id] GET': 'team',
+  'staff/[id] PATCH': 'team + people',
+  'staff/[id] DELETE': 'team + people + data_delete',
+  'staff/[id]/notes GET': 'team',
+  'staff/[id]/notes POST': 'team + people',
+  'staff/[id]/notes/[noteId] DELETE': 'team + people',
+  /* 🔴 Раздачу прав не открывает ни один переключатель: администратор,
+     правящий права, означает ровно то, что переключатели владельца —
+     договорённость (ADR-344). */
+  'staff/[id]/access PATCH': 'только владелец',
+
+  /* Журнал событий. Читать и комментировать — владельческое: журнал про то,
+     кто что сделал, и администратор в нём тоже записан. Чистка — единственное,
+     что открывается, и открывается своим опасным действием (ADR-345). */
+  'activity GET': 'только владелец',
+  'activity/[id] PATCH': 'только владелец',
+  'activity/cleanup POST': 'activity_purge',
+
+  /* Уведомления. */
+  'notifications/[id]/retry POST': 'notifications',
+  'notifications/recipients/[id] PATCH': 'notifications',
+
+  /* Календарь и отлучки. Отлучка «Удаления данных» не требует: свою человек
+     снимает каждый день, и переключатель под это выдавали бы всем. */
+  'crm POST': 'crm',
+  'crm/[id] PATCH': 'crm',
+  'crm/[id] DELETE': 'crm + data_delete',
+  'crm/search GET': 'crm',
+  'blocks GET': 'crm',
+  'blocks POST': 'crm',
+  'blocks/[id] PATCH': 'crm',
+  'blocks/[id] DELETE': 'crm',
+
+  /* Наряды. Документы наряда — персональные данные клиента, и роль их держит
+     владельческими; администратору их открывает разрешение на раздел, как и
+     всё остальное, что есть у владельца. */
+  'orders GET': 'orders',
+  'orders POST': 'orders',
+  'orders/assign POST': 'orders',
+  'orders/[id] GET': 'orders',
+  'orders/[id] PATCH': 'orders',
+  'orders/[id] DELETE': 'orders + data_delete',
+  'orders/[id]/result PATCH': 'orders',
+  'orders/[id]/checklist POST': 'orders',
+  'orders/[id]/checklist PUT': 'orders',
+  'orders/[id]/checklist/[itemId] PATCH': 'orders',
+  'orders/[id]/checklist/[itemId] DELETE': 'orders',
+  'orders/[id]/consumption GET': 'orders',
+  'orders/[id]/consumption POST': 'orders',
+  'orders/[id]/consumption/[move] DELETE': 'orders',
+  'orders/[id]/photos POST': 'orders',
+  'orders/[id]/photos/[photoId] DELETE': 'orders',
+  'orders/[id]/photos/[photoId]/file GET': 'orders',
+  'orders/[id]/docs POST': 'orders',
+  'orders/[id]/docs/[docId] DELETE': 'orders',
+  'orders/[id]/docs/[docId]/file GET': 'orders',
+
+  /* Склад. Закупочная цена — деньги; удаление позиции и зоны — удаление
+     данных; списание в свой наряд остаётся дневной работой. */
+  'stock GET': 'stock',
+  'stock/movements GET': 'stock',
+  'stock/movements POST': 'stock',
+  'stock/zones GET': 'stock',
+  'stock/zones POST': 'stock',
+  'stock/zones/[id] PATCH': 'stock',
+  'stock/zones/[id] DELETE': 'stock + data_delete',
+  'stock/items POST': 'stock + money',
+  'stock/items/[id] GET': 'stock',
+  'stock/items/[id] PATCH': 'stock + money',
+  'stock/items/[id] DELETE': 'stock + data_delete',
+
+  /* Свой профиль переключателем не закрывается. */
+  'profile GET': 'открыт всегда',
+  'profile PATCH': 'открыт всегда',
+  'profile/password POST': 'открыт всегда',
+  'profile/sessions DELETE': 'открыт всегда',
+};
+
+describe('контракт разрешений: /api/admin/**', () => {
+  it('🔴 у каждого метода панели то разрешение, которое ему положено', () => {
+    /* Сравниваем целиком: так падение показывает разом все разъехавшиеся
+       методы, а новый метод виден как лишний ключ, а не как пустое место. */
+    const resolved = Object.fromEntries(
+      Object.keys(actual).map((key) => [key, ruleTitleOf(ruleOf(key))]),
+    );
+
+    expect(resolved).toEqual(EXPECTED_PERMISSIONS);
+  });
+
+  it('🔴 ни один метод панели не остался вне карты разрешений', () => {
+    const uncovered = Object.keys(actual).filter((key) => ruleOf(key) === null);
+
+    expect(uncovered).toEqual([]);
+  });
+
+  /* 🔴 Ловушка на новый метод внутри известного раздела. Карта выдаёт правило
+     по первому сегменту адреса, и такой метод получил бы разрешение раздела
+     молча: `uncovered` остался бы пуст. Здесь он виден как ключ, которого нет
+     в таблице, — и автор обязан назвать его требование сам. */
+  it('🔴 новый метод панели обязан появиться в таблице разрешений', () => {
+    const unnamed = Object.keys(actual).filter((key) => !(key in EXPECTED_PERMISSIONS));
+
+    expect(unnamed).toEqual([]);
+  });
+
+  it('таблица разрешений не описывает методов, которых больше нет', () => {
+    const stale = Object.keys(EXPECTED_PERMISSIONS).filter((key) => !(key in actual));
+
+    expect(stale).toEqual([]);
+  });
+
+  /* Разрешение, которого не требует ни один адрес, — переключатель, который
+     ничего не выключает: владелец его снимет и ничего не заметит. */
+  it('каждое разрешение раздела закрывает хотя бы одну ручку или страницу', () => {
+    const used = new Set<AdminPermission>();
+    for (const key of Object.keys(actual)) {
+      const rule = ruleOf(key);
+      if (rule !== null && rule.kind === 'permissions') {
+        for (const permission of rule.required) used.add(permission);
+      }
+    }
+
+    const unused = ADMIN_PERMISSIONS.filter((permission) => !used.has(permission));
+
+    /* 🔴 Исключений больше нет: последнее — «Чистка журнала» — держалось на
+       том, что чистки в коде не существовало. Она появилась, и разрешение
+       привязано к своей ручке. Переключатель, не закрывающий ни одного
+       адреса, — это переключатель, который владелец снимет и ничего не
+       заметит. */
+    expect(unused).toEqual([]);
+  });
+
+  /**
+   * 🔴 Сверка, а не импорт: `entities` не имеет права знать про `widgets`
+   * (правило слоёв), поэтому тринадцать разделов выписаны в словаре разрешений
+   * значениями. Разъехаться им не даёт эта проверка.
+   *
+   * 🔴 Что именно сверяется — вопрос, у которого был неверный ответ. Сначала
+   * тут стояло «колонка минус страница-указатель минус Профиль», и это молча
+   * предполагало, что всё остальное в колонке переключаемое. Журнал событий,
+   * приехавший в колонку владельческим, предположение опроверг. Правило
+   * поимённого исключения («и ещё минус журнал») не годится: следующий
+   * владельческий раздел даст ту же красноту, его впишут так же, и список
+   * исключений станет длиннее списка правил.
+   *
+   * Поэтому раздел участвует в сверке **по признаку, а не по имени**: если
+   * центральная карта закрывает его страницу разрешением — он переключаемый и
+   * обязан быть в словаре; если карта отвечает «только владелец» или «открыт
+   * всегда» — переключателя у него нет и быть не должно. Признак берётся из
+   * того же источника, по которому пускает страж.
+   */
+  it('🔴 тринадцать разрешений разделов — это переключаемые разделы колонки', () => {
+    const rules = ADMIN_SECTIONS.map(
+      (section) => [section.href, pagePermissionRule(section.href)] as const,
+    );
+
+    /* Адрес колонки, которого карта не знает вовсе, — не «непереключаемый»,
+       а пропущенный: молча выпасть из сверки он не должен. */
+    const unknown = rules.filter(([, rule]) => rule === null).map(([href]) => href);
+
+    const switchable = rules.flatMap(([, rule]) =>
+      rule !== null && rule.kind === 'permissions' ? rule.required : [],
+    );
+
+    expect({ unknown, switchable: [...switchable].sort() }).toEqual({
+      unknown: [],
+      switchable: [...PANEL_SECTION_PERMISSIONS].sort(),
+    });
+  });
+
+  it('разделов тринадцать, опасных действий пять', () => {
+    expect({
+      разделов: PANEL_SECTION_PERMISSIONS.length,
+      опасных: DANGEROUS_PERMISSIONS.length,
+    }).toEqual({ разделов: 13, опасных: 5 });
   });
 });

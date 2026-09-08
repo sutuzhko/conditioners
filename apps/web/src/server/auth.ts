@@ -12,6 +12,7 @@ import { cookies } from 'next/headers';
 import { cache } from 'react';
 import { verify as verifyPassword, hash as hashPasswordArgon } from '@node-rs/argon2';
 import type { AdminRole } from '@/entities/staff/model';
+import type { AdminPermission } from '@/entities/staff/permissions';
 import { env } from '@/shared/config/env';
 import * as adminUsers from '@/server/repo/admin-users';
 import * as sessions from '@/server/repo/sessions';
@@ -34,6 +35,19 @@ export type AdminSession = {
   login: string;
   name: string | null;
   role: AdminRole;
+  /**
+   * Что владелец открыл этому администратору (ADR-344, issue #782).
+   *
+   * 🔴 Поле необязательное, потому что разрешения есть **только у
+   * администратора**: владелец их раздаёт и сам под ними не ходит, у менеджера
+   * и монтажника доступ задан ролью целиком. Сессия остальных трёх ролей его
+   * не несёт вовсе — не «несёт пустой набор», а не несёт, и по этому признаку
+   * видно, что спрашивать его у них не за чем.
+   *
+   * 🔴 Отсутствие читается как «ничего не разрешено», а не «разрешено всё»:
+   * страж закрыт по умолчанию (`server/permissions.ts`).
+   */
+  permissions?: readonly AdminPermission[] | undefined;
   expiresAt: Date;
 };
 
@@ -124,6 +138,9 @@ export async function readSession(
     login: stored.login,
     name: stored.name,
     role: stored.role,
+    /* Разрешения кладём одному администратору: у прочих ролей они ни на что
+       не влияют, и таскать их в сессии значило бы делать вид, что влияют. */
+    ...(stored.role === 'admin' ? { permissions: stored.permissions } : {}),
     expiresAt: stored.expiresAt,
   };
 }

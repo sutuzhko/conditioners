@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { ADMIN_ROLES, type AdminRole } from '@/entities/staff/model';
+import { ADMIN_PERMISSIONS, type AdminPermission } from '@/entities/staff/permissions';
 import type * as AuthModuleTypes from '@/server/auth';
 
 /**
@@ -56,6 +57,7 @@ vi.mock('@/server/db', () => {
 
 import { getAdminSession } from '@/server/auth';
 import { ROLE_REFUSAL, rolesOf } from '@/server/http';
+import { apiPermissionRule, rulePasses } from '@/server/permissions';
 
 /**
  * `import.meta.glob` — приём Vite: шаблон разворачивается в список модулей на
@@ -125,10 +127,50 @@ function contextOf(): unknown {
   };
 }
 
-function requestOf(method: string): NextRequest {
+/**
+ * Адрес маршрута — настоящий, а не заглушка.
+ *
+ * 🔴 Раньше здесь стоял один адрес на все маршруты, и этого хватало: страж
+ * читал только перечень ролей. Разрешения администратора карта выдаёт **по
+ * адресу** (ADR-344, issue #783), и общая заглушка означала бы, что проверка
+ * доступа спрашивает не про тот маршрут, который вызывает.
+ */
+function urlOf(route: string): string {
+  const path = route
+    .split('/')
+    .map((segment) => (segment.startsWith('[') ? 'x' : segment))
+    .join('/');
+
+  return `https://tulaklimat.ru/api/admin/${path}`;
+}
+
+function requestOf(name: string): NextRequest {
+  const [route = '', method = 'GET'] = name.split(' ');
+
   /* Без заголовка `Origin`: проверка кросс-сайтовости отвечает 403 раньше
      стража ролей и подменила бы собой предмет проверки. */
-  return new NextRequest('https://tulaklimat.ru/api/admin/x', { method });
+  return new NextRequest(urlOf(route), { method });
+}
+
+/**
+ * Кому метод обязан отказать.
+ *
+ * 🔴 У администратора спрашивается не перечень ролей, а карта разрешений: он —
+ * владелец под переключателями (ADR-344), и перечень про него не отвечает.
+ * У остальных трёх ролей всё как было.
+ */
+function refusalExpected(
+  method: Method,
+  role: AdminRole,
+  permissions: readonly AdminPermission[],
+): boolean {
+  const [route = '', verb = 'GET'] = method.name.split(' ');
+
+  if (role === 'admin') {
+    return !rulePasses(apiPermissionRule(new URL(urlOf(route)).pathname, verb), permissions);
+  }
+
+  return method.roles !== null && !method.roles.includes(role);
 }
 
 /** Текст ошибки из конверта ответа — по нему отличается отказ стража. */
@@ -161,6 +203,9 @@ const SESSION: Readonly<Record<AdminRole, AuthModuleTypes.AdminSession>> = {
     login: 'ivanova',
     name: null,
     role: 'admin',
+    /* Владелец выдал всё: проверяется, что карта не открывает лишнего даже
+       обладателю полного набора — владельческие адреса ему всё равно закрыты. */
+    permissions: ADMIN_PERMISSIONS,
     expiresAt: new Date('2030-01-01'),
   },
   manager: {
@@ -209,14 +254,11 @@ describe('доступ по ролям: /api/admin/**', () => {
       const actualRefusals: string[] = [];
 
       for (const method of PANEL_METHODS) {
-        if (method.roles !== null && !method.roles.includes(role)) {
+        if (refusalExpected(method, role, SESSION[role].permissions ?? [])) {
           expectedRefusals.push(method.name);
         }
 
-        const response = await method.handler(
-          requestOf(method.name.split(' ')[1] ?? 'GET'),
-          contextOf(),
-        );
+        const response = await method.handler(requestOf(method.name), contextOf());
         if (await refusedByGuard(response)) actualRefusals.push(method.name);
       }
 
@@ -231,13 +273,81 @@ describe('доступ по ролям: /api/admin/**', () => {
     const notUnauthorized: string[] = [];
 
     for (const method of PANEL_METHODS) {
-      const response = await method.handler(
-        requestOf(method.name.split(' ')[1] ?? 'GET'),
-        contextOf(),
-      );
+      const response = await method.handler(requestOf(method.name), contextOf());
       if (response.status !== 401) notUnauthorized.push(`${method.name} → ${response.status}`);
     }
 
     expect(notUnauthorized).toEqual([]);
   }, 60_000);
+});
+
+/**
+ * Разрешения администратора — вызовом маршрута, а не чтением карты (issue
+ * #782, #785).
+ *
+ * 🔴 Проверяется главное обещание фазы: снятый переключатель закрывает раздел
+ * **без повторного входа**. Сессия здесь одна и та же — меняется только набор
+ * в ней, ровно как в жизни: набор читается из базы на каждый запрос, кеша у
+ * него нет.
+ */
+describe('разрешения администратора: /api/admin/**', () => {
+  function adminWith(permissions: readonly AdminPermission[]): AuthModuleTypes.AdminSession {
+    return { ...SESSION.admin, permissions };
+  }
+
+  async function callLeads(): Promise<Response> {
+    const method = PANEL_METHODS.find((candidate) => candidate.name === 'leads GET');
+    if (method === undefined) throw new Error('маршрут «leads GET» не найден');
+
+    return method.handler(requestOf(method.name), contextOf());
+  }
+
+  it('🔴 снятое разрешение закрывает раздел тем же запросом, без нового входа', async () => {
+    vi.mocked(getAdminSession).mockResolvedValue(adminWith(['leads']));
+    const opened = await callLeads();
+
+    /* Тот же человек, та же сессия — владелец снял переключатель. */
+    vi.mocked(getAdminSession).mockResolvedValue(adminWith([]));
+    const closed = await callLeads();
+
+    expect({
+      открыт: await refusedByGuard(opened),
+      закрыт: await refusedByGuard(closed),
+    }).toEqual({ открыт: false, закрыт: true });
+  });
+
+  it('🔴 опасное действие не выдаётся вместе с разделом', async () => {
+    const method = PANEL_METHODS.find((candidate) => candidate.name === 'leads/[id] DELETE');
+    if (method === undefined) throw new Error('маршрут «leads/[id] DELETE» не найден');
+
+    vi.mocked(getAdminSession).mockResolvedValue(adminWith(['leads']));
+    const withoutDanger = await method.handler(requestOf(method.name), contextOf());
+
+    vi.mocked(getAdminSession).mockResolvedValue(adminWith(['leads', 'data_delete']));
+    const withDanger = await method.handler(requestOf(method.name), contextOf());
+
+    expect({
+      без: await refusedByGuard(withoutDanger),
+      с: await refusedByGuard(withDanger),
+    }).toEqual({ без: true, с: false });
+  });
+
+  it('🔴 администратор не правит ничьи права, даже с полным набором', async () => {
+    const method = PANEL_METHODS.find((candidate) => candidate.name === 'staff/[id]/access PATCH');
+    if (method === undefined) throw new Error('маршрут «staff/[id]/access PATCH» не найден');
+
+    vi.mocked(getAdminSession).mockResolvedValue(adminWith(ADMIN_PERMISSIONS));
+    const response = await method.handler(requestOf(method.name), contextOf());
+
+    expect(await refusedByGuard(response)).toBe(true);
+  });
+
+  it('🔴 сессия без набора разрешений читается как «ничего не открыто»', async () => {
+    /* Сессия старого образца — без поля вовсе. Страж обязан закрыться, а не
+       раскрыться: неизвестное не значит разрешённое. */
+    const withoutPermissions = { ...SESSION.admin, permissions: undefined };
+    vi.mocked(getAdminSession).mockResolvedValue(withoutPermissions);
+
+    expect(await refusedByGuard(await callLeads())).toBe(true);
+  });
 });

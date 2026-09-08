@@ -34,6 +34,16 @@ const owner = {
 
 const installer = { ...owner, userId: 'u2', login: 'sokolov', role: 'installer' } as const;
 
+/**
+ * Кто правит — обязательный третий аргумент `update` и `remove`.
+ *
+ * 🔴 Проверяется, что он вообще доезжает до репозитория: правило «кого этот
+ * человек вправе править» живёт там, и без имени действующего оно молчит.
+ * Что правило исполняется, доказано в `manage.test.ts` — там репозиторий
+ * настоящий.
+ */
+const ACTOR = { userId: owner.userId, role: owner.role };
+
 const card = {
   id: 'u2',
   login: 'sokolov',
@@ -42,6 +52,7 @@ const card = {
   role: 'installer' as const,
   employment: 'self_employed' as const,
   inn: '710703123450',
+  permissions: [],
   active: true,
   createdAt: '2026-04-10T09:00:00.000Z',
   lastLoginAt: null,
@@ -76,13 +87,13 @@ describe('оформление монтажника — правка карто�
     const response = await PATCH(patchRequest({ employment: 'contract' }), context('u2'));
 
     expect(response.status).toBe(200);
-    expect(adminUsers.update).toHaveBeenCalledWith('u2', { employment: 'contract' });
+    expect(adminUsers.update).toHaveBeenCalledWith('u2', { employment: 'contract' }, ACTOR);
   });
 
   it('пустое значение снимает оформление, а не остаётся строкой', async () => {
     await PATCH(patchRequest({ employment: '' }), context('u2'));
 
-    expect(adminUsers.update).toHaveBeenCalledWith('u2', { employment: null });
+    expect(adminUsers.update).toHaveBeenCalledWith('u2', { employment: null }, ACTOR);
   });
 
   it('🔴 монтажник не меняет оформление другому: раздел закрыт целиком', async () => {
@@ -131,14 +142,14 @@ describe('ИНН монтажника — правка карточки', () => 
     const response = await PATCH(patchRequest({ inn: '710703123450' }), context('u2'));
 
     expect(response.status).toBe(200);
-    expect(adminUsers.update).toHaveBeenCalledWith('u2', { inn: '710703123450' });
+    expect(adminUsers.update).toHaveBeenCalledWith('u2', { inn: '710703123450' }, ACTOR);
   });
 
   it('🔴 пустое значение снимает ИНН и сохранение не блокирует', async () => {
     const response = await PATCH(patchRequest({ inn: '' }), context('u2'));
 
     expect(response.status).toBe(200);
-    expect(adminUsers.update).toHaveBeenCalledWith('u2', { inn: null });
+    expect(adminUsers.update).toHaveBeenCalledWith('u2', { inn: null }, ACTOR);
   });
 
   it('ИНН с опиской отклоняется — контрольные разряды не сходятся', async () => {

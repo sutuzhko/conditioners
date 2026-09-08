@@ -102,6 +102,7 @@ describe('проверка сессии', () => {
       login: 'admin',
       name: null,
       role: 'owner',
+      permissions: [],
       active: true,
       expiresAt,
     });
@@ -118,6 +119,7 @@ describe('проверка сессии', () => {
       login: 'admin',
       name: null,
       role: 'owner',
+      permissions: [],
       active: true,
       expiresAt: new Date('2026-08-19T10:00:00Z'),
     });
@@ -136,6 +138,7 @@ describe('проверка сессии', () => {
       login: 'admin',
       name: null,
       role: 'owner',
+      permissions: [],
       active: true,
       expiresAt,
     });
@@ -264,6 +267,7 @@ describe('отключённый доступ', () => {
       login: 'sokolov',
       name: 'Дмитрий Соколов',
       role: 'installer',
+      permissions: [],
       active: false,
       expiresAt: new Date('2026-09-20T10:00:00Z'),
     });

@@ -42,6 +42,7 @@ const created = {
   role: 'installer' as const,
   employment: null,
   inn: null,
+  permissions: [],
   active: true,
   createdAt: '2026-08-25T09:00:00.000Z',
   lastLoginAt: null,
