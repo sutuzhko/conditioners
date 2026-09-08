@@ -1,9 +1,10 @@
 // @vitest-environment node
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { PERSON_TONES, type PersonTone } from '@/entities/crm/lib/palette';
 import { WORK_TYPE_TONES, type WorkTypeTone } from '@/entities/work-type/model';
 import { blend, contrastRatio, formatRatio, parseColor, type Color } from '@/shared/lib/color';
 
@@ -27,6 +28,13 @@ const UI_TOKENS = readFileSync(join(STYLES, 'ui-tokens.css'), 'utf8');
 
 /** Порог AA для обычного текста: подпись записи — 12px, крупной она не бывает. */
 const AA_TEXT = 4.5;
+
+/**
+ * Порог для нетекстового элемента (WCAG 1.4.11): точка клетки месяца букв не
+ * несёт, и спрашивать с неё 4,5:1 не за что — но 3:1 обязательны, иначе на
+ * телефоне в клетке нет вообще ничего (issue #885).
+ */
+const AA_GRAPHIC = 3;
 
 /**
  * Фоны, на которых лежит запись календаря: полотно раздела и карточка.
@@ -154,5 +162,138 @@ describe.each(MODULES)('Палитра видов работ — $name', ({ css 
         ).toBeGreaterThanOrEqual(AA_TEXT);
       }
     });
+  });
+});
+
+/* ---------- Точки клетки месяца (issue #885) ---------- */
+
+/**
+ * 🔴 Ниже 600px клетка месяца показывает не строки, а точки (issue #547), и
+ * краску им даёт свой набор правил: пара «тинт + текст» в шести пикселях не
+ * видна вовсе, поэтому точка берёт насыщенную краску пары одним объявлением
+ * `color`, а `.dot` заливается ею через `currentcolor`.
+ *
+ * Проверка та же по смыслу, что и у записей, и заведена ровно потому, что
+ * без неё дефект жил три недели: `CalendarGrid.tsx` просил у модуля
+ * `.toneAccent`, `.personA` и `.dot`, которых в модуле не было ни одного, —
+ * класс приходил пустым, и на телефоне клетка оставалась пустой.
+ */
+const GRID_CSS = readFileSync(join(__dirname, 'CalendarGrid.module.css'), 'utf8');
+
+/** Имя класса краски человека в модуле: `a` → `.personA`. */
+function personClassOf(tone: PersonTone): string {
+  return `.person${tone.toUpperCase()}`;
+}
+
+/** Токен краски из правила вида `.toneOk { color: var(--ok-ink); }`. */
+function inkOf(css: string, selector: string): string | null {
+  const start = css.indexOf(`\n${selector} {`);
+  if (start < 0) return null;
+
+  const body = css.slice(start, css.indexOf('}', start));
+
+  return /(?:^|[\s;])color:\s*var\(--([\w-]+)\)/.exec(body)?.[1] ?? null;
+}
+
+describe('Краски точек клетки месяца — CalendarGrid.module.css', () => {
+  const CASES: readonly { readonly title: string; readonly selector: string }[] = [
+    ...WORK_TYPE_TONES.map((tone) => ({ title: `вид работ «${tone}»`, selector: classOf(tone) })),
+    ...PERSON_TONES.map((tone) => ({ title: `человек «${tone}»`, selector: personClassOf(tone) })),
+  ];
+
+  it.each(CASES)('$title описан краской', ({ selector }) => {
+    expect(inkOf(GRID_CSS, selector), `в модуле нет правила ${selector}`).not.toBeNull();
+  });
+
+  describe.each<Theme>(['light', 'dark'])('%s', (theme) => {
+    const values = THEMES[theme];
+
+    it.each(CASES)('$title видна на всех фонах клетки', ({ selector }) => {
+      const token = inkOf(GRID_CSS, selector);
+      expect(token).not.toBeNull();
+      if (token === null) return;
+
+      for (const groundToken of GROUNDS) {
+        const ground = parseColor(values[groundToken] ?? '');
+        expect(ground, `нет токена --${groundToken}`).not.toBeNull();
+        if (ground === null) continue;
+
+        const ink = over(values, token, ground);
+        expect(ink, `нет токена --${token}`).not.toBeNull();
+        if (ink === null) continue;
+
+        const ratio = contrastRatio(ink, ground);
+        expect(
+          ratio,
+          `${selector} на --${groundToken}: --${token} даёт ${formatRatio(ratio)}:1 ` +
+            `при норме ${AA_GRAPHIC}:1`,
+        ).toBeGreaterThanOrEqual(AA_GRAPHIC);
+      }
+    });
+  });
+});
+
+/* ---------- Полнота модуля (issue #885) ---------- */
+
+/**
+ * 🔴 Класс, который компонент просит у модуля, обязан в модуле быть.
+ *
+ * Дефект #885 состоял ровно в этом: семнадцать имён — точка, её краски,
+ * пометка занятости, остаток — приходили из модуля неопределёнными, элемент
+ * получал `undefined` вместо класса и оставался без единого правила. Ни один
+ * из трёх механизмов проверки этого не видит: пиксельно разделы `Админка/`
+ * не снимаются, точка не интерактивна и мимо инвариантов целей проходит, а
+ * измерения записывают узел без класса как безымянный `span` — то есть
+ * отличить «класса нет» от «узла нет» по файлу нельзя.
+ *
+ * Проверка ограничена календарём намеренно: по остальному дереву тот же
+ * разбор находит ещё шесть мест, и правка их — отдельная задача, а не
+ * попутный груз этой.
+ */
+describe('Модули календаря отвечают на все запрошенные классы', () => {
+  const FEATURE = __dirname;
+
+  /** Имена по первой группе совпадения. Пустая группа невозможна, но проверка типов о том не знает. */
+  function namesOf(source: string, pattern: RegExp): ReadonlySet<string> {
+    const names = new Set<string>();
+    for (const match of source.matchAll(pattern)) {
+      const name = match[1];
+      if (name !== undefined) names.add(name);
+    }
+
+    return names;
+  }
+
+  /** Имена, которые компонент берёт у модуля: `styles.dot` → `dot`. */
+  function requested(source: string): ReadonlySet<string> {
+    return namesOf(source, /styles\.([A-Za-z0-9_]+)/g);
+  }
+
+  /** Имена, объявленные в модуле. Комментарии выброшены: в них тоже точки. */
+  function declared(css: string): ReadonlySet<string> {
+    return namesOf(css.replace(/\/\*[\s\S]*?\*\//g, ''), /\.([A-Za-z_][A-Za-z0-9_-]*)/g);
+  }
+
+  const PAIRS = readdirSync(FEATURE)
+    .filter((name) => /^[A-Za-z]+\.tsx$/.test(name))
+    .map((name) => {
+      const source = readFileSync(join(FEATURE, name), 'utf8');
+      const styles = /import\s+styles\s+from\s+'\.\/([\w.]+\.module\.css)'/.exec(source)?.[1];
+
+      return { name, source, styles };
+    })
+    .filter(
+      (pair): pair is { name: string; source: string; styles: string } => pair.styles !== undefined,
+    );
+
+  it('пар «компонент + модуль» найдено больше одной', () => {
+    expect(PAIRS.length).toBeGreaterThan(1);
+  });
+
+  it.each(PAIRS)('$name', ({ source, styles }) => {
+    const have = declared(readFileSync(join(FEATURE, styles), 'utf8'));
+    const missing = [...requested(source)].filter((name) => !have.has(name));
+
+    expect(missing, `в ${styles} нет правил: ${missing.join(', ')}`).toEqual([]);
   });
 });
